@@ -1,3 +1,14 @@
 <% provide(:title, 'Sign up') %>
 <h1>Sign Up</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<div class="row">
+  <div class="span6 offset3">
+    <%= simple_form_for(@user, html: {class: 'form-vertical' }) do |f| %>
+      <%= render 'shared/error_messages' %>
+      <%= f.input :name %>
+      <%= f.input :email, placeholder: 'you@you.com' %>
+      <%= f.input :password %>
+      <%= f.input :password_confirmation %>
+      <%= f.submit %>
+    <% end %>
+  </div>
+</div>
