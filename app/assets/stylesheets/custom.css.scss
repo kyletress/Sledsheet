@@ -1,0 +1,8 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+body { padding-top: 70px; }
+a.navbar-brand{
+  text-transform: lowercase;
+  letter-spacing:-1px;
+}
