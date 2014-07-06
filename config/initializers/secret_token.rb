@@ -9,4 +9,20 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Sledsheet::Application.config.secret_key_base = '67b7207463612c58d87ba5b9fec3fe7038fd6fe7663a1ac070d50a26cc6adb0d27f2cb9cbb9cb4fcbcc7f0f6d44138396923a7b2a2c1f86c1eb1e276095f4542'
+
+require 'securerandom'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in token_file.
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+Sledsheet::Application.config.secret_key_base = secure_token
