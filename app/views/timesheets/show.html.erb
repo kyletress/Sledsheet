@@ -1,0 +1,6 @@
+<% provide(:title, @timesheet.name) %>
+<h1><%= @timesheet.name %></h1>
+<time><%= @timesheet.nice_date %></time>
+<% if @timesheet.nickname.present? %>
+  <p><%= @timesheet.nickname %></p>
+<% end %>

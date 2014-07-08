@@ -4,6 +4,7 @@ class Athlete < ActiveRecord::Base
   validates :country_code, presence: true
   default_scope -> { order('last_name ASC')}
 
+  # Can I add a uniqueness validation on full name? Prevent duplicates. 
   def name
     "#{first_name} #{last_name}"
   end

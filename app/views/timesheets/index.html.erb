@@ -1,0 +1,11 @@
+<% provide(:title, "Timesheets") %>
+<h1>Timesheets</h1>
+<table class="table table-bordered">
+  <tr>
+    <th>Name</th>
+    <th>Date</th>
+  </tr>
+  <%= render @timesheets %>
+</table>
+
+<%= link_to 'New Timesheet', new_timesheet_path, class: 'btn btn-primary' %>
