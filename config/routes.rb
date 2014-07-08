@@ -3,6 +3,7 @@ Sledsheet::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :tracks, only: [:index, :show]
   resources :circuits, only: [:index, :show]
+  resources :athletes
   root 'static_pages#home'
   match '/about', to: 'static_pages#about', via: 'get'
   match '/signup', to: 'users#new', via: 'get'

@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/stefanpenner/country_select.git
+  revision: 20b9ef1a539d369c20ac0a7730096047ba5e75c4
+  specs:
+    country_select (2.0.0.beta2)
+      countries (~> 0.9.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -41,6 +48,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    countries (0.9.3)
+      currencies (~> 0.4.2)
+    currencies (0.4.2)
     erubis (2.7.0)
     execjs (2.2.1)
     hike (1.2.3)
@@ -127,6 +137,7 @@ DEPENDENCIES
   bcrypt-ruby
   bootstrap-sass (~> 3.2.0)
   coffee-rails (~> 4.0.0)
+  country_select!
   jbuilder (~> 1.2)
   jquery-rails
   pg

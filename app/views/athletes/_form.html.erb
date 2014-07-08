@@ -1,0 +1,17 @@
+<%= form_for @athlete do |f| %>
+  <div class="form-group">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :country_code %>
+    <%= country_select("athlete", "country_code", { priority_countries: ["GB", "FR"], only: ["GB", "FR", "US", "CA"]}, { selected: "GB", class: 'form-control' }) %>
+  </div>
+  <div class="form-group">
+    <%= f.submit %>
+  </div>
+<% end %>

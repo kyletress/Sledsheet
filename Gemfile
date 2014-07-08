@@ -6,6 +6,7 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'bcrypt-ruby'
 gem 'simple_form'
+gem 'country_select', github: 'stefanpenner/country_select'
 
 group :development do
   gem 'sqlite3'
