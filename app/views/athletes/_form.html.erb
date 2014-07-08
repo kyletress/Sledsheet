@@ -7,6 +7,10 @@
     <%= f.label :last_name %>
     <%= f.text_field :last_name, class: 'form-control' %>
   </div>
+    <%= f.label :male, "Male" %>
+    <%= f.radio_button :male, true %>
+    <%= f.label :male, "Female" %>
+    <%= f.radio_button :male, false %>
   <div class="form-group">
     <%= f.label :country_code %>
     <%= country_select("athlete", "country_code", { priority_countries: ["US"], only: ["GB", "FR", "US", "CA", "LV", "CH", "IT", "RU", "DE", "AT", "AU", "BE", "BR", "CZ", "ES", "GR", "IE", "JP", "JM", "KR", "MX", "NL", "NZ", "PL", "RO", "SE", "SI", "SK" ]}, { selected: "GB", class: 'form-control' }) %>
