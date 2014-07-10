@@ -1,6 +1,48 @@
 <% provide(:title, @timesheet.name) %>
-<h1><%= @timesheet.name %></h1>
-<time><%= @timesheet.nice_date %></time>
+<div class="page-header">
+  <h1><%= @timesheet.name %> <small><time><%= @timesheet.nice_date %></time></small></h1>
+</div>
 <% if @timesheet.nickname.present? %>
   <p><%= @timesheet.nickname %></p>
+<% end %>
+
+<% if @timesheet.entries.blank? %>
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">Let's get started!</h3>
+  </div>
+  <div class="panel-body">
+    This is a brand new timesheet. You should start by
+    <%= link_to 'Adding some entries', timesheet_entries_path(@timesheet) %>, and then some runs.
+  </div>
+</div>
+
+<% else %>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#"><span class="glyphicon glyphicon-th-list"></span> Home</a></li>
+  <li><a href="#"><span class="glyphicon glyphicon-user"></span> Startlist</a></li>
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+      <span class="glyphicon glyphicon-cog"></span> Settings <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="#">Edit</a></li>
+      <li><a href="#">Copy</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-trash"></span> Delete</a></li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation" class="dropdown-header">PDFS</li>
+      <li><a href="#"><span class="glyphicon glyphicon-file"></span> Create a PDF</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-upload"></span> Upload PDF</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-share-alt"></span> Share</a></li>
+    </ul>
+  </li>
+</ul>
+<table class="table table-bordered">
+  <tr>
+    <th>Bib</th>
+    <th>Country</th>
+    <th>Athlete</th>
+  </tr>
+  <%= render @timesheet.entries %>
+</table>
 <% end %>

@@ -2,6 +2,7 @@ class Timesheet < ActiveRecord::Base
   before_validation :name_timesheet
   belongs_to :track
   belongs_to :circuit
+  has_many :entries, dependent: :destroy
   validates :name, presence: true
   validates :date, presence: true
   validates :track_id, presence: true

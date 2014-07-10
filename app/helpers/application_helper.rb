@@ -9,4 +9,8 @@ module ApplicationHelper
       "#{base_title} | #{page_title}"
     end
   end
+
+  def nice_date(date)
+    # format a date, nicely
+  end
 end

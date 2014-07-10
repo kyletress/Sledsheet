@@ -1,0 +1,15 @@
+<h1>Startlist</h1>
+<p><%= @timesheet.name %> on <%= @timesheet.nice_date %></p>
+
+<table class="table table-bordered">
+  <tr>
+    <th>Bib</th>
+    <th>Country</th>
+    <th>Athlete</th>
+    <th>Actions</th>
+  </tr>
+  <%= render @entries %>
+</table>
+
+<%= link_to 'Add an entry', new_timesheet_entry_path(@timesheet) %>
+<%= link_to 'Back to timesheet', @timesheet %>

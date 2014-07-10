@@ -1,0 +1,12 @@
+<tr>
+  <td>1.</td>
+  <td>
+    <span class="flag flag-<%= entry.athlete.country_code %>"></span> <%= entry.athlete.timesheet_country %>
+  </td>
+  <td><%= link_to entry.athlete.name, entry.athlete %></td>
+  <td>
+    <% if current_user.admin? %>
+      <%= link_to "delete", timesheet_entry_path(entry.timesheet, entry), method: :delete, data: {confirm: "You sure?"} %>
+  <% end %>
+  </td>
+</tr>
