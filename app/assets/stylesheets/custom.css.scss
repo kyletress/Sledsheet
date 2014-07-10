@@ -47,7 +47,7 @@ a.navbar-brand{
 
 /* Flag Sprites */
 .flag {
-    background-image: url(flags.png);
+    background-image: asset-data-url("flags.png");
     background-repeat: no-repeat;
     display: inline-block;
     width:24px;
