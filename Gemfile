@@ -7,6 +7,7 @@ gem 'autoprefixer-rails'
 gem 'bcrypt-ruby'
 gem 'simple_form'
 gem 'country_select', github: 'stefanpenner/country_select'
+gem 'acts_as_list'
 
 group :development do
   gem 'sqlite3'
@@ -22,6 +23,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 gem 'turbolinks'
 

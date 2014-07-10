@@ -1,15 +1,9 @@
 <h1>Startlist</h1>
 <p><%= @timesheet.name %> on <%= @timesheet.nice_date %></p>
 
-<table class="table table-bordered">
-  <tr>
-    <th>Bib</th>
-    <th>Country</th>
-    <th>Athlete</th>
-    <th>Actions</th>
-  </tr>
+<ol id="entries" data-update-url="<%= sort_timesheet_entries_url %>">
   <%= render @entries %>
-</table>
+</ol>
 
 <%= link_to 'Add an entry', new_timesheet_entry_path(@timesheet) %>
 <%= link_to 'Back to timesheet', @timesheet %>

@@ -43,6 +43,12 @@
     <th>Country</th>
     <th>Athlete</th>
   </tr>
-  <%= render @timesheet.entries %>
+  <% @timesheet.entries.each do |entry| %>
+  <tr>
+    <td><%= entry.position %></td>
+    <td><%= entry.athlete.timesheet_country %></td>
+    <td><%= entry.athlete.name %></td>
+  </tr>
+  <% end %>
 </table>
 <% end %>

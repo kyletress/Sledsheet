@@ -1,12 +1,7 @@
-<tr>
-  <td>1.</td>
-  <td>
-    <span class="flag flag-<%= entry.athlete.country_code %>"></span> <%= entry.athlete.timesheet_country %>
-  </td>
-  <td><%= link_to entry.athlete.name, entry.athlete %></td>
-  <td>
-    <% if current_user.admin? %>
-      <%= link_to "delete", timesheet_entry_path(entry.timesheet, entry), method: :delete, data: {confirm: "You sure?"} %>
+<%= content_tag_for(:li, entry) do %>
+  <span class="flag flag-<%= entry.athlete.country_code %>"></span>
+  <%= link_to entry.athlete.name, entry.athlete %>
+  <% if current_user.admin? %>
+    <small class="text-muted"><%= link_to "delete", timesheet_entry_path(entry.timesheet, entry), method: :delete, data: {confirm: "You sure?"} %></small>
   <% end %>
-  </td>
-</tr>
+<% end %>

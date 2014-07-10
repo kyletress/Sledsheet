@@ -5,7 +5,9 @@ Sledsheet::Application.routes.draw do
   resources :circuits, only: [:index, :show]
   resources :athletes
   resources :timesheets do
-    resources :entries
+    resources :entries do
+      collection { post :sort }
+    end
   end
   root 'static_pages#home'
   match '/about', to: 'static_pages#about', via: 'get'

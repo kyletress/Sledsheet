@@ -1,3 +1,17 @@
 // Place all the styles related to the Entries controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#entries{
+  li {
+    background:#eee;
+    margin-bottom:3px;
+    padding:3px;
+    border-radius:3px;
+  }
+}
+
+.sortable-placeholder {
+  height:20px;
+  display:block;
+}
