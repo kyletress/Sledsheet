@@ -47,7 +47,7 @@
   <tr>
     <td><%= entry.position %></td>
     <td><%= entry.athlete.timesheet_country %></td>
-    <td><%= entry.athlete.name %></td>
+    <td><%= link_to entry.athlete.name, entry.athlete %></td>
   </tr>
   <% end %>
 </table>

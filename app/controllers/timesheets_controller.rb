@@ -11,7 +11,7 @@ class TimesheetsController < ApplicationController
   end
 
   def show
-    @timesheet = Timesheet.find(params[:id])
+    @timesheet = Timesheet.includes(entries: :athlete).find(params[:id])
   end
 
   def edit

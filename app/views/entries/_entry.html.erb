@@ -2,6 +2,6 @@
   <span class="flag flag-<%= entry.athlete.country_code %>"></span>
   <%= link_to entry.athlete.name, entry.athlete %>
   <% if current_user.admin? %>
-    <small class="text-muted"><%= link_to "delete", timesheet_entry_path(entry.timesheet, entry), method: :delete, data: {confirm: "You sure?"} %></small>
+    <small><%= link_to "delete", timesheet_entry_path(entry.timesheet, entry), method: :delete, class: "text-danger", data: {confirm: "You sure?"} %></small>
   <% end %>
 <% end %>

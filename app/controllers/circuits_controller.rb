@@ -4,6 +4,6 @@ class CircuitsController < ApplicationController
   end
 
   def show
-    @circuit = Circuit.find(params[:id])
+    @circuit = Circuit.includes(:timesheets).find(params[:id])
   end
 end
