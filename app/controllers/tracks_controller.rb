@@ -4,6 +4,6 @@ class TracksController < ApplicationController
   end
 
   def show
-    @track = Track.find(params[:id])
+    @track = Track.includes(:timesheets).find(params[:id])
   end
 end

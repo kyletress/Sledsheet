@@ -1,5 +1,9 @@
 <% provide(:title, @athlete.name) %>
 <h1><%= @athlete.name %></h1>
-<p>
-  <%= @athlete.country_name %>
-</p>
+<p><%= @athlete.country_name %></p>
+
+<ul>
+  <% @athlete.entries.each do |entry| %>
+    <li><%= entry.timesheet.nice_date %> <%= link_to entry.timesheet.name, entry.timesheet %></li>
+  <% end %>
+</ul>
