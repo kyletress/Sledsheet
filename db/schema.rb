@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140708235948) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "athletes", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -36,8 +39,8 @@ ActiveRecord::Schema.define(version: 20140708235948) do
     t.datetime "updated_at"
   end
 
-  add_index "entries", ["athlete_id"], name: "index_entries_on_athlete_id"
-  add_index "entries", ["timesheet_id"], name: "index_entries_on_timesheet_id"
+  add_index "entries", ["athlete_id"], name: "index_entries_on_athlete_id", using: :btree
+  add_index "entries", ["timesheet_id"], name: "index_entries_on_timesheet_id", using: :btree
 
   create_table "timesheets", force: true do |t|
     t.string   "name"
@@ -50,8 +53,8 @@ ActiveRecord::Schema.define(version: 20140708235948) do
     t.boolean  "race",       default: false
   end
 
-  add_index "timesheets", ["circuit_id"], name: "index_timesheets_on_circuit_id"
-  add_index "timesheets", ["track_id"], name: "index_timesheets_on_track_id"
+  add_index "timesheets", ["circuit_id"], name: "index_timesheets_on_circuit_id", using: :btree
+  add_index "timesheets", ["track_id"], name: "index_timesheets_on_track_id", using: :btree
 
   create_table "tracks", force: true do |t|
     t.string   "name"
@@ -69,7 +72,7 @@ ActiveRecord::Schema.define(version: 20140708235948) do
     t.boolean  "admin",           default: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["remember_token"], name: "index_users_on_remember_token"
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 
 end
