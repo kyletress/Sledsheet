@@ -7,6 +7,17 @@ class Run < ActiveRecord::Base
   acts_as_list :scope => :entry
   default_scope -> { order('position ASC')}
   
+  def difference_from(run)
+    values = []
+    values << (self.start - run.start unless self.start.nil? or run.start.nil?)
+    values << (self.split2 - run.split2 unless self.split2.nil? or run.split2.nil?)
+    values << (self.split3 - run.split3 unless self.split3.nil? or run.split3.nil?)
+    values << (self.split4 - run.split4 unless self.split4.nil? or run.split4.nil?)
+    values << (self.split5 - run.split5 unless self.split5.nil? or run.split5.nil?)
+    values << (self.finish - run.finish unless self.finish.nil? or run.finish.nil?)
+    values
+  end
+  
   private
   
     def calculate_intermediates

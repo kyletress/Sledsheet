@@ -11,3 +11,11 @@
  *= require_self
  *= require_tree .
  */
+.plus{color:red}
+.minus{color:green}
+.position{font-size:11px;color:#777;}
+.handle{
+	font-size: 12px;
+	color: #777;
+	cursor: move;
+}

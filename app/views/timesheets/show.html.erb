@@ -62,6 +62,45 @@
     <% end %>
   <% end %>
 </table>
+
+<h3>Differences</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Start</th>
+      <th>Split 2</th>
+      <th>Split 3</th>
+      <th>Split 4</th>
+      <th>Split 5</th>
+      <th>Finish</th>
+    </tr>
+  </thead>
+
+  <% @entries.each do |entry| %>
+    <tbody>
+    <tr class="timesheet-table-header">
+      <td colspan="6"><%= link_to entry.athlete.name, athlete_path(entry.athlete) %></td>
+    </tr> 
+      <% entry.runs.each do |run| %>
+      <tr>
+        <% run.difference_from(@timesheet.best_run(run.position)).each do |d| %>
+        <td class="
+        <% unless d.nil? %>
+          <% if d > 0 %>
+            plus
+          <% elsif d == 0 %>
+          <% else %>
+            minus
+          <% end %>">
+          <%= display_time d %>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+  <% end %>
+</table>
  
 <% end %>
 
