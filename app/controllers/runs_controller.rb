@@ -25,7 +25,6 @@ class RunsController < ApplicationController
   
   def update
     @run = Run.find(params[:id])
-    @run.position = @run.entry.runs.count
     if @run.update_attributes(run_params)
       flash[:success] = "Run updated."
       redirect_to @run.entry.timesheet

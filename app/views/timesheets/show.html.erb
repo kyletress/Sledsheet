@@ -1,6 +1,6 @@
 <% provide(:title, @timesheet.name) %>
 <div class="page-header">
-  <h1><%= @timesheet.name %> <small><time><%= @timesheet.nice_date %></time></small></h1>
+  <h2><%= @timesheet.name %> <small><time><%= @timesheet.nice_date %></time></small></h2>
 </div>
 <% if @timesheet.nickname.present? %>
   <p><%= @timesheet.nickname %></p>
@@ -35,5 +35,33 @@
    </tr>
 </table>
 
+<h4>Intermediates</h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Int1</th>
+      <th>Int2</th>
+      <th>Int3</th>
+      <th>Int4</th>
+      <th>Int5</th>
+    </tr>
+  </thead>
+  <% @entries.each do |entry| %>
+  <tbody>
+    <tr class="timesheet-table-header">
+      <td colspan="5"><%= link_to entry.athlete.name, athlete_path(entry.athlete) %></td>
+    </tr>    
+    <% entry.runs.each do |run|%>
+    <tr>
+      <td><%= display_time run.int1 %></td>
+      <td><%= display_time run.int2 %></td>
+      <td><%= display_time run.int3 %></td>
+      <td><%= display_time run.int4 %></td>
+      <td><%= display_time run.int5 %></td>
+    </tr>
+    <% end %>
+  <% end %>
+</table>
+ 
 <% end %>
 
