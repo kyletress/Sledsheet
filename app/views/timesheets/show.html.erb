@@ -14,7 +14,7 @@
     <tbody>
        <tr class="timesheet-table-header">
          <td colspan="5"><strong><%= entry.position %>.</strong> <%= entry.athlete.timesheet_country %> <%= link_to entry.athlete.name, entry.athlete %> ( <%= link_to "Add Run", new_timesheet_entry_run_path(@timesheet, entry) %> )</td>
-         <td class="total_time"><strong>0:00.00</strong> <span class="position">(+0.00)</span></td>
+         <td class="total_time"><strong><%= display_total entry.total_time %></strong> <span class="position">(+0.00)</span></td>
       </tr>
       <% entry.runs.each do |run| %>
       <tr>

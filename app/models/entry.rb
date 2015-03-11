@@ -8,4 +8,8 @@ class Entry < ActiveRecord::Base
   acts_as_list :scope => :timesheet
   default_scope -> { order('position ASC')}
 
+  def total_time
+    runs.sum(:finish)
+  end
+  
 end
