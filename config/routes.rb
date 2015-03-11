@@ -5,8 +5,9 @@ Sledsheet::Application.routes.draw do
   resources :circuits, only: [:index, :show]
   resources :athletes
   resources :timesheets do
-    resources :entries do
+    resources :entries, shallow: true do
       collection { post :sort }
+      resources :runs, shallow: true, except: :index
     end
   end
   root 'static_pages#home'

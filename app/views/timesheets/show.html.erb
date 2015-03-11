@@ -7,48 +7,33 @@
 <% end %>
 
 <% if @timesheet.entries.blank? %>
-<div class="panel panel-success">
-  <div class="panel-heading">
-    <h3 class="panel-title">Let's get started!</h3>
-  </div>
-  <div class="panel-body">
-    This is a brand new timesheet. You should start by
-    <%= link_to 'Adding some entries', timesheet_entries_path(@timesheet) %>, and then some runs.
-  </div>
-</div>
-
+  <p><%= link_to 'Adding some entries', timesheet_entries_path(@timesheet) %>, and then some runs.</p>
 <% else %>
-<ul class="nav nav-tabs" role="tablist">
-  <li class="active"><a href="#"><span class="glyphicon glyphicon-th-list"></span> Home</a></li>
-  <li><a href="#"><span class="glyphicon glyphicon-user"></span> Startlist</a></li>
-  <li class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-      <span class="glyphicon glyphicon-cog"></span> Settings <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu" role="menu">
-      <li><a href="#">Edit</a></li>
-      <li><a href="#">Copy</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-trash"></span> Delete</a></li>
-      <li role="presentation" class="divider"></li>
-      <li role="presentation" class="dropdown-header">PDFS</li>
-      <li><a href="#"><span class="glyphicon glyphicon-file"></span> Create a PDF</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-upload"></span> Upload PDF</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-share-alt"></span> Share</a></li>
-    </ul>
-  </li>
-</ul>
-<table class="table table-bordered">
-  <tr>
-    <th>Bib</th>
-    <th>Country</th>
-    <th>Athlete</th>
-  </tr>
-  <% @timesheet.entries.each do |entry| %>
-  <tr>
-    <td><%= entry.position %></td>
-    <td><%= entry.athlete.timesheet_country %></td>
-    <td><%= link_to entry.athlete.name, entry.athlete %></td>
-  </tr>
+<table class="table">
+  <% @entries.each do |entry| %>								
+    <tbody>
+       <tr class="timesheet-table-header">
+         <td colspan="5"><strong><%= entry.position %>.</strong> <%= entry.athlete.timesheet_country %> <%= link_to entry.athlete.name, entry.athlete %> ( <%= link_to "Add Run", new_timesheet_entry_run_path(@timesheet, entry) %> )</td>
+         <td class="total_time"><strong>0:00.00</strong> <span class="position">(+0.00)</span></td>
+      </tr>
+      <% entry.runs.each do |run| %>
+      <tr>
+        <td class="total_time"><%= display_time run.start %></td>
+        <td class="total_time"><%= display_time run.split2 %></td>
+        <td class="total_time"><%= display_time run.split3 %></td>
+        <td class="total_time"><%= display_time run.split4 %></td>
+        <td class="total_time"><%= display_time run.split5 %></td>
+        <td class="total_time"><%= display_time run.finish %> <%= link_to "Edit", edit_run_path(run) %>   <% if current_user.admin? %>
+    | <small><%= link_to "delete", run_path(run), method: :delete, class: "text-danger", data: {confirm: "You sure?"} %></small>
+  <% end %></td>
+      </tr>
+      <% end %>
+    </tbody>
   <% end %>
+   <tr>
+     <td colspan="6"><%= link_to "Add Entry", timesheet_entries_path(@timesheet) %></td>
+   </tr>
 </table>
+
 <% end %>
+
