@@ -10,13 +10,13 @@
  <tr>
    <td><% unless @track.start_record.nil? %>
      <%= link_to @track.start_record.entry.athlete.name, @track.start_record.entry.athlete %> 
-<%= @track.start_record.start %>
+     <%= display_time @track.start_record.start %>
      <% end %></td>
    <td><% unless @track_record.nil? %>
      <%= link_to @track_record.entry.athlete.name, @track_record.entry.athlete %> 
-<%= @track_record.finish %>
+     <%= display_time @track_record.finish %>
      <% end %></td>
-   <td><%= @track.average_finish %></td>
+   <td><%= display_time @track.average_finish %></td>
   </tr>
 </table>
 
@@ -33,7 +33,7 @@
     <td><%= timesheet.nice_date %></td>
     <td><%= link_to timesheet.name, timesheet %></td>
     <td><%= timesheet.entries.count %></td>
-    <td><%= timesheet.runs.minimum(:finish) %></td>
+    <td><%= display_time timesheet.runs.minimum(:finish) %></td>
   </tr>
   <% end %>
 </table>
