@@ -1,2 +1,40 @@
 <% provide(:title, @track.name) %>
 <h1><%= @track.name %></h1>
+
+<table class="table table-bordered">
+  <tr>
+    <th>Start Record</th>
+    <th>Track Record</th>
+    <th>Average Finish Time</th>
+  </tr>
+ <tr>
+   <td><% unless @track.start_record.nil? %>
+     <%= link_to @track.start_record.entry.athlete.name, @track.start_record.entry.athlete %> 
+<%= @track.start_record.start %>
+     <% end %></td>
+   <td><% unless @track_record.nil? %>
+     <%= link_to @track_record.entry.athlete.name, @track_record.entry.athlete %> 
+<%= @track_record.finish %>
+     <% end %></td>
+   <td><%= @track.average_finish %></td>
+  </tr>
+</table>
+
+
+<table class="table">
+  <tr>
+    <th>Date</th>
+    <th>Timesheet</th>
+    <th>Entries</th>
+    <th>Best Finish</th>
+  </tr>
+  <% @track.timesheets.each do |timesheet| %>
+  <tr>
+    <td><%= timesheet.nice_date %></td>
+    <td><%= link_to timesheet.name, timesheet %></td>
+    <td><%= timesheet.entries.count %></td>
+    <td><%= timesheet.runs.minimum(:finish) %></td>
+  </tr>
+  <% end %>
+</table>
+
