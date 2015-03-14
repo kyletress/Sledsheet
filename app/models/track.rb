@@ -5,11 +5,12 @@ class Track < ActiveRecord::Base
   default_scope -> { order('name ASC')}
   
   def track_record
-    runs.order("finish ASC").first
+    # override the default scope
+    runs.reorder("finish ASC").first
   end
   
   def start_record
-    runs.order("start ASC").first
+    runs.reorder("start ASC").first
   end
   
   def average_finish
