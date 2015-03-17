@@ -73,7 +73,6 @@ class TimesheetsController < ApplicationController
     end
     
     entries.each do |entry|
-      # create a new timesheet entry for each of these
       
       @entry = @timesheet.entries.build(
         :athlete_id => Athlete.find_by_timesheet_name(entry[:name]).first.id
@@ -83,6 +82,22 @@ class TimesheetsController < ApplicationController
         @entry.errors.full_messages.each do |e|
           puts e
         end
+      end
+      entry[:runs].each do |run|
+        @run = @entry.runs.build(
+          :start => run[:start].delete('.').to_i,
+          :split2 => run[:split2].delete('.').to_i,
+          :split3 => run[:split3].delete('.').to_i,
+          :split4 => run[:split4].delete('.').to_i,
+          :split5 => run[:split5].delete('.').to_i,
+          :finish => run[:finish].delete('.').to_i
+        )
+        @run.save
+        if @run.errors.any?
+        @run.errors.full_messages.each do |e|
+          puts e
+        end
+      end
       end
     end
     redirect_to @timesheet
