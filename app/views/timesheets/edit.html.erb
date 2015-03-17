@@ -1,3 +1,5 @@
 <% provide(:title, "Edit Timesheet") %>
 <h1>Edit Timesheet</h1>
 <%= render 'form' %>
+<%= link_to "delete", @timesheet, method: :delete,
+                                  data: { confirm: "You sure?" } %>

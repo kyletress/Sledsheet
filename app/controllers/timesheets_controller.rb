@@ -66,7 +66,7 @@ class TimesheetsController < ApplicationController
            split3: run.css('td')[3].text,
            split4: run.css('td')[4].text,
            split5: run.css('td')[5].text,
-           finish: run.css('td')[6].text[/([0-1]:[0-5][0-9].[0-9][0-9])|[0-5][0-9].[0-9][0-9]/]
+           finish: run.css('td')[6].text[/([0-1]:[0-5][0-9].[0-9][0-9])|[0-5][0-9].[0-9][0-9]/] # might come across as 1:00.01. how to convert?
          }
         end
       }
