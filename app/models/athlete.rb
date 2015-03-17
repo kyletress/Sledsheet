@@ -4,8 +4,9 @@ class Athlete < ActiveRecord::Base
   validates :last_name, presence: true, length: { maximum: 20 }
   validates :country_code, presence: true
   default_scope -> { order('last_name ASC')}
-
-  # Can I add a uniqueness validation on full name? Prevent duplicates.
+  
+  scope :find_by_timesheet_name, ->(t_name) { where("lower(first_name) = ? AND lower(last_name) = ?", t_name.split(',').last.strip.downcase, t_name.split(',').first.downcase)}
+  
   def name
     "#{first_name} #{last_name}"
   end

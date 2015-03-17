@@ -8,6 +8,7 @@ gem 'bcrypt-ruby'
 gem 'simple_form'
 gem 'country_select', github: 'stefanpenner/country_select'
 gem 'acts_as_list'
+gem 'nokogiri'
 
 group :development do
   gem 'sqlite3'

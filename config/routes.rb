@@ -5,6 +5,7 @@ Sledsheet::Application.routes.draw do
   resources :circuits, only: [:index, :show]
   resources :athletes
   resources :timesheets do
+    post 'import', on: :member 
     resources :entries, shallow: true do
       collection { post :sort }
       resources :runs, shallow: true, except: :index

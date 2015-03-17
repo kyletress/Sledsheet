@@ -7,7 +7,12 @@
 <% end %>
 
 <% if @timesheet.entries.blank? %>
-  <p><%= link_to 'Adding some entries', timesheet_entries_path(@timesheet) %>, and then some runs.</p>
+<p><%= link_to 'Add', timesheet_entries_path(@timesheet) %> or <%= link_to 'import', timesheet_entries_path(@timesheet) %> entries.</p>
+<h4>Import from FIBT.com</h4>
+<%= form_tag import_timesheet_path do %>
+<%= text_field_tag :url %>
+<%= submit_tag "Import" %>
+<% end %>
 <% else %>
 <table class="table">
   <% @entries.each do |entry| %>								
