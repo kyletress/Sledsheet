@@ -49,6 +49,17 @@ class TimesheetsController < ApplicationController
   def import
     require 'nokogiri'
     require 'open-uri'
+    # probably not the best place for this, but it's staying for now...
+    def time_to_integer(time_str)
+      if /[:]/ =~ time_str
+        minutes, seconds, centiseconds = time_str.split(/[:.]/).map{|str| str.to_i}
+        (minutes * 60 + seconds) * 100 + centiseconds
+      else
+        time_str.delete('.').to_i
+      end
+    rescue
+      -1
+    end
     @timesheet = Timesheet.find(params[:id])
     url = params[:url]
     doc = Nokogiri::HTML(open(url))
@@ -66,7 +77,7 @@ class TimesheetsController < ApplicationController
            split3: run.css('td')[3].text,
            split4: run.css('td')[4].text,
            split5: run.css('td')[5].text,
-           finish: run.css('td')[6].text[/([0-1]:[0-5][0-9].[0-9][0-9])|[0-5][0-9].[0-9][0-9]/] # might come across as 1:00.01. how to convert?
+           finish: run.css('td')[6].text[/([0-1]:[0-5][0-9].[0-9][0-9])|[0-5][0-9].[0-9][0-9]/]
          }
         end
       }
@@ -85,12 +96,12 @@ class TimesheetsController < ApplicationController
       end
       entry[:runs].each do |run|
         @run = @entry.runs.build(
-          :start => run[:start].delete('.').to_i,
-          :split2 => run[:split2].delete('.').to_i,
-          :split3 => run[:split3].delete('.').to_i,
-          :split4 => run[:split4].delete('.').to_i,
-          :split5 => run[:split5].delete('.').to_i,
-          :finish => run[:finish].delete('.').to_i
+          :start => time_to_integer(run[:start]),
+          :split2 => time_to_integer(run[:split2]),
+          :split3 => time_to_integer(run[:split3]),
+          :split4 => time_to_integer(run[:split4]),
+          :split5 => time_to_integer(run[:split5]),
+          :finish => time_to_integer(run[:finish])
         )
         @run.save
         if @run.errors.any?
