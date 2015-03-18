@@ -35,3 +35,5 @@ gem 'jbuilder', '~> 1.2'
 group :doc do
   gem 'sdoc', require: false
 end
+
+ruby '2.2.0'
