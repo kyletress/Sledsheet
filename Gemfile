@@ -12,6 +12,7 @@ gem 'nokogiri'
 
 group :development do
   gem 'sqlite3'
+  gem 'bullet'
 end
 
 group :production do
