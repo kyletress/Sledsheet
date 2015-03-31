@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150311151232) do
+ActiveRecord::Schema.define(version: 20150331170016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 20150311151232) do
     t.integer  "int4"
     t.integer  "int5"
   end
+
+  add_index "runs", ["entry_id"], name: "index_runs_on_entry_id", using: :btree
 
   create_table "timesheets", force: true do |t|
     t.string   "name"
