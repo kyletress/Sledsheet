@@ -4,7 +4,7 @@ gem 'rails', '4.0.8'
 
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
-gem 'bcrypt-ruby'
+gem 'bcrypt', '3.1.7'
 gem 'simple_form'
 gem 'country_select', github: 'stefanpenner/country_select'
 gem 'acts_as_list'
@@ -18,7 +18,7 @@ group :development do
 end
 
 group :production do
-  gem 'pg'
+  gem 'pg', '0.17.1'
   gem 'rails_12factor'
 end
 
