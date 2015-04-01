@@ -7,8 +7,8 @@ class AthletesController < ApplicationController
   end
 
   def show
-    @athlete = Athlete.includes(entries: [timesheet: :circuit]).find(params[:id])
-    # include the circuit here too
+    @athlete = Athlete.find(params[:id])
+    @entries = @athlete.entries.includes(timesheet: :circuit).order('timesheets.date DESC')
   end
 
   def new

@@ -11,7 +11,7 @@ module ApplicationHelper
   end
 
   def nice_date(date)
-    # format a date, nicely
+    date.strftime("%B %d, %Y")
   end
   
   def display_time(i)

@@ -3,13 +3,15 @@ class Timesheet < ActiveRecord::Base
   belongs_to :track
   belongs_to :circuit
   has_many :entries, dependent: :destroy
+  has_many :athletes, through: :entries
   has_many :runs, through: :entries
   validates :name, presence: true
   validates :date, presence: true
   validates :track_id, presence: true
   validates :circuit_id, presence: true
 
-  default_scope -> { order('date DESC')}
+  # default_scope -> { order('date DESC')}
+  # scope :ordered -> { order('date DESC')}
 
   def nice_date
     date.strftime("%B %d, %Y")
@@ -17,6 +19,10 @@ class Timesheet < ActiveRecord::Base
   
   def best_run(heat)
     self.runs.where(position: heat).order("finish ASC").first 
+  end
+  
+  def position_for(athlete)
+    self.entries.where(athlete_id: athlete.id).first.position
   end
 
   private
