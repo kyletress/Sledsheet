@@ -2,8 +2,27 @@
 <h1><%= @athlete.name %></h1>
 <p><%= @athlete.country_name %></p>
 
-<ul>
+<table class="table table-bordered">
   <% @athlete.entries.each do |entry| %>
-    <li><%= entry.timesheet.nice_date %> <%= link_to entry.timesheet.name, entry.timesheet %></li>
+  <tr>
+    <td><%= entry.timesheet.nice_date %></td>
+    <td><%= link_to entry.timesheet.name, entry.timesheet %></td>
+    <td><%= entry.timesheet.circuit.name %></td>
+    <td><%= entry.position %>
+      <% if entry.position == 3 %>
+      <svg version="1.1" width="10" height="10" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="5" cy="5" r="5" style="fill: #965A38" />
+      </svg>
+      <% elsif entry.position == 1 %>
+      <svg version="1.1" width="10" height="10" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="5" cy="5" r="5" style="fill: #C98910" />
+      </svg>
+      <% elsif entry.position == 2 %> 
+       <svg version="1.1" width="10" height="10" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="5" cy="5" r="5" style="fill: #A8A8A8" />
+      </svg>
+      <% end %>
+    </td>
+  </tr>
   <% end %>
-</ul>
+</table>
