@@ -1,6 +1,6 @@
 <% provide(:title, @timesheet.name) %>
 <div class="page-header">
-  <h2><%= @timesheet.name %> <small><time><%= @timesheet.nice_date %></time></small></h2>
+  <h2><%= @timesheet.name %> <span><time><%= @timesheet.nice_date %></time></span></h2>
 </div>
 <% if @timesheet.nickname.present? %>
   <p><%= @timesheet.nickname %></p>

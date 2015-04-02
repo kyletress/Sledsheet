@@ -9,10 +9,25 @@
   box-sizing: border-box;
 }
 
-body { padding-top: 70px; }
+body { 
+  padding-top: 70px; 
+  font-family:"proxima-nova";
+  background:#eee;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+a {
+  color:#3498db;
+}
+
+
 a.navbar-brand{
   text-transform: lowercase;
   letter-spacing:-1px;
+  color: #fff !important;
+  font-weight:600;
+  &:hover {
+    color:red;
+  }
 }
 
 /* Users index */
@@ -29,6 +44,47 @@ a.navbar-brand{
     }
   }
 }
+
+.navbar-custom {
+  background-color:#2c3e50;
+  color:#ffffff;
+  border-radius:0;
+}
+
+.navbar-custom .navbar-nav > li > a {
+  color:rgba(255,255,255,.25);
+  //font-weight:600;
+}
+.navbar-custom .navbar-nav > .active > a,
+.navbar-nav > .active > a:hover, 
+.navbar-nav > .active > a:focus {
+  background:#2c3e50;
+  color:#fff;
+}
+
+.navbar-custom .navbar-nav > li > a:hover, 
+.nav > li > a:focus { 
+  text-decoration: none;
+  color:#fff;
+  background-color: rgba(0,0,0,.1); 
+}
+
+.navbar-custom .navbar-brand {
+    color:#fff;
+}
+
+.table{
+  background:white;
+}
+
+.account-image{
+  padding-top:7px;
+}
+
+.img-rounded{
+  border-radius:50%;
+}
+
 
 /* forms */
 
@@ -202,8 +258,6 @@ a.navbar-brand{
 .flag-Unknown {
     background-position: -79px -131px;
 }
-
-/* miscellaneous */
 
 .debug_dump {
   clear:both;

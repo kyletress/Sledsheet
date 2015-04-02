@@ -1,5 +1,5 @@
 <header>
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top" role="navigation">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -20,6 +20,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <% if logged_in? %>
+            <li class="account-image"><%= gravatar_for current_user, size: 35 %></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <%= current_user.email %> <span class="caret"></span>
