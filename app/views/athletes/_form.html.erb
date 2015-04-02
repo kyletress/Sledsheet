@@ -14,7 +14,7 @@
     <%= f.radio_button :male, false %>
   <div class="form-group">
     <%= f.label :country_code %>
-    <%= country_select("athlete", "country_code", { priority_countries: ["US"], only: ["GB", "FR", "US", "CA", "BG", "LV", "CH", "IT", "RU", "DE", "AT", "AU", "BE", "BM", "BR", "CL", "CZ", "ES", "GR", "HR", "IE", "IL", "IQ", "JP", "JM", "KR", "LB", "MC", "MX", "NL", "NO", "NZ", "PL", "RO", "SE", "SI", "SK", "ZA" ]}, { selected: "GB", class: 'form-control' }) %>
+    <%= country_select("athlete", "country_code", { priority_countries: ["US"], only: ["GB", "FR", "US", "CA", "BG", "LV", "CH", "IT", "RU", "DE", "AR", "AT", "AU", "BE", "BM", "BR", "CL", "CZ", "ES", "GR", "HR", "IE", "IL", "IQ", "JP", "JM", "KR", "LB", "MC", "MX", "NL", "NO", "NZ", "PL", "RO", "SE", "SI", "SK", "ZA" ]}, { selected: "GB", class: 'form-control' }) %>
   </div>
   <div class="form-group">
     <%= f.submit %>
