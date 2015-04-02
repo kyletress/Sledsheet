@@ -1,5 +1,5 @@
 class TimesheetsController < ApplicationController
-  before_action :signed_in_user, except: [:index, :show]
+  before_action :logged_in_user, except: [:index, :show]
   before_action :admin_user, only: [:destroy]
 
   def index
