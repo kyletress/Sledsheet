@@ -7,6 +7,11 @@ class Run < ActiveRecord::Base
   acts_as_list :scope => :entry
   default_scope -> { order('position ASC')}
   
+  # a test for calculating intermediates at the db level
+  def self.first_int
+    select("runs.*, (split2 - start) as int")
+  end
+  
   def difference_from(run)
     values = []
     values << (self.start - run.start unless self.start.nil? or run.start.nil?)

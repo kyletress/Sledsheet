@@ -7,6 +7,7 @@ class Athlete < ActiveRecord::Base
   
   # for the import function
   scope :find_by_timesheet_name, ->(t_name) { where("lower(first_name) = ? AND lower(last_name) = ?", t_name.split(',').last.strip.downcase, t_name.split(',').first.downcase)}
+
   
   def name
     "#{first_name} #{last_name}"

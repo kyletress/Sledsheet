@@ -1,6 +1,27 @@
 <% provide(:title, "Athletes") %>
 <%= link_to 'New Athlete', new_athlete_path, class: 'btn btn-primary' %>
-<h1>Athletes</h1>
-<ul>
-  <%= render @athletes %>
-</ul>
+<div class="row">
+  <h1>Athletes</h1>
+  <div class="col-sm-6">
+    <ul>
+      <%= render @athletes %>
+    </ul>
+  </div>
+  <div class="col-sm-6">
+    <h3>Top Ten Performers</h3>
+      <table class="table table-bordered table-condensed">
+        <tr>
+          <th>Rank</th>
+          <th>Athlete</th>
+          <th>Medal Count</th>
+        </tr>
+        <% @top_ten.each_with_index do |top, index| %>
+        <tr>
+          <td><%= index + 1 %>.</td>
+          <td><%= link_to top.athlete.name, top.athlete %></td>
+          <td><%= top.count %></td>
+        </tr>
+        <% end %>
+      </table> 
+  </div>
+</div>

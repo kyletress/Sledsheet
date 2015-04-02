@@ -4,6 +4,8 @@ class AthletesController < ApplicationController
 
   def index
     @athletes = Athlete.all
+    @top_ten = Entry.top_ten
+    # need to improve this sql so it only hits the db once
   end
 
   def show
