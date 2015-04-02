@@ -12,6 +12,9 @@ class Timesheet < ActiveRecord::Base
 
   # default_scope -> { order('date DESC')}
   # scope :ordered -> { order('date DESC')}
+  scope :races, -> { where(race: true)}
+  #scope :olympics, ->() {include(:circuit).where('circuit.name' => "Olympic Winter Games")}
+  
 
   def nice_date
     date.strftime("%B %d, %Y")

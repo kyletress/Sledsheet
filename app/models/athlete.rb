@@ -1,5 +1,6 @@
 class Athlete < ActiveRecord::Base
   has_many :entries
+  has_many :timesheets, through: :entries
   validates :first_name, presence: true, length: { maximum: 20 }
   validates :last_name, presence: true, length: { maximum: 20 }
   validates :country_code, presence: true
@@ -12,7 +13,11 @@ class Athlete < ActiveRecord::Base
   def name
     "#{first_name} #{last_name}"
   end
-
+  
+  def is_olympian?
+    timesheets.find_by_circuit_id(11).nil? ? false : true
+  end
+    
   def country_name
     country = ISO3166::Country[country_code]
     country.translations[I18n.locale.to_s] || country.name

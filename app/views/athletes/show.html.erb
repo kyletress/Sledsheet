@@ -1,8 +1,17 @@
 <% provide(:title, @athlete.name) %>
 <h1><span class="flag flag-<%= @athlete.country_code %>"></span> <%= @athlete.name %></h1>
 <p><%= @athlete.country_name %></p>
+<% if @athlete.is_olympian? %>
+<p>Olympian</p>
+<% end %>
 
 <table class="table table-bordered">
+  <tr>
+    <th>Date</th>
+    <th>Timesheet Name</th>
+    <th>Circuit</th>
+    <th>Rank</th>
+  </tr>
   <% @entries.each do |entry| %>
   <tr>
     <td class="timesheet-date"><%= nice_date entry.date %></td>
