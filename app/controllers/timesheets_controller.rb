@@ -3,7 +3,7 @@ class TimesheetsController < ApplicationController
   before_action :admin_user, only: [:destroy]
 
   def index
-    @timesheets = Timesheet.all
+    @timesheets = Timesheet.includes(:season).all
   end
 
   def new
@@ -115,6 +115,6 @@ class TimesheetsController < ApplicationController
 
   private
     def timesheet_params
-      params.require(:timesheet).permit(:name, :nickname, :track_id, :circuit_id, :date, :race)
+      params.require(:timesheet).permit(:name, :nickname, :track_id, :circuit_id, :date, :race, :season_id)
     end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150401011018) do
+ActiveRecord::Schema.define(version: 20150402212910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,14 @@ ActiveRecord::Schema.define(version: 20150401011018) do
 
   add_index "runs", ["entry_id"], name: "index_runs_on_entry_id", using: :btree
 
+  create_table "seasons", force: true do |t|
+    t.string   "name"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "timesheets", force: true do |t|
     t.string   "name"
     t.string   "nickname"
@@ -71,6 +79,7 @@ ActiveRecord::Schema.define(version: 20150401011018) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "race",       default: false
+    t.integer  "season_id"
   end
 
   add_index "timesheets", ["circuit_id"], name: "index_timesheets_on_circuit_id", using: :btree

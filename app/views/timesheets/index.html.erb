@@ -1,11 +1,19 @@
 <% provide(:title, "Timesheets") %>
 <h1>Timesheets</h1>
 <table class="table table-bordered">
-  <tr>
-    <th>Name</th>
-    <th>Date</th>
-  </tr>
-  <%= render @timesheets %>
+  <% @timesheets.group_by(&:season).each do |season, timesheets| %>
+    <tr>
+      <th colspan="2"><%= season.name %></th>
+    </tr>
+    <% timesheets.each do |timesheet| %>
+      <tr>
+        <td class="timesheet-name"><%= link_to timesheet.name, timesheet %></td>
+        <td><%= timesheet.nice_date %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  <% # render @timesheets %>
+
 </table>
 
 <%= link_to 'New Timesheet', new_timesheet_path, class: 'btn btn-primary' %>

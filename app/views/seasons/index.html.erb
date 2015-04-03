@@ -1,0 +1,20 @@
+<table class="table table-bordered">
+  <tr>
+    <th>Season</th>
+    <th>Events</th>
+    <th>World Champ Men</th>
+    <th>World Champ Women</th>
+    <th>Overall WC Men</th>
+    <th>Overall WC Women</th>
+  </tr>
+  <% @seasons.each do |season| %>
+  <tr>
+    <td><%= link_to season.name, season %></td>
+    <td><%= season.timesheets.count %></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <% end %>
+</table>

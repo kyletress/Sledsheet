@@ -9,6 +9,7 @@ Sledsheet::Application.routes.draw do
   resources :tracks, only: [:index, :show]
   resources :circuits, only: [:index, :show]
   resources :athletes
+  resources :seasons, only: [:index, :show]
   resources :timesheets do
     post 'import', on: :member 
     resources :entries, shallow: true do
