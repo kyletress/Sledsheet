@@ -4,7 +4,7 @@ class Timesheet < ActiveRecord::Base
   belongs_to :track
   belongs_to :circuit
   belongs_to :season
-  has_many :entries, dependent: :destroy
+  has_many :entries, dependent: :destroy, order: :position
   has_many :athletes, through: :entries
   has_many :runs, through: :entries
   validates :name, presence: true
