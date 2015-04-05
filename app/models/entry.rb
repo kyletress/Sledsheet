@@ -19,12 +19,8 @@ class Entry < ActiveRecord::Base
   end
   
   def self.top_ten
-    
-  end
-  
-  def self.top_ten
     select('athlete_id, count(athlete_id)').
-    where('position <= 3').
+    where('bib <= 3'). # obviously needs to be rewritten
     group('athlete_id').
     order('count DESC').
     limit(10)

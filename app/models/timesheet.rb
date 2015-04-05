@@ -19,14 +19,13 @@ class Timesheet < ActiveRecord::Base
   scope :races, -> { where(race: true)}
   #scope :olympics, ->() {include(:circuit).where('circuit.name' => "Olympic Winter Games")}
   
-  ### whaaaaaaaa?
-  def self.with_rank
-    select("timesheets.*, (created_at - updated_at) as duration").limit(3)
-  end
-  
   def ranked_entries
     Entry.find_by_sql(["SELECT *, rank() OVER (ORDER BY total_time asc) FROM (SELECT Entries.id, Entries.timesheet_id, Entries.athlete_id, avg(Runs.finish) AS total_time FROM Entries INNER JOIN Runs ON (Entries.id = Runs.entry_id) GROUP BY Entries.id) AS FinalRanks WHERE timesheet_id = ?", self.id])
   end
+  
+  def comp_rank
+    Run.find_by_sql(["with num_runs as (select entry_id, count(*) as num_runs from runs group by entry_id) select rank() over (order by num_runs desc, sum(r.finish) asc), r.entry_id, n.num_runs, sum(r.finish) as total_time from runs r inner join num_runs n on n.entry_id = r.entry_id group by r.entry_id, n.num_runs order by num_runs desc, total_time asc"])
+  end 
   
   def nice_date
     date.strftime("%B %d, %Y")
