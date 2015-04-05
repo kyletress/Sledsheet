@@ -25,10 +25,7 @@ class Timesheet < ActiveRecord::Base
   end
   
   def ranked_entries
-    # postgres is awesome
-    # need to scope this under @timesheet
-    # remove the partition and from clause if you want
-    Entry.find_by_sql(["SELECT *, rank() OVER (ORDER BY total_time asc) FROM (SELECT Entries.id, Entries.timesheet_id, avg(Runs.finish) AS total_time FROM Entries INNER JOIN Runs ON (Entries.id = Runs.entry_id) GROUP BY Entries.id) AS FinalRanks WHERE timesheet_id = ?", self.id])
+    Entry.find_by_sql(["SELECT *, rank() OVER (ORDER BY total_time asc) FROM (SELECT Entries.id, Entries.timesheet_id, Entries.athlete_id, avg(Runs.finish) AS total_time FROM Entries INNER JOIN Runs ON (Entries.id = Runs.entry_id) GROUP BY Entries.id) AS FinalRanks WHERE timesheet_id = ?", self.id])
   end
   
   def nice_date

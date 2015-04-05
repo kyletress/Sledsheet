@@ -12,7 +12,7 @@ class TimesheetsController < ApplicationController
 
   def show
     @timesheet = Timesheet.includes(entries: [:athlete, :runs]).find(params[:id])
-    @entries = @timesheet.entries
+    @entries = @timesheet.ranked_entries
   end
 
   def edit
