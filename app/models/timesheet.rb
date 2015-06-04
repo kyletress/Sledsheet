@@ -27,6 +27,11 @@ class Timesheet < ActiveRecord::Base
     Run.find_by_sql(["with num_runs as (select entry_id, count(*) as num_runs from runs group by entry_id) select rank() over (order by num_runs desc, sum(r.finish) asc), r.entry_id, n.num_runs, sum(r.finish) as total_time from runs r inner join num_runs n on n.entry_id = r.entry_id group by r.entry_id, n.num_runs order by num_runs desc, total_time asc"])
   end 
   
+  # CTE for getting timesheet entries
+  with timesheet_entries as (select * from entries where timesheet_id = 17) select * from runs r inner join timesheet_entries t on r.entry_id = t.id group by r.entry_id, t.id, r.id;
+  # Next get all the runs associated with these entries
+  
+  
   def nice_date
     date.strftime("%B %d, %Y")
   end
