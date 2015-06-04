@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150403054702) do
+ActiveRecord::Schema.define(version: 20150404235152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,13 +34,20 @@ ActiveRecord::Schema.define(version: 20150403054702) do
   create_table "entries", force: true do |t|
     t.integer  "athlete_id"
     t.integer  "timesheet_id"
-    t.integer  "position"
+    t.integer  "bib"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "entries", ["athlete_id"], name: "index_entries_on_athlete_id", using: :btree
   add_index "entries", ["timesheet_id"], name: "index_entries_on_timesheet_id", using: :btree
+
+  create_table "ic_points", force: true do |t|
+    t.integer  "position"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "runs", force: true do |t|
     t.integer  "entry_id",   null: false
@@ -61,6 +68,16 @@ ActiveRecord::Schema.define(version: 20150403054702) do
   end
 
   add_index "runs", ["entry_id"], name: "index_runs_on_entry_id", using: :btree
+
+  create_table "scores", force: true do |t|
+    t.integer  "entry_id"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "season_id"
+    t.integer  "athlete_id"
+    t.integer  "circuit_id"
+  end
 
   create_table "seasons", force: true do |t|
     t.string   "name"
@@ -104,5 +121,12 @@ ActiveRecord::Schema.define(version: 20150403054702) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["remember_digest"], name: "index_users_on_remember_digest", using: :btree
+
+  create_table "wc_points", force: true do |t|
+    t.integer  "position"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

@@ -1,12 +1,14 @@
 class Timesheet < ActiveRecord::Base
   before_validation :name_timesheet
   before_save :assign_season
+  
   belongs_to :track
   belongs_to :circuit
   belongs_to :season
-  has_many :entries, dependent: :destroy, order: :position
+  has_many :entries, dependent: :destroy
   has_many :athletes, through: :entries
   has_many :runs, through: :entries
+  
   validates :name, presence: true
   validates :date, presence: true
   validates :track_id, presence: true
@@ -17,7 +19,19 @@ class Timesheet < ActiveRecord::Base
   scope :races, -> { where(race: true)}
   #scope :olympics, ->() {include(:circuit).where('circuit.name' => "Olympic Winter Games")}
   
-
+  def ranked_entries
+    Entry.find_by_sql(["SELECT *, rank() OVER (ORDER BY total_time asc) FROM (SELECT Entries.id, Entries.timesheet_id, Entries.athlete_id, avg(Runs.finish) AS total_time FROM Entries INNER JOIN Runs ON (Entries.id = Runs.entry_id) GROUP BY Entries.id) AS FinalRanks WHERE timesheet_id = ?", self.id])
+  end
+  
+  def comp_rank
+    Run.find_by_sql(["with num_runs as (select entry_id, count(*) as num_runs from runs group by entry_id) select rank() over (order by num_runs desc, sum(r.finish) asc), r.entry_id, n.num_runs, sum(r.finish) as total_time from runs r inner join num_runs n on n.entry_id = r.entry_id group by r.entry_id, n.num_runs order by num_runs desc, total_time asc"])
+  end 
+  
+  # CTE for getting timesheet entries
+  # with timesheet_entries as (select * from entries where timesheet_id = 17) select * from runs r inner join timesheet_entries t on r.entry_id = t.id group by r.entry_id, t.id, r.id;
+  # Next get all the runs associated with these entries
+  
+  
   def nice_date
     date.strftime("%B %d, %Y")
   end
@@ -28,6 +42,11 @@ class Timesheet < ActiveRecord::Base
   
   def position_for(athlete)
     self.entries.where(athlete_id: athlete.id).first.position
+  end
+  
+  def assign_ranks
+    # pull out entries and get the total time as a virtual table column. 
+    StandardCompetitionRankings.new(entries, :rank_by => :total_time, :sort_direction => :desc)
   end
 
   private

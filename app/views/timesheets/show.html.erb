@@ -7,18 +7,18 @@
 <% end %>
 
 <% if @timesheet.entries.blank? %>
-<p><%= link_to 'Add', timesheet_entries_path(@timesheet) %> or <%= link_to 'import', timesheet_entries_path(@timesheet) %> entries.</p>
-<h4>Import from FIBT.com</h4>
-<%= form_tag import_timesheet_path do %>
-<%= text_field_tag :url %>
-<%= submit_tag "Import" %>
-<% end %>
+  <p><%= link_to 'Add', timesheet_entries_path(@timesheet) %> or <%= link_to 'import', timesheet_entries_path(@timesheet) %> entries.</p>
+  <h4>Import from FIBT.com</h4>
+  <%= form_tag import_timesheet_path do %>
+    <%= text_field_tag :url %>
+    <%= submit_tag "Import" %>
+  <% end %>
 <% else %>
 <table class="table">
-  <% @entries.each do |entry| %>								
+  <% @ranked.each do |entry| %>								
     <tbody>
        <tr class="timesheet-table-header">
-         <td colspan="5"><strong><%= entry.position %>.</strong> <%= entry.athlete.timesheet_country %> <%= link_to entry.athlete.name, entry.athlete %> ( <%= link_to "Add Run", new_timesheet_entry_run_path(@timesheet, entry) %> )</td>
+         <td colspan="5"><strong><%= entry.rank %>.</strong> <%= entry.athlete.timesheet_country %> <%= link_to entry.athlete.name, entry.athlete %> ( <%= link_to "Add Run", new_timesheet_entry_run_path(@timesheet, entry) %> )</td>
          <td class="total_time"><strong><%= display_total entry.total_time %></strong> <span class="position">(+0.00)</span></td>
       </tr>
       <% entry.runs.each do |run| %>
@@ -35,78 +35,18 @@
       <% end %>
     </tbody>
   <% end %>
+  <% @unranked.each do |entry| %>
+    <tr class="timesheet-table-header">
+      <td colspan="5"><strong><%= entry.bib %>.</strong> <%= entry.athlete.timesheet_country %> <%= link_to entry.athlete.name, entry.athlete %> ( <%= link_to "Add Run", new_timesheet_entry_run_path(@timesheet, entry) %> )</td>
+         <td class="total_time"><strong><%= display_total entry.total_time %></strong> <span class="position">(+0.00)</span></td>
+      </tr>
+  <% end %>
+  <% end %>
    <tr>
      <td colspan="6"><%= link_to "Add Entry", timesheet_entries_path(@timesheet) %></td>
    </tr>
 </table>
 
-<h4>Intermediates</h4>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Int1</th>
-      <th>Int2</th>
-      <th>Int3</th>
-      <th>Int4</th>
-      <th>Int5</th>
-    </tr>
-  </thead>
-  <% @entries.each do |entry| %>
-  <tbody>
-    <tr class="timesheet-table-header">
-      <td colspan="5"><%= link_to entry.athlete.name, athlete_path(entry.athlete) %></td>
-    </tr>    
-    <% entry.runs.each do |run|%>
-    <tr>
-      <td><%= display_time run.int1 %></td>
-      <td><%= display_time run.int2 %></td>
-      <td><%= display_time run.int3 %></td>
-      <td><%= display_time run.int4 %></td>
-      <td><%= display_time run.int5 %></td>
-    </tr>
-    <% end %>
-  <% end %>
-</table>
 
-<h3>Differences</h3>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Start</th>
-      <th>Split 2</th>
-      <th>Split 3</th>
-      <th>Split 4</th>
-      <th>Split 5</th>
-      <th>Finish</th>
-    </tr>
-  </thead>
-
-  <% @entries.each do |entry| %>
-    <tbody>
-    <tr class="timesheet-table-header">
-      <td colspan="6"><%= link_to entry.athlete.name, athlete_path(entry.athlete) %></td>
-    </tr> 
-      <% entry.runs.each do |run| %>
-      <tr>
-        <% run.difference_from(@timesheet.best_run(run.position)).each do |d| %>
-        <td class="
-        <% unless d.nil? %>
-          <% if d > 0 %>
-            plus
-          <% elsif d == 0 %>
-          <% else %>
-            minus
-          <% end %>">
-          <%= display_time d %>
-          <% end %>
-        </td>
-      <% end %>
-    </tr>
-    <% end %>
-  </tbody>
-  <% end %>
-</table>
- 
-<% end %>
 
 <%= link_to "edit timesheet", edit_timesheet_path(@timesheet) %>

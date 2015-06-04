@@ -5,7 +5,7 @@ class Entry < ActiveRecord::Base
 
   validates :athlete_id, :timesheet_id, presence: true
 
-  acts_as_list :scope => :timesheet
+  acts_as_list :scope => :timesheet, :column => :bib
   
   scope :medals, -> { where('position <= 3')} # and timesheet.race
   scope :podiums, -> { where ('position <= 6')}
@@ -19,12 +19,8 @@ class Entry < ActiveRecord::Base
   end
   
   def self.top_ten
-    
-  end
-  
-  def self.top_ten
     select('athlete_id, count(athlete_id)').
-    where('position <= 3').
+    where('bib <= 3'). # obviously needs to be rewritten
     group('athlete_id').
     order('count DESC').
     limit(10)

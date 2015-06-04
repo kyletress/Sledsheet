@@ -17,7 +17,7 @@
     <td class="timesheet-date"><%= nice_date entry.date %></td>
     <td class="timesheet-name"><%= link_to entry.timesheet.name, entry.timesheet %></td>
     <td class="timesheet-circuit"><%= entry.timesheet.circuit.name %></td>
-    <td class="timesheet-position"><%= entry.position %> <%= rank_icon entry.position %></td>
+    <td class="timesheet-position"><%= entry.bib %> <%= rank_icon entry.bib %></td>
   </tr>
   <% end %>
 </table>
