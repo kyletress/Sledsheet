@@ -31,7 +31,5 @@ class Athlete < ActiveRecord::Base
   def medal_count
     entries.where("position <= 3 ").count
   end
-  
-
 
 end
