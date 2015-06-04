@@ -28,7 +28,7 @@ class Timesheet < ActiveRecord::Base
   end 
   
   # CTE for getting timesheet entries
-  with timesheet_entries as (select * from entries where timesheet_id = 17) select * from runs r inner join timesheet_entries t on r.entry_id = t.id group by r.entry_id, t.id, r.id;
+  # with timesheet_entries as (select * from entries where timesheet_id = 17) select * from runs r inner join timesheet_entries t on r.entry_id = t.id group by r.entry_id, t.id, r.id;
   # Next get all the runs associated with these entries
   
   
