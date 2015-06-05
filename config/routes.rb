@@ -18,6 +18,12 @@ Sledsheet::Application.routes.draw do
     end
   end
   
+  namespace :admin do
+    resources :tracks
+    resources :users
+    resources :circuits
+  end
+  
   # match '/about', to: 'static_pages#about', via: 'get'
   # match '/signup', to: 'users#new', via: 'get'
   # match '/signin', to: 'sessions#new', via: 'get'

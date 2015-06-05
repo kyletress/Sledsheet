@@ -1,3 +1,12 @@
 <% provide(:title, "New Athlete") %>
 <h1>New Athlete</h1>
 <%= render 'form' %>
+
+<%= simple_form_for(@athlete, html: {class: 'form-horizontal'}) do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :first_name %>
+  <%= f.input :last_name %>
+  <%= f.input :male, as: :radio_buttons, collection: ["Male", "Female"] %>
+  <%= f.input :country_code, priority: [ "Brazil" ], collection: [ "Australia", "Brazil", "New Zealand"] %>
+  <%= f.button :submit %>
+<% end %>
