@@ -11,11 +11,10 @@
   </tr>
   <% @users.each do |user| %>
   <tr>
-    <td><%= link_to user.name, user %></td>
+    <td><%= link_to user.name, admin_user_path(user) %></td>
     <td><%= mail_to user.email, user.email %></td>
     <td><%= time_ago_in_words user.created_at %> ago</td>
     <td>
-      <a href="#" class="btn btn-primary btn-xs">Impersonate</a>
       <%= link_to "delete", admin_user_path(user), method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-xs' %>
     </td>
   </tr>
