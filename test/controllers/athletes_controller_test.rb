@@ -11,14 +11,19 @@ class AthletesControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
+    assert_template 'athletes/index'
     assert_select "title", "Sledsheet | Athletes"
     assert_not_nil assigns(:athletes)
     assert_not_nil assigns(:top_ten)
+    Athlete.all.each do |athlete|
+      assert_select 'a[href=?]', athlete_path(athlete), text: athlete.name
+    end
   end
   
   test "should show athlete" do
     get :show, id: @athlete
     assert_response :success
+    assert_template :show
     assert_select "title", "Sledsheet | #{@athlete.first_name} #{@athlete.last_name}"
   end
   
