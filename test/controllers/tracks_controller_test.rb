@@ -3,7 +3,7 @@ require 'test_helper'
 class TracksControllerTest < ActionController::TestCase
  
   setup do
-    @track = tracks(:track)
+    @track = tracks(:placid)
   end
   
   test "should get index" do

@@ -1,6 +1,6 @@
 class TimesheetsController < ApplicationController
   before_action :logged_in_user, except: [:index, :show]
-  before_action :admin_user, only: [:new, :edit, :destroy]
+  before_action :admin_user, only: [:new, :edit, :create, :destroy]
 
   def index
     @timesheets = Timesheet.includes(:season).all

@@ -1,0 +1,26 @@
+training:
+  nickname: Training Nickname
+  track: igls
+  circuit: worldcup
+  date: <%= 1.day.ago %>
+  race: false
+  name: Igls World Cup Training
+  season: season
+  
+race:
+  nickname: Racing Nickname
+  track: placid
+  circuit: worldcup
+  date: <%= 1.day.ago %>
+  race: true
+  name: Lake Placid World Cup Race
+  season: season
+  
+olympics:
+  nickname: Olympic Winter Games
+  track: sochi
+  circuit: olympics
+  date: <%= 1.day.ago %>
+  race: true
+  name: Sochi Winter Olympic Games Race
+  season: season

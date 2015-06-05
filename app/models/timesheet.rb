@@ -18,6 +18,7 @@ class Timesheet < ActiveRecord::Base
   # scope :ordered -> { order('date DESC')}
   scope :races, -> { where(race: true)}
   #scope :olympics, ->() {include(:circuit).where('circuit.name' => "Olympic Winter Games")}
+
   
   def ranked_entries
     Entry.find_by_sql(["SELECT *, rank() OVER (ORDER BY total_time asc) FROM (SELECT Entries.id, Entries.timesheet_id, Entries.athlete_id, avg(Runs.finish) AS total_time FROM Entries INNER JOIN Runs ON (Entries.id = Runs.entry_id) GROUP BY Entries.id) AS FinalRanks WHERE timesheet_id = ?", self.id])

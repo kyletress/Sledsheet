@@ -1,4 +1,4 @@
-<% provide(:title, "Edit Timesheet") %>
+<% provide(:title, "Edit #{@timesheet.name}") %>
 <h1>Edit Timesheet</h1>
 <%= render 'form' %>
 <%= link_to "delete", @timesheet, method: :delete,

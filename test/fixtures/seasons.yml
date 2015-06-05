@@ -1,11 +1,4 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  name: MyString
-  start_date: 2015-04-02
-  end_date: 2015-04-02
-
-two:
-  name: MyString
-  start_date: 2015-04-02
-  end_date: 2015-04-02
+season:
+  name: 2014/2015 Season
+  start_date: 2014-07-01
+  end_date: 2015-06-30
