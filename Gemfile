@@ -11,9 +11,10 @@ gem 'acts_as_list'
 gem 'nokogiri'
 gem 'newrelic_rpm'
 gem 'puma'
+gem 'pg', '0.18.1'
+
 
 group :development do
-  gem 'sqlite3'
   gem 'bullet'
 end
 
@@ -24,7 +25,6 @@ group :test do
 end
 
 group :production do
-  gem 'pg', '0.18.1'
   gem 'rails_12factor'
 end
 
