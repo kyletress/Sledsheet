@@ -38,4 +38,14 @@ class AthleteTest < ActiveSupport::TestCase
     assert @athlete.name == "#{@athlete.first_name} #{@athlete.last_name}"
   end
   
+  test "olympian should be in olympics" do
+    @olympian = athletes(:olympian)
+    assert @olympian.is_olympian?
+  end
+  
+  test "country code should supply full country name" do
+    @german = athletes(:german)
+    assert @athlete.country_name = "United States"
+    assert @german.country_name = "Germany"
+  end
 end

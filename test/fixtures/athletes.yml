@@ -9,3 +9,13 @@ matt:
   first_name: Matt
   last_name: Antoine
   country_code: US
+
+olympian:
+  first_name: Mr
+  last_name: Olympia
+  country_code: US
+  
+german:
+  first_name: hans
+  last_name: franz
+  country_code: DE

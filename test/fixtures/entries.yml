@@ -9,3 +9,8 @@ two:
   athlete: matt
   timesheet: training
   bib: 2
+  
+olympics:
+  athlete: olympian
+  timesheet: olympics
+  bib: 1
