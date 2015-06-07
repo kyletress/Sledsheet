@@ -43,3 +43,11 @@ if Circuit.count == 0
     { name: 'Development' }
   ])
 end
+
+if Athlete.count == 0
+  athletes = Athlete.create([
+    { first_name: 'Kyle', last_name: 'Tress', country_code: 'US'},
+    { first_name: 'Matt', last_name: 'Antoine', country_code: 'US'},
+    { first_name: 'John', last_name: 'Daly', country_code: 'US'}
+  ])
+end
