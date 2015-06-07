@@ -1,6 +1,6 @@
 class TimesheetsController < ApplicationController
   before_action :logged_in_user, except: [:index, :show]
-  before_action :admin_user, only: [:destroy]
+  before_action :admin_user, only: [:new, :edit, :create, :destroy]
 
   def index
     @timesheets = Timesheet.includes(:season).all
@@ -12,7 +12,8 @@ class TimesheetsController < ApplicationController
 
   def show
     @timesheet = Timesheet.includes(entries: [:athlete, :runs]).find(params[:id])
-    @entries = @timesheet.entries
+    @ranked = @timesheet.ranked_entries
+    @unranked = @timesheet.entries
   end
 
   def edit

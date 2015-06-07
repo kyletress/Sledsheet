@@ -1,0 +1,25 @@
+<% provide(:title, "Admin Circuits") %>
+
+<div class="row">
+  <div class="col-md-8">
+<table class="table table-striped">
+  <tr>
+    <th>Circuit</th>
+    <th>Admin</th>
+  </tr>
+  <% @circuits.each do |circuit| %>
+  <tr>
+    <td><%= link_to circuit.name, circuit %></td>
+    <td><%= link_to "delete", admin_circuit_path(circuit), method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-xs' %></td>
+  </tr>
+  <% end %>
+</table>
+  </div>
+  
+  <div class="col-md-4">
+    <%= link_to 'Create a circuit', new_admin_circuit_path, class: 'btn btn-success btn-lg' %>
+  </div>
+  
+</div>
+
+  

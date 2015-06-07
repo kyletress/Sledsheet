@@ -15,7 +15,9 @@ class Athlete < ActiveRecord::Base
   end
   
   def is_olympian?
-    timesheets.find_by_circuit_id(11).nil? ? false : true
+    #timesheets.find_by_circuit_id(11).nil? ? false : true
+    t = timesheets.where('circuit.name = ?', 'Winter Olympic Games')
+    t.nil? ? false : true
   end
     
   def country_name
@@ -31,7 +33,5 @@ class Athlete < ActiveRecord::Base
   def medal_count
     entries.where("position <= 3 ").count
   end
-  
-
 
 end

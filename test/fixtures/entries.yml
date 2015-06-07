@@ -1,11 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  athlete_id: 1
-  timesheet_id: 1
-  position: 1
+  athlete: kyle
+  timesheet: training
+  bib: 1
 
 two:
-  athlete_id: 1
-  timesheet_id: 1
-  position: 1
+  athlete: matt
+  timesheet: training
+  bib: 2
+  
+olympics:
+  athlete: olympian
+  timesheet: olympics
+  bib: 1
