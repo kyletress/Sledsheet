@@ -55,6 +55,8 @@ GEM
     countries (0.9.3)
       currencies (~> 0.4.2)
     currencies (0.4.2)
+    date_validator (0.8.0)
+      activemodel
     erubis (2.7.0)
     execjs (2.2.1)
     guard-compat (1.2.1)
@@ -168,6 +170,7 @@ DEPENDENCIES
   bullet
   coffee-rails (~> 4.0.0)
   country_select!
+  date_validator
   guard-minitest
   jbuilder (~> 1.2)
   jquery-rails

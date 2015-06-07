@@ -12,7 +12,7 @@ gem 'nokogiri'
 gem 'newrelic_rpm'
 gem 'puma'
 gem 'pg', '0.18.1'
-
+gem 'date_validator'
 
 group :development do
   gem 'bullet'
