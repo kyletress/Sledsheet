@@ -2,7 +2,7 @@ class EntriesController < ApplicationController
   before_action :find_timesheet
 
   def index
-    @entries = @timesheet.entries.order("position")
+    @entries = @timesheet.entries.order("bib")
   end
 
   def new
@@ -27,14 +27,14 @@ class EntriesController < ApplicationController
 
   def sort
     params[:entry].each_with_index do |id, index|
-      Entry.update_all({position: index+1}, {id: id})
+      Entry.update_all({bib: index+1}, {id: id})
     end
   end
 
   private
 
     def entry_params
-      params.require(:entry).permit(:athlete_id, :timesheet_id, :position)
+      params.require(:entry).permit(:athlete_id, :timesheet_id, :bib)
     end
 
     def find_timesheet

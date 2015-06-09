@@ -14,6 +14,11 @@ class TimesheetsController < ApplicationController
     @timesheet = Timesheet.includes(entries: [:athlete, :runs]).find(params[:id])
     @ranked = @timesheet.ranked_entries
     @unranked = @timesheet.entries
+    if current_user
+      render 'show_advanced'
+    else
+      render 'show'
+    end
   end
 
   def edit
@@ -45,7 +50,7 @@ class TimesheetsController < ApplicationController
     flash[:success] = "Timesheet deleted."
     redirect_to timesheets_url
   end
-  
+
   def import
     require 'nokogiri'
     require 'open-uri'
@@ -63,10 +68,10 @@ class TimesheetsController < ApplicationController
     @timesheet = Timesheet.find(params[:id])
     url = params[:url]
     doc = Nokogiri::HTML(open(url))
-    doc.css(".list-table") 
+    doc.css(".list-table")
     trs = doc.css('.padding1010, .facts').to_a
     entries = trs.slice_before{ |elm| elm.attr('class') =='padding1010' }.to_a
- 
+
     entries.map! do |entry|
       {
        name: entry.shift.at_css('a.blue').text,
@@ -82,9 +87,9 @@ class TimesheetsController < ApplicationController
         end
       }
     end
-    
+
     entries.each do |entry|
-      
+
       @entry = @timesheet.entries.build(
         :athlete_id => Athlete.find_by_timesheet_name(entry[:name]).first.id
       )
