@@ -14,7 +14,12 @@ olympian:
   first_name: Mr
   last_name: Olympia
   country_code: US
-  
+
+rookie:
+  first_name: Nugget
+  last_name: Jones
+  country_code: US
+
 german:
   first_name: hans
   last_name: franz

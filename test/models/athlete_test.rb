@@ -2,7 +2,7 @@ require 'test_helper'
 
 class AthleteTest < ActiveSupport::TestCase
   def setup
-    @athlete = Athlete.new(first_name: "Kyle", last_name: "Tress", country_code: "US")
+    @athlete = athletes(:kyle)
   end
 
   test "should be valid" do
@@ -40,7 +40,12 @@ class AthleteTest < ActiveSupport::TestCase
 
   test "olympian should be in olympics" do
     @olympian = athletes(:olympian)
-    assert @olympian.is_olympian?
+    assert @olympian.is_olympian?, "Olympian is not in Olympics"
   end
-  
+
+  test "Rookie should not be in the Olympics" do
+    @rookie = athletes(:rookie)
+    assert_not @rookie.is_olympian?, "Rookie is an Olympian"
+  end
+
 end

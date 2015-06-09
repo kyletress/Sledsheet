@@ -1,19 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  entry_id: 1
-  start: 1
-  split2: 1
-  split3: 1
-  split4: 1
-  split5: 1
-  finish: 1
+  entry: one
+  start: 500
+  split2: 1111
+  split3: 2222
+  split4: 3333
+  split5: 4444
+  finish: 5555
 
 two:
-  entry_id: 1
-  start: 1
-  split2: 1
-  split3: 1
-  split4: 1
-  split5: 1
-  finish: 1
+  entry: one
+  start: 501
+  split2: 1112
+  split3: 2223
+  split4: 3334
+  split5: 4445
+  finish: 5556
