@@ -21,9 +21,14 @@ class SeasonTest < ActiveSupport::TestCase
     assert @season.name == "2012/2013 season", "The season was incorrectly named"
   end
 
-  #test "end date should be June 30" do
-  #  @season.end_date = Date.new(2015, 2, 3)
-  #  assert_not @season.valid?
-  #end
+  test "start date should be July 1" do
+    @season.start_date = Date.new(2015, 2, 3)
+    assert_not @season.valid?, "The start date was not July 1"
+  end
+
+  test "end date should be June 30" do
+    @season.end_date = Date.new(2015, 2, 3)
+    assert_not @season.valid?, "The end date was not June 30"
+  end
 
 end
