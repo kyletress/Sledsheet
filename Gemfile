@@ -16,6 +16,7 @@ gem 'date_validator'
 
 group :development do
   gem 'bullet'
+  gem 'quiet_assets'
 end
 
 group :test do
