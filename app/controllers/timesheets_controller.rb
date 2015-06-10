@@ -16,7 +16,11 @@ class TimesheetsController < ApplicationController
     @unranked = @timesheet.entries
     respond_to do |format|
       format.html do
-        render 'show_advanced'
+        if current_user
+          render 'show_advanced'
+        else
+          render 'show'
+        end
       end
       format.pdf do
         pdf = TimesheetPdf.new(@timesheet, view_context)
