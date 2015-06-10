@@ -9,6 +9,9 @@ class TimesheetPdf < Prawn::Document
     start_new_page
     header
     intermediates
+    start_new_page
+    header
+    differences
   end
 
   def header
@@ -29,7 +32,7 @@ class TimesheetPdf < Prawn::Document
 
   def splits
     move_down 20
-    table row_data, width: bounds.width,
+    table split_data, width: bounds.width,
                       cell_style: {size: 8, padding: [3,3,3,3]} do
       row(0).font_style = :bold
       columns(9).align = :right
@@ -55,21 +58,30 @@ class TimesheetPdf < Prawn::Document
 
   def differences
     move_down 20
-    # THIS WORKS BELOW. NEEDS DIFFERENCE DATA
-    # values = cells.columns(3..-1).rows(1..-1)
-    # bad = values.filter do |cell|
-    #   cell.content.to_i < 10
-    # end
-    # bad.background_color = "FFAAAA"
-    # good = values.filter do |cell|
-    #   cell.content.to_i > 11
-    # end
-    # good.background_color = "AAFFAA"
+    text "Differences", align: :center, style: :bold, size: 9
+    table difference_data, width: bounds.width,
+                              cell_style: {size: 8, padding: [3,3,3,3]} do
+      self.cells.borders = []
+      self.row_colors = ["DDDDDD", "FFFFFF"]
+      columns([2, 10]).font_style = :bold
+      columns(10).align = :right
+      self.header = true
+      # THIS WORKS BELOW. NEEDS DIFFERENCE DATA
+      values = cells.columns(3..-1).rows(1..-1)
+      minus = values.filter do |cell|
+        cell.content.to_i > 0
+      end
+      minus.background_color = "FFAAAA"
+      plus = values.filter do |cell|
+        cell.content.to_i < 0
+      end
+      plus.background_color = "AAFFAA"
+    end
   end
 
   # TABLE DATA
 
-  def row_data
+  def split_data
     rows = [["Bib", "Nation", "Name", "Start", {content: "Splits", colspan: 4}, "Finish", "Total" ]]
     @timesheet.entries.each do |entry|
       if entry.runs.present?
@@ -106,6 +118,31 @@ class TimesheetPdf < Prawn::Document
   end
 
   def difference_data
+    rows = [["Bib", "Nation", "Name", "Start", {content: "Splits", colspan: 4}, "Finish"]]
+    best = @timesheet.best_run(1)
+    @timesheet.entries.each do |entry|
+      if entry.runs.present?
+        entry.runs.each do |run|
+          rows << [
+            entry.bib,
+            entry.athlete.timesheet_country,
+            entry.athlete.timesheet_name,
+            run.difference_from(best)[0],
+            run.difference_from(best)[1],
+            run.difference_from(best)[2],
+            run.difference_from(best)[3],
+            run.difference_from(best)[4],
+            run.difference_from(best)[5]]
+        end
+      else
+        rows << [
+          entry.bib,
+          entry.athlete.timesheet_country,
+          entry.athlete.timesheet_name,
+          "", "", "", "", "", "", ""]
+      end
+    end
+    rows
   end
 
   # VIEW HELPERS

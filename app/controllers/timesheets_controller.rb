@@ -14,6 +14,7 @@ class TimesheetsController < ApplicationController
     @timesheet = Timesheet.includes(entries: [:athlete, :runs]).find(params[:id])
     @ranked = @timesheet.ranked_entries
     @unranked = @timesheet.entries
+    @best = @timesheet.best_run(1)
     respond_to do |format|
       format.html do
         if current_user
