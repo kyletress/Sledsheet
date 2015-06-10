@@ -14,10 +14,12 @@ class TimesheetsController < ApplicationController
     @timesheet = Timesheet.includes(entries: [:athlete, :runs]).find(params[:id])
     @ranked = @timesheet.ranked_entries
     @unranked = @timesheet.entries
-    if current_user
-      render 'show_advanced'
-    else
-      render 'show'
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = TimesheetPdf.new(@timesheet, view_context)
+        send_data pdf.render, filename: "#{@timesheet.pdf_name}.pdf", type: "application/pdf", disposition: "inline"
+      end
     end
   end
 

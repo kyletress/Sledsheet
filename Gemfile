@@ -16,6 +16,8 @@ gem 'date_validator'
 gem 'carrierwave'
 gem 'carrierwave-aws'
 gem 'figaro'
+gem 'prawn'
+gem 'prawn-table'
 
 group :development do
   gem 'bullet'

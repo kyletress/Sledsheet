@@ -14,6 +14,10 @@ class Athlete < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def timesheet_name
+    "#{last_name.upcase} #{first_name}"
+  end
+
   def is_olympian?
     timesheets.find_by_circuit_id(11).nil? ? false : true
     #c = Circuit.find_by_name('Olympic Winter Games')

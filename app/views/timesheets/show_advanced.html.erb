@@ -12,6 +12,8 @@
   <% end %>
 <% end %>
 
+<%= link_to "Generate PDF", timesheet_path(@timesheet, format: "pdf") %>
+
 <% if @timesheet.entries.blank? %>
   <p><%= link_to 'Add', timesheet_entries_path(@timesheet) %> or <%= link_to 'import', timesheet_entries_path(@timesheet) %> entries.</p>
   <h4>Import from FIBT.com</h4>

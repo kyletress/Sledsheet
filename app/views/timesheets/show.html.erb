@@ -12,6 +12,9 @@
   <% end %>
 <% end %>
 
+<%= link_to "Generate PDF", timesheet_path(@timesheet, format: "pdf") %>
+
+
 <% if @timesheet.entries.blank? %>
   <p>There are no entries yet</p>
 <% else %>
