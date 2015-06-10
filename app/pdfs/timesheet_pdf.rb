@@ -16,9 +16,9 @@ class TimesheetPdf < Prawn::Document
 
   def header
     text "#{@timesheet.name}", align: :center, style: :bold
-    text "presented by sledsheet.com", align: :center, style: :bold, size: 9
-    text "OFFICIAL RESULTS: Skeleton Men", align: :center, size: 8
-    text "#{@timesheet.nice_date}", align: :center, size: 8
+    text "presented by sledsheet.com", align: :center, style: :bold, size: 7
+    text "OFFICIAL RESULTS: Skeleton Men", align: :center, size: 7
+    text "#{@timesheet.nice_date}", align: :center, size: 7
     if Rails.env.production?
       text "view this timesheet on <u><link href='#{Rails.application.routes.url_helpers.timesheet_url(@timesheet, host: 'www.sledsheet.com')}'>#{Rails.application.routes.url_helpers.timesheet_url(@timesheet, host: 'www.sledsheet.com')}" +
      "</link></u>", inline_format: true, size: 8, align: :center
@@ -66,16 +66,15 @@ class TimesheetPdf < Prawn::Document
       columns([2, 10]).font_style = :bold
       columns(10).align = :right
       self.header = true
-      # THIS WORKS BELOW. NEEDS DIFFERENCE DATA
       values = cells.columns(3..-1).rows(1..-1)
       minus = values.filter do |cell|
-        cell.content.to_i > 0
+        cell.content.to_f > 0
       end
-      minus.background_color = "FFAAAA"
+      minus.text_color = "FF4136"
       plus = values.filter do |cell|
-        cell.content.to_i < 0
+        cell.content.to_f < 0
       end
-      plus.background_color = "AAFFAA"
+      plus.text_color = "2ECC40"
     end
   end
 
@@ -127,12 +126,12 @@ class TimesheetPdf < Prawn::Document
             entry.bib,
             entry.athlete.timesheet_country,
             entry.athlete.timesheet_name,
-            run.difference_from(best)[0],
-            run.difference_from(best)[1],
-            run.difference_from(best)[2],
-            run.difference_from(best)[3],
-            run.difference_from(best)[4],
-            run.difference_from(best)[5]]
+            split(run.difference_from(best)[0]),
+            split(run.difference_from(best)[1]),
+            split(run.difference_from(best)[2]),
+            split(run.difference_from(best)[3]),
+            split(run.difference_from(best)[4]),
+            split(run.difference_from(best)[5])]
         end
       else
         rows << [
