@@ -1,53 +1,69 @@
-<%= form_for @timesheet do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-	<div class="control-group">
-		<%= f.label :nickname, 'Nickname (optional)' %>
-		<%= f.text_field :nickname %>
-	</div>
+<div class="row">
+  <div class="container">
+    <%= form_for(@timesheet, html: {class: 'form-horizontal'}) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+    	<div class="control-group">
+    		<%= f.label :nickname, 'Nickname (optional)' %>
+    		<%= f.text_field :nickname, class: 'form-control' %>
+        <span id="helpBlock" class="help-block">Example: European Championships or Randy Price Memorial Race</span>
+    	</div>
 
-	<div class="form-group">
-		<%= f.label :date, 'Date' %>
-		<%= f.date_select :date, :order => [:day, :month, :year], :start_year => 1999 %>
-	</div>
+    	<div class="form-group">
+    		<%= f.label :date, 'Date' %>
+    		<%= f.date_select :date, {:order => [:day, :month, :year], :start_year => 1999}, {class: 'form-control'} %>
+    	</div>
 
-	<div class="form-group">
-		<%= f.label :track_id, 'Track' %>
-		<%= f.collection_select(:track_id, Track.all, :id, :name, :prompt => "Track" )%>
-	</div>
+    	<div class="form-group">
+    		<%= f.label :track_id, 'Track' %>
+    		<%= f.collection_select :track_id, Track.all, :id, :name, {:prompt => "Track"}, {class: 'form-control'} %>
+    	</div>
 
-	<div class="form-group">
-		<%= f.label :circuit_id, 'Circuit' %>
-		<%= f.collection_select(:circuit_id, Circuit.all, :id, :name, :prompt => "Circuit" )%>
-	</div>
+    	<div class="form-group">
+    		<%= f.label :circuit_id, 'Circuit' %>
+    		<%= f.collection_select :circuit_id, Circuit.all, :id, :name, {:prompt => "Circuit"}, {class: 'form-control'} %>
+    	</div>
 
-	<div class="form-group">
-		<%= f.label 'Type', class: 'control-label' %>
-		<div class="controls">
-			<label class="radio"><%= f.radio_button :race, false %> Training</label>
-			<label class="radio"><%= f.radio_button :race, true %> Race</label>
-		</div>
-	</div>
+    	<!-- <div class="form-group">
+    		<%= f.label 'Type', class: 'control-label' %>
+    		<div class="controls">
+    			<label class="radio"><%= f.radio_button :race, false %> Training</label>
+    			<label class="radio"><%= f.radio_button :race, true %> Race</label>
+    		</div>
+    	</div> -->
 
-  <% if @timesheet.pdf.present? %>
-    <div class="form-group">
-      <div class="controls">
-        <label>
-          <%= f.check_box :remove_pdf %>
-          Remove PDF: <%= @timesheet.pdf_url.to_s %>
-        </label>
+      <div class="form-group">
+        <%= f.label 'type', class: 'checkbox-inline' do %>
+          <%= f.radio_button :race, false %> Training
+        <% end %>
+
+        <%= f.label 'type', class: 'checkbox-inline' do %>
+          <%= f.radio_button :race, true %> Race
+        <% end %>
       </div>
-    </div>
-  <% else %>
-    <div class="form-group">
-  		<div class="controls">
-        <%= f.label :pdf, "Upload a PDF" %>
-  			<%= f.file_field :pdf %>
-  		</div>
-        <%= f.label :remote_pdf_url, "Or add a PDF from the web" %>
-        <%= f.text_field :remote_pdf_url %>
-  	</div>
-  <% end %>
 
-	<%= f.submit %>
+      <% if @timesheet.pdf.present? %>
+        <div class="form-group">
+          <div class="controls">
+            <label>
+              <%= f.check_box :remove_pdf %>
+              Remove PDF: <%= @timesheet.pdf_url.to_s %>
+            </label>
+          </div>
+        </div>
+      <% else %>
+        <div class="form-group">
+      		<div class="controls">
+            <%= f.label :pdf, "Upload a PDF" %>
+      			<%= f.file_field :pdf %>
+      		</div>
+            <%= f.label :remote_pdf_url, "Or add a PDF from the web" %>
+            <%= f.text_field :remote_pdf_url %>
+      	</div>
+      <% end %>
 
-<% end %>
+    	<%= f.submit 'Create Timesheet', class: 'btn btn-lg btn-primary' %>
+
+    <% end %>
+
+  </div>
+</div>
