@@ -15,7 +15,9 @@ class TimesheetsController < ApplicationController
     @ranked = @timesheet.ranked_entries
     @unranked = @timesheet.entries
     respond_to do |format|
-      format.html
+      format.html do
+        render 'show_advanced'
+      end
       format.pdf do
         pdf = TimesheetPdf.new(@timesheet, view_context)
         send_data pdf.render, filename: "#{@timesheet.pdf_name}.pdf", type: "application/pdf", disposition: "inline"
