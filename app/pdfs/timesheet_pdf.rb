@@ -33,19 +33,23 @@ class TimesheetPdf < Prawn::Document
     @view.display_time(s)
   end
 
+  def total(t)
+    @view.display_total(t)
+  end
+
   def row_data
     rows = [["Bib", "Nation", "Name", "Start", "Splits", "", "", "", "Finish", "Total" ]]
     @timesheet.entries.each do |entry|
       if entry.runs.present?
         entry.runs.each do |run|
           if run.position == 1
-            rows << [entry.bib, entry.athlete.timesheet_country, entry.athlete.timesheet_name, split(run.start), split(run.split2), split(run.split3),split(run.split4),split(run.split5),split(run.finish), split(entry.total_time)]
+            rows << [entry.bib, entry.athlete.timesheet_country, entry.athlete.timesheet_name, split(run.start), split(run.split2), split(run.split3),split(run.split4),split(run.split5),split(run.finish), total(entry.total_time)]
           else
-            rows << ["", "", "", split(run.start), split(run.split2), split(run.split3),split(run.split4),split(run.split5),split(run.finish), split(entry.total_time)]
+            rows << ["", "", "", split(run.start), split(run.split2), split(run.split3),split(run.split4),split(run.split5),split(run.finish), ""]
           end
         end
       else
-        rows << [entry.bib, entry.athlete.timesheet_country, entry.athlete.timesheet_name, "", "", "", "", "", "", entry.total_time]
+        rows << [entry.bib, entry.athlete.timesheet_country, entry.athlete.timesheet_name, "", "", "", "", "", "", ""]
       end
     end
     rows
