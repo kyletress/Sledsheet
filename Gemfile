@@ -13,9 +13,15 @@ gem 'newrelic_rpm'
 gem 'puma'
 gem 'pg', '0.18.1'
 gem 'date_validator'
+gem 'carrierwave'
+gem 'carrierwave-aws'
+gem 'figaro'
+gem 'prawn'
+gem 'prawn-table'
 
 group :development do
   gem 'bullet'
+  gem 'quiet_assets'
 end
 
 group :test do

@@ -14,10 +14,18 @@ class TimesheetsController < ApplicationController
     @timesheet = Timesheet.includes(entries: [:athlete, :runs]).find(params[:id])
     @ranked = @timesheet.ranked_entries
     @unranked = @timesheet.entries
-    if current_user
-      render 'show_advanced'
-    else
-      render 'show'
+    respond_to do |format|
+      format.html do
+        if current_user
+          render 'show_advanced'
+        else
+          render 'show'
+        end
+      end
+      format.pdf do
+        pdf = TimesheetPdf.new(@timesheet, view_context)
+        send_data pdf.render, filename: "#{@timesheet.pdf_name}.pdf", type: "application/pdf", disposition: "inline"
+      end
     end
   end
 
@@ -121,6 +129,6 @@ class TimesheetsController < ApplicationController
 
   private
     def timesheet_params
-      params.require(:timesheet).permit(:name, :nickname, :track_id, :circuit_id, :date, :race, :season_id)
+      params.require(:timesheet).permit(:name, :nickname, :track_id, :circuit_id, :date, :race, :season_id, :pdf, :remote_pdf_url, :remove_pdf)
     end
 end
