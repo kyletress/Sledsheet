@@ -7,7 +7,9 @@
 <% end %>
 
 <% if @timesheet.pdf.present? %>
-  <%= link_to 'Download the PDF', @timesheet.pdf_url.to_s %>
+  <%= link_to @timesheet.pdf_url, class: "btn btn-default btn-sm" do %>
+    <i class="glyphicon glyphicon-file"></i> Download the PDF
+  <% end %>
 <% end %>
 
 <% if @timesheet.entries.blank? %>

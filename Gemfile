@@ -14,6 +14,8 @@ gem 'puma'
 gem 'pg', '0.18.1'
 gem 'date_validator'
 gem 'carrierwave'
+gem 'carrierwave-aws'
+gem 'figaro'
 
 group :development do
   gem 'bullet'
