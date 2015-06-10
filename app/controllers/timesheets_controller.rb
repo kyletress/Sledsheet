@@ -121,6 +121,6 @@ class TimesheetsController < ApplicationController
 
   private
     def timesheet_params
-      params.require(:timesheet).permit(:name, :nickname, :track_id, :circuit_id, :date, :race, :season_id)
+      params.require(:timesheet).permit(:name, :nickname, :track_id, :circuit_id, :date, :race, :season_id, :pdf, :remote_pdf_url, :remove_pdf)
     end
 end

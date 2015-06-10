@@ -28,6 +28,26 @@
 		</div>
 	</div>
 
+  <% if @timesheet.pdf.present? %>
+    <div class="form-group">
+      <div class="controls">
+        <label>
+          <%= f.check_box :remove_pdf %>
+          Remove PDF: <%= @timesheet.pdf_url.to_s %>
+        </label>
+      </div>
+    </div>
+  <% else %>
+    <div class="form-group">
+  		<div class="controls">
+        <%= f.label :pdf, "Upload a PDF" %>
+  			<%= f.file_field :pdf %>
+  		</div>
+        <%= f.label :remote_pdf_url, "Or add a PDF from the web" %>
+        <%= f.text_field :remote_pdf_url %>
+  	</div>
+  <% end %>
+
 	<%= f.submit %>
 
 <% end %>

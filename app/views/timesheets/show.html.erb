@@ -6,6 +6,8 @@
   <p><%= @timesheet.nickname %></p>
 <% end %>
 
+<%= link_to 'Download the PDF', @timesheet.pdf_url.to_s %>
+
 <% if @timesheet.entries.blank? %>
   <p>There are no entries yet</p>
 <% else %>

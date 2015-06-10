@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150404235152) do
+ActiveRecord::Schema.define(version: 20150609225446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20150404235152) do
     t.datetime "updated_at"
     t.boolean  "race",       default: false
     t.integer  "season_id"
+    t.string   "pdf"
   end
 
   add_index "timesheets", ["circuit_id"], name: "index_timesheets_on_circuit_id", using: :btree

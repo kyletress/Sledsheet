@@ -6,6 +6,10 @@
   <p><%= @timesheet.nickname %></p>
 <% end %>
 
+<% if @timesheet.pdf.present? %>
+  <%= link_to 'Download the PDF', @timesheet.pdf_url.to_s %>
+<% end %>
+
 <% if @timesheet.entries.blank? %>
   <p><%= link_to 'Add', timesheet_entries_path(@timesheet) %> or <%= link_to 'import', timesheet_entries_path(@timesheet) %> entries.</p>
   <h4>Import from FIBT.com</h4>
