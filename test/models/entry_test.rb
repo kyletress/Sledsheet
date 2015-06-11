@@ -3,7 +3,7 @@ require 'test_helper'
 class EntryTest < ActiveSupport::TestCase
 
   def setup
-    @entry = entries(:one)
+    @entry = entries(:kyle)
   end
 
   test "should be valid" do
@@ -21,9 +21,9 @@ class EntryTest < ActiveSupport::TestCase
   end
 
   test "total time should be the sum of run finish times" do
-    @run1 = runs(:one)
-    @run2 = runs(:two)
-    assert @entry.total_time == 11111, "Total time wasn't properly calculated"
+    @run1 = runs(:kyle1)
+    @run2 = runs(:kyle2)
+    assert @entry.total_time == 11113, "Total time wasn't properly calculated"
   end
 
 end

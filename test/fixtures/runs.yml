@@ -1,19 +1,41 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  entry: one
+kyle1:
+  entry: kyle
+  position: 1
   start: 500
   split2: 1111
   split3: 2222
   split4: 3333
   split5: 4444
-  finish: 5555
+  finish: 5455
 
-two:
-  entry: one
+kyle2:
+  entry: kyle
+  position: 2
   start: 501
   split2: 1112
   split3: 2223
   split4: 3334
   split5: 4445
-  finish: 5556
+  finish: 5658
+
+matt1:
+  entry: matt
+  position: 1
+  start: 499
+  split2: 1113
+  split3: 2224
+  split4: 3335
+  split5: 4446
+  finish: 5557
+
+matt2:
+  entry: matt
+  position: 2
+  start: 499
+  split2: 1113
+  split3: 2224
+  split4: 3335
+  split5: 4446
+  finish: 5657

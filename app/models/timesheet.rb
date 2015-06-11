@@ -52,18 +52,19 @@ class Timesheet < ActiveRecord::Base
   end
 
   def position_for(athlete)
-    self.entries.where(athlete_id: athlete.id).first.position
+    self.entries.where(athlete_id: athlete.id).first.bib
   end
 
   def assign_ranks
     # pull out entries and get the total time as a virtual table column.
+    # Probably old. Remove?
     StandardCompetitionRankings.new(entries, :rank_by => :total_time, :sort_direction => :desc)
   end
 
   private
 
     def name_timesheet
-      self.name = "#{track.name} #{circuit.name} #{if race then 'Race' else 'Training' end}"
+        self.name = "#{track.name} #{circuit.name} #{if race then 'Race' else 'Training' end}" if track && circuit
     end
 
     def assign_season

@@ -2,11 +2,11 @@ training:
   nickname: Training Nickname
   track: igls
   circuit: worldcup
-  date: <%= 1.day.ago %>
+  date: <%= Date.new(2014, 10, 30) %>
   race: false
   name: Igls World Cup Training
   season: season
-  
+
 race:
   nickname: Racing Nickname
   track: placid
@@ -15,7 +15,7 @@ race:
   race: true
   name: Lake Placid World Cup Race
   season: season
-  
+
 olympics:
   nickname: Olympic Winter Games
   track: sochi
@@ -23,4 +23,13 @@ olympics:
   date: <%= 1.day.ago %>
   race: true
   name: Sochi Winter Olympic Games Race
+  season: season
+
+latest:
+  nickname: Latest Timesheet
+  track: placid
+  circuit: worldcup
+  date: <%= Date.today %>
+  race: false
+  name: Lake Placid World Cup Training
   season: season
