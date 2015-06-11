@@ -24,6 +24,7 @@ doc/
 .DS_Store
 .idea
 .secret.env
+/Guardfile
 
 # Ignore application configuration
 /config/application.yml

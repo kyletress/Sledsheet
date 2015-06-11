@@ -12,5 +12,5 @@ class StaticPagesControllerTest < ActionController::TestCase
     assert_response :success
     assert_select "title", "Sledsheet | About"
   end
- 
+
 end
