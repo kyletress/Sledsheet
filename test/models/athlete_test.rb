@@ -24,6 +24,18 @@ class AthleteTest < ActiveSupport::TestCase
     assert_not @athlete.valid?
   end
 
+  test "country_name should return the correct name" do
+    assert @athlete.country_name == "United States of America"
+    @german = athletes(:german)
+    assert @german.country_name == "Germany"
+  end
+
+  test "timesheet country name should return correct 3 letter abbreviation" do
+      assert @athlete.timesheet_country == "USA"
+      @german = athletes(:german)
+      assert @german.timesheet_country == "GER"
+  end
+
   test "first name should not be too long" do
     @athlete.first_name = "a" * 21
     assert_not @athlete.valid?
@@ -38,6 +50,10 @@ class AthleteTest < ActiveSupport::TestCase
     assert @athlete.name == "#{@athlete.first_name} #{@athlete.last_name}"
   end
 
+  test "timesheet name should be properly formatted" do
+    assert @athlete.timesheet_name == "TRESS, Kyle"
+  end
+
   test "olympian should be in olympics" do
     @olympian = athletes(:olympian)
     assert @olympian.is_olympian?, "Olympian is not in Olympics"
@@ -46,6 +62,14 @@ class AthleteTest < ActiveSupport::TestCase
   test "Rookie should not be in the Olympics" do
     @rookie = athletes(:rookie)
     assert_not @rookie.is_olympian?, "Rookie is an Olympian"
+  end
+
+  test "find by timesheet name should return the correct athlete" do
+    assert_equal Athlete.find_by_timesheet_name("TRESS, Kyle").first, @athlete
+  end
+
+  test "find by timesheet name should create an athlete if none found" do
+    # not yet implemented
   end
 
 end
