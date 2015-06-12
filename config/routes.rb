@@ -1,4 +1,4 @@
-Sledsheet::Application.routes.draw do
+Rails.application.routes.draw do
   root 'static_pages#home'
   get 'about'   => 'static_pages#about'
   get 'signup' => 'users#new'
@@ -11,19 +11,19 @@ Sledsheet::Application.routes.draw do
   resources :athletes
   resources :seasons, only: [:index, :show]
   resources :timesheets do
-    post 'import', on: :member 
+    post 'import', on: :member
     resources :entries, shallow: true do
       collection { post :sort }
       resources :runs, shallow: true, except: :index
     end
   end
-  
+
   namespace :admin do
     resources :tracks
     resources :users
     resources :circuits
   end
-  
+
   # match '/about', to: 'static_pages#about', via: 'get'
   # match '/signup', to: 'users#new', via: 'get'
   # match '/signin', to: 'sessions#new', via: 'get'

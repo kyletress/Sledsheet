@@ -25,9 +25,9 @@ class AthleteTest < ActiveSupport::TestCase
   end
 
   test "country_name should return the correct name" do
-    assert @athlete.country_name == "United States of America"
+    assert @athlete.country_name == "United States", "Didn't get United States"
     @german = athletes(:german)
-    assert @german.country_name == "Germany"
+    assert @german.country_name == "Germany", "Didn't get Germany"
   end
 
   test "timesheet country name should return correct 3 letter abbreviation" do
