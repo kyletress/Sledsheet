@@ -30,6 +30,9 @@
     			<label class="radio"><%= f.radio_button :race, true %> Race</label>
     		</div>
     	</div> -->
+      <div class="form-group">
+        <%= f.select :gender, options_for_select(@genders.collect { |g| [g[0].humanize, g[0]] }, selected: @timesheet.gender), {} , class: "form-control" %>
+      </div>
 
       <div class="form-group">
         <%= f.label 'type', class: 'checkbox-inline' do %>

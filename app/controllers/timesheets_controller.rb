@@ -8,6 +8,7 @@ class TimesheetsController < ApplicationController
 
   def new
     @timesheet = Timesheet.new
+    @genders = Timesheet.genders
   end
 
   def show
@@ -32,6 +33,7 @@ class TimesheetsController < ApplicationController
 
   def edit
     @timesheet = Timesheet.find(params[:id])
+    @genders = Timesheet.genders
   end
 
   def update
@@ -132,6 +134,6 @@ class TimesheetsController < ApplicationController
 
   private
     def timesheet_params
-      params.require(:timesheet).permit(:name, :nickname, :track_id, :circuit_id, :date, :race, :season_id, :pdf, :remote_pdf_url, :remove_pdf)
+      params.require(:timesheet).permit(:name, :nickname, :track_id, :circuit_id, :date, :race, :season_id, :pdf, :gender, :remote_pdf_url, :remove_pdf)
     end
 end

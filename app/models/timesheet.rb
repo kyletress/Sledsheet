@@ -13,6 +13,9 @@ class Timesheet < ActiveRecord::Base
   validates :date, presence: true
   validates :track_id, presence: true
   validates :circuit_id, presence: true
+  validates :gender, presence: true
+
+  enum gender: [:mixed, :men, :women]
 
   mount_uploader :pdf, PdfUploader
 

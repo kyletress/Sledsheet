@@ -8,7 +8,7 @@
 <table class="table table-bordered">
   <% @timesheets.group_by(&:season).each do |season, timesheets| %>
     <tr>
-      <th colspan="2"><%= season.name %></th>
+      <th colspan="3"><%= season.name %></th>
     </tr>
     <% timesheets.each do |timesheet| %>
       <tr>
@@ -19,6 +19,7 @@
             <% end %>
           <% end %>
         </td>
+        <td><%= timesheet.gender.humanize %></td>
         <td><%= timesheet.nice_date %></td>
       </tr>
     <% end %>
