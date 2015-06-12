@@ -47,15 +47,20 @@
       </tr>
       <% entry.runs.each do |run| %>
       <tr>
+        <% if run.status == "ok" %>
         <td class="total_time"><%= display_time run.start %></td>
         <td class="total_time"><%= display_time run.split2 %></td>
         <td class="total_time"><%= display_time run.split3 %></td>
         <td class="total_time"><%= display_time run.split4 %></td>
         <td class="total_time"><%= display_time run.split5 %></td>
-        <td class="total_time"><%= display_time run.finish %> <%= link_to "Edit", edit_run_path(run) %>   <% if current_user.admin? %>
+        <td class="total_time"><%= display_time run.finish %> <%= link_to "Edit", edit_run_path(run) %> <% if current_user.admin? %>
     | <small><%= link_to "delete", run_path(run), method: :delete, class: "text-danger", data: {confirm: "You sure?"} %></small>
   <% end %></td>
+      <% else %>
+        <td colspan="6"><strong><%= run.status.upcase %></strong></td>
+        <% end %>
       </tr>
+
       <% end %>
     </tbody>
   <% end %>

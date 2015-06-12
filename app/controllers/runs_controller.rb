@@ -10,6 +10,7 @@ class RunsController < ApplicationController
 
   def edit
     @run = Run.find(params[:id])
+    @statuses = Run.statuses
   end
 
   def create
@@ -42,7 +43,7 @@ class RunsController < ApplicationController
   private
 
     def run_params
-      params.require(:run).permit(:entry_id, :start, :split2, :split3, :split4, :split5, :finish)
+      params.require(:run).permit(:entry_id, :start, :split2, :split3, :split4, :split5, :finish, :status)
     end
 
   def load_entry_and_timesheet
