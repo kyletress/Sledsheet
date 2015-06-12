@@ -1,26 +1,26 @@
-<%= form_for [@timesheet, @entry, @run] do |f| %>
+<%= form_for [@entry, @run] do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-<p>  
+<p>
   <%= f.label :start, 'Start' %>
   <%= f.text_field :start %>
 </p>
-<p>  
+<p>
   <%= f.label :split2, 'Split 2' %>
   <%= f.text_field :split2 %>
 </p>
-<p>  
+<p>
   <%= f.label :split3, 'Split 3' %>
   <%= f.text_field :split3 %>
 </p>
-<p>  
+<p>
   <%= f.label :split4, 'Split 4' %>
   <%= f.text_field :split4 %>
 </p>
-<p>  
+<p>
   <%= f.label :split5, 'Split 5' %>
   <%= f.text_field :split5 %>
 </p>
-<p>  
+<p>
   <%= f.label :finish, 'Finish' %>
   <%= f.text_field :finish %>
 </p>
