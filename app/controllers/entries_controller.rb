@@ -1,8 +1,8 @@
 class EntriesController < ApplicationController
-  before_action :find_timesheet
+  before_action :find_timesheet, except: [:destroy]
 
   def index
-    @entries = @timesheet.entries.order("bib")
+    @entries = @timesheet.entries.includes(:athlete).order("bib")
   end
 
   def new
@@ -20,9 +20,10 @@ class EntriesController < ApplicationController
   end
 
   def destroy
-    Entry.find(params[:id]).destroy
+    @entry = Entry.find(params[:id])
+    @entry.destroy
     flash[:success] = "Entry deleted."
-    redirect_to timesheet_entries_path(@timesheet)
+    redirect_to timesheet_entries_path(@entry.timesheet)
   end
 
   def sort

@@ -83,7 +83,8 @@ class TimesheetsController < ApplicationController
 
     entries.map! do |entry|
       {
-       name: entry.shift.at_css('a.blue').text,
+       name: entry.at(0).css('a.blue').text,
+       country: entry.at(0).css('strong.blue').text,
        runs: entry.select{ |tr| tr.attr('class') == 'facts' }.map do |run|
          {
            start: run.css('td')[1].text,
@@ -100,7 +101,8 @@ class TimesheetsController < ApplicationController
     entries.each do |entry|
 
       @entry = @timesheet.entries.build(
-        :athlete_id => Athlete.find_by_timesheet_name(entry[:name]).first.id
+        #:athlete_id => Athlete.find_by_timesheet_name(entry[:name]).first.id
+        athlete: Athlete.find_or_create_by_timesheet_name(entry[:name], entry[:country], false)
       )
       @entry.save
       if @entry.errors.any?

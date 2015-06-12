@@ -29,7 +29,7 @@ latest:
   nickname: Latest Timesheet
   track: placid
   circuit: worldcup
-  date: <%= Date.today %>
+  date: <%= Time.zone.now.to_date %>
   race: false
   name: Lake Placid World Cup Training
   season: season

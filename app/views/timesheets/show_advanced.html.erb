@@ -6,13 +6,30 @@
   <p><%= @timesheet.nickname %></p>
 <% end %>
 
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+      Settings
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+      <li role="presentation"><%= link_to 'Startlist', timesheet_entries_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
+      <li role="presentation"><%= link_to "Generate PDF", timesheet_path(@timesheet, format: "pdf", role: "menuitem", tabindex: -1) %>
+  </li>
+    <% if current_user.admin? %>
+    <li role="presentation" class="divider"></li>
+    <li role="presentation" class="dropdown-header">ADMIN</li>
+    <li role="presentatin"><%= link_to 'Edit Timesheet', edit_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
+    <li role="presentation"><%= link_to "delete", @timesheet, method: :delete, data: { confirm: "You sure?" }, role: 'menuitem', tabindex: -1 %></li>
+    <% end %>
+    </ul>
+  </div>
+
 <% if @timesheet.pdf.present? %>
   <%= link_to @timesheet.pdf_url, class: "btn btn-default btn-sm" do %>
     <i class="glyphicon glyphicon-file"></i> Download the PDF
   <% end %>
 <% end %>
 
-<%= link_to "Generate PDF", timesheet_path(@timesheet, format: "pdf") %>
 
 <% if @timesheet.entries.blank? %>
   <p><%= link_to 'Add', timesheet_entries_path(@timesheet) %> or <%= link_to 'import', timesheet_entries_path(@timesheet) %> entries.</p>

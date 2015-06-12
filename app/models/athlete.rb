@@ -9,6 +9,18 @@ class Athlete < ActiveRecord::Base
   # for the import function
   scope :find_by_timesheet_name, ->(t_name) { where("lower(first_name) = ? AND lower(last_name) = ?", t_name.split(',').last.strip.downcase, t_name.split(',').first.downcase)}
 
+  def self.find_or_create_by_timesheet_name(name, country, male)
+    a = Athlete.find_by_timesheet_name(name)
+    if a.count > 0
+      a.first
+    else
+      first_name = name.split(',').last.strip.capitalize
+      last_name = name.split(',').first.capitalize
+      country_code = ISO3166::Country.find_country_by_ioc(country.to_s).alpha2
+      Athlete.create(first_name: first_name, last_name: last_name, country_code: country_code, male: male)
+    end
+  end
+
   def name
     "#{first_name} #{last_name}"
   end
