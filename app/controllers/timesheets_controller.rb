@@ -3,7 +3,7 @@ class TimesheetsController < ApplicationController
   before_action :admin_user, only: [:new, :edit, :create, :destroy]
 
   def index
-    @timesheets = Timesheet.includes(:season).all
+    @timesheets = Timesheet.text_search(params[:query]).includes(:season).all
   end
 
   def new

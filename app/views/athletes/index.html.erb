@@ -2,6 +2,20 @@
 <%= link_to 'New Athlete', new_athlete_path, class: 'btn btn-primary' %>
 <div class="row">
   <h1>Athletes</h1>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <%= form_tag athletes_path, method: :get do %>
+      <div class="form-group">
+        <%= text_field_tag :query, params[:query], class: 'form-control', placeholder: 'search athletes' %>
+        <%= submit_tag "Search" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
   <div class="col-sm-6">
     <ul>
       <%= render @athletes %>
@@ -22,6 +36,6 @@
           <td><%= top.count %></td>
         </tr>
         <% end %>
-      </table> 
+      </table>
   </div>
 </div>

@@ -21,12 +21,16 @@ class Athlete < ActiveRecord::Base
     end
   end
 
-  def name
-    "#{first_name} #{last_name}"
-  end
-
   def timesheet_name
     "#{last_name.upcase}, #{first_name}"
+  end
+
+  def self.text_search(query)
+    if query.present?
+      where("name @@ :q", q: query)
+    else
+      Athlete.all
+    end
   end
 
   def is_olympian?

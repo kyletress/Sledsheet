@@ -3,7 +3,8 @@ class AthletesController < ApplicationController
   before_action :admin_user, only: [:new, :edit, :update]
 
   def index
-    @athletes = Athlete.all
+    #@athletes = Athlete.all
+    @athletes = Athlete.text_search(params[:query])
     @top_ten = Entry.top_ten
     # need to improve this sql so it only hits the db once
   end

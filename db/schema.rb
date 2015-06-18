@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150612171857) do
+ActiveRecord::Schema.define(version: 20150618185118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20150612171857) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "male",         default: true
+    t.string   "name"
   end
 
   create_table "circuits", force: true do |t|
@@ -43,7 +44,7 @@ ActiveRecord::Schema.define(version: 20150612171857) do
   add_index "entries", ["timesheet_id"], name: "index_entries_on_timesheet_id", using: :btree
 
   create_table "runs", force: true do |t|
-    t.integer  "entry_id",   null: false
+    t.integer  "entry_id",               null: false
     t.integer  "start"
     t.integer  "split2"
     t.integer  "split3"
@@ -58,6 +59,7 @@ ActiveRecord::Schema.define(version: 20150612171857) do
     t.integer  "int3"
     t.integer  "int4"
     t.integer  "int5"
+    t.integer  "status",     default: 0
   end
 
   add_index "runs", ["entry_id"], name: "index_runs_on_entry_id", using: :btree
