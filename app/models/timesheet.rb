@@ -8,6 +8,7 @@ class Timesheet < ActiveRecord::Base
   has_many :entries, dependent: :destroy
   has_many :athletes, through: :entries
   has_many :runs, through: :entries
+  has_many :points
 
   validates :name, presence: true
   validates :date, presence: true
@@ -62,6 +63,12 @@ class Timesheet < ActiveRecord::Base
     # pull out entries and get the total time as a virtual table column.
     # Probably old. Remove?
     StandardCompetitionRankings.new(entries, :rank_by => :total_time, :sort_direction => :desc)
+  end
+
+  def award_points
+    entries.each do |entry|
+      Point.create(athlete: entry.athlete, timesheet: entry.timesheet, circuit: entry.timesheet.circuit, season: entry.timesheet.season, value: 100)
+    end
   end
 
   private

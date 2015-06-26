@@ -39,6 +39,9 @@ class TimesheetsController < ApplicationController
   def update
     @timesheet = Timesheet.find(params[:id])
     if @timesheet.update_attributes(timesheet_params)
+      if @timesheet.complete?
+        @timesheet.award_points
+      end
       flash[:success] = "Timesheet updated."
       redirect_to @timesheet
     else

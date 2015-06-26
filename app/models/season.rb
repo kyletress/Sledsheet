@@ -1,5 +1,6 @@
 class Season < ActiveRecord::Base
   has_many :timesheets
+  has_many :points
   validates :start_date, presence: true
   validates :end_date, presence: true
   validates :start_date, date: { before: :end_date }
