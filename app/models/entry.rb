@@ -7,6 +7,8 @@ class Entry < ActiveRecord::Base
 
   acts_as_list :scope => :timesheet, :column => :bib
 
+  enum status: [:ok, :dns, :dnf, :dsq]
+
   scope :medals, -> { where('position <= 3')} # and timesheet.race
   scope :podiums, -> { where ('position <= 6')}
 

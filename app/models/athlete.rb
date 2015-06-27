@@ -51,4 +51,17 @@ class Athlete < ActiveRecord::Base
     entries.where("position <= 3 ").count
   end
 
+  def points_for(season)
+    points.sum(:value)
+  end
+
+  def season_points
+    # need to make this for a specific season
+    points.order('value DESC').limit(8)
+  end
+
+  def season_point_total
+    season_points.pluck(:value).sum
+  end
+
 end

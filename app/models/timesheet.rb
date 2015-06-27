@@ -27,7 +27,7 @@ class Timesheet < ActiveRecord::Base
 
 
   def ranked_entries
-    entries = Entry.find_by_sql(["SELECT *, rank() OVER (ORDER BY num_runs desc, total_time asc) FROM (SELECT Entries.id, Entries.timesheet_id, Entries.athlete_id, sum(Runs.finish) AS total_time, count(*) as num_runs FROM Entries INNER JOIN Runs ON (Entries.id = Runs.entry_id) GROUP BY Entries.id) AS FinalRanks WHERE timesheet_id = ?", self.id])
+    entries = Entry.find_by_sql(["SELECT *, rank() OVER (ORDER BY num_runs desc, total_time asc) FROM (SELECT Entries.id, Entries.timesheet_id, Entries.athlete_id, Entries.status, sum(Runs.finish) AS total_time, count(*) as num_runs FROM Entries INNER JOIN Runs ON (Entries.id = Runs.entry_id) GROUP BY Entries.id) AS FinalRanks WHERE timesheet_id = ?", self.id])
     ActiveRecord::Associations::Preloader.new.preload(entries, [:athlete, :runs])
     entries
   end
@@ -54,9 +54,11 @@ class Timesheet < ActiveRecord::Base
 
   def award_points
     ranked_entries.each do |entry|
-      p = Point.new(athlete: entry.athlete, timesheet: self, circuit: self.circuit, season: self.season)
-      p.value = p.calculate_points_for(self.circuit.name, entry.rank)
-      p.save
+      if entry.ok?
+        p = Point.new(athlete: entry.athlete, timesheet: self, circuit: self.circuit, season: self.season)
+        p.value = p.calculate_points_for(self.circuit.name, entry.rank)
+        p.save
+      end
     end
   end
 

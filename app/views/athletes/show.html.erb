@@ -5,6 +5,21 @@
 <p>Olympian</p>
 <% end %>
 
+<h3>Current Season Points: <%= @athlete.season_point_total %></h3>
+
+<table class="table table-bordered">
+  <tr>
+    <th>Points</th>
+    <th>Race</th>
+  </tr>
+  <% @athlete.season_points.each do |point| %>
+  <tr>
+    <td><%= point.value %></td>
+    <td><%= point.timesheet.name %></td>
+  </tr>
+  <% end %>
+</table>
+
 <table class="table table-bordered">
   <tr>
     <th>Date</th>

@@ -8,11 +8,17 @@ class Point < ActiveRecord::Base
 
   def calculate_points_for(circuit, rank)
     case circuit
-    when "World Cup" || "World Championship"
+    when "World Cup"
       value_for_wc(rank)
-    when "Intercontinental Cup" || "Junior World Championship"
+    when "World Championship"
+      value_for_wc(rank)
+    when "Intercontinental Cup"
       value_for_ic(rank)
-    when "North American Cup" || "Europa Cup"
+    when "Junior World Championship"
+      value_for_ic(rank)
+    when "North American Cup"
+      value_for_ec(rank)
+    when "Europa Cup"
       value_for_ec(rank)
     else
       0

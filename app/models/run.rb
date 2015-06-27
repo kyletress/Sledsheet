@@ -1,5 +1,6 @@
 class Run < ActiveRecord::Base
   before_save :calculate_intermediates
+  before_save :assign_entry_status
   belongs_to :entry
 
   validates :entry_id, presence: true
@@ -34,6 +35,19 @@ class Run < ActiveRecord::Base
       self.int3 = split4 - split3 unless split4.nil? or split3.nil?
       self.int4 = split5 - split4 unless split5.nil? or split4.nil?
       self.int5 = finish - split5 unless finish.nil? or split5.nil?
+    end
+
+    def assign_entry_status
+      if dnf?
+        entry.status = "dnf"
+      elsif dns?
+        entry.status = "dns"
+      elsif dsq?
+        entry.status = "dsq"
+      else
+        entry.status = "ok"
+      end
+      entry.save
     end
 
 end
