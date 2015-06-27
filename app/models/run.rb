@@ -1,17 +1,20 @@
 class Run < ActiveRecord::Base
   before_save :calculate_intermediates
   belongs_to :entry
-  
+
   validates :entry_id, presence: true
-  
+  validates :status, presence: true
+
+  enum status: [:ok, :dns, :dnf, :dsq]
+
   acts_as_list :scope => :entry
   default_scope -> { order('position ASC')}
-  
+
   # a test for calculating intermediates at the db level
   def self.first_int
     select("runs.*, (split2 - start) as int")
   end
-  
+
   def difference_from(run)
     values = []
     values << (self.start - run.start unless self.start.nil? or run.start.nil?)
@@ -22,9 +25,9 @@ class Run < ActiveRecord::Base
     values << (self.finish - run.finish unless self.finish.nil? or run.finish.nil?)
     values
   end
-  
+
   private
-  
+
     def calculate_intermediates
       self.int1 = split2 - start unless split2.nil? or start.nil?
       self.int2 = split3 - split2 unless split3.nil? or split2.nil?
