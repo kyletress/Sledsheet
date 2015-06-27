@@ -4,6 +4,8 @@ class Point < ActiveRecord::Base
   belongs_to :circuit
   belongs_to :season
 
+  validates :athlete, :timesheet, :circuit, :season, :value, presence: true
+
   def calculate_points_for(circuit, rank)
     case circuit
     when "World Cup" || "World Championship"

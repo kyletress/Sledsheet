@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       collection { post :sort }
       resources :runs, shallow: true, except: :index
     end
+    resources :points, only: [:index, :create]
   end
 
   namespace :admin do

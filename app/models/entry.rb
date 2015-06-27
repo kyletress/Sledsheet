@@ -10,10 +10,6 @@ class Entry < ActiveRecord::Base
   scope :medals, -> { where('position <= 3')} # and timesheet.race
   scope :podiums, -> { where ('position <= 6')}
 
-  def total_time
-    runs.sum(:finish)
-  end
-
   def date
     timesheet.date
   end
