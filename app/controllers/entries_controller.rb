@@ -35,7 +35,7 @@ class EntriesController < ApplicationController
   private
 
     def entry_params
-      params.require(:entry).permit(:athlete_id, :timesheet_id, :bib)
+      params.require(:entry).permit(:athlete_id, :timesheet_id, :bib, :status)
     end
 
     def find_timesheet

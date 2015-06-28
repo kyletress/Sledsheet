@@ -8,7 +8,7 @@
 <table class="table table-bordered">
   <% @timesheets.group_by(&:season).each do |season, timesheets| %>
     <tr>
-      <th colspan="3"><%= season.name %></th>
+      <th colspan="3"><%= link_to season.name, season_path(season) %></th>
     </tr>
     <% timesheets.each do |timesheet| %>
       <tr>

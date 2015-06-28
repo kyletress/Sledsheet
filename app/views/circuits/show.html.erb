@@ -1,5 +1,19 @@
 <% provide(:title, @circuit.name) %>
 <h1><%= @circuit.name %></h1>
+
+<table class="table table-bordered">
+  <tr>
+    <th>Athlete</th>
+    <th>Points</th>
+  </tr>
+  <% @points.each do |point| %>
+  <tr>
+    <td><%= link_to point.athlete.name, point.athlete %></td>
+    <td><%= point.total_points %></td>
+  </tr>
+  <% end %>
+</table>
+
 <h3>Recent Events</h3>
 <ul>
   <% @circuit.timesheets.each do |timesheet| %>

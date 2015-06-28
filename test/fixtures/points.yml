@@ -1,15 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  athlete_id: 1
-  timesheet_id: 1
-  circuit_id: 1
-  season_id: 1
-  value: 1
+wc_first:
+  athlete: kyle
+  timesheet: race
+  circuit: worldcup
+  season: season
+  value: 225
 
-two:
-  athlete_id: 1
-  timesheet_id: 1
-  circuit_id: 1
-  season_id: 1
-  value: 1
+wc_second:
+  athlete: matt
+  timesheet: race
+  circuit: worldcup
+  season: season
+  value: 210

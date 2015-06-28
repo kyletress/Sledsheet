@@ -1,1 +1,14 @@
-<h1><%= @season.name %></h1>
+<h2><%= @season.name %></h2>
+<table class="table table-bordered">
+  <caption>Overall Points</caption>
+  <tr>
+    <th>Athlete</th>
+    <th>Points</th>
+  </tr>
+  <% @points.each do |point| %>
+    <tr>
+      <td><%= link_to point.athlete.name, point.athlete %></td>
+      <td><%= point.total_points %></td>
+    </tr>
+  <% end %>
+</table>

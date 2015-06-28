@@ -1,7 +1,12 @@
 require 'test_helper'
 
 class PointTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  def setup
+    @point = points(:wc_first)
+  end
+
+  test "should be valid" do
+    assert @point.valid?
+  end
+
 end

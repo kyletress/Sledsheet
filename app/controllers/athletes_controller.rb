@@ -11,6 +11,7 @@ class AthletesController < ApplicationController
   def show
     @athlete = Athlete.find(params[:id])
     @entries = @athlete.entries.includes(timesheet: :circuit).order('timesheets.date DESC')
+    @points = @athlete.season_points.includes(:timesheet)
   end
 
   def new

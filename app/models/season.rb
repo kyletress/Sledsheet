@@ -6,8 +6,6 @@ class Season < ActiveRecord::Base
   validates :start_date, date: { before: :end_date }
   validate :start_date_must_be_july_1, :end_date_must_be_june_30
 
-  #scope :current_season, lambda{ |date = Date.today| where("? BETWEEN start_date AND end_date", date) }
-
   def name
     "#{start_date.year}/#{end_date.year} season"
   end
@@ -29,5 +27,13 @@ class Season < ActiveRecord::Base
     Season.where("? BETWEEN start_date AND end_date", date).limit(1).first
   end
 
+  def season_points
+    points.group(:athlete).sum(:value)
+  end
 
+  def sql_points
+    points = Point.find_by_sql(["select athlete_id, sum(value) as total_points from (select row_number() over (partition by athlete_id order by value DESC) as r, t.* from points t) x where x.r <= 8 group by athlete_id order by total_points DESC"])
+    ActiveRecord::Associations::Preloader.new.preload(points, :athlete)
+    points
+  end
 end
