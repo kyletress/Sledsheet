@@ -27,7 +27,7 @@ class Timesheet < ActiveRecord::Base
 
 
   def ranked_entries
-    entries = Entry.find_by_sql(["SELECT *, rank() OVER (ORDER BY num_runs desc, total_time asc) FROM (SELECT Entries.id, Entries.timesheet_id, Entries.athlete_id, Entries.status, sum(Runs.finish) AS total_time, count(*) as num_runs FROM Entries INNER JOIN Runs ON (Entries.id = Runs.entry_id) GROUP BY Entries.id) AS FinalRanks WHERE timesheet_id = ?", self.id])
+    entries = Entry.find_by_sql(["SELECT *, total_time - first_value(total_time) over (partition by num_runs order by total_time asc) as time_behind, rank() OVER (ORDER BY num_runs desc, total_time asc) FROM (SELECT Entries.id, Entries.timesheet_id, Entries.athlete_id, Entries.status, sum(Runs.finish) AS total_time, count(*) as num_runs FROM Entries INNER JOIN Runs ON (Entries.id = Runs.entry_id) GROUP BY Entries.id) AS FinalRanks WHERE timesheet_id = ?", self.id])
     ActiveRecord::Associations::Preloader.new.preload(entries, [:athlete, :runs])
     entries
   end

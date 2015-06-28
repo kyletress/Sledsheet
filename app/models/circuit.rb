@@ -6,7 +6,7 @@ class Circuit < ActiveRecord::Base
 
   def circuit_points
     # need to scope this to a season
-    points = Point.find_by_sql(['select athlete_id, sum(value) as total_points from points where circuit_id = ? group by athlete_id order by total_points desc', self.id])
+    points = Point.find_by_sql(['select athlete_id, sum(value) as total_points, rank() over (order by sum(value) desc) from points where circuit_id = ? group by athlete_id order by total_points desc', self.id])
     ActiveRecord::Associations::Preloader.new.preload(points, :athlete)
     points
   end
