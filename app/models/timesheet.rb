@@ -31,7 +31,7 @@ class Timesheet < ActiveRecord::Base
     ActiveRecord::Associations::Preloader.new.preload(entries, [:athlete, :runs])
     entries
   end
-
+  
   def nice_date
     date.strftime("%B %d, %Y")
   end
