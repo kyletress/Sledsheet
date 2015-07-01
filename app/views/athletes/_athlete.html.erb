@@ -1,3 +1,5 @@
-<li>
-  <%= link_to athlete.name, athlete %>
-</li>
+<tr>
+  <td><%= image_tag athlete.avatar_url(:mini).to_s, class: 'athlete-avatar-mini' %></td>
+  <td><%= link_to athlete.name, athlete %></td>
+  <td><%= athlete.country_name %></td>
+</tr>

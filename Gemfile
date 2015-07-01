@@ -18,6 +18,7 @@ gem 'carrierwave-aws'
 gem 'figaro'
 gem 'prawn'
 gem 'prawn-table'
+gem 'mini_magick'
 
 group :development do
   gem 'spring'

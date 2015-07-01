@@ -6,6 +6,8 @@ class Athlete < ActiveRecord::Base
   validates :country_code, presence: true
   default_scope -> { order('last_name ASC')}
 
+  mount_uploader :avatar, AvatarUploader
+
   # for the import function
   scope :find_by_timesheet_name, ->(t_name) { where("lower(first_name) = ? AND lower(last_name) = ?", t_name.split(',').last.strip.downcase, t_name.split(',').first.downcase)}
 
@@ -27,6 +29,10 @@ class Athlete < ActiveRecord::Base
 
   def timesheet_name
     "#{last_name.upcase}, #{first_name}"
+  end
+
+  def avatar_name
+    "#{last_name.parameterize}-#{first_name.parameterize}"
   end
 
   def is_olympian?
