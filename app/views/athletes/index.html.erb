@@ -1,48 +1,33 @@
 <% provide(:title, "Athletes") %>
-<%= link_to 'New Athlete', new_athlete_path, class: 'btn btn-primary' %>
-
+<% if current_user && current_user.admin %>
+  <%= link_to 'New Athlete', new_athlete_path, class: 'btn btn-primary' %>
+<% end %>
 <h2>Most Popular</h2>
 <section class="athlete-index">
-<% @athletes.each do |athlete| %>
+<% @popular.each do |athlete| %>
 <figure class="athlete-card">
-  <%= image_tag athlete.avatar_url(:thumb).to_s %>
+  <%= link_to athlete_path(athlete) do %>
+    <%= image_tag athlete.avatar_url(:thumb).to_s %>
+  <% end %>
   <figcaption>
     <h4><%= link_to athlete.name, athlete %></h4>
-    <p><%= athlete.country_name %></p>
+    <p><span class="flag flag-<%= athlete.country_code %>"></span> <%= athlete.country_name %></p>
   </figcaption>
 </figure>
 <% end %>
 </section>
 
-
-
-<div class="row">
-  <h1>Athletes</h1>
-  <div class="col-sm-6">
-    <table class="table table-bordered">
-      <tr>
-        <th>Photo</th>
-        <th>Name</th>
-        <th>Country</th>
-      </tr>
-      <%= render @athletes %>
-    </table>
-  </div>
-  <div class="col-sm-6">
-    <h3>Top Ten Performers</h3>
-      <table class="table table-bordered table-condensed">
-        <tr>
-          <th>Rank</th>
-          <th>Athlete</th>
-          <th>Medal Count</th>
-        </tr>
-        <% @top_ten.each_with_index do |top, index| %>
-        <tr>
-          <td><%= index + 1 %>.</td>
-          <td><%= link_to top.athlete.name, top.athlete %></td>
-          <td><%= top.count %></td>
-        </tr>
-        <% end %>
-      </table>
-  </div>
-</div>
+<h2>All Athletes</h2>
+<section class="athlete-index">
+<% @athletes.each do |athlete| %>
+<figure class="athlete-card small">
+  <%= link_to athlete_path(athlete) do %>
+    <%= image_tag athlete.avatar_url(:thumb).to_s %>
+  <% end %>
+  <figcaption>
+    <h4><%= link_to athlete.name, athlete %></h4>
+    <p><span class="flag flag-<%= athlete.country_code %>"></span> <%= athlete.country_name %></p>
+  </figcaption>
+</figure>
+<% end %>
+</section>

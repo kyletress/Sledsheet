@@ -56,4 +56,8 @@ class Athlete < ActiveRecord::Base
     entries.where("position <= 3 ").count
   end
 
+  def self.popular
+    find([1, 5, 2, 211, 3, 64])
+  end
+
 end

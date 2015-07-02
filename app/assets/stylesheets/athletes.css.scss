@@ -12,15 +12,28 @@
   display: flex;
 	-webkit-flex-wrap: wrap;
 	flex-wrap: wrap;
-	-webkit-justify-content: flex-start;
-	justify-content: flex-start;
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
 }
+
 .athlete-card{
 	background:white;
 	width:20rem;
 	margin-bottom:1rem;
+	margin-right:1rem;
+	img {
+		width: 100%;
+	}
 	figcaption {
 		padding:.5rem;
+		color: lighten(#000, 50%);
+	}
+}
+
+.small {
+	width:15rem;
+	h4 {
+		font-size:1.6rem;
 	}
 }
 
