@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     resources :tracks
     resources :users
     resources :circuits
+    resources :points
   end
 
   # match '/about', to: 'static_pages#about', via: 'get'

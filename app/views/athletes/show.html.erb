@@ -6,7 +6,7 @@
 <p>Olympian</p>
 <% end %>
 
-<h3>Current Season Points: <%= @athlete.season_point_total %></h3>
+<h3>Current Season Points: <%= @athlete.season_point_total(Season.find(1)) %></h3>
 
 <table class="table table-bordered">
   <tr>

@@ -1,0 +1,24 @@
+<% provide(:title, "Admin Points") %>
+<h2>Adjust Points</h2>
+<div class="row">
+  <div class="col-md-8">
+<table class="table table-striped">
+  <tr>
+    <th>Athlete</th>
+    <th>Race</th>
+    <th>Value</th>
+    <th>Admin</th>
+  </tr>
+  <% @points.each do |point| %>
+  <tr>
+    <td><%= link_to point.athlete.name, athlete_path(point.athlete) %></td>
+    <td><%= point.timesheet.name %>, <%= point.timesheet.nice_date %></td>
+    <td><%= point.value %></td>
+    <td>
+      <%= link_to "edit", edit_admin_point_path(point) %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+  </div>
+</div>

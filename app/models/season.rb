@@ -32,7 +32,8 @@ class Season < ActiveRecord::Base
   end
 
   def sql_points
-    points = Point.find_by_sql(["select athlete_id, sum(value) as total_points from (select row_number() over (partition by athlete_id order by value DESC) as r, t.* from points t) x where x.r <= 8 group by athlete_id order by total_points DESC"])
+    # current gets all gender points. Need to split
+    points = Point.find_by_sql(["select athlete_id, sum(value) as total_points from (select row_number() over (partition by athlete_id order by value DESC) as r, t.* from points t where season_id = #{self.id}) x where x.r <= 8 group by athlete_id order by total_points DESC"])
     ActiveRecord::Associations::Preloader.new.preload(points, :athlete)
     points
   end

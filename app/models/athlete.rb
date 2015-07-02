@@ -61,13 +61,12 @@ class Athlete < ActiveRecord::Base
     points.sum(:value)
   end
 
-  def season_points
-    # need to make this for a specific season
-    points.order('value DESC').limit(8)
+  def season_points(season)
+    points.where('season_id = ?', season.id).order('value DESC').limit(8)
   end
 
-  def season_point_total
-    season_points.pluck(:value).sum
+  def season_point_total(season)
+    season_points(season).pluck(:value).sum
   end
 
 end
