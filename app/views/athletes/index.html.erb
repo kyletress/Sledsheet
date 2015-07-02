@@ -3,9 +3,14 @@
 <div class="row">
   <h1>Athletes</h1>
   <div class="col-sm-6">
-    <ul>
+    <table class="table table-bordered">
+      <tr>
+        <th>Photo</th>
+        <th>Name</th>
+        <th>Country</th>
+      </tr>
       <%= render @athletes %>
-    </ul>
+    </table>
   </div>
   <div class="col-sm-6">
     <h3>Top Ten Performers</h3>
@@ -22,6 +27,6 @@
           <td><%= top.count %></td>
         </tr>
         <% end %>
-      </table> 
+      </table>
   </div>
 </div>

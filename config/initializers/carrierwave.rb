@@ -23,8 +23,11 @@ CarrierWave.configure do |config|
 
   if Rails.env.test? || Rails.env.development?
     config.storage = :file
-    config.enable_processing = false
-    config.root = "#{Rails.root}/tmp"
+    #config.enable_processing = false
+    #config.root = "#{Rails.root}/tmp"
+    config.ignore_integrity_errors = false
+    config.ignore_processing_errors = false
+    config.ignore_download_errors = false
   else
     config.storage = :aws
   end
