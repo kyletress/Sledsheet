@@ -11,6 +11,8 @@ class Run < ActiveRecord::Base
   acts_as_list :scope => :entry
   default_scope -> { order('position ASC')}
 
+  scope :unprocessed, -> { where.not(status: 0) }
+
   # a test for calculating intermediates at the db level
   def self.first_int
     select("runs.*, (split2 - start) as int")

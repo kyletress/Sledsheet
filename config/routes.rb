@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     resources :users
     resources :circuits
     resources :points
+    resources :runs, only: :index
   end
 
   # match '/about', to: 'static_pages#about', via: 'get'
