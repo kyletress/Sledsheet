@@ -6,6 +6,8 @@ class Season < ActiveRecord::Base
   validates :start_date, date: { before: :end_date }
   validate :start_date_must_be_july_1, :end_date_must_be_june_30
 
+  default_scope -> { order('end_date DESC')}
+
   def name
     "#{start_date.year}/#{end_date.year} season"
   end
@@ -23,18 +25,11 @@ class Season < ActiveRecord::Base
   end
 
   def self.current_season
-    date = Date.today
-    Season.where("? BETWEEN start_date AND end_date", date).limit(1).first
+    Season.first
   end
 
   def season_points
     points.group(:athlete).sum(:value)
   end
 
-  def sql_points
-    # current gets all gender points. Need to split
-    points = Point.find_by_sql(["select athlete_id, sum(value) as total_points from (select row_number() over (partition by athlete_id order by value DESC) as r, t.* from points t where season_id = #{self.id}) x where x.r <= 8 group by athlete_id order by total_points DESC"])
-    ActiveRecord::Associations::Preloader.new.preload(points, :athlete)
-    points
-  end
 end

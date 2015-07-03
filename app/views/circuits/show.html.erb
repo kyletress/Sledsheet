@@ -1,21 +1,42 @@
 <% provide(:title, @circuit.name) %>
 <h1><%= @circuit.name %></h1>
 
-<table class="table table-bordered">
-  <caption><%= @circuit.name %> points</caption>
-  <tr>
-    <th>Rank</th>
-    <th>Athlete</th>
-    <th>Points</th>
-  </tr>
-  <% @points.each do |point| %>
-  <tr>
-    <td><%= point.rank %></td>
-    <td><%= link_to point.athlete.name, point.athlete %></td>
-    <td><%= point.total_points %></td>
-  </tr>
-  <% end %>
-</table>
+<div class="row">
+  <div class="col-xs-6">
+    <table class="table table-bordered">
+      <caption>Men's Overall Points</caption>
+      <tr>
+        <th>Rank</th>
+        <th>Athlete</th>
+        <th>Points</th>
+      </tr>
+      <% @mens.each do |point| %>
+        <tr>
+          <td><%= point.rank %></td>
+          <td><%= link_to point.athlete.name, point.athlete %></td>
+          <td><%= point.total_points %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="col-xs-6">
+    <table class="table table-bordered">
+      <caption>Women's Overall Points</caption>
+      <tr>
+        <th>Rank</th>
+        <th>Athlete</th>
+        <th>Points</th>
+      </tr>
+      <% @womens.each do |point| %>
+        <tr>
+          <td><%= point.rank %></td>
+          <td><%= link_to point.athlete.name, point.athlete %></td>
+          <td><%= point.total_points %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
 
 <h3>Recent Events</h3>
 <ul>
