@@ -4,8 +4,7 @@ class AthletesController < ApplicationController
 
   def index
     @athletes = Athlete.all
-    @top_ten = Entry.top_ten
-    # need to improve this sql so it only hits the db once
+    @popular = Athlete.popular
   end
 
   def show
@@ -51,7 +50,7 @@ class AthletesController < ApplicationController
   private
 
     def athlete_params
-      params.require(:athlete).permit(:first_name, :last_name, :country_code, :male, :avatar)
+      params.require(:athlete).permit(:first_name, :last_name, :country_code, :male, :avatar, :remote_avatar_url)
     end
 
 end

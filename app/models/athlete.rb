@@ -69,4 +69,8 @@ class Athlete < ActiveRecord::Base
     season_points(season).pluck(:value).sum
   end
 
+  def self.popular
+    find([1, 5, 2, 211, 3, 64])
+  end
+
 end

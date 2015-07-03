@@ -2,6 +2,41 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+.athlete-index {
+	width:100%;
+	display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
+}
+
+.athlete-card{
+	background:white;
+	width:20rem;
+	margin-bottom:1rem;
+	margin-right:1rem;
+	img {
+		width: 100%;
+	}
+	figcaption {
+		padding:.5rem;
+		color: lighten(#000, 50%);
+	}
+}
+
+.small {
+	width:15rem;
+	h4 {
+		font-size:1.6rem;
+	}
+}
+
 .medal {
 	width: 10px;
 	height: 10px;
