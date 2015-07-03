@@ -8,7 +8,7 @@ class Timesheet < ActiveRecord::Base
   has_many :entries, dependent: :destroy
   has_many :athletes, through: :entries
   has_many :runs, through: :entries
-  has_many :points
+  has_many :points, dependent: :destroy
 
   validates :name, presence: true
   validates :date, presence: true
@@ -31,7 +31,7 @@ class Timesheet < ActiveRecord::Base
     ActiveRecord::Associations::Preloader.new.preload(entries, [:athlete, :runs])
     entries
   end
-  
+
   def nice_date
     date.strftime("%B %d, %Y")
   end
