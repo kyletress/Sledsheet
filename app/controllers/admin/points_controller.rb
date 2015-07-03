@@ -22,6 +22,16 @@ class Admin::PointsController < AdminController
     end
   end
 
+  def update
+    @point = Point.find(params[:id])
+    if @point.update_attributes(point_params)
+      flash[:success] = "Point updated"
+      redirect_to timesheet_points_path(@point.timesheet)
+    else
+      render 'edit'
+    end
+  end
+
   private
 
   def point_params
