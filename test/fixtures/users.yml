@@ -2,12 +2,11 @@
 kyle:
   name: Kyle Tress
   email: kyle@kyletress.com
-  password_digest: <%= User.digest('password') %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
   admin: true
-  
+
 matt:
   name: Matt Antoine
   email: matt@mattantoine.com
-  password_digest: <%= User.digest('password2') %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
   admin: false
-

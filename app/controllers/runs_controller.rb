@@ -1,6 +1,6 @@
 class RunsController < ApplicationController
   before_action :load_entry_and_timesheet, except: [:edit, :update, :destroy]
-  before_action :admin_user, only: [:new, :edit, :create, :destroy]
+  before_action :authenticate_admin, only: [:new, :edit, :create, :destroy]
 
   def new
     @run = @entry.runs.new

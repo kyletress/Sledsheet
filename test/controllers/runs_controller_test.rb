@@ -9,7 +9,7 @@ class RunsControllerTest < ActionController::TestCase
   end
 
   test "admin should get edit" do
-    log_in_as @admin
+    sign_in @admin
     get :edit, id: @run
     assert_response :success
     assert_template 'runs/edit'
@@ -18,7 +18,7 @@ class RunsControllerTest < ActionController::TestCase
   end
 
   test "user should not get edit" do
-    log_in_as @user
+    sign_in @user
     get :edit, id: @run
     assert_redirected_to root_path
   end

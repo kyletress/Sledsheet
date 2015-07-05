@@ -1,3 +1,3 @@
 class AdminController < ApplicationController
-  before_action :admin_user
+  before_action :authenticate_admin
 end
