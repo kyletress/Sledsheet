@@ -7,6 +7,8 @@
     <th>User</th>
     <th>Email</th>
     <th>Registration Date</th>
+    <th>Last Seen</th>
+    <th>Sign In Count</th>
     <th>Admin</th>
   </tr>
   <% @users.each do |user| %>
@@ -14,13 +16,13 @@
     <td><%= link_to user.name, admin_user_path(user) %></td>
     <td><%= mail_to user.email, user.email %></td>
     <td><%= time_ago_in_words user.created_at %> ago</td>
+    <td><%= time_ago_in_words user.current_sign_in_at %> ago</td>
+    <td><%= user.sign_in_count %></td>
     <td>
       <%= link_to "delete", admin_user_path(user), method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-xs' %>
     </td>
   </tr>
   <% end %>
 </table>
-  </div> 
+  </div>
 </div>
-
-  

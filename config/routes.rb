@@ -29,6 +29,8 @@ Rails.application.routes.draw do
     resources :runs, only: :index
   end
 
+  get '/become/:id', to: 'admin#become'
+
   # match '/about', to: 'static_pages#about', via: 'get'
   # match '/signup', to: 'users#new', via: 'get'
   # match '/signin', to: 'sessions#new', via: 'get'
