@@ -22,4 +22,10 @@ class ApplicationController < ActionController::Base
     redirect_to root_url unless current_user == @user
   end
 
+  protected
+
+    def authenticate_inviter!
+      authenticate_admin
+    end
+
 end
