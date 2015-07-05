@@ -4,7 +4,7 @@ class AthletesController < ApplicationController
 
   def index
     @athletes = Athlete.all
-    @popular = Athlete.popular
+    #@popular = Athlete.popular
   end
 
   def show

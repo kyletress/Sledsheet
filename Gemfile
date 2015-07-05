@@ -19,6 +19,7 @@ gem 'figaro'
 gem 'prawn'
 gem 'prawn-table'
 gem 'mini_magick'
+gem 'devise'
 
 group :development do
   gem 'spring'
