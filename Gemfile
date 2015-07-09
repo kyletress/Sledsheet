@@ -21,6 +21,7 @@ gem 'prawn-table'
 gem 'mini_magick'
 gem 'devise'
 gem 'devise_invitable', '~> 1.3.4'
+gem 'rack-mini-profiler'
 
 group :development do
   gem 'spring'

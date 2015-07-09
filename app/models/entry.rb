@@ -25,4 +25,9 @@ class Entry < ActiveRecord::Base
     # BOOM. returns array of relations. first.athlete.name, first.count.
   end
 
+# necessary at the moment for PDF generation
+  def total_time
+    runs.sum(:finish)
+  end
+
 end
