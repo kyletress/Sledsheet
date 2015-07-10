@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.10'
+gem 'rails', '4.2.3'
 
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
@@ -55,4 +55,4 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-ruby '2.2.0'
+ruby '2.2.2'

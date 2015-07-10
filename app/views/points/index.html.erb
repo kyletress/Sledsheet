@@ -15,7 +15,7 @@
     <td><%= link_to point.athlete.name, point.athlete %></td>
     <td>
       <%= point.value %>
-      <% if current_admin %>
+      <% if current_user.admin? %>
         <%= link_to 'edit', edit_admin_point_path(point) %>
       <% end %>
     </td>
