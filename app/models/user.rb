@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
             format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
   validates :password, length: { minimum: 6 }
 
+  after_create :subscribe_user_to_mailing_list
+
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
@@ -37,5 +39,11 @@ class User < ActiveRecord::Base
     return false if remember_digest.nil?
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
+
+  private
+
+    def subscribe_user_to_mailing_list
+      SubscribeUserToMailingListJob.perform_later(self)
+    end
 
 end
