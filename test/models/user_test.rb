@@ -50,15 +50,19 @@ class UserTest < ActiveSupport::TestCase
   test "email addresses should be unique" do
     duplicate_user = @user.dup
     duplicate_user.email = @user.email.upcase
+    User.skip_callback(:create, :after, :subscribe_user_to_mailing_list)
     @user.save
     assert_not duplicate_user.valid?
+    User.set_callback(:create, :after, :subscribe_user_to_mailing_list)
   end
 
   test "email addresses should be saved as lower-case" do
     mixed_case_email = "Foo@ExAMPle.CoM"
     @user.email = mixed_case_email
+    User.skip_callback(:create, :after, :subscribe_user_to_mailing_list)
     @user.save
     assert_equal mixed_case_email.downcase, @user.reload.email
+    User.set_callback(:create, :after, :subscribe_user_to_mailing_list)
   end
 
   test "password should have a minimum length" do
