@@ -25,15 +25,15 @@ class AthleteTest < ActiveSupport::TestCase
   end
 
   test "country_name should return the correct name" do
-    assert @athlete.country_name == "United States", "Didn't get United States"
+    assert_equal "United States", @athlete.country_name, "Didn't get United States"
     @german = athletes(:german)
-    assert @german.country_name == "Germany", "Didn't get Germany"
+    assert_equal "Germany", @german.country_name, "Didn't get Germany"
   end
 
   test "timesheet country name should return correct 3 letter abbreviation" do
-      assert @athlete.timesheet_country == "USA"
+      assert_equal "USA", @athlete.timesheet_country
       @german = athletes(:german)
-      assert @german.timesheet_country == "GER"
+      assert_equal "GER", @german.timesheet_country
   end
 
   test "first name should not be too long" do
@@ -47,11 +47,11 @@ class AthleteTest < ActiveSupport::TestCase
   end
 
   test "name should be first name plus last name" do
-    assert @athlete.name == "#{@athlete.first_name} #{@athlete.last_name}"
+    assert_equal "#{@athlete.first_name} #{@athlete.last_name}", @athlete.name, "Name was not properly set"
   end
 
   test "timesheet name should be properly formatted" do
-    assert @athlete.timesheet_name == "TRESS, Kyle"
+    assert_equal "TRESS, Kyle", @athlete.timesheet_name
   end
 
   test "olympian should be in olympics" do
