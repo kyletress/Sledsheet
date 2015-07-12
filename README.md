@@ -18,7 +18,7 @@ The app is running on rails 4.2.3 and ruby 2.2.2.
 1. Install Postgres `brew install postgres`
 2. Install RVM
 3. Clone the repo
-4. `cd path/to/sledsheet4`
+4. `cd path/to/sledsheet`
 5. Set environment variables and config in `application.yml` (Figaro gem)
 6. `rake db:create`
 7. `rake db:schema:load`
@@ -28,7 +28,7 @@ The app is running on rails 4.2.3 and ruby 2.2.2.
 ## Environments
 
 ### Development
-Sledsheet uses the Github Flow workflow. Create a local branch for a new feature or hotfix (eg. feature/point-calculator or hotfix/update-readme). Push the named branch to the remote repo. When your feature or hotfix is done and tested, create a pull request. The pull request will be reviewed and merged into master, and the remote branch will be deleted. You can delete your local branch or continue working it.
+Sledsheet uses the [Github Flow](http://scottchacon.com/2011/08/31/github-flow.html) workflow. Create a local branch for a new feature or hotfix (eg. feature/point-calculator or hotfix/update-readme). Push the named branch to the remote repo. When your feature or hotfix is done and tested, create a pull request. The pull request will be reviewed and merged into master, and the remote branch will be deleted. You can delete your local branch or continue working it.
 
 Please use semantic versioning for tags. Sledsheet is currently at `v0.5.0`.
 
@@ -50,7 +50,7 @@ Anything pushed to `master` or merged in will automatically deploy to Heroku. Pl
 - MailChimp for mailing lists
 - AWS S3 for image upload
 
-API Keys and Secrets are needed for most of these services, and should *only be stored in* `application.yml`. **Do not store API keys in the repo!**.
+API Keys and Secrets are needed for most of these services, and should *only* be stored in `application.yml`. **Do not store API keys in the repo!**
 
 ## Issues
 All upcoming features, bug tracking, etc are handled through GitHub Issues. Please add the proper label to your issue.
