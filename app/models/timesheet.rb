@@ -8,6 +8,7 @@ class Timesheet < ActiveRecord::Base
   has_many :entries, dependent: :destroy
   has_many :athletes, through: :entries
   has_many :runs, through: :entries
+  has_many :points, dependent: :destroy
 
   validates :name, presence: true
   validates :date, presence: true
@@ -33,17 +34,18 @@ class Timesheet < ActiveRecord::Base
   end
 
   def ranked_entries
-    Entry.find_by_sql(["SELECT *, rank() OVER (ORDER BY total_time asc) FROM (SELECT Entries.id, Entries.timesheet_id, Entries.athlete_id, avg(Runs.finish) AS total_time FROM Entries INNER JOIN Runs ON (Entries.id = Runs.entry_id) GROUP BY Entries.id) AS FinalRanks WHERE timesheet_id = ?", self.id])
+    entries = Entry.find_by_sql(["SELECT *, total_time - first_value(total_time) over (partition by num_runs order by total_time asc) as time_behind, rank() OVER (ORDER BY num_runs desc, total_time asc) FROM (SELECT Entries.id, Entries.timesheet_id, Entries.athlete_id, Entries.status, sum(Runs.finish) AS total_time, count(*) as num_runs FROM Entries INNER JOIN Runs ON (Entries.id = Runs.entry_id) GROUP BY Entries.id) AS FinalRanks WHERE timesheet_id = ?", self.id])
+    ActiveRecord::Associations::Preloader.new.preload(entries, [:athlete, :runs])
+    entries
   end
 
-  def comp_rank
-    Run.find_by_sql(["with num_runs as (select entry_id, count(*) as num_runs from runs group by entry_id) select rank() over (order by num_runs desc, sum(r.finish) asc), r.entry_id, n.num_runs, sum(r.finish) as total_time from runs r inner join num_runs n on n.entry_id = r.entry_id group by r.entry_id, n.num_runs order by num_runs desc, total_time asc"])
+  # What if I grabbed everything in one giant sql query and took out what I wanted on the view?
+  
+  def ranked_intermediates
+    runs = Run.find_by_sql(["SELECT entry_id, start, (split2 - start) as int1, (split3 - split2) as int2, (split4 - split3) as int3, (split5 - split4) as int4, (finish - split5) as int5, finish FROM runs WHERE entry_id IN (SELECT id FROM entries WHERE timesheet_id = ?)", self.id])
+    ActiveRecord::Associations::Preloader.new.preload(runs, [entry: [:athlete]])
+    runs
   end
-
-  # CTE for getting timesheet entries
-  # with timesheet_entries as (select * from entries where timesheet_id = 17) select * from runs r inner join timesheet_entries t on r.entry_id = t.id group by r.entry_id, t.id, r.id;
-  # Next get all the runs associated with these entries
-
 
   def nice_date
     date.strftime("%B %d, %Y")
@@ -65,10 +67,18 @@ class Timesheet < ActiveRecord::Base
     self.entries.where(athlete_id: athlete.id).first.bib
   end
 
-  def assign_ranks
-    # pull out entries and get the total time as a virtual table column.
-    # Probably old. Remove?
-    StandardCompetitionRankings.new(entries, :rank_by => :total_time, :sort_direction => :desc)
+  def award_points
+    ranked_entries.each do |entry|
+      if entry.ok?
+        p = Point.new(athlete: entry.athlete, timesheet: self, circuit: self.circuit, season: self.season)
+        p.value = p.calculate_points_for(self.circuit.name, entry.rank)
+        p.save
+      end
+    end
+  end
+
+  def points_eligible
+    race? && complete?
   end
 
   private

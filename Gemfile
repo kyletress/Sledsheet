@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.10'
+gem 'rails', '4.2.3'
 
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
@@ -9,7 +9,7 @@ gem 'simple_form'
 gem 'country_select', github: 'stefanpenner/country_select'
 gem 'acts_as_list'
 gem 'nokogiri'
-gem 'newrelic_rpm'
+gem 'skylight'
 gem 'puma'
 gem 'pg', '0.18.1'
 gem 'date_validator'
@@ -18,11 +18,17 @@ gem 'carrierwave-aws'
 gem 'figaro'
 gem 'prawn'
 gem 'prawn-table'
+gem 'mini_magick'
+gem 'devise'
+gem 'devise_invitable', '~> 1.3.4'
+gem 'rack-mini-profiler'
+gem 'gibbon'
 
 group :development do
   gem 'spring'
   gem 'bullet'
   gem 'quiet_assets'
+  gem 'web-console', '~> 2.0'
 end
 
 group :test do
@@ -51,4 +57,4 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-ruby '2.2.0'
+ruby '2.2.2'

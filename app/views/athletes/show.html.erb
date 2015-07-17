@@ -1,9 +1,25 @@
 <% provide(:title, @athlete.name) %>
 <h1><span class="flag flag-<%= @athlete.country_code %>"></span> <%= @athlete.name %></h1>
+<%= image_tag @athlete.avatar_url(:thumb).to_s, class: 'athlete-avatar' %>
 <p><%= @athlete.country_name %></p>
 <% if @athlete.is_olympian? %>
 <p>Olympian</p>
 <% end %>
+
+<h3>Current Season Points: <%= @athlete.season_point_total(Season.current_season) %></h3>
+
+<table class="table table-bordered">
+  <tr>
+    <th>Points</th>
+    <th>Race</th>
+  </tr>
+  <% @points.each do |point| %>
+  <tr>
+    <td><%= point.value %></td>
+    <td><%= link_to point.timesheet.name, timesheet_points_path(point.timesheet) %></td>
+  </tr>
+  <% end %>
+</table>
 
 <table class="table table-bordered">
   <tr>

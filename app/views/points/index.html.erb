@@ -1,0 +1,25 @@
+<h1>Points for <%= @timesheet.name %></h1>
+
+<% if @points.blank? %>
+<p>
+  No points have been awarded yet. <%= link_to 'Award points', timesheet_points_path(@timesheet), method: :post %>
+</p>
+<% else %>
+<table class="table table-bordered">
+  <tr>
+    <th>Name</th>
+    <th>Points</th>
+  </tr>
+  <% @points.each do |point| %>
+  <tr>
+    <td><%= link_to point.athlete.name, point.athlete %></td>
+    <td>
+      <%= point.value %>
+      <% if current_user.admin? %>
+        <%= link_to 'edit', edit_admin_point_path(point) %>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+<% end %>

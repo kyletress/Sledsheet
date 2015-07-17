@@ -24,5 +24,8 @@
   <%= f.label :finish, 'Finish' %>
   <%= f.text_field :finish %>
 </p>
+<div class="form-group">
+  <%= f.select :status, options_for_select(@statuses.collect { |s| [s[0].upcase, s[0]] }, selected: @run.status), {} , class: "form-control" %>
+</div>
   <%= f.submit %>
 <% end %>

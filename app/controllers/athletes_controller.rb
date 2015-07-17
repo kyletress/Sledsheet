@@ -1,17 +1,16 @@
 class AthletesController < ApplicationController
 
-  before_action :admin_user, only: [:new, :edit, :update]
+  before_action :authenticate_admin, only: [:new, :edit, :update]
 
   def index
-    #@athletes = Athlete.all
-    @athletes = Athlete.text_search(params[:query])
-    @top_ten = Entry.top_ten
-    # need to improve this sql so it only hits the db once
+    @athletes = Athlete.all
+    #@athletes = Athlete.text_search(params[:query])
   end
 
   def show
     @athlete = Athlete.find(params[:id])
     @entries = @athlete.entries.includes(timesheet: :circuit).order('timesheets.date DESC')
+    @points = @athlete.season_points(Season.current_season).includes(:timesheet)
   end
 
   def new
@@ -51,7 +50,7 @@ class AthletesController < ApplicationController
   private
 
     def athlete_params
-      params.require(:athlete).permit(:first_name, :last_name, :country_code, :male)
+      params.require(:athlete).permit(:first_name, :last_name, :country_code, :male, :avatar, :remote_avatar_url)
     end
 
 end

@@ -1,10 +1,13 @@
 class Athlete < ActiveRecord::Base
   has_many :entries
   has_many :timesheets, through: :entries
+  has_many :points
   validates :first_name, presence: true, length: { maximum: 20 }
   validates :last_name, presence: true, length: { maximum: 20 }
   validates :country_code, presence: true
   default_scope -> { order('last_name ASC')}
+
+  mount_uploader :avatar, AvatarUploader
 
   # for the import function
   scope :find_by_timesheet_name, ->(t_name) { where("lower(first_name) = ? AND lower(last_name) = ?", t_name.split(',').last.strip.downcase, t_name.split(',').first.downcase)}
@@ -33,6 +36,10 @@ class Athlete < ActiveRecord::Base
     end
   end
 
+  def avatar_name
+    "#{last_name.parameterize}-#{first_name.parameterize}"
+  end
+
   def is_olympian?
     c = Circuit.find_by_name('Olympic Winter Games')
     t = timesheets.where(circuit: c)
@@ -52,6 +59,22 @@ class Athlete < ActiveRecord::Base
   # Vestigial. No longer use position.
   def medal_count
     entries.where("position <= 3 ").count
+  end
+
+  def points_for(season)
+    points.sum(:value)
+  end
+
+  def season_points(season)
+    points.where('season_id = ?', season.id).order('value DESC').limit(8)
+  end
+
+  def season_point_total(season)
+    season_points(season).pluck(:value).sum
+  end
+
+  def self.popular
+    find([1, 5, 2, 211, 3, 64])
   end
 
 end

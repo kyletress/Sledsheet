@@ -1,6 +1,6 @@
 class TimesheetsController < ApplicationController
-  before_action :logged_in_user, except: [:index, :show]
-  before_action :admin_user, only: [:new, :edit, :create, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_admin, only: [:new, :edit, :create, :destroy]
 
   def index
     @timesheets = Timesheet.text_search(params[:query]).includes(:season).all
@@ -12,9 +12,9 @@ class TimesheetsController < ApplicationController
   end
 
   def show
-    @timesheet = Timesheet.includes(entries: [:athlete, :runs]).find(params[:id])
+    @timesheet = Timesheet.find(params[:id])
     @ranked = @timesheet.ranked_entries
-    @unranked = @timesheet.entries
+    @intermediates = @timesheet.ranked_intermediates
     @best = @timesheet.best_run(1)
     respond_to do |format|
       format.html do
@@ -39,6 +39,7 @@ class TimesheetsController < ApplicationController
   def update
     @timesheet = Timesheet.find(params[:id])
     if @timesheet.update_attributes(timesheet_params)
+      award_points
       flash[:success] = "Timesheet updated."
       redirect_to @timesheet
     else
@@ -136,4 +137,12 @@ class TimesheetsController < ApplicationController
     def timesheet_params
       params.require(:timesheet).permit(:name, :nickname, :track_id, :circuit_id, :date, :race, :season_id, :pdf, :gender, :remote_pdf_url, :remove_pdf)
     end
+
+    def award_points
+      @timesheet = Timesheet.find(params[:id])
+      if @timesheet.race && @timesheet.complete
+        @timesheet.award_points
+      end
+    end
+
 end

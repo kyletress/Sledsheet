@@ -1,0 +1,24 @@
+<table class="table table-bordered">
+  <tr>
+    <th>Athlete</th>
+    <th>Start</th>
+    <th>Int</th>
+    <th>Int</th>
+    <th>Int</th>
+    <th>Int</th>
+    <th>Int</th>
+    <th>Finish</th>
+  </tr>
+  <% @intermediates.each do |int| %>
+    <tr>
+      <td><%= link_to int.entry.athlete.name, int.entry.athlete %></td>
+      <td><%= display_time int.start %></td>
+      <td><%= display_time int.int1 %></td>
+      <td><%= display_time int.int2 %></td>
+      <td><%= display_time int.int3 %></td>
+      <td><%= display_time int.int4 %></td>
+      <td><%= display_time int.int5 %></td>
+      <td><%= display_time int.finish %></td>
+    </tr>
+  <% end %>
+</table>

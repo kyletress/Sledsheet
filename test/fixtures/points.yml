@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+wc_first:
+  athlete: kyle
+  timesheet: race
+  circuit: worldcup
+  season: season
+  value: 225
+
+wc_second:
+  athlete: matt
+  timesheet: race
+  circuit: worldcup
+  season: season
+  value: 210

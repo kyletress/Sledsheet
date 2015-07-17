@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
+  devise_for :users
+  resources :points
   root 'static_pages#home'
   get 'about'   => 'static_pages#about'
   get 'signup' => 'users#new'
   get 'login'   => 'sessions#new'
   post 'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
-  resources :users
+  resources :users, only: [:show]
   resources :tracks, only: [:index, :show]
   resources :circuits, only: [:index, :show]
   resources :athletes
@@ -16,13 +18,18 @@ Rails.application.routes.draw do
       collection { post :sort }
       resources :runs, shallow: true, except: :index
     end
+    resources :points, only: [:index, :create]
   end
 
   namespace :admin do
     resources :tracks
     resources :users
     resources :circuits
+    resources :points
+    resources :runs, only: :index
   end
+
+  get '/become/:id', to: 'admin#become'
 
   # match '/about', to: 'static_pages#about', via: 'get'
   # match '/signup', to: 'users#new', via: 'get'

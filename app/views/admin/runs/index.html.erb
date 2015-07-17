@@ -1,0 +1,16 @@
+<h1>Admin Runs</h1>
+<table class="table table-bordered">
+  <caption>Runs that are not 'ok'</caption>
+  <tr>
+    <th>Run Athlete</th>
+    <th>Race</th>
+    <th>Status</th>
+  </tr>
+  <% @runs.each do |run| %>
+  <tr>
+    <td><%= run.entry.athlete.name %></td>
+    <td><%= link_to run.entry.timesheet.name, timesheet_path(run.entry.timesheet) %></td>
+    <td><%= link_to run.status, edit_run_path(run) %></td>
+  </tr>
+  <% end %>
+</table>

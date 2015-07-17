@@ -1,5 +1,7 @@
 <% provide(:title, "Admin Users") %>
 
+<%= link_to 'Invite a user', new_user_invitation_path %>
+
 <div class="row">
   <div class="col-md-8">
 <table class="table table-striped">
@@ -7,20 +9,22 @@
     <th>User</th>
     <th>Email</th>
     <th>Registration Date</th>
+    <th>Last Seen</th>
+    <th>Sign In Count</th>
     <th>Admin</th>
   </tr>
   <% @users.each do |user| %>
   <tr>
-    <td><%= link_to user.name, admin_user_path(user) %></td>
+    <td><%= link_to user.try(:name), admin_user_path(user) %></td>
     <td><%= mail_to user.email, user.email %></td>
-    <td><%= time_ago_in_words user.created_at %> ago</td>
+    <td><%= time_ago_in_words user.try(:created_at) %> ago</td>
+    <td><%= time_ago_in_words user.try(:current_sign_in_at) %> ago</td>
+    <td><%= user.try(:sign_in_count) %></td>
     <td>
       <%= link_to "delete", admin_user_path(user), method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-xs' %>
     </td>
   </tr>
   <% end %>
 </table>
-  </div> 
+  </div>
 </div>
-
-  

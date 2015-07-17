@@ -1,5 +1,43 @@
 <% provide(:title, @circuit.name) %>
 <h1><%= @circuit.name %></h1>
+
+<div class="row">
+  <div class="col-xs-6">
+    <table class="table table-bordered">
+      <caption>Men's Overall Points</caption>
+      <tr>
+        <th>Rank</th>
+        <th>Athlete</th>
+        <th>Points</th>
+      </tr>
+      <% @mens.each do |point| %>
+        <tr>
+          <td><%= point.rank %></td>
+          <td><%= link_to point.athlete.name, point.athlete %></td>
+          <td><%= point.total_points %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="col-xs-6">
+    <table class="table table-bordered">
+      <caption>Women's Overall Points</caption>
+      <tr>
+        <th>Rank</th>
+        <th>Athlete</th>
+        <th>Points</th>
+      </tr>
+      <% @womens.each do |point| %>
+        <tr>
+          <td><%= point.rank %></td>
+          <td><%= link_to point.athlete.name, point.athlete %></td>
+          <td><%= point.total_points %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
 <h3>Recent Events</h3>
 <ul>
   <% @circuit.timesheets.each do |timesheet| %>
