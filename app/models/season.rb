@@ -9,7 +9,11 @@ class Season < ActiveRecord::Base
   default_scope -> { order('end_date DESC')}
 
   def name
-    "#{start_date.year}/#{end_date.year} season"
+    "#{start_date.year}/#{end_date.year} Season"
+  end
+
+  def short_name
+    "#{start_date.year}-#{end_date.year}"
   end
 
   def start_date_must_be_july_1

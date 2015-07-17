@@ -33,7 +33,7 @@ class Timesheet < ActiveRecord::Base
   end
 
   # What if I grabbed everything in one giant sql query and took out what I wanted on the view?
-  
+
   def ranked_intermediates
     runs = Run.find_by_sql(["SELECT entry_id, start, (split2 - start) as int1, (split3 - split2) as int2, (split4 - split3) as int3, (split5 - split4) as int4, (finish - split5) as int5, finish FROM runs WHERE entry_id IN (SELECT id FROM entries WHERE timesheet_id = ?)", self.id])
     ActiveRecord::Associations::Preloader.new.preload(runs, [entry: [:athlete]])
@@ -50,6 +50,10 @@ class Timesheet < ActiveRecord::Base
 
   def pdf_name
     "#{machine_date}-#{track.name.parameterize}-#{circuit.name.parameterize}-#{if race then 'race' else 'training' end}"
+  end
+
+  def page_title
+    "#{name} #{gender.capitalize} #{season.short_name}"
   end
 
   def best_run(heat)
