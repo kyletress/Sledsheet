@@ -3,7 +3,7 @@ class TimesheetsController < ApplicationController
   before_action :authenticate_admin, only: [:new, :edit, :create, :destroy]
 
   def index
-    @timesheets = Timesheet.includes(:season).all
+    @timesheets = Timesheet.includes(:season).page params[:page]
   end
 
   def new

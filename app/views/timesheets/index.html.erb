@@ -1,6 +1,5 @@
 <% provide(:title, "Timesheets") %>
 
-
 <h2 class="page-header">Timesheets</h2>
 
 <div class="row">
@@ -26,6 +25,8 @@
   <% end %>
   <% # render @timesheets %>
 </table>
+<%= paginate @timesheets %>
+
 </div>
 <div class="col-md-2">
   <%= link_to 'New Timesheet', new_timesheet_path, class: 'btn btn-primary btn-lg' %>

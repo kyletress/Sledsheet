@@ -23,6 +23,7 @@ gem 'devise'
 gem 'devise_invitable', '~> 1.3.4'
 gem 'rack-mini-profiler'
 gem 'gibbon'
+gem 'kaminari'
 
 group :development do
   gem 'spring'
