@@ -1,4 +1,6 @@
 class Timesheet < ActiveRecord::Base
+  include Filterable
+
   before_validation :name_timesheet
   before_save :assign_season
 
@@ -22,8 +24,13 @@ class Timesheet < ActiveRecord::Base
 
   default_scope -> { order('date DESC')}
   # scope :ordered -> { order('date DESC')}
-  scope :races, -> { where(race: true)}
-  #scope :olympics, ->() {include(:circuit).where('circuit.name' => "Olympic Winter Games")}
+  # Filter Scopes
+  scope :race, -> { where(race: true)}
+  scope :track, -> (track_id) { where track_id: track_id }
+  scope :circuit, -> (circuit_id) { where circuit_id: circuit_id }
+  # Already scoped Timesheet.men, etc. How to use that?
+  scope :gender, -> (gender) { where gender: gender }
+  scope :season, -> (season_id) { where season_id: season_id }
 
 
   def ranked_entries

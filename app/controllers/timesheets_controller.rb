@@ -3,7 +3,7 @@ class TimesheetsController < ApplicationController
   before_action :authenticate_admin, only: [:new, :edit, :create, :destroy]
 
   def index
-    @timesheets = Timesheet.includes(:season).page params[:page]
+    @timesheets = Timesheet.includes(:season).filter(filtering_params).page params[:page]
   end
 
   def new
@@ -143,6 +143,10 @@ class TimesheetsController < ApplicationController
       if @timesheet.race && @timesheet.complete
         @timesheet.award_points
       end
+    end
+
+    def filtering_params
+      params.slice(:race, :track, :circuit, :gender, :season)
     end
 
 end
