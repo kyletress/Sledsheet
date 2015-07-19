@@ -26,6 +26,7 @@ class Timesheet < ActiveRecord::Base
   # scope :ordered -> { order('date DESC')}
   # Filter Scopes
   scope :race, -> { where(race: true)}
+  scope :type, -> (boolean) { where race: boolean }
   scope :track, -> (track_id) { where track_id: track_id }
   scope :circuit, -> (circuit_id) { where circuit_id: circuit_id }
   # Already scoped Timesheet.men, etc. How to use that?

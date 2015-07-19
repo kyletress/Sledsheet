@@ -1,3 +1,8 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+$(document).on "page:change", ->
+  $('#filter-submit').hide()
+  $('.clear-filters').click ->
+    resetForm($('#filters'))
+    # clear url and reload, or reload timesheets
+
+resetForm = (form) ->
+  form.find('select').val('')

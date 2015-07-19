@@ -146,7 +146,7 @@ class TimesheetsController < ApplicationController
     end
 
     def filtering_params
-      params.slice(:race, :track, :circuit, :gender, :season)
+      params.slice(:type, :track, :circuit, :gender, :season)
     end
 
 end
