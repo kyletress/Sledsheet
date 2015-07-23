@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :users
   resources :points
   root 'static_pages#home'
   get 'about'   => 'static_pages#about'
@@ -7,7 +6,7 @@ Rails.application.routes.draw do
   get 'login'   => 'sessions#new'
   post 'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
-  resources :users, only: [:show]
+  resources :users # , only: [:show]
   resources :tracks, only: [:index, :show]
   resources :circuits, only: [:index, :show]
   resources :athletes do

@@ -1,5 +1,5 @@
 class AdminController < ApplicationController
-  before_action :authenticate_admin
+  before_action :admin_user
 
   def become
     user = User.find(params[:id])
