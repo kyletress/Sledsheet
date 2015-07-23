@@ -1,9 +1,9 @@
 <% provide(:title, @athlete.name) %>
-<h1><span class="flag flag-<%= @athlete.country_code %>"></span> <%= @athlete.name %></h1>
-<%= image_tag @athlete.avatar_url(:thumb).to_s, class: 'athlete-avatar' %>
-<p><%= @athlete.country_name %></p>
-<% if @athlete.is_olympian? %>
-<p>Olympian</p>
+<%= render 'profile' %>
+
+
+<% if @athlete.profile.present? %>
+  <%= render 'profiles/profile' %>
 <% end %>
 
 <h3>Current Season Points: <%= @athlete.season_point_total(Season.current_season) %></h3>

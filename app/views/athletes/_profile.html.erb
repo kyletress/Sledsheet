@@ -1,0 +1,24 @@
+<div class="profile-card">
+  <figure class="profile">
+    <%= image_tag @athlete.avatar_url(:thumb).to_s, class: 'athlete-avatar' %>
+    <figcaption>
+      <h1><%= @athlete.name %></h1>
+      <p class="lead"><%= flag_for @athlete %> <%= @athlete.country_name %></p>
+      <h3>Points: <%= @athlete.season_point_total(Season.current_season) %></h3>
+      <% if @athlete.unclaimed? %>
+        <small>Are you <%= @athlete.name %>? <%= link_to 'Register now', signup_path %> to edit this profile.</small>
+        <% end %>
+      <% if @athlete.profile.present? %>
+        <ul>
+          <li><%= icon('twitter') %> <%= link_to "Twitter", "http://www.twitter.com/#{@athlete.profile.twitter}", target: '_blank' %></li>
+          <li><%= icon('facebook') %> <%= link_to "Facebook", "http://www.facebook.com/#{@athlete.profile.twitter}", target: '_blank' %></li>
+          <li><%= icon('instagram') %> <%= link_to "Instagram", "http://www.instagram.com/#{@athlete.profile.instagram}", target: '_blank' %></li>
+        </ul>
+        <p class="lead"><%= @athlete.profile.about %></p>
+        <% if current_user # NEED MORE %>
+          <%= link_to 'Edit Profile', edit_athlete_profile_path(@athlete) %>
+        <% end %>
+      <% end %>
+    </figcaption>
+  </figure>
+</div>

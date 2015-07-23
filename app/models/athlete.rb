@@ -2,6 +2,8 @@ class Athlete < ActiveRecord::Base
   has_many :entries
   has_many :timesheets, through: :entries
   has_many :points
+  has_one :profile
+  belongs_to :user
   validates :first_name, presence: true, length: { maximum: 20 }
   validates :last_name, presence: true, length: { maximum: 20 }
   validates :country_code, presence: true
@@ -71,6 +73,10 @@ class Athlete < ActiveRecord::Base
 
   def self.popular
     find([1, 5, 2, 211, 3, 64])
+  end
+
+  def unclaimed?
+    self.user_id.blank?
   end
 
 end

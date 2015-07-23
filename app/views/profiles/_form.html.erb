@@ -1,0 +1,46 @@
+<%= form_for @profile, url: athlete_profile_path(@athlete) do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+  <div class="form-group">
+    <%= f.label :hometown %>
+    <%= f.text_field :hometown %>
+  </div>
+  <div class="form-group">
+    <%= f.label :favorite_track %>
+    <%= f.text_field :favorite_track %>
+  </div>
+  <div class="form-group">
+    <%= f.label :favorite_curve %>
+    <%= f.text_field :favorite_curve %>
+  </div>
+  <div class="form-group">
+    <%= f.label :location %>
+    <%= f.text_field :location %>
+  </div>
+  <div class="form-group">
+    <%= f.label :twitter %>
+    <%= f.text_field :twitter %>
+  </div>
+  <div class="form-group">
+    <%= f.label :instagram %>
+    <%= f.text_field :instagram %>
+  </div>
+  <div class="form-group">
+    <%= f.label :facebook %>
+    <%= f.text_field :facebook %>
+  </div>
+  <div class="form-group">
+    <%= f.label :rallyme %>
+    <%= f.text_field :rallyme %>
+  </div>
+  <div class="form-group">
+    <%= f.label :sled %>
+    <%= f.text_field :sled %>
+  </div>
+  <div class="form-group">
+    <%= f.label :hometown %>
+    <%= f.text_area :about %>
+  </div>
+  <div class="form-group">
+    <%= f.submit %>
+  </div>
+<% end %>

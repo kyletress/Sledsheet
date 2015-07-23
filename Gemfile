@@ -19,11 +19,10 @@ gem 'figaro'
 gem 'prawn'
 gem 'prawn-table'
 gem 'mini_magick'
-gem 'devise'
-gem 'devise_invitable', '~> 1.3.4'
 gem 'rack-mini-profiler'
 gem 'gibbon'
 gem 'kaminari'
+gem 'font-awesome-sass', '~> 4.3.0'
 
 group :development do
   gem 'spring'

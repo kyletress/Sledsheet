@@ -1,0 +1,7 @@
+<h1>Athlete Profile</h1>
+
+<% if @athlete.profile.present? %>
+  <%= link_to 'Edit this profile', edit_athlete_profile_path(@athlete) %>
+<% else %>
+  <%= link_to 'Create a profile', new_athlete_profile_path(@athlete) %>
+<% end %>
