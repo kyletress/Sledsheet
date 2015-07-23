@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  athlete_id: 1
+  favorite_track: MyString
+  favorite_curve: MyString
+  coach: MyString
+  location: MyString
+  hometown: MyString
+  twitter: MyString
+  instagram: MyString
+  facebook: MyString
+  rallyme: MyString
+  sled: MyString
+  about: MyText
+
+two:
+  athlete_id: 1
+  favorite_track: MyString
+  favorite_curve: MyString
+  coach: MyString
+  location: MyString
+  hometown: MyString
+  twitter: MyString
+  instagram: MyString
+  facebook: MyString
+  rallyme: MyString
+  sled: MyString
+  about: MyText

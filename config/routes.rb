@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   resources :tracks, only: [:index, :show]
   resources :circuits, only: [:index, :show]
-  resources :athletes
+  resources :athletes do
+    resource :profile
+  end
   resources :seasons, only: [:index, :show]
   resources :timesheets do
     post 'import', on: :member

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150712005456) do
+ActiveRecord::Schema.define(version: 20150723021510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20150712005456) do
     t.datetime "updated_at"
     t.boolean  "male",                     default: true
     t.string   "avatar",       limit: 255
+    t.string   "name"
   end
 
   create_table "circuits", force: :cascade do |t|
@@ -65,6 +66,23 @@ ActiveRecord::Schema.define(version: 20150712005456) do
   add_index "points", ["season_id"], name: "index_points_on_season_id", using: :btree
   add_index "points", ["timesheet_id"], name: "index_points_on_timesheet_id", using: :btree
 
+  create_table "profiles", force: :cascade do |t|
+    t.integer  "athlete_id"
+    t.string   "favorite_track"
+    t.string   "favorite_curve"
+    t.string   "coach"
+    t.string   "location"
+    t.string   "hometown"
+    t.string   "twitter"
+    t.string   "instagram"
+    t.string   "facebook"
+    t.string   "rallyme"
+    t.string   "sled"
+    t.text     "about"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "runs", force: :cascade do |t|
     t.integer  "entry_id",               null: false
     t.integer  "start"
@@ -95,18 +113,20 @@ ActiveRecord::Schema.define(version: 20150712005456) do
   end
 
   create_table "timesheets", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "nickname",   limit: 255
+    t.string   "name",                  limit: 255
+    t.string   "nickname",              limit: 255
     t.integer  "track_id"
     t.integer  "circuit_id"
     t.datetime "date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "race",                   default: false
+    t.boolean  "race",                              default: false
     t.integer  "season_id"
-    t.string   "pdf",        limit: 255
-    t.integer  "gender",                 default: 0
-    t.boolean  "complete",               default: false
+    t.string   "pdf",                   limit: 255
+    t.integer  "gender",                            default: 0
+    t.boolean  "complete",                          default: false
+    t.boolean  "press_release_sent",                default: false
+    t.datetime "press_release_sent_at"
   end
 
   add_index "timesheets", ["circuit_id"], name: "index_timesheets_on_circuit_id", using: :btree

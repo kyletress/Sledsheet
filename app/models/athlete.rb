@@ -2,6 +2,7 @@ class Athlete < ActiveRecord::Base
   has_many :entries
   has_many :timesheets, through: :entries
   has_many :points
+  has_one :profile
   validates :first_name, presence: true, length: { maximum: 20 }
   validates :last_name, presence: true, length: { maximum: 20 }
   validates :country_code, presence: true
