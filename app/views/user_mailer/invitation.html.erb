@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>You've been invited to Sledsheet</h1>
+    <p>
+      I would like you to try the beta of Sledsheet before it launches in the fall. To login to the site, just follow the link below.
+    </p>
+    <p>
+      <%= link_to "Accept the invitation", signup_url(@invitation.token) %>.
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>
