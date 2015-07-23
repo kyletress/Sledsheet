@@ -1,6 +1,6 @@
 class TimesheetsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :authenticate_admin, only: [:new, :edit, :create, :destroy]
+  before_action :logged_in_user, except: [:index, :show]
+  before_action :admin_user, only: [:new, :edit, :create, :destroy]
 
   def index
     @timesheets = Timesheet.includes(:season).filter(filtering_params).page params[:page]

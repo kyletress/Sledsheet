@@ -1,6 +1,6 @@
 class AthletesController < ApplicationController
 
-  before_action :authenticate_admin, only: [:new, :edit, :update]
+  before_action :admin_user, only: [:new, :edit, :update]
 
   def index
     @athletes = Athlete.all
