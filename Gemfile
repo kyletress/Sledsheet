@@ -22,6 +22,7 @@ gem 'mini_magick'
 gem 'rack-mini-profiler'
 gem 'gibbon'
 gem 'kaminari'
+gem 'font-awesome-sass', '~> 4.3.0'
 
 group :development do
   gem 'spring'

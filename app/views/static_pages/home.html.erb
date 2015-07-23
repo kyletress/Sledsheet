@@ -3,7 +3,7 @@
     <h1>It's about time</h1>
     <p>Sledsheet is a race database, timesheet analysis tool, and reference site for the sport of skeleton.</p>
     <p><%= @runs %> runs, <%= @timesheets %> timesheets, featuring <%= @athletes %> athletes.</p>
-    <p><%= link_to "Sign up for free", signup_path, class: "btn btn-lg btn-primary" %></p>
+    <p><%= link_to "Sign up for free", signup_path, class: "btn btn-lg btn-primary" unless current_user %></p>
   </div>
 </div>
 

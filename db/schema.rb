@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723163557) do
+ActiveRecord::Schema.define(version: 20150723181844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,10 @@ ActiveRecord::Schema.define(version: 20150723163557) do
     t.boolean  "male",                     default: true
     t.string   "avatar",       limit: 255
     t.string   "name"
+    t.string   "user_id"
   end
+
+  add_index "athletes", ["user_id"], name: "index_athletes_on_user_id", using: :btree
 
   create_table "circuits", force: :cascade do |t|
     t.string   "name",       limit: 255

@@ -16,6 +16,19 @@
 	justify-content: space-between;
 }
 
+.profile-card {
+	background: white;
+	padding: 1rem;
+}
+
+.profile {
+	display: -webkit-flex;
+	display:flex;
+	img {
+		margin-right:2rem;
+	}
+}
+
 .athlete-card{
 	background:white;
 	width:20rem;
