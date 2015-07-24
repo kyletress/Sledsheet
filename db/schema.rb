@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723181844) do
+ActiveRecord::Schema.define(version: 20150723224707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,15 @@ ActiveRecord::Schema.define(version: 20150723181844) do
 
   add_index "entries", ["athlete_id"], name: "index_entries_on_athlete_id", using: :btree
   add_index "entries", ["timesheet_id"], name: "index_entries_on_timesheet_id", using: :btree
+
+  create_table "invitations", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.string   "recipient_email"
+    t.string   "token"
+    t.datetime "sent_at"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
   create_table "notifications", force: :cascade do |t|
     t.integer "user_id"
@@ -150,6 +159,7 @@ ActiveRecord::Schema.define(version: 20150723181844) do
     t.string   "password_digest", limit: 255
     t.string   "remember_digest", limit: 255
     t.boolean  "admin",                       default: false
+    t.integer  "invitation_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

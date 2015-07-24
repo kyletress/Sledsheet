@@ -1,0 +1,11 @@
+<% if current_admin %>
+  <% provide(:title, "New Invitation") %>
+  <%= form_for @invitation do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="form-group">
+    <%= f.label :recipient_email, 'Email address' %>
+    <%= f.text_field :recipient_email %>
+  </div>
+    <%= f.submit %>
+  <% end %>
+<% end %>

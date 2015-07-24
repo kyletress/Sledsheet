@@ -1,0 +1,8 @@
+<table class="table table-bordered">
+  <% @invitations.each do |invitation| %>
+  <tr>
+    <td><%= invitation.recipient_email %></td>
+    <td><%= link_to 'Send Invite', invitation_path(invitation), method: :patch %></td>
+  </tr>
+  <% end %>
+</table>

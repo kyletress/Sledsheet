@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  resources :points
+
   root 'static_pages#home'
-  get 'about'   => 'static_pages#about'
-  get 'signup' => 'users#new'
-  get 'login'   => 'sessions#new'
-  post 'login'   => 'sessions#create'
-  delete 'logout'  => 'sessions#destroy'
+  get 'about', to: 'static_pages#about'
+  get 'signup(/:invitation_token)', to: 'users#new', as: 'signup'
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
   resources :users # , only: [:show]
   resources :tracks, only: [:index, :show]
   resources :circuits, only: [:index, :show]
@@ -21,6 +21,10 @@ Rails.application.routes.draw do
     end
     resources :points, only: [:index, :create]
   end
+  resources :invitations
+  resources :points
+
+  post 'waitlist', to: 'invitations#waitlist'
 
   namespace :admin do
     resources :tracks
@@ -28,6 +32,7 @@ Rails.application.routes.draw do
     resources :circuits
     resources :points
     resources :runs, only: :index
+    resources :invitations, only: :index
   end
 
   get '/become/:id', to: 'admin#become'
