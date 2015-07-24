@@ -2,7 +2,10 @@ class Invitation < ActiveRecord::Base
   belongs_to :sender, class_name: 'User', foreign_key: 'sender_id'
   has_one :recipient, class_name: 'User'
 
-  validates :recipient_email, presence: true
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+  validates :recipient_email, presence: true, length: { maximum: 255 },
+            format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
+
   validate :recipient_is_not_registered
 
   before_create :generate_token
