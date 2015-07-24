@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     resources :circuits
     resources :points
     resources :runs, only: :index
-    resources :invitations, only: :index
+    resources :invitations, only: [:index, :destroy]
   end
 
   get '/become/:id', to: 'admin#become'

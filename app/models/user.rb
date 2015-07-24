@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   attr_accessor :remember_token
   before_save { self.email = email.downcase }
   after_destroy :destroy_invitation
+  after_create :subscribe_user_to_mailing_list
+  after_create :set_invitation_to_accepted
 
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -10,8 +12,6 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :password, length: { minimum: 6 }
   validates :invitation_id, presence: {message: 'must be present'}, uniqueness: true
-
-  after_create :subscribe_user_to_mailing_list
 
   has_one :athlete
   has_many :sent_invitations, class_name: 'Invitation', foreign_key: 'sender_id'
@@ -59,10 +59,14 @@ class User < ActiveRecord::Base
     end
 
     def destroy_invitation
-      if invitation_id != nil
+      if invitation.present? && invitation_id != nil
         invite = Invitation.find(invitation_id)
         invite.destroy!
       end
+    end
+
+    def set_invitation_to_accepted
+      invitation.update_column(:status, 1)
     end
 
 end
