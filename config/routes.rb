@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  resources :invitations
-  resources :points
+
   root 'static_pages#home'
   get 'about', to: 'static_pages#about'
   get 'signup(/:invitation_token)', to: 'users#new', as: 'signup'
@@ -22,6 +21,10 @@ Rails.application.routes.draw do
     end
     resources :points, only: [:index, :create]
   end
+  resources :invitations
+  resources :points
+
+  post 'waitlist', to: 'invitations#waitlist'
 
   namespace :admin do
     resources :tracks

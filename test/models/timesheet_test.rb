@@ -34,10 +34,10 @@ class TimesheetTest < ActiveSupport::TestCase
   end
 
   test "should assign correct season based on date" do
-    assert @timesheet.season.name == "2014/2015 season"
+    assert @timesheet.season.name == "2014/2015 Season"
     @timesheet.date = Date.new(2016, 10, 30)
     @timesheet.save
-    assert @timesheet.season.name == "2016/2017 season", "Wrong Season"
+    assert @timesheet.season.name == "2016/2017 Season", "Wrong Season"
   end
 
   test "should use existing season if available" do

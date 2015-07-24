@@ -22,7 +22,7 @@ class TimesheetsControllerTest < ActionController::TestCase
   end
 
   test "admin should get new" do
-    sign_in @admin
+    log_in_as @admin
     get :new
     assert_response :success
     assert_template :new
@@ -31,7 +31,7 @@ class TimesheetsControllerTest < ActionController::TestCase
   end
 
   test "user should not get new" do
-    sign_in @user
+    log_in_as @user
     get :new
     assert_redirected_to root_path
   end
@@ -40,12 +40,12 @@ class TimesheetsControllerTest < ActionController::TestCase
     get :show, id: @timesheet
     assert_response :success
     assert_template :show
-    assert_select "title", "Sledsheet | #{@timesheet.name}"
+    assert_select "title", "Sledsheet | #{@timesheet.page_title}"
     assert_not_nil assigns(:timesheet)
   end
 
   test "admin should get edit" do
-    sign_in @admin
+    log_in_as @admin
     get :edit, id: @timesheet
     assert_response :success
     assert_template :edit
@@ -54,13 +54,13 @@ class TimesheetsControllerTest < ActionController::TestCase
   end
 
   test "user should not get edit" do
-    sign_in @user
+    log_in_as @user
     get :edit, id: @timesheet
     assert_redirected_to root_path
   end
 
   test "admin should create timesheet" do
-    sign_in @admin
+    log_in_as @admin
     assert_difference('Timesheet.count') do
       post :create, timesheet: {track_id: @track.id, circuit_id: @circuit.id, race: false, date: Date.today}
     end
@@ -68,26 +68,26 @@ class TimesheetsControllerTest < ActionController::TestCase
   end
 
   test "user should not create timesheet" do
-    sign_in @user
+    log_in_as @user
     assert_no_difference('Timesheet.count') do
       post :create, timesheet: {track_id: @track.id, circuit_id: @circuit.id, race: false, date: Date.today}
     end
   end
 
   test "admin should update timesheet" do
-    sign_in @admin
+    log_in_as @admin
     patch :update, id: @timesheet, timesheet: {race: true}
     assert_redirected_to timesheet_path(assigns(:timesheet))
   end
 
   test "user should not update timesheet" do
-    sign_in @user
+    log_in_as @user
     patch :update, id: @timesheet, timesheet: {race: true}
     assert_redirected_to timesheet_path(assigns(:timesheet))
   end
 
   test "admin should destroy timesheet" do
-    sign_in @admin
+    log_in_as @admin
     assert_difference('Timesheet.count', -1) do
       delete :destroy, id: @timesheet
     end
@@ -95,7 +95,7 @@ class TimesheetsControllerTest < ActionController::TestCase
   end
 
   test "user should not destroy timesheet" do
-    sign_in @user
+    log_in_as @user
     assert_no_difference('Timesheet.count') do
       delete :destroy, id: @timesheet
     end

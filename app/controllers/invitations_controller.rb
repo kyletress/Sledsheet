@@ -1,7 +1,20 @@
 class InvitationsController < ApplicationController
 
+  before_action :admin_user, except: [:waitlist]
+
   def new
     @invitation = Invitation.new
+  end
+
+  def waitlist
+    @invitation = Invitation.new(invitation_params)
+    if @invitation.save
+      flash[:success] = "Thanks, we've added you to the waitlist."
+      redirect_to root_path
+    else
+      flash[:error] = "We couldn't add you at this time. Please try again."
+      redirect_to root_path
+    end
   end
 
   def create

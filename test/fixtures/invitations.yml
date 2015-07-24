@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+with_sender:
   sender_id: 1
-  recipient_email: MyString
-  token: MyString
-  sent_at: 2015-07-23 17:32:57
+  recipient_email: user@example.com
+  token: <%= SecureRandom.urlsafe_base64 %>
+  sent_at: <%= Time.now %>
 
-two:
-  sender_id: 1
-  recipient_email: MyString
-  token: MyString
-  sent_at: 2015-07-23 17:32:57
+without_sender:
+  sender_id: nil
+  recipient_email: kyle2@test.com
+  token: <%= SecureRandom.urlsafe_base64 %>
+  sent_at:
