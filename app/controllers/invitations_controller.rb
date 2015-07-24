@@ -8,6 +8,7 @@ class InvitationsController < ApplicationController
 
   def waitlist
     @invitation = Invitation.new(invitation_params)
+    @invitation.status = "waitlist"
     if @invitation.save
       flash[:success] = "Thanks, we've added you to the waitlist."
       redirect_to root_path

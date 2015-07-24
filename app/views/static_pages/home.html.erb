@@ -8,7 +8,7 @@
       <p>Sledsheet will be available in October 2015. If you'd like to sign up for the closed beta, please add your email below.</p>
       <%= form_for Invitation.new, url: waitlist_path do |f| %>
         <%= f.text_field :recipient_email, placeholder: 'email address' %>
-        <%= f.submit %>
+        <%= f.submit 'Request Invitation' %>
       <% end %>
     <% end %>
   </div>

@@ -10,7 +10,11 @@ class Invitation < ActiveRecord::Base
 
   before_create :generate_token
 
-  scope :waitlist, -> {where(sender_id: nil)}
+  enum status: [:pending, :claimed, :waitlist]
+
+  scope :pending, -> {where(status: 0)}
+  scope :claimed, -> {where(status: 1)}
+  scope :waitlist, -> {where(status: 2)}
 
   private
 
