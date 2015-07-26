@@ -10,14 +10,13 @@
  *
  *= require_self
  */
-
- @import "config";
- @import "mixins";
- @import "bootstrap-sprockets";
- @import "bootstrap";
- @import "custom";
- @import "static_pages";
- @import "font-awesome-sprockets";
- @import "font-awesome";
- @import "timesheets";
- @import "athletes";
+@import "config";
+@import "mixins";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "custom";
+@import "static_pages";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "timesheets";
+@import "athletes";
