@@ -1,38 +1,80 @@
-<div class="jumbotron">
+<div class="jumbo">
   <div class="container">
-    <h1>It's about time</h1>
-    <p>Sledsheet is a race database, timesheet analysis tool, and reference site for the sport of skeleton.</p>
-    <p><%= @runs %> runs, <%= @timesheets %> timesheets, featuring <%= @athletes %> athletes.</p>
-    <% unless current_user %>
-      <h2>Register for the beta</h2>
-      <p>Sledsheet will be available in October 2015. If you'd like to sign up for the closed beta, please add your email below.</p>
-      <%= form_for Invitation.new, url: waitlist_path do |f| %>
-        <%= f.text_field :recipient_email, placeholder: 'email address' %>
-        <%= f.submit 'Request Invitation' %>
-      <% end %>
-    <% end %>
+    <div class="row">
+      <h1>It's about time.</h1>
+      <p class="lead">Sledsheet is a <span>community</span> for <span>skeleton athletes</span> and their <span>fans</span>.</p>
+    </div>
+    <div class="row">
+      <section class="join">
+        <ul>
+          <li><img src="https://secure.gravatar.com/avatar/5eba14816d314532e45d34ce2a138543?s=100" alt="" height="100" width="100" /></li>
+          <li><img src="/matt.jpg" alt="" height="100" width="100" /></li>
+          <li><img src="/katie.jpg" alt="" height="100" width="100" /></li>
+          <li><img src="/martins.jpg" alt="" height="100" width="100" /></li>
+          <li><img src="/lizzy.jpg" alt="" height="100" width="100" /></li>
+          <li><img src="/alex.jpg" alt="" height="100" width="100" /></li>
+          <li><img src="/morgan.jpg" alt="" height="100" width="100" /></li>
+        </ul>
+        <h3><%= @runs %> runs by <%= @athletes %> athletes <em>(and growing)</em>.</h3>
+        <% unless current_user %>
+          <%= form_for Invitation.new, url: waitlist_path do |f| %>
+            <%= f.text_field :recipient_email, placeholder: 'Email address', class: 'flexinput' %>
+            <%= f.submit 'Join the waitlist', class: 'btn btn-sledsheet' %>
+          <% end %>
+        <% end %>
+      </section>
+    </div>
   </div>
-</div>
+</div><!--end jumbo-->
 
-<div class="row">
-  <div class="container">
-      <div class="col-md-4">
-    <h3>For Athletes</h3>
-    <p>
-      Sledsheet has the best timesheet analysis tools in the world. Enter your runs, graph them against your competitors, and find out where you are gaining or losing time. <a href="#">Learn more about sledsheet for athletes</a>
-    </p>
-  </div>
-  <div class="col-md-4">
-    <h3>For Fans</h3>
-    <p>
-      On Sledsheet, you can follow your favorite athletes and recieve email notifications when they race. You can view all their races in our database going back to 2002. <a href="#">Learn more about sledsheet for fans</a>
-    </p>
-  </div>
-  <div class="col-md-4">
-    <h3>For Coaches</h3>
-    <p>
-      Organize your team and share information and timesheets. We store all timesheets on our servers so you don't have to email them to your teammates individually. <a href="#">Learn more about sledsheet for coaches</a>
-    </p>
-  </div>
+<div class="container">
+  <section class="row features">
+    <div class="col-sm-6">
+      <h3>For Athletes</h3>
+      <p>Sledsheet has powerful tools for athletes. From timesheet analysis to rich data visualization, it's never been easier to see where you are gaining or losing time on the track. But that's not all. Sledsheet helps you connect with fans like never before.</p>
+      <ul>
+        <li>Timesheet splits, intermediates, and differences</li>
+        <li>Rich data visualization</li>
+        <li>Full IBSF Race database</li>
+        <li>Custom Press Releases*</li>
+        <li>Custom Profile and social media integration</li>
+        <li>Export timesheets as PDF</li>
+      </ul>
+      <%= link_to 'All athlete features', '#', class: 'btn btn-default'%>
+    </div>
+    <div class="col-sm-6">
+    </div>
+  </section>
+
+  <section class="row features">
+    <div class="col-sm-6">
+      <h3>For Fans</h3>
+      <p>There has never been a better way to connect with the skeleton community. Receive email notifications when your favorite athletes race. You can also subscribe to tracks, circuits, or entire teams.</p>
+      <ul>
+        <li>Subscribe to your favorite athletes</li>
+        <li>Weekly email notifications</li>
+        <li>Full IBSF database</li>
+        <li>Message, like, and encourage athletes</li>
+      </ul>
+      <%= link_to 'All fan features', '#', class: 'btn btn-default'%>
+    </div>
+  </section>
+
+  <section class="row features">
+    <div class="col-sm-6">
+      <h3>For Organizations</h3>
+      <p>Sledsheet is built with teams in mind. Group message your team, send out timesheets, and store them for future reference. Use our point calculators, send out press releases to your mailing list, and much more.</p>
+      <ul>
+        <li>Press release generators*</li>
+        <li>Point calculators</li>
+        <li>Group email and messaging*</li>
+        <li>Timesheet storage</li>
+        <li>Data analysis and visualization</li>
+        <li>Custom timesheets for your team*</li>
+      </ul>
+      <%= link_to '#', class: 'btn btn-default' do %> All organization features <span><%= icon('arrow-right') %></span>
+      <% end %>
+    </div>
+  </section>
 </div>
-</div>
+</div><!--end container-->
