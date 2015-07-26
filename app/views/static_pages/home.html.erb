@@ -6,15 +6,15 @@
     </div>
     <div class="row">
       <section class="join">
-        <ul>
-          <li><img src="https://secure.gravatar.com/avatar/5eba14816d314532e45d34ce2a138543?s=100" alt="" height="100" width="100" /></li>
-          <li><img src="/matt.jpg" alt="" height="100" width="100" /></li>
-          <li><img src="/katie.jpg" alt="" height="100" width="100" /></li>
-          <li><img src="/martins.jpg" alt="" height="100" width="100" /></li>
-          <li><img src="/lizzy.jpg" alt="" height="100" width="100" /></li>
-          <li><img src="/alex.jpg" alt="" height="100" width="100" /></li>
-          <li><img src="/morgan.jpg" alt="" height="100" width="100" /></li>
-        </ul>
+        <div class="athlete-images">
+          <img src="https://secure.gravatar.com/avatar/5eba14816d314532e45d34ce2a138543?s=100" alt="" height="100" width="100" />
+          <img src="/matt.jpg" alt="" height="100" width="100" />
+          <img src="/katie.jpg" alt="" height="100" width="100" />
+          <img src="/martins.jpg" alt="" height="100" width="100" />
+          <img src="/lizzy.jpg" alt="" height="100" width="100" />
+          <img src="/alex.jpg" alt="" height="100" width="100" />
+          <img src="/morgan.jpg" alt="" height="100" width="100" />
+        </div>
         <h3><%= @runs %> runs by <%= @athletes %> athletes <em>(and growing)</em>.</h3>
         <% unless current_user %>
           <%= form_for Invitation.new, url: waitlist_path do |f| %>

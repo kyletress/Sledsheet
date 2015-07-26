@@ -21,13 +21,16 @@
 
 .join {
   text-align:center;
-  ul {
+  .athlete-images {
     display: -webkit-flex;
     display:flex;
-    -webkit-justify-content: space-between;
+    -webkit-justify-content: space-around;
     justify-content: space-between;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
     list-style:none;
     padding-left: 0;
+    width:100%;
     max-width:750px;
     margin: 0 auto;
   }
