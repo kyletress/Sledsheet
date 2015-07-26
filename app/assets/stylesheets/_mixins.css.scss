@@ -1,0 +1,16 @@
+@mixin inline-navigation($margin) {
+  ul {
+    list-style:none;
+    margin:0;
+    padding:0;
+
+    li {
+      display:inline-block;
+      margin-right:$margin;
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+  }
+}

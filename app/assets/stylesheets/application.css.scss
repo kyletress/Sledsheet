@@ -9,14 +9,15 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
  */
 
-@import "font-awesome-sprockets";
-@import "font-awesome";
-
-.handle{
-	font-size: 12px;
-	color: #777;
-	cursor: move;
-}
+ @import "config";
+ @import "mixins";
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+ @import "custom";
+ @import "static_pages";
+ @import "font-awesome-sprockets";
+ @import "font-awesome";
+ @import "timesheets";
+ @import "athletes";
