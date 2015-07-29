@@ -105,7 +105,7 @@ class TimesheetsController < ApplicationController
 
       @entry = @timesheet.entries.build(
         #:athlete_id => Athlete.find_by_timesheet_name(entry[:name]).first.id
-        athlete: Athlete.find_or_create_by_timesheet_name(entry[:name], entry[:country], false)
+        athlete: Athlete.find_or_create_by_timesheet_name(entry[:name], entry[:country], @timesheet.gender)
       )
       @entry.save
       if @entry.errors.any?
