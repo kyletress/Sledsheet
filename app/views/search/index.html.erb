@@ -1,0 +1,10 @@
+<h1>Search Results</h1>
+<p><%= pluralize @results.total_count, 'result' %></p>
+
+<ul>
+  <% @results.each do |result| %>
+    <li><%= link_to result.searchable.name, result.searchable %></li>
+  <% end %>
+</ul>
+
+<%= paginate @results %>

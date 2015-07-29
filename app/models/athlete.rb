@@ -1,4 +1,7 @@
 class Athlete < ActiveRecord::Base
+  include PgSearch
+  multisearchable :against => [:first_name, :last_name]
+
   has_many :entries
   has_many :timesheets, through: :entries
   has_many :points

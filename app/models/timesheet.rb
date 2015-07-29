@@ -1,8 +1,11 @@
 class Timesheet < ActiveRecord::Base
+  include PgSearch
+  multisearchable :against => [:name]
+
   include Filterable
 
   before_validation :name_timesheet
-  before_save :assign_season
+  before_create :assign_season
 
   belongs_to :track
   belongs_to :circuit
@@ -89,7 +92,7 @@ class Timesheet < ActiveRecord::Base
   private
 
     def name_timesheet
-        self.name = "#{track.name} #{circuit.name} #{if race then 'Race' else 'Training' end}" if track && circuit
+      self.name = "#{track.name} #{circuit.name} #{if race then 'Race' else 'Training' end} #{season_name} #{gender.capitalize}" if track && circuit
     end
 
     def assign_season
@@ -104,4 +107,13 @@ class Timesheet < ActiveRecord::Base
         self.season = Season.create_with(end_date: end_date).find_or_create_by(start_date: start_date)
       end
     end
+
+    def season_name
+      if self.date.month > 6
+        "#{self.date.strftime('%Y')}-#{(self.date + 1.year).strftime('%y')}"
+      else
+        "#{ (self.date - 1.year).strftime('%Y') }-#{self.date.strftime('%y')}"
+      end
+    end
+
 end

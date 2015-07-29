@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   resources :points
 
   post 'waitlist', to: 'invitations#waitlist'
+  get 'search', to: 'search#index'
 
   namespace :admin do
     resources :tracks

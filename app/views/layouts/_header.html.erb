@@ -18,6 +18,7 @@
           <li><%= link_to "Circuits", circuits_path %></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+          <%= render 'search/form' %>
           <% if logged_in? %>
             <li class="account-image"><%= gravatar_for current_user, size: 35 %></li>
             <li class="dropdown">

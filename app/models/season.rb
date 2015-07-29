@@ -10,10 +10,11 @@ class Season < ActiveRecord::Base
 
   def name
     "#{start_date.year}/#{end_date.year} Season"
+
   end
 
   def short_name
-    "#{start_date.year}-#{end_date.year}"
+    "#{start_date.year}-#{end_date.strftime('%y')}"
   end
 
   def start_date_must_be_july_1
