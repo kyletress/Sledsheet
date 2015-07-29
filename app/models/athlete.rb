@@ -22,7 +22,7 @@ class Athlete < ActiveRecord::Base
       first_name = name.split(',').last.strip.capitalize
       last_name = name.split(',').first.capitalize
       country_code = ISO3166::Country.find_country_by_ioc(country.to_s).alpha2
-      Athlete.create(first_name: first_name, last_name: last_name, country_code: country_code, male: male)
+      Athlete.create(first_name: first_name, last_name: last_name, country_code: country_code, male: if "men" then true else false end )
     end
   end
 
