@@ -18,6 +18,13 @@ class TimesheetTest < ActiveSupport::TestCase
     assert @timesheet.name == "Lake Placid Olympic Winter Games Race 2014-15 Men", "It was named incorrectly"
   end
 
+  test "name should not give error if season does not exist" do
+    assert @timesheet.name == "Igls World Cup Training"
+    @timesheet.date = Date.new(2030, 10, 30)
+    @timesheet.save
+    assert @timesheet.name == "Igls World Cup Training 2030-31 Men", "Wrong Season"
+  end
+
   test "track id should be present" do
     @timesheet.track_id = nil
     assert_not @timesheet.valid?

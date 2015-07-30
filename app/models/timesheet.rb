@@ -5,7 +5,7 @@ class Timesheet < ActiveRecord::Base
   include Filterable
 
   before_validation :name_timesheet
-  before_create :assign_season
+  before_save :assign_season
 
   belongs_to :track
   belongs_to :circuit
