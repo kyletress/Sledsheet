@@ -6,6 +6,7 @@ training:
   race: false
   name: Igls World Cup Training
   season: season
+  gender: 1
 
 race:
   nickname: Racing Nickname
@@ -15,6 +16,7 @@ race:
   race: true
   name: Lake Placid World Cup Race
   season: season
+  gender: 1
 
 olympics:
   nickname: Olympic Winter Games
@@ -24,6 +26,7 @@ olympics:
   race: true
   name: Sochi Winter Olympic Games Race
   season: season
+  gender: 1
 
 latest:
   nickname: Latest Timesheet
@@ -33,3 +36,4 @@ latest:
   race: false
   name: Lake Placid World Cup Training
   season: season
+  gender: 1

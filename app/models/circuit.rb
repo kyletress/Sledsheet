@@ -1,4 +1,7 @@
 class Circuit < ActiveRecord::Base
+  include PgSearch
+  multisearchable :against => [:name]
+
   has_many :timesheets
   has_many :points
   validates :name, presence: true
