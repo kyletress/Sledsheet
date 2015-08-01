@@ -17,7 +17,7 @@
         </div>
         <h3><%= @runs %> runs by <%= @athletes %> athletes <em>(and growing)</em>.</h3>
         <% unless current_user %>
-          <%= form_for Invitation.new, url: waitlist_path do |f| %>
+          <%= form_for Invitation.new, url: invitations_path do |f| %>
             <%= f.text_field :recipient_email, placeholder: 'Email address', class: 'flexinput' %>
             <%= f.submit 'Join the waitlist', class: 'btn btn-sledsheet' %>
           <% end %>

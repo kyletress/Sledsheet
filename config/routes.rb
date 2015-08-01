@@ -26,10 +26,9 @@ Rails.application.routes.draw do
     end
     resources :points, only: [:index, :create]
   end
-  resources :invitations
+  resources :invitations, only: [:create]
   resources :points
 
-  post 'waitlist', to: 'invitations#waitlist'
   get 'search', to: 'search#index'
 
   namespace :admin do
@@ -38,7 +37,7 @@ Rails.application.routes.draw do
     resources :circuits
     resources :points
     resources :runs, only: :index
-    resources :invitations, only: [:index, :destroy]
+    resources :invitations
   end
 
   get '/become/:id', to: 'admin#become'

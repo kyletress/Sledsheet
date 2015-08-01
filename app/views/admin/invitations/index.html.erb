@@ -1,34 +1,20 @@
-<p><%= link_to 'Send an invitation', new_invitation_path, class: 'btn btn-success'%></p>
+<p><%= link_to 'Send an invitation', new_admin_invitation_path, class: 'btn btn-success'%></p>
 
 <div class="row">
-  <div class="col-sm-4">
-    <h3>Waitlist</h3>
+  <div class="col-sm-12">
+    <h3>Invitations</h3>
     <table class="table table-bordered">
       <% @invitations.each do |invitation| %>
       <tr>
-        <td><%= invitation.recipient_email %></td>
-        <td><%= link_to 'Send Invite', invitation_path(invitation), method: :patch %> or <%= link_to "Remove", admin_invitation_path(invitation), method: :delete, data: { confirm: "You sure?" }, class: 'text-danger' %></td>
-      </tr>
-      <% end %>
-    </table>
-  </div>
-  <div class="col-sm-4">
-    <h3>Pending</h3>
-    <table class="table table-bordered">
-      <% @pending.each do |invitation| %>
-      <tr>
-        <td><%= invitation.recipient_email %></td>
-        <td><%= link_to 'Re-send Invite', invitation_path(invitation), method: :patch %> (#TODO) or <%= link_to "Revoke", admin_invitation_path(invitation), method: :delete, data: { confirm: "You sure?" }, class: 'text-danger' %> </td>
-      </tr>
-      <% end %>
-    </table>
-  </div>
-  <div class="col-sm-4">
-    <h3>Claimed</h3>
-    <table class="table table-bordered">
-      <% @claimed.each do |invitation| %>
-      <tr>
-        <td><%= invitation.recipient_email %></td>
+        <td><%= mail_to invitation.try(:recipient_email), invitation.try(:recipient_email) %></td>
+        <td><span class="text-muted"><%= invitation.status %></span></td>
+        <% if invitation.status == "claimed" %>
+          <td></td>
+        <% elsif invitation.status == "pending" %>
+          <td><%= link_to "Delete", admin_invitation_path(invitation), method: :delete, data: { confirm: "You sure?" }, class: 'text-danger' %></td>
+        <% else %>
+          <td><%= link_to 'Invite', admin_invitation_path(invitation), method: :patch %> or <%= link_to "Delete", admin_invitation_path(invitation), method: :delete, data: { confirm: "You sure?" }, class: 'text-danger' %></td>
+        <% end %>
       </tr>
       <% end %>
     </table>
