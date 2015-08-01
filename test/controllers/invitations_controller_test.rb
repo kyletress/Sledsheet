@@ -25,7 +25,7 @@ class InvitationsControllerTest < ActionController::TestCase
     assert_difference('Invitation.count') do
       post :create, invitation: { sender_id: @admin.id, recipient_email: 'kyletress@gmail.com' }
     end
-    assert_redirected_to timesheets_path
+    assert_redirected_to admin_invitations_path
   end
 
 end
