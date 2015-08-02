@@ -24,6 +24,7 @@ gem 'rack-mini-profiler'
 gem 'gibbon'
 gem 'kaminari'
 gem 'font-awesome-sass', '~> 4.3.0'
+gem 'twitter'
 
 group :development do
   gem 'spring'

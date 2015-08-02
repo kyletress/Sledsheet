@@ -2,7 +2,7 @@ class PointsController < ApplicationController
   before_action :find_timesheet
 
   def index
-    @points = @timesheet.points.includes(:athlete)
+    @points = @timesheet.points.includes(:athlete).order(value: :desc)
   end
 
   def create

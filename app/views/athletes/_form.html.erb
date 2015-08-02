@@ -14,10 +14,10 @@
     or upload from the web
     <%= f.text_field :remote_avatar_url %>
   </div>
-    <%= f.label :male, "Male" %>
-    <%= f.radio_button :male, true %>
-    <%= f.label :male, "Female" %>
-    <%= f.radio_button :male, false %>
+  <div class="form-group">
+    <%= f.label :gender %>
+    <%= f.select :gender, options_for_select(@genders.collect { |g| [g[0].humanize, g[0]] }, selected: @athlete.gender), {} , class: "form-control" %>
+  </div>
   <div class="form-group">
     <%= f.label :country_code %>
     <%= country_select("athlete", "country_code", { priority_countries: ["US"], only: ["GB", "FR", "US", "CA", "BG", "LV", "CH", "IT", "RU", "DE", "AR", "AT", "AU", "BE", "BM", "BR", "CL", "CZ", "ES", "GR", "HR", "IE", "IL", "IQ", "JP", "JM", "KR", "LB", "MC", "MX", "NL", "NO", "NZ", "PL", "RO", "SE", "SI", "SK", "ZA" ]}, { selected: "GB", class: 'form-control' }) %>

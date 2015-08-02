@@ -4,7 +4,6 @@ class AthletesController < ApplicationController
 
   def index
     @athletes = Athlete.all
-    #@popular = Athlete.popular
   end
 
   def show
@@ -15,6 +14,7 @@ class AthletesController < ApplicationController
 
   def new
     @athlete = Athlete.new
+    @genders = Athlete.genders
   end
 
   def create
@@ -29,6 +29,7 @@ class AthletesController < ApplicationController
 
   def edit
     @athlete = Athlete.find(params[:id])
+    @genders = Athlete.genders
   end
 
   def update
@@ -50,7 +51,7 @@ class AthletesController < ApplicationController
   private
 
     def athlete_params
-      params.require(:athlete).permit(:first_name, :last_name, :country_code, :male, :avatar, :remote_avatar_url)
+      params.require(:athlete).permit(:first_name, :last_name, :country_code, :male, :gender, :avatar, :remote_avatar_url)
     end
 
 end
