@@ -39,6 +39,9 @@ class TimesheetsController < ApplicationController
   def update
     @timesheet = Timesheet.find(params[:id])
     if @timesheet.update_attributes(timesheet_params)
+      if params[:tweet].present?
+        tweet_timesheet
+      end
       award_points
       flash[:success] = "Timesheet updated."
       redirect_to @timesheet
@@ -50,6 +53,9 @@ class TimesheetsController < ApplicationController
   def create
     @timesheet = Timesheet.new(timesheet_params)
     if @timesheet.save
+      if params[:tweet].present?
+        tweet_timesheet
+      end
       flash[:success] = "Timesheet created."
       redirect_to @timesheet
     else
@@ -135,7 +141,7 @@ class TimesheetsController < ApplicationController
 
   private
     def timesheet_params
-      params.require(:timesheet).permit(:name, :nickname, :track_id, :circuit_id, :date, :race, :season_id, :pdf, :gender, :remote_pdf_url, :remove_pdf)
+      params.require(:timesheet).permit(:name, :nickname, :track_id, :circuit_id, :date, :race, :season_id, :pdf, :gender, :remote_pdf_url, :remove_pdf, :tweet)
     end
 
     def award_points
@@ -149,4 +155,13 @@ class TimesheetsController < ApplicationController
       params.slice(:type, :track, :circuit, :gender, :season)
     end
 
+    def tweet_timesheet
+      twitter = Twitter::REST::Client.new do |config|
+        config.consumer_key = ENV['TWITTER_CONSUMER_KEY']
+        config.consumer_secret = ENV['TWITTER_CONSUMER_SECRET']
+        config.access_token = ENV['TWITTER_ACCESS_TOKEN']
+        config.access_token_secret = ENV['TWITTER_ACCESS_SECRET']
+      end
+      twitter.update("#{@timesheet.name}: http://www.sledsheet.com/timesheets/#{@timesheet.id}")
+    end
 end
