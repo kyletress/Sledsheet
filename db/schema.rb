@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729023939) do
+ActiveRecord::Schema.define(version: 20150802042722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20150729023939) do
     t.string   "avatar",       limit: 255
     t.string   "name"
     t.string   "user_id"
+    t.integer  "gender",                   default: 0
   end
 
   add_index "athletes", ["user_id"], name: "index_athletes_on_user_id", using: :btree

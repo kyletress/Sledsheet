@@ -32,6 +32,13 @@ class Admin::PointsController < AdminController
     end
   end
 
+  def destroy
+    @point = Point.find(params[:id])
+    @point.destroy
+    flash[:success] = "Point destroyed."
+    redirect_to timesheet_points_path(@point.timesheet)
+  end
+
   private
 
   def point_params

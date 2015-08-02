@@ -81,7 +81,7 @@ class TimesheetsController < ApplicationController
         time_str.delete('.').to_i
       end
     rescue
-      -1
+      99999 # make it absurdly high to prevent ranking errors
     end
     @timesheet = Timesheet.find(params[:id])
     url = params[:url]
@@ -92,17 +92,17 @@ class TimesheetsController < ApplicationController
 
     entries.map! do |entry|
       {
-       name: entry.at(0).css('a.blue').text,
-       country: entry.at(0).css('strong.blue').text,
-       runs: entry.select{ |tr| tr.attr('class') == 'facts' }.map do |run|
-         {
-           start: run.css('td')[1].text,
-           split2: run.css('td')[2].text,
-           split3: run.css('td')[3].text,
-           split4: run.css('td')[4].text,
-           split5: run.css('td')[5].text,
-           finish: run.css('td')[6].text[/([0-1]:[0-5][0-9].[0-9][0-9])|[0-5][0-9].[0-9][0-9]/]
-         }
+        name: entry.at(0).css('a.blue').text,
+        country: entry.at(0).css('strong.blue').text,
+        runs: entry.select{ |tr| tr.attr('class') == 'facts' }.map do |run|
+          {
+            start: run.css('td')[1].text,
+            split2: run.css('td')[2].text,
+            split3: run.css('td')[3].text,
+            split4: run.css('td')[4].text,
+            split5: run.css('td')[5].text,
+            finish: run.css('td')[6].text[/([0-1]:[0-5][0-9].[0-9][0-9])|[0-5][0-9].[0-9][0-9]/]
+          }
         end
       }
     end

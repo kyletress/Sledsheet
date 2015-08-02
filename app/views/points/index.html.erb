@@ -16,7 +16,8 @@
     <td>
       <%= point.value %>
       <% if current_user.admin? %>
-        <%= link_to 'edit', edit_admin_point_path(point) %>
+        <%= link_to 'edit', edit_admin_point_path(point) %> 
+        <%= link_to 'delete', admin_point_path(point), method: :delete, data: { confirm: "You sure?" }, class: 'text-danger' %>
       <% end %>
     </td>
   </tr>
