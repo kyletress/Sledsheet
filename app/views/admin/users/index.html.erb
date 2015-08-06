@@ -1,17 +1,19 @@
 <% provide(:title, "Admin Users") %>
 
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-12">
 <table class="table table-striped">
   <tr>
     <th>User</th>
     <th>Email</th>
+    <th>Activated</th>
     <th>Admin</th>
   </tr>
   <% @users.each do |user| %>
   <tr>
     <td><%= link_to user.try(:name), admin_user_path(user) %></td>
     <td><%= mail_to user.email, user.email %></td>
+    <td><%= user.activated_at.try(:strftime, "%B %e, %Y") %></td>
     <td>
       <%= link_to "delete", admin_user_path(user), method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-xs' %>
     </td>

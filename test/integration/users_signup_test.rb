@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class UsersSignupTest < ActionDispatch::IntegrationTest
+
+  def setup
+    ActionMailer::Base.deliveries.clear
+  end
+
   test "invalid signup information" do
     get signup_path
     assert_no_difference 'User.count' do
@@ -21,13 +26,26 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   test "valid signup information with an invite" do
     @invitation = invitations(:with_sender)
     get signup_path(@invitation.token)
-    #get "/signup/#{@invitation.token}"
-    User.skip_callback(:create, :after, :subscribe_user_to_mailing_list)
     assert_difference 'User.count', 1 do
-      post_via_redirect users_path, user: { name:  "Example User", email: "user@example.com", password: "password", password_confirmation: "password", invitation_token: @invitation.token}
-    User.set_callback(:create, :after, :subscribe_user_to_mailing_list)
+      post users_path, user: { name:  "Example User", email: "user@example.com", password: "password", password_confirmation: "password", invitation_token: @invitation.token}
     end
 
+    assert_equal 1, ActionMailer::Base.deliveries.size
+    user = assigns(:user)
+    assert_not user.activated?
+    # try to login before activation
+    log_in_as(user)
+    assert_not is_logged_in?
+    # invalid activation token
+    get edit_account_activation_path("invalid token")
+    assert_not is_logged_in?
+    # valid token, wrong email
+    get edit_account_activation_path(user.activation_token, email: 'wrong')
+    assert_not is_logged_in?
+    #valid activation token
+    get edit_account_activation_path(user.activation_token, email: user.email)
+    assert user.reload.activated?
+    follow_redirect!
     assert_template 'users/show'
     assert is_logged_in?
   end

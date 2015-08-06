@@ -4,9 +4,13 @@ kyle:
   email: kyle@kyletress.com
   password_digest: <%= User.digest('password') %>
   admin: true
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 matt:
   name: Matt Antoine
   email: matt@mattantoine.com
   password_digest: <%= User.digest('password') %>
   admin: false
+  activated: true
+  activated_at: <%= Time.zone.now %>
