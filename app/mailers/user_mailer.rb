@@ -11,9 +11,9 @@ class UserMailer < ApplicationMailer
     mail to: user.email, subject: "Activate your Sledsheet account"
   end
 
-  def password_reset
-    @greeting = "Hi"
-    mail to: "to@example.org"
+  def password_reset(user)
+    @user = user
+    mail to: user.email, subject: "Sledsheet password reset"
   end
 
 end

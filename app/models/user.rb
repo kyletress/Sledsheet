@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessor :remember_token, :activation_token
+  attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
   before_create :create_activation_digest
   after_create :subscribe_user_to_mailing_list
@@ -38,13 +38,26 @@ class User < ActiveRecord::Base
 
   # Activates an account
   def activate
-    update_attribute(:activated, true)
-    update_attribute(:activated_at, Time.zone.now)
+    update_columns(activated: true, activated_at: Time.zone.now)
   end
 
   # Sends activation email
   def send_activation_email
     UserMailer.account_activation(self).deliver_now
+  end
+
+  # Sets the password reset attributes
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_columns(reset_digest: User.digest(reset_token), reset_sent_at: Time.zone.now)
+  end
+
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
+  end
+
+  def password_reset_expired?
+    reset_sent_at < 2.hour.ago
   end
 
   # Forgets a user.
@@ -59,7 +72,6 @@ class User < ActiveRecord::Base
   end
 
   def invitation_token
-    # wont work. I don't have a invitation_id on my user model.
     invitation.token if invitation
   end
 
