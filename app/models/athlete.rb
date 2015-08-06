@@ -2,10 +2,10 @@ class Athlete < ActiveRecord::Base
   include PgSearch
   multisearchable :against => [:first_name, :last_name]
 
-  has_many :entries
+  has_many :entries, dependent: :destroy
   has_many :timesheets, through: :entries
-  has_many :points
-  has_one :profile
+  has_many :points, dependent: :destroy
+  has_one :profile, dependent: :destroy
   belongs_to :user
   validates :first_name, presence: true, length: { maximum: 20 }
   validates :last_name, presence: true, length: { maximum: 20 }
@@ -13,6 +13,8 @@ class Athlete < ActiveRecord::Base
   default_scope -> { order('last_name ASC')}
 
   mount_uploader :avatar, AvatarUploader
+
+  enum gender: [:male, :female]
 
   # for the import function
   scope :find_by_timesheet_name, ->(t_name) { where("lower(first_name) = ? AND lower(last_name) = ?", t_name.split(',').last.strip.downcase, t_name.split(',').first.downcase)}
