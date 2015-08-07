@@ -1,5 +1,6 @@
 <%= form_tag  search_path, method: :get , class: 'navbar-form navbar-left', role: 'search' do %>
-  <div class="form-group">
-    <%= text_field_tag 'q', params[:q], id: "search", placeholder: "Search", class: 'form-control' %>
+  <div class="form-group search-group has-feedback">
+    <%= text_field_tag 'q', params[:q], id: "search", placeholder: "Search...", class: 'form-control' %>
+    <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
   </div>
 <% end %>
