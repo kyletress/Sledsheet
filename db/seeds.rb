@@ -23,24 +23,24 @@ end
 
 if Circuit.count == 0
   circuits = Circuit.create([
-    { name: 'World Cup' },
-    { name: 'Intercontinental Cup' },
-    { name: 'Europa Cup' },
-    { name: 'North American Cup' },
-    { name: 'Team Selection' },
-    { name: 'European Championship' },
-    { name: 'North American Championship' },
-    { name: 'World Championship' },
-    { name: 'Regional Championship' },
-    { name: 'International Training Week' },
-    { name: 'Olympic Winter Games' },
-    { name: 'Homologation' },
-    { name: 'Team Event' },
-    { name: 'Junior World Championship' },
-    { name: 'Junior National Championship' },
-    { name: 'Club' },
-    { name: 'Unofficial' },
-    { name: 'Development' }
+    { name: 'World Cup', nickname: 'WC' },
+    { name: 'Intercontinental Cup', nickname: 'IC' },
+    { name: 'Europa Cup', nickname: 'EC' },
+    { name: 'North American Cup', nickname: 'NAC' },
+    { name: 'Team Selection', nickname: 'SEL' },
+    { name: 'European Championship', nickname: 'ECh' },
+    { name: 'North American Championship', nickname: 'NACh' },
+    { name: 'World Championship', nickname: 'WCh' },
+    { name: 'Regional Championship', nickname: 'RCh' },
+    { name: 'International Training Week', nickname: 'ITC' },
+    { name: 'Olympic Winter Games', nickname: 'OWG' },
+    { name: 'Homologation', nickname: 'HOM' },
+    { name: 'Team Event', nickname: 'TE' },
+    { name: 'Junior World Championship', nickname: 'JWC' },
+    { name: 'Junior National Championship', nickname: 'JNC' },
+    { name: 'Club', nickname: 'Cl' },
+    { name: 'Unofficial', nickname: 'UT' },
+    { name: 'Development', nickname: 'DEV' }
   ])
 end
 
