@@ -59,9 +59,8 @@ class Athlete < ActiveRecord::Base
     country.ioc
   end
 
-  # Vestigial. No longer use position.
   def medal_count
-    entries.where("position <= 3 ").count
+    entries.where("bib <= 3").joins(:timesheet).where(timesheets: {race: true}).count
   end
 
   def points_for(season)
@@ -82,6 +81,11 @@ class Athlete < ActiveRecord::Base
 
   def unclaimed?
     self.user_id.blank?
+  end
+
+  def world_rank
+    points = Season.current_season.ranking_table(self.male)
+    rank = points.select {|a| a.athlete_id == self.id }.first.try(:rank).to_i
   end
 
 end

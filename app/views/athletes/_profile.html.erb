@@ -1,24 +1,42 @@
-<div class="profile-card">
+<div class="profile-card <%= header_for @athlete %>">
   <figure class="profile">
-    <%= image_tag @athlete.avatar_url(:thumb).to_s, class: 'athlete-avatar' %>
+    <%= image_tag @athlete.avatar_url(:thumb).to_s, size: '125x125', class: 'athlete-avatar' %>
     <figcaption>
-      <h1><%= @athlete.name %></h1>
-      <p class="lead"><%= flag_for @athlete %> <%= @athlete.country_name %></p>
-      <h3>Points: <%= @athlete.season_point_total(Season.current_season) %></h3>
-      <% if @athlete.unclaimed? %>
-        <small>Are you <%= @athlete.name %>? <%= link_to 'Register now', signup_path %> to edit this profile.</small>
-        <% end %>
+      <h2><%= @athlete.name %></h2>
+      <p class="text-muted"><%= @athlete.country_name %></p>
       <% if @athlete.profile.present? %>
-        <ul>
-          <li><%= icon('twitter') %> <%= link_to "Twitter", "http://www.twitter.com/#{@athlete.profile.twitter}", target: '_blank' %></li>
-          <li><%= icon('facebook') %> <%= link_to "Facebook", "http://www.facebook.com/#{@athlete.profile.twitter}", target: '_blank' %></li>
-          <li><%= icon('instagram') %> <%= link_to "Instagram", "http://www.instagram.com/#{@athlete.profile.instagram}", target: '_blank' %></li>
-        </ul>
         <p class="lead"><%= @athlete.profile.about %></p>
-        <% if current_user # NEED MORE %>
-          <%= link_to 'Edit Profile', edit_athlete_profile_path(@athlete) %>
-        <% end %>
       <% end %>
     </figcaption>
   </figure>
+  <% if @athlete.world_rank == 1 %>
+    <div class="leader">World Leader</div>
+  <% end %>
+</div>
+<div class="stat-nav">
+  <ul>
+    <li class="stat-item">
+      <h3><%= @athlete.medal_count %></h3>
+      <%=  "medal".pluralize(@athlete.medal_count) %>
+    </li>
+    <li class="stat-item">
+      <h3><%= @athlete.entries.count %></h3>
+      <%=  "race".pluralize(@athlete.entries.count) %>
+    </li>
+    <li class="stat-item">
+      <h3>1</h3>
+      fan
+    </li>
+    <li class="stat-item">
+      <h3><%= @athlete.season_point_total(Season.current_season) %></h3>
+      season points
+    </li>
+    <li class="stat-item">
+      <h3><%= @athlete.world_rank.ordinalize %></h3>
+      world rank
+    </li>
+    <li class="stat-item">
+      <a href="#" class="btn btn-success btn-inverted">Become a fan</a>
+    </li>
+  </ul>
 </div>

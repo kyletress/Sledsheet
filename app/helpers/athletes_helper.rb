@@ -21,4 +21,8 @@ module AthletesHelper
     content_tag :span, "", class: ["flag", "flag-#{athlete.country_code}"]
   end
 
+  def header_for(athlete)
+    "header-#{athlete.country_code.downcase}"
+  end
+
 end

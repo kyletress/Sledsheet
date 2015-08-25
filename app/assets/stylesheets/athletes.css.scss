@@ -11,21 +11,103 @@
   display: -webkit-flex;
   display: flex;
 	-webkit-flex-wrap: wrap;
+	-moz-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
 	-webkit-justify-content: space-between;
+	-moz-justify-content:space-between;
+	-ms-justify-content:space-between;
 	justify-content: space-between;
 }
 
 .profile-card {
-	background: white;
-	padding: 1rem;
+	background-image:none;
+	background-color:black;
+	background-size:cover;
+	border-top-right-radius: .5rem;
+	border-top-left-radius: .5rem;
+	text-align:center;
+	margin:1.6rem 0 0 0;
+	color:white;
+	p {
+		margin-bottom:0;
+		padding-bottom:1rem;
+	}
 }
 
 .profile {
-	display: -webkit-flex;
-	display:flex;
-	img {
-		margin-right:2rem;
+	h2 {
+		font-weight:bold;
+		font-size:2.4rem;
+		margin:0;
+		margin-bottom:.3rem;
+		color:white;
+	}
+}
+
+.leader {
+	background:#FFCC00;
+	color:white;
+	font-size:1.1rem;
+	text-transform:uppercase;
+	font-weight:bold;
+}
+
+.stat-nav{
+	border:1px solid #ccc;
+	//border-top:1px solid #222;
+	border-top:none;
+	width:100%;
+	background-color:white;
+	background: rgba(255,255,255,1);
+	margin-bottom:1.6rem;
+
+	/* Safari 4-5, Chrome 1-9 */
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ddd));
+	/* Safari 5.1, Chrome 10+ */
+	background: -webkit-linear-gradient(top, #fff, #ddd);
+	/* Firefox 3.6+ */
+	background: -moz-linear-gradient(top, #fff, #ddd);
+	/* IE 10 */
+	background: -ms-linear-gradient(top, #fff, #ddd);
+	/* Opera 11.10+ */
+	background: -o-linear-gradient(top, #fff, #ddd);
+
+	border-bottom-left-radius: .3rem;
+	border-bottom-right-radius: .3rem;
+	ul {
+		list-style:none;
+		margin: 0;
+		padding:0;
+		@media (min-width:600px){
+			display:-webkit-flex;
+			display:flex;
+			-webkit-align-items: center;
+			align-items:center;
+		}
+		li {
+			-webkit-flex:1;
+			flex:1;
+			text-align:center;
+			padding:1rem;
+			border-right: 1px solid #eee;
+			&:last-child {
+				border-right:none;
+			}
+		}
+	}
+}
+
+.stat-item{
+	color:#999;
+	text-transform:uppercase;
+	font-size:1.2rem;
+	h3 {
+		margin:0;
+		font-weight:bold;
+		color:black;
+		text-transform:none;
+		text-shadow: 1px 1px 1px white;
 	}
 }
 
@@ -43,13 +125,6 @@
 	}
 }
 
-.small {
-	width:15rem;
-	h4 {
-		font-size:1.6rem;
-	}
-}
-
 .medal {
 	width: 10px;
 	height: 10px;
@@ -64,9 +139,58 @@
 }
 
 .athlete-avatar {
-	border-radius:5px;
+	border-radius:50%;
+	background: white;
+	background: rgba(255,255,255,.65);
+	padding:.4rem;
+	margin:2rem 0;
 }
 
 .athlete-avatar-mini {
 	border-radius: 50%;
+}
+
+.profile-cards{
+	@media (min-width: 600px){
+		display:-webkit-flex;
+		display:flex;
+		-webkit-justify-content:space-between;
+		.card {
+			-webkit-flex:1;
+			flex:1;
+		}
+	}
+}
+
+.card {
+	background:white;
+	border-radius:.3rem;
+	padding:1rem;
+	margin:0 1rem;
+	width:100%;
+	@media (min-width: 600px) {
+		width:32%;
+	}
+	h5 {
+		font-weight:bold;
+		border-bottom:1px solid #eee;
+	}
+}
+
+.recent {
+	font-size:1.4rem;
+	table {
+		margin-bottom:0;
+	}
+}
+
+$countries: (
+	ar, at, au, be, bg, bm, br, ca, ch, cl, cz, de, es, fr, gb, gr, hr, il, iq, ie, it, jm, jp, kr, lb, lv, mc, mx, nl, no, nz, pl, ro, ru, se, si, sk, us, za
+);
+
+@each $country in $countries {
+	.header-#{$country} {
+		background: image-url("#{$country}.svg") center center;
+		background-size:cover;
+	}
 }

@@ -59,6 +59,11 @@ class Timesheet < ActiveRecord::Base
     date.strftime("%Y-%m-%d")
   end
 
+  def shortname
+    # probably need to turn this into an attribute to avoid N+1
+    "#{track.name} #{circuit.nickname} #{season.short_name}"
+  end
+
   def pdf_name
     "#{machine_date}-#{track.name.parameterize}-#{circuit.name.parameterize}-#{if race then 'race' else 'training' end}"
   end
@@ -93,6 +98,8 @@ class Timesheet < ActiveRecord::Base
 
     def name_timesheet
       self.name = "#{track.name} #{circuit.name} #{if race then 'Race' else 'Training' end} #{season_name} #{gender.capitalize}" if track && circuit
+      # add an attribute below for this
+      # self.nickname = "#{track.name} #{circuit.nickname} #{if race then 'Race' end} #{season.short_name}" if track && circuit
     end
 
     def assign_season
