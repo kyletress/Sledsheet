@@ -101,9 +101,9 @@ GEM
     font-awesome-sass (4.3.2.1)
       sass (~> 3.2)
     formatador (0.2.5)
-    gibbon (1.1.6)
-      httparty
-      multi_json (>= 1.9.0)
+    gibbon (2.1.2)
+      faraday (>= 0.9.1)
+      multi_json (>= 1.11.0)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     guard (2.12.8)
@@ -123,9 +123,6 @@ GEM
     http (0.6.4)
       http_parser.rb (~> 0.6.0)
     http_parser.rb (0.6.0)
-    httparty (0.13.5)
-      json (~> 1.8)
-      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     i18n_data (0.7.0)
     jbuilder (1.5.3)
@@ -165,7 +162,6 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     multi_json (1.11.2)
-    multi_xml (0.5.5)
     multipart-post (2.0.0)
     naught (1.0.0)
     nenv (0.2.0)
@@ -338,4 +334,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.10.5
+   1.10.6
