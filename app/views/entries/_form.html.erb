@@ -1,5 +1,6 @@
 <%= form_for [@timesheet, @entry] do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  <%= f.text_field :athlete_name, class: 'form-control', id: 'typeahead', placeholder: 'Search for athlete' %>
+  <%= f.hidden_field :athlete_id %>
+  <%= f.text_field :athlete_name, class: 'form-control', id: 'typeahead', placeholder: 'Search for athlete', autocomplete: :off %>
   <%= f.submit %>
 <% end %>
