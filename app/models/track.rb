@@ -8,8 +8,15 @@ class Track < ActiveRecord::Base
   default_scope -> { order('name ASC')}
 
   def track_record
-    # override the default scope
     runs.reorder("finish ASC").first
+  end
+
+  def track_record_women
+    runs.joins(entry: :athlete).where(athletes: {gender: 1}).first.try(:finish)
+  end
+
+  def track_record_men
+    runs.joins(entry: :athlete).where(athletes: {gender: 0}).first.try(:finish)
   end
 
   def start_record

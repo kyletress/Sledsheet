@@ -29,6 +29,12 @@ class Run < ActiveRecord::Base
     values
   end
 
+  # male entries.
+  Entry.joins(:athlete).where(athletes: {gender: 0}).count
+
+  # Timesheet runs
+  Run.joins(entry: [:timesheet, :athlete]).where(timesheets: {id: 134}, athletes: {gender: "female"}).count
+
   private
 
     def calculate_intermediates
