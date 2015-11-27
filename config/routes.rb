@@ -42,6 +42,10 @@ Rails.application.routes.draw do
     resources :invitations
   end
 
+  namespace :api do
+    resources :athletes, :tracks, :circuits
+  end
+
   get '/become/:id', to: 'admin#become'
 
   # match '/about', to: 'static_pages#about', via: 'get'
