@@ -32,10 +32,6 @@ class EntriesController < ApplicationController
     end
   end
 
-  def typeahead
-    render json: Athlete.where('last_name ilike ?', "%#{params[:query]}%")
-  end
-
   private
 
     def entry_params

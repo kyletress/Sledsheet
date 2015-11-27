@@ -1,6 +1,5 @@
 <%= form_for [@timesheet, @entry] do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  <%= f.label :athlete_name, 'Athlete' %>
-  <%= f.collection_select(:athlete_id, Athlete.all, :id, :name, :prompt => "Athlete") %>
+  <%= f.text_field :athlete_name, class: 'form-control', id: 'typeahead', placeholder: 'Search for athlete' %>
   <%= f.submit %>
 <% end %>

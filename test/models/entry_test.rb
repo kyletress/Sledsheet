@@ -13,6 +13,8 @@ class EntryTest < ActiveSupport::TestCase
   test "should have an athlete id" do
     @entry.athlete_id = nil
     assert_not @entry.valid?, "saved entry without an athlete id"
+    @entry.athlete_id = "Kyle Tress"
+    assert_not @entry.valid?, "saved entry with a string for an athlete_id"
   end
 
   test "should have a timesheet id" do

@@ -45,10 +45,13 @@ var athletes = new Bloodhound({
   }
 });
 
+athletes.initialize();
+
 $(document).on('page:change', function() {
   $('#typeahead').typeahead(null, {
     name: 'athletes',
     display: 'name',
+    val: 'id',
     source: athletes
   });
 });

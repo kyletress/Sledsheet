@@ -4,6 +4,7 @@ class Entry < ActiveRecord::Base
   has_many :runs, dependent: :destroy
 
   validates :athlete_id, :timesheet_id, presence: true
+  validates :athlete_id, numericality: true
 
   acts_as_list :scope => :timesheet, :column => :bib
 
@@ -14,6 +15,14 @@ class Entry < ActiveRecord::Base
 
   def date
     timesheet.date
+  end
+
+  def athlete_name
+    athlete.try(:name)
+  end
+
+  def athlete_name=(name)
+    self.athlete = Athlete.find_by(name: name)
   end
 
   def self.top_ten
