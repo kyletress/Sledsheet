@@ -1,4 +1,14 @@
 <h1>Startlist</h1>
+
+<div class="col-lg-12">
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="Search for athlete...">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="button">Go!</button>
+    </span>
+  </div><!-- /input-group -->
+</div><!-- /.col-lg-6 -->
+
 <p><%= @timesheet.name %> on <%= @timesheet.nice_date %></p>
 
 <ol id="entries" data-update-url="<%= sort_timesheet_entries_url %>">

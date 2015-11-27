@@ -1,5 +1,5 @@
 class EntriesController < ApplicationController
-  before_action :find_timesheet, except: [:destroy]
+  before_action :find_timesheet, except: [:destroy, :typeahead]
 
   def index
     @entries = @timesheet.entries.includes(:athlete).order("bib")
@@ -30,6 +30,10 @@ class EntriesController < ApplicationController
     params[:entry].each_with_index do |id, index|
       Entry.update_all({bib: index+1}, {id: id})
     end
+  end
+
+  def typeahead
+    render json: Athlete.where('last_name ilike ?', "%#{params[:query]}%")
   end
 
   private

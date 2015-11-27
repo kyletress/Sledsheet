@@ -48,6 +48,15 @@ class AthletesController < ApplicationController
     redirect_to athletes_url
   end
 
+  def typeahead
+    render json: Athlete.where('last_name ilike ?', "%#{params[:q]}%")
+    # render json: Athlete.where('((athletes.first_name || ' ' || athletes.last_name) ILIKE ?) OR (athletes.first_name ILIKE ?) OR (athletes.last_name ILIKE ?)', "%#{params[:query]}%", "%#{params[:query]}%", "%#{params[:query]}%")
+  end
+
+  def search
+    render json: Athlete.where('last_name ilike ?', "%#{params[:q]}%")
+  end
+
   private
 
     def athlete_params
