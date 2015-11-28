@@ -7,7 +7,10 @@ class Point < ActiveRecord::Base
   validates :athlete, :timesheet, :circuit, :season, :value, presence: true
 
   def self.season_points(season, gender)
-    points = Point.find_by_sql(["SELECT athlete_id, total_points, rank() over (order by total_points desc) FROM (SELECT athlete_id, sum(value) as total_points FROM (SELECT row_number() OVER (partition by athlete_id ORDER BY value DESC) as r, p.* FROM points p where season_id = ?) x WHERE x.r <= 8 GROUP BY athlete_id ORDER BY total_points DESC) as season_points INNER JOIN athletes on athlete_id = athletes.id WHERE male = ? ORDER BY total_points DESC", season.id, gender])
+    # How many WC races are there this season?
+    count = Timesheet.where(circuit: 1, season: Season.current_season, race: true).count
+    # need to improve this
+    points = Point.find_by_sql(["SELECT athlete_id, total_points, rank() over (order by total_points desc) FROM (SELECT athlete_id, sum(value) as total_points FROM (SELECT row_number() OVER (partition by athlete_id ORDER BY value DESC) as r, p.* FROM points p where season_id = ?) x WHERE x.r <= 8 AND x.r <= ? GROUP BY athlete_id ORDER BY total_points DESC) as season_points INNER JOIN athletes on athlete_id = athletes.id WHERE male = ? ORDER BY total_points DESC", season.id, count, gender])
     ActiveRecord::Associations::Preloader.new.preload(points, :athlete)
     points
   end
