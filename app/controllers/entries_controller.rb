@@ -36,14 +36,9 @@ class EntriesController < ApplicationController
   def sort
     puts params[:entry]
     params[:entry].each_with_index do |id, index|
-      puts id
-      puts index
       #Entry.update_all({bib: index+1}, {id: id})
       Entry.find(id).update_attribute(:bib,index+1)
     end
-    # params[:entry].each_with_index do |id, index|
-    #   Entry.update_all({bib: index+1}, {id: id})
-    # end
     render :nothing => true
   end
 
