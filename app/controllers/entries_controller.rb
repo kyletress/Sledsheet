@@ -2,6 +2,7 @@ class EntriesController < ApplicationController
   before_action :find_timesheet, except: [:destroy, :typeahead]
 
   def index
+    @entry = Entry.new
     @entries = @timesheet.entries.includes(:athlete).order("bib")
   end
 
@@ -11,11 +12,17 @@ class EntriesController < ApplicationController
 
   def create
     @entry = @timesheet.entries.build(entry_params)
-    if @entry.save
-      flash[:success] = "#{@entry.athlete.name} has been added to the timesheet."
-      redirect_to timesheet_entries_path(@timesheet)
-    else
-      render 'new'
+    #respond_to :html, :js
+    respond_to do |format|
+      if @entry.save
+        format.html {
+          flash[:success] = "#{@entry.athlete.name} has been added to the timesheet."
+          redirect_to timesheet_entries_path(@timesheet)
+        }
+        format.js
+      else
+        render 'new'
+      end
     end
   end
 
