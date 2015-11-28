@@ -3,10 +3,13 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #entries{
+  list-style-position: inside;
+  padding-left:0;
   li.entry {
+    font-weight:bold;
     background:#fff;
     margin-bottom:3px;
-    padding:3px;
+    padding:3px 10px;
     border-radius:3px;
   }
 }

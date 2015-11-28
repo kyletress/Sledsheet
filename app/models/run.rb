@@ -1,7 +1,7 @@
 class Run < ActiveRecord::Base
   # before_save :calculate_intermediates
   before_save :assign_entry_status
-  belongs_to :entry
+  belongs_to :entry, counter_cache: true
 
   validates :entry_id, presence: true
   validates :status, presence: true

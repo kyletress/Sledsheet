@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150821203640) do
+ActiveRecord::Schema.define(version: 20151128054447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20150821203640) do
     t.datetime "updated_at"
     t.boolean  "male",                     default: true
     t.string   "avatar",       limit: 255
-    t.string   "name"
     t.string   "user_id"
     t.integer  "gender",                   default: 0
   end
@@ -45,6 +44,7 @@ ActiveRecord::Schema.define(version: 20150821203640) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "status",       default: 0
+    t.integer  "runs_count",   default: 0, null: false
   end
 
   add_index "entries", ["athlete_id"], name: "index_entries_on_athlete_id", using: :btree
@@ -138,20 +138,18 @@ ActiveRecord::Schema.define(version: 20150821203640) do
   end
 
   create_table "timesheets", force: :cascade do |t|
-    t.string   "name",                  limit: 255
-    t.string   "nickname",              limit: 255
+    t.string   "name",       limit: 255
+    t.string   "nickname",   limit: 255
     t.integer  "track_id"
     t.integer  "circuit_id"
     t.datetime "date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "race",                              default: false
+    t.boolean  "race",                   default: false
     t.integer  "season_id"
-    t.string   "pdf",                   limit: 255
-    t.integer  "gender",                            default: 0
-    t.boolean  "complete",                          default: false
-    t.boolean  "press_release_sent",                default: false
-    t.datetime "press_release_sent_at"
+    t.string   "pdf",        limit: 255
+    t.integer  "gender",                 default: 0
+    t.boolean  "complete",               default: false
   end
 
   add_index "timesheets", ["circuit_id"], name: "index_timesheets_on_circuit_id", using: :btree
@@ -166,7 +164,7 @@ ActiveRecord::Schema.define(version: 20150821203640) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name",              limit: 255
-    t.string   "email",                         default: "",    null: false
+    t.string   "email",             limit: 255, default: "",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "password_digest",   limit: 255

@@ -4,6 +4,7 @@ class RunsController < ApplicationController
 
   def new
     @run = @entry.runs.new
+    @statuses = Run.statuses
   end
 
   def show
