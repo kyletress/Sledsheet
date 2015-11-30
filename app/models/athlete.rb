@@ -15,7 +15,7 @@ class Athlete < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
-  enum gender: [:male, :female]
+  enum gender: {male: 0, female: 1}
 
   # for the import function
   # scope :find_by_timesheet_name, ->(t_name) { where("lower(first_name) = ? AND lower(last_name) = ?", t_name.split(',').last.strip.downcase, t_name.split(',').first.downcase)}

@@ -65,7 +65,7 @@ class AthleteTest < ActiveSupport::TestCase
   end
 
   test "find by timesheet name should return the correct athlete" do
-    assert_equal Athlete.find_by_timesheet_name("TRESS, Kyle").first, @athlete
+    assert_equal Athlete.find_by_timesheet_name("TRESS Kyle").first, @athlete
   end
 
   test "find by timesheet name should create an athlete if none found" do
