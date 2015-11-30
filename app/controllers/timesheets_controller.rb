@@ -72,7 +72,6 @@ class TimesheetsController < ApplicationController
   def import
     require 'nokogiri'
     require 'open-uri'
-    # probably not the best place for this, but it's staying for now...
     def time_to_integer(time_str)
       if /[:]/ =~ time_str
         minutes, seconds, centiseconds = time_str.split(/[:.]/).map{|str| str.to_i}
@@ -85,23 +84,23 @@ class TimesheetsController < ApplicationController
     end
     @timesheet = Timesheet.find(params[:id])
     url = params[:url]
-    doc = Nokogiri::HTML(open(url))
-    doc.css(".list-table")
-    trs = doc.css('.padding1010, .facts').to_a
-    entries = trs.slice_before{ |elm| elm.attr('class') =='padding1010' }.to_a
+    page = Nokogiri::HTML(open(url))
+    page.css(".table")
+    trs = page.css('.crew, .run').to_a
+    entries = trs.slice_before{ |elm| elm.attr('class') =='crew' }.to_a
 
     entries.map! do |entry|
       {
-        name: entry.at(0).css('a.blue').text,
-        country: entry.at(0).css('strong.blue').text,
-        runs: entry.select{ |tr| tr.attr('class') == 'facts' }.map do |run|
+        name: entry.at(0).css("td.visible-xs div.fl.athletes a").text.strip,
+        country: entry.at(0).css("div.fl.athletes img.country-flag").attr('alt').text,
+        runs: entry.select{ |tr| tr.attr('class') == 'run' }.map do |run|
           {
-            start: run.css('td')[1].text,
-            split2: run.css('td')[2].text,
-            split3: run.css('td')[3].text,
-            split4: run.css('td')[4].text,
-            split5: run.css('td')[5].text,
-            finish: run.css('td')[6].text[/([0-1]:[0-5][0-9].[0-9][0-9])|[0-5][0-9].[0-9][0-9]/]
+            start: run.css('td')[1].text.strip,
+            split2: run.css('td')[2].text.strip,
+            split3: run.css('td')[3].text.strip,
+            split4: run.css('td')[4].text.strip,
+            split5: run.css('td')[5].text.strip,
+            finish: run.css('td')[6].text.strip
           }
         end
       }

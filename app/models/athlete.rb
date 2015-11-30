@@ -18,15 +18,42 @@ class Athlete < ActiveRecord::Base
   enum gender: [:male, :female]
 
   # for the import function
-  scope :find_by_timesheet_name, ->(t_name) { where("lower(first_name) = ? AND lower(last_name) = ?", t_name.split(',').last.strip.downcase, t_name.split(',').first.downcase)}
+  # scope :find_by_timesheet_name, ->(t_name) { where("lower(first_name) = ? AND lower(last_name) = ?", t_name.split(',').last.strip.downcase, t_name.split(',').first.downcase)}
+
+  def self.find_by_timesheet_name(name)
+    array = name.split(' ')
+    if array.count > 2
+      if array[1] === array[1].upcase
+        last_name = "#{array[0]} #{array[1]}"
+        first_name = "#{array[2]}"
+      else
+        last_name = "#{array[0]}"
+        first_name = "#{array[1]} #{array[2]}"
+      end
+    else
+      last_name = "#{array[0]}"
+      first_name = "#{array[1]}"
+    end
+    Athlete.where("lower(first_name) = ? AND lower(last_name) = ?", first_name.downcase, last_name.downcase)
+  end
 
   def self.find_or_create_by_timesheet_name(name, country, male)
     a = Athlete.find_by_timesheet_name(name)
     if a.count > 0
       a.first
     else
-      first_name = name.split(',').last.strip.capitalize
-      last_name = name.split(',').first.capitalize
+      array = name.split[' ']
+      if array.count > 2
+        if array[1] === array[1].upcase
+          last_name = "#{array[0]} #{array[1]}"
+        else
+          last_name = "#{array[0]}"
+        end
+        first_name = "#{array.last}"
+      else
+        last_name = "#{array[0]}"
+        first_name = "#{array[1]}"
+      end
       country_code = ISO3166::Country.find_country_by_ioc(country.to_s).alpha2
       Athlete.create(first_name: first_name, last_name: last_name, country_code: country_code, male: if "men" then true else false end )
     end
