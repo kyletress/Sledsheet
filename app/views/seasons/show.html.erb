@@ -9,13 +9,7 @@
         <th>Athlete</th>
         <th>Points</th>
       </tr>
-      <% @mens.each do |point| %>
-        <tr>
-          <td><%= point.world_rank %></td>
-          <td><small class="text-muted"><%= point.athlete.timesheet_country %> <%= point.nation_rank %> &mdash;</small> <%= link_to point.athlete.name, point.athlete %></td>
-          <td><%= point.total_points %></td>
-        </tr>
-      <% end %>
+      <%= render partial: 'ranks', collection: @mens, as: :ranking %>
     </table>
   </div>
   <div class="col-sm-12 col-md-6">
@@ -26,13 +20,7 @@
         <th>Athlete</th>
         <th>Points</th>
       </tr>
-      <% @womens.each do |point| %>
-        <tr>
-          <td><%= point.world_rank %></td>
-          <td><small class="text-muted"><%= point.athlete.timesheet_country %> <%= point.nation_rank %> &mdash;</small> <%= link_to point.athlete.name, point.athlete %></td>
-          <td><%= point.total_points %></td>
-        </tr>
-      <% end %>
+      <%= render partial: 'ranks', collection: @womens, as: :ranking %>
     </table>
   </div>
 </div>
