@@ -42,14 +42,16 @@ class Athlete < ActiveRecord::Base
     if a.count > 0
       a.first
     else
-      array = name.split[' ']
+      # no results, create athlete.
+      array = name.split(' ')
       if array.count > 2
         if array[1] === array[1].upcase
           last_name = "#{array[0]} #{array[1]}"
+          first_name = "#{array[2]}"
         else
           last_name = "#{array[0]}"
+          first_name = "#{array[1]} #{array[2]}"
         end
-        first_name = "#{array.last}"
       else
         last_name = "#{array[0]}"
         first_name = "#{array[1]}"
