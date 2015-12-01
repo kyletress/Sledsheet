@@ -21,8 +21,9 @@ class Timesheet < ActiveRecord::Base
   validates :circuit_id, presence: true
   validates :gender, presence: true
 
-  #enum gender: [:mixed, :men, :women] # 0 1 2 
+  #enum gender: [:mixed, :men, :women] # 0 1 2
   enum gender: {men: 0, women: 1, mixed: 2}
+  enum status: {open: 0, complete: 1} # hidden, live, draft? 
 
   mount_uploader :pdf, PdfUploader
 

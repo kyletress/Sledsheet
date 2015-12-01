@@ -73,7 +73,12 @@
         </div>
       </div>
 
-    	<%= f.submit 'Create Timesheet', class: 'btn btn-lg btn-primary' %>
+      <div class="form-group">
+        <%= f.label :status %><br>
+        <%= f.select :status, Timesheet.statuses.keys %>
+      </div>
+
+      <%= f.submit ( f.object.new_record? ? "Create" : "Update"), class: "btn btn-lg btn-primary" %>
 
     <% end %>
 
