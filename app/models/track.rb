@@ -19,6 +19,14 @@ class Track < ActiveRecord::Base
     runs.joins(entry: :athlete).where(athletes: {gender: 0}).first.try(:finish)
   end
 
+  def start_record_men
+    runs.joins(entry: :athlete).where(athletes: {gender: 0}).first.try(:finish)
+  end
+
+  def start_record_women
+    runs.joins(entry: :athlete).where(athletes: {gender: 1}).first.try(:start)
+  end
+
   def start_record
     runs.reorder("start ASC").first
   end

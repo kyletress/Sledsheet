@@ -42,8 +42,10 @@ Rails.application.routes.draw do
     resources :invitations
   end
 
-  namespace :api do
-    resources :athletes, :tracks, :circuits
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :athletes, :tracks, :circuits, :timesheets, :entries, :users, :seasons
+    end
   end
 
   get '/become/:id', to: 'admin#become'

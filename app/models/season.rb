@@ -44,4 +44,14 @@ class Season < ActiveRecord::Base
   def ranking_table(gender)
     points = Point.find_by_sql(["SELECT athlete_id, total_points, rank() over (order by total_points desc) FROM (SELECT athlete_id, sum(value) as total_points FROM (SELECT row_number() OVER (partition by athlete_id ORDER BY value DESC) as r, p.* FROM points p where season_id = ?) x WHERE x.r <= 8 GROUP BY athlete_id ORDER BY total_points DESC) as season_points INNER JOIN athletes on athlete_id = athletes.id WHERE male = ? ORDER BY total_points DESC", Season.current_season, gender])
   end
+
+  def rankings(gender)
+    # How many WC races are there this season?
+    count = Timesheet.where(circuit: 1, season: self, race: true, gender: gender, status: 1).count
+    points = Point.find_by_sql(["SELECT athlete_id, total_points, rank() over (order by total_points desc) as world_rank, rank() over (partition by country_code order by total_points desc) as nation_rank FROM (SELECT athlete_id, sum(value) as total_points FROM (SELECT row_number() OVER (partition by athlete_id ORDER BY value DESC) as r, p.* FROM points p where season_id = ?) x WHERE x.r <= 8 AND x.r <= ? GROUP BY athlete_id ORDER BY total_points DESC) as season_points INNER JOIN athletes on athlete_id = athletes.id WHERE gender = ? ORDER BY total_points DESC", id, count, gender])
+    ActiveRecord::Associations::Preloader.new.preload(points, :athlete)
+    points
+  end
+
+
 end
