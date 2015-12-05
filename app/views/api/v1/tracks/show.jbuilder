@@ -6,8 +6,8 @@ json.track do
       json.men do
         json.start do
           json.time @track.start_record_men
-          json.athlete "Martins Dukurs"
-          json.date "2015-11-17"
+          #json.athlete "Martins Dukurs"
+          #json.date "2015-11-17"
         end
         json.finish do
           json.time @track.track_record_men
