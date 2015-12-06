@@ -6,8 +6,9 @@ class Api::V1::SeasonsController < ApplicationController
 
   def show
     @season = Season.find(params[:id])
-    @mens_rankings = @season.rankings(0)
-    @womens_rankings = @season.rankings(1)
+    #@mens_rankings = @season.rankings(0)
+    #@womens_rankings = @season.rankings(1)
+    @rankings = @season.rankings(0)
   end
 
 end
