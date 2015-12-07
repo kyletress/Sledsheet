@@ -24,7 +24,8 @@
 json.array! @rankings do |ranking|
   json.id ranking.athlete.id
   json.athlete ranking.athlete.name
-  json.world_rank ranking.world_rank
-  json.nation_rank ranking.nation_rank
-  json.points ranking.total_points
+  json.world_rank ranking.world_rank.to_s
+  json.nation_rank ranking.nation_rank.to_s
+  json.points ranking.total_points.to_s
+  json.country ranking.athlete.timesheet_country
 end

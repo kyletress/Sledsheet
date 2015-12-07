@@ -44,7 +44,16 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :athletes, :tracks, :circuits, :timesheets, :entries, :users, :seasons
+      resources :athletes
+      resources :tracks
+      resources :circuits
+      resources :timesheets
+      resources :entries 
+      resources :users
+      resources :seasons do
+        get 'men', on: :member
+        get 'women', on: :member
+      end
     end
   end
 
