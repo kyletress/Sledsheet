@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   resources :points
 
   get 'search', to: 'search#index'
+  get '/rankings/', to: 'seasons#rankings', as: 'rankings'
 
   namespace :admin do
     resources :tracks
@@ -48,12 +49,14 @@ Rails.application.routes.draw do
       resources :tracks
       resources :circuits
       resources :timesheets
-      resources :entries 
+      resources :entries
       resources :users
       resources :seasons do
+        get '/athletes/:athlete_id', to: 'seasons#athletes', on: :member
         get 'men', on: :member
         get 'women', on: :member
       end
+      get '/rankings/:season_name', to: 'seasons#rankings'
     end
   end
 

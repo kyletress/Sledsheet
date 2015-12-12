@@ -8,4 +8,10 @@ class SeasonsController < ApplicationController
     @mens = Point.season_points(@season, 0)
     @womens = Point.season_points(@season, 1)
   end
+
+  def rankings
+    @season = Season.current_season
+    @mens = Point.season_points(@season, 0)
+    @womens = Point.season_points(@season, 1)
+  end
 end

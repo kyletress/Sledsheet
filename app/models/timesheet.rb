@@ -23,7 +23,7 @@ class Timesheet < ActiveRecord::Base
 
   #enum gender: [:mixed, :men, :women] # 0 1 2
   enum gender: {men: 0, women: 1, mixed: 2}
-  enum status: {open: 0, complete: 1} # hidden, live, draft? 
+  enum status: {open: 0, complete: 1} # hidden, live, draft?
 
   mount_uploader :pdf, PdfUploader
 
@@ -62,6 +62,10 @@ class Timesheet < ActiveRecord::Base
   def shortname
     # probably need to turn this into an attribute to avoid N+1
     "#{track.name} #{circuit.nickname} #{season.short_name}"
+  end
+
+  def short_name
+    "#{track.name} #{circuit.nickname}"
   end
 
   def pdf_name

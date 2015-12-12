@@ -21,4 +21,10 @@ class Api::V1::SeasonsController < ApplicationController
     @rankings = @season.rankings(1)
   end
 
+  def athletes
+    @season = Season.find(params[:id])
+    @athlete = Athlete.find(params[:athlete_id])
+    @points = @athlete.season_points(@season)
+  end
+
 end
