@@ -5,7 +5,7 @@ class Api::V1::TimesheetsController < ApplicationController
   end
 
   def show
-    @timesheet = Timesheet.find(params[:id])
+    @timesheet = Timesheet.includes(:entries).find(params[:id])
   end
 
 end

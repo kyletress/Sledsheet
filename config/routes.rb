@@ -45,10 +45,10 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :athletes
-      resources :tracks
-      resources :circuits
-      resources :timesheets
+      resources :athletes, only: [:index, :show]
+      resources :tracks, only: [:index, :show]
+      resources :circuits, only: [:index, :show]
+      resources :timesheets, only: [:index, :show]
       resources :entries
       resources :users
       resources :seasons do
