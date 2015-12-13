@@ -32,7 +32,7 @@ class Season < ActiveRecord::Base
     if Season.first.timesheets.race.present?
       Season.first
     else
-      Season.where('extract(year  from end_date) = ?', Date.today.year).first
+      Season.where('extract(year from end_date) = ?', Date.today.year).first
     end
   end
 
