@@ -50,7 +50,7 @@ Rails.application.routes.draw do
       resources :circuits, only: [:index, :show]
       resources :timesheets, only: [:index, :show]
       resources :entries
-      resources :users
+      # resources :users
       resources :seasons do
         get '/athletes/:athlete_id', to: 'seasons#athletes', on: :member
         get 'men', on: :member
