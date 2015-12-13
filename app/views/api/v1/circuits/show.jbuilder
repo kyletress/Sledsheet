@@ -1,6 +1,6 @@
 json.id @circuit.id
 json.name @circuit.name
-if params[:includes] == "points"
+if params[:include] == "points"
   if @rankings.present?
     json.rankings @rankings do |ranking|
       json.rank ranking.rank
