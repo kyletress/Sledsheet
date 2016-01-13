@@ -1,3 +1,16 @@
 <% provide(:title, @athlete.name) %>
 
 <%= render 'profile' %>
+
+<table class="table table-condensed">
+  <tr>
+    <th>Date</th>
+    <th>Race</th>
+  </tr>
+  <% @entries.each do |entry| %>
+  <tr>
+    <td><%= entry.timesheet.nice_date %></td>
+    <td><%= link_to entry.timesheet.name, entry.timesheet %></td>
+  </tr>
+  <% end %>
+</table>

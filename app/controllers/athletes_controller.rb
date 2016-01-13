@@ -8,7 +8,7 @@ class AthletesController < ApplicationController
 
   def show
     @athlete = Athlete.find(params[:id])
-    @entries = @athlete.entries.includes(timesheet: :circuit).order('timesheets.date DESC').limit(5)
+    @entries = @athlete.entries.includes(timesheet: :circuit).order('timesheets.date DESC').limit(10)
     @points = @athlete.season_points(Season.current_season).includes(:timesheet)
   end
 
