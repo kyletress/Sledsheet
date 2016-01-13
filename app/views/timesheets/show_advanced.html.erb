@@ -19,7 +19,8 @@
     <% if current_user.admin? %>
     <li role="presentation" class="divider"></li>
     <li role="presentation" class="dropdown-header">ADMIN</li>
-    <li role="presentatin"><%= link_to 'Edit Timesheet', edit_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
+    <li role="presentation"><%= link_to 'Edit Timesheet', edit_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
+    <li role="presentation"><%= link_to 'Copy Timesheet', copy_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
     <li role="presentation"><%= link_to "Delete timesheet", @timesheet, method: :delete, data: { confirm: "You sure?" }, role: 'menuitem', tabindex: -1 %></li>
     <% end %>
     </ul>

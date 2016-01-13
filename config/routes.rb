@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :seasons, only: [:index, :show]
   resources :timesheets do
     post 'import', on: :member
+    get 'copy', on: :member
     resources :entries, shallow: true do
       collection { post :sort }
       resources :runs, shallow: true, except: :index

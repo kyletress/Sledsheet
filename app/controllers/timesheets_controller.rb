@@ -69,6 +69,13 @@ class TimesheetsController < ApplicationController
     redirect_to timesheets_url
   end
 
+  def copy
+    @timesheet = Timesheet.find(params[:id])
+    @genders = Timesheet.genders
+    @timesheet = Timesheet.new(@timesheet.attributes)
+    render :new
+  end
+
   def import
     require 'nokogiri'
     require 'open-uri'
