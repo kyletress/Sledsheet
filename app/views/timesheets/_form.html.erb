@@ -79,9 +79,6 @@
         <%= f.select :status, Timesheet.statuses.keys %>
       </div>
 
-      <div class="form-group">
-        <%= link_to 'Copy this timesheet', copy_timesheet_path(@timesheet) %>
-      </div>
 
       <%= f.submit ( f.object.new_record? ? "Create" : "Update"), class: "btn btn-lg btn-primary" %>
 
