@@ -12,6 +12,7 @@ class EntriesController < ApplicationController
 
   def edit
     @entry = Entry.find(params[:id])
+    @statuses = Entry.statuses
   end
 
   def update

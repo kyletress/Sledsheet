@@ -3,5 +3,8 @@
 <%= form_for @entry do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <%= f.collection_select :athlete_id, Athlete.all, :id, :name, {:prompt => "Athlete"}, {class: 'form-control'} %>
+  <div class="form-group">
+    <%= f.select :status, options_for_select(@statuses.collect { |g| [g[0].humanize, g[0]] }, selected: @entry.status), {} , class: "form-control" %>
+  </div>
   <%= f.submit %>
 <% end %>
