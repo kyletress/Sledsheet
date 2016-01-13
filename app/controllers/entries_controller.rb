@@ -1,5 +1,5 @@
 class EntriesController < ApplicationController
-  before_action :find_timesheet, except: [:destroy]
+  before_action :find_timesheet, except: [:destroy, :edit, :update]
 
   def index
     @entry = Entry.new
@@ -8,6 +8,20 @@ class EntriesController < ApplicationController
 
   def new
     @entry = Entry.new
+  end
+
+  def edit
+    @entry = Entry.find(params[:id])
+  end
+
+  def update
+    @entry = Entry.find(params[:id])
+    if @entry.update_attributes(entry_params)
+      flash[:success] = "Entry updated."
+      redirect_to @entry.timesheet
+    else
+      render 'edit'
+    end
   end
 
   def create

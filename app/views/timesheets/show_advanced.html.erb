@@ -51,6 +51,7 @@
            <% else %>
             <strong><%= entry.status.upcase %></strong>
            <% end %>
+           (<%= link_to 'edit', edit_entry_path(entry) %>)
          </td>
       </tr>
       <% entry.runs.each do |run| %>
