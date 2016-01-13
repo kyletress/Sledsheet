@@ -42,7 +42,7 @@ class Admin::PointsController < AdminController
   private
 
   def point_params
-    params.require(:point).permit(:athlete, :season, :timesheet, :value, :circuit)
+    params.require(:point).permit(:athlete_id, :season, :timesheet, :value, :circuit)
   end
 
 end

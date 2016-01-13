@@ -1,5 +1,6 @@
 <%= form_for [:admin, @point] do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
+  <%= f.collection_select :athlete_id, Athlete.all, :id, :name, {:prompt => "Athlete"}, {class: 'form-control'} %>
   <div class="form-group">
     <%= f.label :value %>
     <%= f.text_field :value %>
