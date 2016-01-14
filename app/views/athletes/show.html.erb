@@ -15,3 +15,17 @@
   </tr>
   <% end %>
 </table>
+
+<h3>Current Season Points Breakdown</h3>
+<table class="table table-condensed">
+  <tr>
+    <th>Date</th>
+    <th>Race</th>
+  </tr>
+  <% @points.each do |point| %>
+  <tr>
+    <td><%= link_to point.timesheet.name, point.timesheet %></td>
+    <td><%= point.value %></td>
+  </tr>
+  <% end %>
+</table>
