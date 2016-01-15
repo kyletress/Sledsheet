@@ -37,6 +37,9 @@
     </li>
     <li class="stat-item">
       <a href="#" class="btn btn-success btn-inverted">Become a fan</a>
+      <% if current_user && current_user.admin? %>
+        <%= link_to 'Edit', edit_athlete_path(@athlete) %>
+      <% end %>
     </li>
   </ul>
 </div>
