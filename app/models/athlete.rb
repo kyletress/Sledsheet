@@ -98,7 +98,8 @@ class Athlete < ActiveRecord::Base
   end
 
   def season_points(season)
-    points.where('season_id = ?', season.id).order('value DESC').limit(8)
+    # don't hard code the count. Should be based off WC races
+    points.where('season_id = ?', season.id).order('value DESC').limit(season.world_cup_race_count(self.gender))
   end
 
   def current_season_points
@@ -120,6 +121,17 @@ class Athlete < ActiveRecord::Base
   def world_rank
     points = Season.current_season.ranking_table(self.male)
     rank = points.select {|a| a.athlete_id == self.id }.first.try(:rank).to_i
+  end
+
+  def season_positions(season)
+    # provides a list of points and their associated position for an athlete and season
+    points = Point.find_by_sql(["select name, rank, points.id, points.timesheet_id, points.value from (
+      select *, rank() over (partition by name order by runs_count desc, total_time asc) from (
+        select entries.id, entries.athlete_id, entries.timesheet_id, entries.runs_count, timesheets.name, sum(runs.finish) as total_time from entries inner join timesheets on entries.timesheet_id = timesheets.id left join runs on entries.id = runs.entry_id where timesheets.season_id = ? group by entries.id, timesheets.name order by timesheets.name
+      ) as initialranks
+    ) as finalranks inner join points on finalranks.athlete_id = points.athlete_id and finalranks.timesheet_id = points.timesheet_id where finalranks.athlete_id = ? order by value desc;", season.id, self.id])
+    ActiveRecord::Associations::Preloader.new.preload(points, :timesheet)
+    points
   end
 
 end

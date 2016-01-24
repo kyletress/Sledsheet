@@ -53,5 +53,9 @@ class Season < ActiveRecord::Base
     points
   end
 
+  def world_cup_race_count(gender)
+    Timesheet.where(circuit: 1, season: self, race: true, gender: gender, status: 1).count
+  end
+
 
 end
