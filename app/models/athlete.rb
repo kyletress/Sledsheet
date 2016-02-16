@@ -118,14 +118,14 @@ class Athlete < ActiveRecord::Base
     self.user_id.blank?
   end
 
-  # def world_rank
-  #   points = Season.current_season.ranking_table(self.male)
-  #   rank = points.select {|a| a.athlete_id == self.id }.first.try(:rank).to_i
-  # end
-
   def world_rank
-    Season.current_season.rankings(self[:gender]).where(athlete_id: self.id).rank
+    points = Season.current_season.ranking_table(self.male)
+    rank = points.select {|a| a.athlete_id == self.id }.first.try(:rank).to_i
   end
+
+  # def world_rank
+  #   points = Season.current_season.rankings(self[:gender]).where(athlete_id: self.id).rank
+  # end
 
   def season_positions(season)
     # provides a list of points and their associated position for an athlete and season
