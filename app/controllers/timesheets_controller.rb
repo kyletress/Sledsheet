@@ -107,7 +107,7 @@ class TimesheetsController < ApplicationController
             split3: run.css('td')[3].text.strip,
             split4: run.css('td')[4].text.strip,
             split5: run.css('td')[5].text.strip,
-            finish: run.css('td')[6].text.strip
+            finish: run.css('td')[7].text.strip
           }
         end
       }
