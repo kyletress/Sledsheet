@@ -40,11 +40,10 @@
       "required": true
     },
     "SKYLIGHT_AUTHENTICATION": {
-      "required": true
+      "required": false
     }
   },
   "addons": [
-    "heroku-postgresql",
     "heroku-postgresql",
     "papertrail",
     "mandrill"
