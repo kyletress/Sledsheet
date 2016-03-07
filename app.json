@@ -4,8 +4,7 @@
     "postdeploy": "rake db:setup"
   },
   "env": {
-    "REVIEW_ENVIRONMENT": true,
-    
+    "REVIEW_ENVIRONMENT": "true",
     "ASSET_HOST": {
       "required": true
     },
