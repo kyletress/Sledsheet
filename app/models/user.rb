@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
 
   # Sends activation email
   def send_activation_email
+    return if ENV['REVIEW_ENVIRONMENT'] == 'true'
     UserMailer.account_activation(self).deliver_now
   end
 
