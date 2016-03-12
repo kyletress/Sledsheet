@@ -46,8 +46,14 @@ end
 
 if Athlete.count == 0
   athletes = Athlete.create([
-    { first_name: 'Kyle', last_name: 'Tress', country_code: 'US'},
-    { first_name: 'Matt', last_name: 'Antoine', country_code: 'US'},
-    { first_name: 'John', last_name: 'Daly', country_code: 'US'}
+    { first_name: 'Kyle', last_name: 'Tress', country_code: 'US', gender: 0},
+    { first_name: 'Matt', last_name: 'Antoine', country_code: 'US', gender: 0},
+    { first_name: 'John', last_name: 'Daly', country_code: 'US', gender: 0}
   ])
+end
+
+if Timesheet.count == 0
+  track = Track.find_by(name: 'Lake Placid')
+  circuit = Circuit.find_by(name: 'World Cup')
+  timesheet = Timesheet.create(track: track, circuit: circuit, date: DateTime.now, gender: 0, race: true, complete: true, status: 1)
 end
