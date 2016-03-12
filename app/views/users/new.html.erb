@@ -4,7 +4,6 @@
   <div class="col-md-6 col-md-offset-3">
     <%= simple_form_for(@user, html: {class: 'form-vertical' }) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
-      <%= f.hidden_field :invitation_token %>
       <%= f.input :name, class: 'form-control' %>
       <%= f.input :email, placeholder: 'you@you.com', class: 'form-control' %>
       <%= f.input :password, class: 'form-control' %>
