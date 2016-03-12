@@ -43,7 +43,7 @@ class Timesheet < ActiveRecord::Base
     entries = Entry.find_by_sql(["SELECT *, total_time - first_value(total_time) over (partition by runs_count order by total_time asc) as time_behind, rank() OVER (ORDER BY runs_count desc, total_time asc) FROM (SELECT Entries.id, Entries.timesheet_id, Entries.athlete_id, Entries.status, Entries.bib, Entries.runs_count, sum(Runs.finish) AS total_time FROM Entries LEFT JOIN Runs ON (Entries.id = Runs.entry_id) GROUP BY Entries.id) AS FinalRanks WHERE timesheet_id = ? ORDER BY rank, total_time asc, bib asc", self.id])
     ActiveRecord::Associations::Preloader.new.preload(entries, [:athlete, :runs])
     entries
-    # add WHERE Entries.status = '0' before the group by to limit to OK entries. Needs work. 
+    # add WHERE Entries.status = '0' before the group by to limit to OK entries. Needs work.
   end
 
   def ranked_intermediates
@@ -108,6 +108,7 @@ class Timesheet < ActiveRecord::Base
     end
 
     def assign_season
+      return if self.date.nil?
       month = self.date.month
       if month > 6 # first half of season (oct 2014)
         end_date = Date.new(self.date.year + 1, 6, 30) # date is June 30, 2015
@@ -121,6 +122,7 @@ class Timesheet < ActiveRecord::Base
     end
 
     def season_name
+      return if self.date.nil?
       if self.date.month > 6
         "#{self.date.strftime('%Y')}-#{(self.date + 1.year).strftime('%y')}"
       else

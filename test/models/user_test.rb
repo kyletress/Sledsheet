@@ -2,8 +2,8 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   def setup
-    @invitations = invitations(:with_sender)
-    @user = User.new(name: "Example User", email: "user@example.com", password: "password", password_confirmation: "password", invitation: @invitations)
+    #@invitations = invitations(:with_sender)
+    @user = User.new(name: "Example User", email: "user@example.com", password: "password", password_confirmation: "password")
   end
 
   test "should be valid" do

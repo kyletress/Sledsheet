@@ -8,8 +8,8 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new(invitation_token: params[:invitation_token])
-    @user.email = @user.invitation.recipient_email if @user.invitation
+    @user = User.new
+    #@user.email = @user.invitation.recipient_email if @user.invitation
   end
 
   def show
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :invitation_token)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 
     def correct_user
