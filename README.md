@@ -44,7 +44,7 @@ You can promote staging to production from the Heroku command line tool, or from
 
 Important: You can't automate scripts when promoting apps. For instance, you will have to run `rake db:migrate` manually if you made database changes.
 
-Continuous integration is forthcoming.  
+Continuous integration is handled by [Codeship](https://www.codeship.com).  
 
 ### Test
 Sledsheet uses the testing suite included with rails (fixtures, minitest). Please do not use Rspec, FactoryGirl, etc. Run tests with:
