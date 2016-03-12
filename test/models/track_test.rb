@@ -17,7 +17,7 @@ class TrackTest < ActiveSupport::TestCase
   end
 
   test "average finish should calculate correctly" do
-    assert_equal 5581, @igls.average_finish
+    assert_equal 5582, @igls.average_finish
   end
 
   test "start record should calculate correctly" do
