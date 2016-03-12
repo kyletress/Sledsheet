@@ -62,12 +62,12 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.smtp_settings = {
-    address: "smtp.mandrillapp.com",
-    port: 587,
-    domain: "sledsheet.com",
-    authentication: "plain",
-    user_name: ENV["MANDRILL_USERNAME"],
-    password: ENV["MANDRILL_APIKEY"]
+    address: ENV['SPARKPOST_SMTP_HOST'],
+    port: ENV['SPARKPOST_SMTP_PORT'],
+    domain: 'sledsheet.com',
+    authentication: 'plain',
+    user_name: ENV['SPARKPOST_SMTP_USERNAME'],
+    password: ENV['SPARKPOST_SMTP_PASSWORD']
   }
 
   config.action_mailer.delivery_method = :smtp

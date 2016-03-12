@@ -9,7 +9,6 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    #@user.email = @user.invitation.recipient_email if @user.invitation
   end
 
   def show
