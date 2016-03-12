@@ -4,23 +4,28 @@ kyle:
   first_name: Kyle
   last_name: Tress
   country_code: US
+  gender: 0
 
 matt:
   first_name: Matt
   last_name: Antoine
   country_code: US
+  gender: 0
 
 olympian:
   first_name: Mr
   last_name: Olympia
   country_code: US
+  gender: 0
 
 rookie:
   first_name: Nugget
   last_name: Jones
   country_code: US
+  gender: 0
 
 german:
   first_name: hans
   last_name: franz
   country_code: DE
+  gender: 0

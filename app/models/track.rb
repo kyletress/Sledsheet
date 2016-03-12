@@ -12,19 +12,19 @@ class Track < ActiveRecord::Base
   end
 
   def track_record_women
-    runs.joins(entry: :athlete).where(athletes: {gender: 1}).first.try(:finish)
+    runs.joins(entry: :athlete).where(athletes: {gender: 1}).order(finish: :asc).first.try(:finish)
   end
 
   def track_record_men
-    runs.joins(entry: :athlete).where(athletes: {gender: 0}).first.try(:finish)
+    runs.joins(entry: :athlete).where(athletes: {gender: 0}).order(finish: :asc).first.try(:finish)
   end
 
   def start_record_men
-    runs.joins(entry: :athlete).where(athletes: {gender: 0}).first.try(:finish)
+    runs.joins(entry: :athlete).where(athletes: {gender: 0}).order(start: :asc).first.try(:start)
   end
 
   def start_record_women
-    runs.joins(entry: :athlete).where(athletes: {gender: 1}).first.try(:start)
+    runs.joins(entry: :athlete).where(athletes: {gender: 1}).order(start: :asc).first.try(:start)
   end
 
   def start_record
@@ -32,7 +32,7 @@ class Track < ActiveRecord::Base
   end
 
   def average_finish
-    runs.average(:finish)
+    runs.average(:finish).to_i
   end
 
 end

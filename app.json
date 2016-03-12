@@ -1,6 +1,7 @@
 {
   "name": "sledsheet",
   "scripts": {
+    "postdeploy": "rake db:setup"
   },
   "env": {
     "ASSET_HOST": {
@@ -46,8 +47,7 @@
   "addons": [
     "heroku-postgresql",
     "heroku-postgresql",
-    "papertrail",
-    "mandrill"
+    "papertrail"
   ],
   "buildpacks": [
     {
