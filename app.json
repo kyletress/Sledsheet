@@ -4,6 +4,7 @@
     "postdeploy": "rake db:setup"
   },
   "env": {
+    "REVIEW_ENVIRONMENT": "true",
     "ASSET_HOST": {
       "required": true
     },
@@ -45,7 +46,6 @@
     }
   },
   "addons": [
-    "heroku-postgresql",
     "heroku-postgresql",
     "papertrail"
   ],
