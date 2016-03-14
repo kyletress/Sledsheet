@@ -37,7 +37,7 @@ class Athlete < ActiveRecord::Base
     Athlete.where("lower(first_name) = ? AND lower(last_name) = ?", first_name.downcase, last_name.downcase)
   end
 
-  def self.find_or_create_by_timesheet_name(name, country, male)
+  def self.find_or_create_by_timesheet_name(name, country, gender)
     a = Athlete.find_by_timesheet_name(name)
     if a.count > 0
       a.first
@@ -57,7 +57,7 @@ class Athlete < ActiveRecord::Base
         first_name = "#{array[1]}"
       end
       country_code = ISO3166::Country.find_country_by_ioc(country.to_s).alpha2
-      Athlete.create(first_name: first_name, last_name: last_name, country_code: country_code, male: if "men" then true else false end )
+      Athlete.create(first_name: first_name, last_name: last_name.titleize, country_code: country_code, gender: gender)
     end
   end
 
@@ -89,7 +89,7 @@ class Athlete < ActiveRecord::Base
     country.ioc
   end
 
-  def medal_count
+  def medal_count # Needs to be rewritten to use rank instead of bib.
     entries.where("bib <= 3").joins(:timesheet).where(timesheets: {race: true}).count
   end
 
@@ -110,10 +110,6 @@ class Athlete < ActiveRecord::Base
     season_points(season).pluck(:value).sum
   end
 
-  def self.popular
-    find([1, 5, 2, 211, 3, 64])
-  end
-
   def unclaimed?
     self.user_id.blank?
   end
@@ -122,10 +118,6 @@ class Athlete < ActiveRecord::Base
     points = Season.current_season.ranking_table(self.male)
     rank = points.select {|a| a.athlete_id == self.id }.first.try(:rank).to_i
   end
-
-  # def world_rank
-  #   points = Season.current_season.rankings(self[:gender]).where(athlete_id: self.id).rank
-  # end
 
   def season_positions(season)
     # provides a list of points and their associated position for an athlete and season

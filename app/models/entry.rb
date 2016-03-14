@@ -25,6 +25,7 @@ class Entry < ActiveRecord::Base
     self.athlete = Athlete.find_by(name: name)
   end
 
+  # what was this for? Don't use it anywhere. 
   def self.top_ten
     select('athlete_id, count(athlete_id)').
     where('bib <= 3'). # obviously needs to be rewritten

@@ -28,4 +28,8 @@ class EntryTest < ActiveSupport::TestCase
     assert @entry.total_time == 11113, "Total time wasn't properly calculated"
   end
 
+  test "should return its athlete's name" do
+    assert_equal "Kyle Tress", @entry.athlete_name
+  end
+
 end

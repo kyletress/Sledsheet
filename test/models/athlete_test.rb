@@ -54,6 +54,10 @@ class AthleteTest < ActiveSupport::TestCase
     assert_equal "TRESS, Kyle", @athlete.timesheet_name
   end
 
+  test "avatar name should be properly formatted" do
+    assert_equal "tress-kyle", @athlete.avatar_name
+  end
+
   test "olympian should be in olympics" do
     @olympian = athletes(:olympian)
     assert @olympian.is_olympian?, "Olympian is not in Olympics"
@@ -69,11 +73,36 @@ class AthleteTest < ActiveSupport::TestCase
   end
 
   test "find by timesheet name should create an athlete if none found" do
-    # not yet implemented
+    assert_difference 'Athlete.count', 1 do
+      @athlete = Athlete.find_or_create_by_timesheet_name("ZZZ Name", "USA", 1)
+    end
+    assert_equal "Name Zzz", @athlete.name
+    assert_equal "female", @athlete.gender
   end
 
-  # test "Athlete should have race points" do
-  #   assert_equal 2, @athlete.points.count
-  # end
+  test "created athlete with multiple last names should format correctly" do
+    athlete = Athlete.find_or_create_by_timesheet_name("TRACEY TRESS Morgan", "USA", 1)
+    assert_equal "Morgan Tracey Tress", athlete.name
+  end
+
+  # eventually should have a test for current and past season points. 
+
+  test "points_for method should calculate correct number of season points" do
+    season = seasons(:season)
+    assert_equal 450, @athlete.points_for(season)
+  end
+
+  test "should correctly calculate World Rank" do
+    matt = athletes(:matt)
+    assert_equal 1, @athlete.world_rank
+    assert_equal 2, matt.world_rank
+  end
+
+  test "should correctly calcuate season positions and points" do
+    positions = @athlete.season_positions(seasons(:season))
+    assert_equal 2, positions.count
+    assert_equal 1, positions.first.rank
+    assert_equal 225, positions.first.value
+  end
 
 end
