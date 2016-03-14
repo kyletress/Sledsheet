@@ -14,6 +14,7 @@ race:
   circuit: worldcup
   date: <%= 1.day.ago %>
   race: true
+  complete: true
   name: Lake Placid World Cup Race
   season: season
   gender: 0
@@ -37,3 +38,27 @@ latest:
   name: Lake Placid World Cup Training
   season: season
   gender: 0
+
+# Timesheets to test rankings
+
+wc_1:
+  nickname: First World Cup
+  track: placid
+  circuit: worldcup
+  date: 2014-01-07
+  race: true
+  complete: true
+  name: Lake Placid World Cup Race
+  gender: 0
+  season: season
+
+wc_2:
+  nickname: Second World Cup
+  track: park_city
+  circuit: worldcup
+  date: 2014-01-08
+  race: true
+  complete: true
+  name: Park City World Cup Race
+  gender: 0
+  season: season

@@ -2,10 +2,12 @@
 
 placid:
   name: Lake Placid
-  
+
+park_city:
+  name: Park City
+
 igls:
   name: Igls
-  
+
 sochi:
   name: Sochi
-

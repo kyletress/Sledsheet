@@ -1,5 +1,14 @@
 worldcup:
   name: World Cup
-  
+
 olympics:
   name: Olympic Winter Games
+
+nac:
+  name: North American Cup
+
+ec:
+  name: Europa Cup
+
+icc: 
+  name: Intercontinental Cup

@@ -39,3 +39,45 @@ matt2:
   split4: 3335
   split5: 4446
   finish: 5657
+
+# A few prototypical runs
+
+kyle_1:
+  entry: kyle_first_wc_race
+  position: 1
+  start: 500
+  split2: 1111
+  split3: 2222
+  split4: 3333
+  split5: 4444
+  finish: 5455
+
+kyle_2:
+  entry: kyle_second_wc_race
+  position: 1
+  start: 500
+  split2: 1111
+  split3: 2222
+  split4: 3333
+  split5: 4444
+  finish: 5455
+
+matt_1:
+  entry: matt_first_wc_race
+  position: 1
+  start: 500
+  split2: 1111
+  split3: 2222
+  split4: 3333
+  split5: 4444
+  finish: 5455
+
+matt_2:
+  entry: matt_second_wc_race
+  position: 1
+  start: 500
+  split2: 1111
+  split3: 2222
+  split4: 3333
+  split5: 4444
+  finish: 5455

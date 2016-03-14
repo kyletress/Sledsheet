@@ -72,4 +72,8 @@ class AthleteTest < ActiveSupport::TestCase
     # not yet implemented
   end
 
+  # test "Athlete should have race points" do
+  #   assert_equal 2, @athlete.points.count
+  # end
+
 end

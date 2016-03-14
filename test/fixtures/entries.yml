@@ -1,5 +1,3 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 kyle:
   athlete: kyle
   timesheet: training
@@ -14,3 +12,25 @@ olympics:
   athlete: olympian
   timesheet: olympics
   bib: 1
+
+# WC Entries to test rankings
+
+kyle_first_wc_race:
+  athlete: kyle
+  timesheet: wc_1
+  bib: 1
+
+kyle_second_wc_race:
+  athlete: kyle
+  timesheet: wc_2
+  bib: 1
+
+matt_first_wc_race:
+  athlete: matt
+  timesheet: wc_1
+  bib: 2
+
+matt_second_wc_race:
+  athlete: matt
+  timesheet: wc_2
+  bib: 2

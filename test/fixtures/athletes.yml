@@ -5,12 +5,14 @@ kyle:
   last_name: Tress
   country_code: US
   gender: 0
+  male: true
 
 matt:
   first_name: Matt
   last_name: Antoine
   country_code: US
   gender: 0
+  male: true
 
 olympian:
   first_name: Mr
