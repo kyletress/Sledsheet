@@ -16,7 +16,7 @@ Sledsheet is an app for fans, coaches, and athletes of the sliding sports (mostl
 - Review: [sledsheet-pr-n.herokuapp.com](http://sledsheet-pr-n.herokuapp.com), where n is the Pull Request #
 
 ## Local installation
-The app is running on rails 4.2.3 and ruby 2.2.2.
+The app is running on rails 4.2.6 and ruby 2.2.2.
 
 1. Install Postgres `brew install postgres`
 2. Install RVM
