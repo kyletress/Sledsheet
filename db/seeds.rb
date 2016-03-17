@@ -64,10 +64,10 @@ if Timesheet.count == 0
   timesheet = Timesheet.create(track: track, circuit: circuit, date: DateTime.now, gender: 0, race: true, complete: true, status: 1)
 end
 
-if Entry.count == 0
-  timesheet = Timesheet.first
-  athletes = Athlete.all
-  athletes.each_with_index do |a, i|
-    a.entries.create!(timesheet: timesheet, status: 0, bib: i + 1 )
-  end
-end
+# if Entry.count == 0
+#   timesheet = Timesheet.first
+#   athletes = Athlete.all
+#   athletes.each_with_index do |a, i|
+#     a.entries.create!(timesheet: timesheet, status: 0, bib: i + 1 )
+#   end
+# end
