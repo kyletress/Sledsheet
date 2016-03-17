@@ -3,28 +3,6 @@
     top: 0;
   }
   span.glyphicon {
-    color:rgba(255,255,255,.20);
-  }
-}
-
-#search {
-  background: rgba(0,0,0,.25);
-  border: none;
-  color:white;
-
-  &::-webkit-input-placeholder {
-     color: rgba(255,255,255,.25);
-  }
-
-  &:-moz-placeholder { /* Firefox 18- */
-     color: rgba(255,255,255,.25);
-  }
-
-  &::-moz-placeholder {  /* Firefox 19+ */
-     color: rgba(255,255,255,.25);
-  }
-
-  &:-ms-input-placeholder {
-     color: rgba(255,255,255,.25);
+    color:rgba(0,0,0,.20);
   }
 }

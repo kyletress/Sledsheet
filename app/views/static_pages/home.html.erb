@@ -1,26 +1,44 @@
 <div class="jumbo">
   <div class="container">
-    <div class="row">
+    <div class="intro">
       <h1>It's about time.</h1>
-      <p class="lead">Sledsheet is a <span>community</span> for <span>skeleton athletes</span> and their <span>fans</span>.</p>
+      <p class="lead">Sledsheet is a community for skeleton athletes and their fans, featuring <strong><%= @runs %></strong> runs by <strong>
+        <%= @athletes %></strong> athletes.</p>
     </div>
-    <div class="row">
+    <div class="signup">
       <section class="join">
-        <div class="athlete-images">
+        <div class="form-card">
+          <p class="form-banner">Sign up today</p>
+          <%= form_for @user, url: signup_path do |f| %>
+            <fieldset>
+              <div class="form-group">
+                <div class="form-item">
+                  <%= f.text_field :name, class: 'input-text', placeholder: 'Name *' %>
+                </div>
+                <div class="form-item">
+                  <%= f.text_field :email, class: 'input-text', placeholder: 'Email *' %>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-item">
+                  <%= f.password_field :password_confirmation, class: 'input-text', placeholder: 'Confirm Password *' %>
+                </div>
+                <div class="form-item">
+                  <%= f.password_field :password, class: 'input-text', placeholder: 'Password *' %>
+                </div>
+              </div>
+            </fieldset>
+            <%= f.submit 'Create your free account', class: 'btn btn-large btn-success' %>
+          <% end %>
+        </div>
+        <!-- <div class="athlete-images">
           <img src="https://secure.gravatar.com/avatar/5eba14816d314532e45d34ce2a138543?s=100" alt="" height="100" width="100" />
           <img src="/matt.jpg" alt="" height="100" width="100" />
           <img src="/katie.jpg" alt="" height="100" width="100" />
           <img src="/martins.jpg" alt="" height="100" width="100" />
           <img src="/lizzy.jpg" alt="" height="100" width="100" />
           <img src="/alex.jpg" alt="" height="100" width="100" />
-        </div>
-        <h3><%= @runs %> runs by <%= @athletes %> athletes <em>(and growing)</em>.</h3>
-        <% unless current_user %>
-          <%= form_for Invitation.new, url: invitations_path do |f| %>
-            <%= f.text_field :recipient_email, placeholder: 'Email address', class: 'flexinput' %>
-            <%= f.submit 'Join the waitlist', class: 'btn btn-sledsheet' %>
-          <% end %>
-        <% end %>
+        </div> -->
       </section>
     </div>
   </div>

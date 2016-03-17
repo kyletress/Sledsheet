@@ -5,6 +5,7 @@ class StaticPagesController < ApplicationController
     @runs = Run.count
     @timesheets = Timesheet.count
     @athletes = Athlete.count
+    @user = User.new
   end
 
   def about
@@ -21,5 +22,5 @@ class StaticPagesController < ApplicationController
 
   def help
   end
-  
+
 end

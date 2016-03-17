@@ -1,7 +1,11 @@
 <% provide(:title, @timesheet.page_title) %>
 <div class="page-header">
-  <h2><%= @timesheet.name %> <span><time><%= @timesheet.nice_date %></time></span></h2>
+  <div class="container">
+    <h2><%= @timesheet.name %></h2>
+    <time><%= @timesheet.nice_date %></time>
+  </div>
 </div>
+
 <% if @timesheet.nickname.present? %>
   <p><%= @timesheet.nickname %></p>
 <% end %>
@@ -14,24 +18,25 @@
 
 <%= link_to "Generate PDF", timesheet_path(@timesheet, format: "pdf") %>
 
-
-<% if @timesheet.entries.blank? %>
-  <p>There are no entries yet</p>
-<% else %>
-<table class="table">
-  <% @ranked.each do |entry| %>
-    <tbody>
-       <tr class="timesheet-table-header">
-         <td><strong><%= entry.rank %>.</strong> <%= entry.athlete.timesheet_country %> <%= link_to entry.athlete.name, entry.athlete %></td>
-         <td class="total_time"><strong><%= display_total entry.total_time %></strong> <span class="position">(<%= display_total entry.time_behind %>)</span></td>
-      </tr>
-      <% entry.runs.each do |run| %>
-      <tr>
-        <td class="total_time"><%= display_time run.start %></td>
-        <td class="total_time"><%= display_time run.finish %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  <% end %>
-  <% end %>
-</table>
+<div class="container">
+  <% if @timesheet.entries.blank? %>
+    <p>There are no entries yet</p>
+  <% else %>
+  <table class="table">
+    <% @ranked.each do |entry| %>
+      <tbody>
+         <tr class="timesheet-table-header">
+           <td><strong><%= entry.rank %>.</strong> <%= entry.athlete.timesheet_country %> <%= link_to entry.athlete.name, entry.athlete %></td>
+           <td class="total_time"><strong><%= display_total entry.total_time %></strong> <span class="position">(<%= display_total entry.time_behind %>)</span></td>
+        </tr>
+        <% entry.runs.each do |run| %>
+        <tr>
+          <td class="total_time"><%= display_time run.start %></td>
+          <td class="total_time"><%= display_time run.finish %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    <% end %>
+    <% end %>
+  </table>
+</div>
