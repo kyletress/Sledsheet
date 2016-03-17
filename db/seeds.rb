@@ -67,7 +67,7 @@ end
 if Entry.count == 0
   timesheet = Timesheet.first
   athletes = Athlete.all
-  athletes.each_with_index do |i, a|
+  athletes.each_with_index do |a, i|
     a.entries.create!(timesheet: timesheet, status: 0, bib: i + 1 )
   end
 end
