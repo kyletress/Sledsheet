@@ -16,8 +16,9 @@ a {
 a.navbar-brand{
   text-transform: lowercase;
   letter-spacing:-1px;
-  color: #fff !important;
-  font-weight:600;
+  color: $blue !important;//#fff !important;
+  font-weight:700;
+  font-size:2.4rem;
   &:hover {
     color:red;
   }
@@ -39,21 +40,21 @@ a.navbar-brand{
 }
 
 .navbar-custom {
-  background-color:$blue;
-  color:#ffffff;
+  background-color: white;//$blue;
+  color:$blue;//#ffffff;
   border-radius:0;
   border: none;
 }
 
 .navbar-custom .navbar-nav > li > a {
-  color:rgba(255,255,255,.25);
-  //font-weight:600;
+  color: $header-links;
+  font-size: 1.4rem;
+  font-weight:600;
 }
 .navbar-custom .navbar-nav > .active > a,
 .navbar-nav > .active > a:hover,
 .navbar-nav > .active > a:focus {
-  background:#2c3e50;
-  color:#fff;
+  color:black;
 }
 .nav.nav-tabs > li.dropdown.active.open > a,
 .nav.nav-tabs > li.dropdown.active.open > ul.dropdown-menu a:hover,
@@ -68,8 +69,8 @@ a.navbar-brand{
 .navbar-custom .navbar-nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  color:#fff;
-  background-color: rgba(0,0,0,.1);
+  color:black;
+  //background-color: rgba(0,0,0,.1);
 }
 
 // the background of the dropdown menus
@@ -82,7 +83,7 @@ a.navbar-brand{
 }
 
 .navbar-custom .navbar-brand {
-    color:#fff;
+    color:$blue;//#fff;
 }
 
 .site-footer{
@@ -152,6 +153,48 @@ a.navbar-brand{
   &:hover {
     background-color: darken($green, 10%);
     color:white;
+  }
+}
+
+.page-header {
+  background: #112e51;
+  color:white;
+  padding-top:3rem;
+  padding-bottom: 1rem;
+  margin-top: 0;
+  h2 {
+    font-weight: 300 !important;
+    margin: 0;
+  }
+  time {
+    display: block;
+    margin-bottom: 2rem;
+    color: darken(white, 50%);
+  }
+}
+
+.timesheet-menu {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display:-webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-between;
+  font-size:1.4rem;
+  li {
+    text-align: center;
+    color: #999;
+  }
+  li > a {
+    color: #999;
+    &:hover {
+      text-decoration: none;
+      color: white;
+    }
+      > span {
+      display: block;
+      padding-bottom: 5px;
+    }
   }
 }
 
