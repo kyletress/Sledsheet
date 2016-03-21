@@ -14,3 +14,11 @@ matt:
   admin: false
   activated: true
   activated_at: <%= Time.zone.now %>
+
+morgan:
+  name: Morgan Tracey
+  email: morgangtracey5@gmail.com
+  password_digest: <%= User.digest('password') %>
+  admin: false
+  activated: true
+  activated_at: <%= Time.zone.now %>

@@ -7,6 +7,8 @@ training:
   name: Igls World Cup Training
   season: season
   gender: 0
+  visibility: 1
+  user: kyle
 
 race:
   nickname: Racing Nickname
@@ -18,6 +20,8 @@ race:
   name: Lake Placid World Cup Race
   season: season
   gender: 0
+  visibility: 1
+  user: kyle
 
 olympics:
   nickname: Olympic Winter Games
@@ -28,6 +32,8 @@ olympics:
   name: Sochi Winter Olympic Games Race
   season: season
   gender: 0
+  visibility: 1
+  user: kyle
 
 latest:
   nickname: Latest Timesheet
@@ -38,6 +44,8 @@ latest:
   name: Lake Placid World Cup Training
   season: season
   gender: 0
+  visibility: 1
+  user: kyle
 
 # Timesheets to test rankings
 
@@ -51,6 +59,8 @@ wc_1:
   name: Lake Placid World Cup Race
   gender: 0
   season: season
+  visibility: 1
+  user: kyle
 
 wc_2:
   nickname: Second World Cup
@@ -62,3 +72,18 @@ wc_2:
   name: Park City World Cup Race
   gender: 0
   season: season
+  visibility: 1
+  user: kyle
+
+personal:
+  nickname: Personal timesheet
+  track: placid
+  circuit: worldcup
+  date: <%= Date.today %>
+  race: false
+  complete: false
+  name: Lake Placid World Cup Training 2015/2016 Men
+  gender: 0
+  season: season
+  visibility: 0
+  user: matt

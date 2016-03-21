@@ -22,7 +22,7 @@ var athletes = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   prefetch: {
-    url: '/api/athletes.json'
+    url: '/api/v1/athletes'
   }
 });
 

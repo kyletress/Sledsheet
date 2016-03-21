@@ -1,5 +1,19 @@
 <% provide(:title, @user.name) %>
-<h1>
+<h2>
   <%= gravatar_for @user %>
   <%= @user.name %>
-</h1>
+</h2>
+
+<h3>Private Timesheets</h3>
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Date</th>
+  </tr>
+  <% @timesheets.each do |timesheet| %>
+  <tr>
+    <td><%= link_to timesheet.name, timesheet_url(timesheet) %></td>
+    <td><%= timesheet.nice_date %></td>
+  </tr>
+  <% end %>
+</table>
