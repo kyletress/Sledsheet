@@ -1,7 +1,7 @@
 {
   "name": "sledsheet",
   "scripts": {
-    "postdeploy": "rake db:setup"
+    "postdeploy": "bin/addon-wait; bundle exec rake db:setup"
   },
   "env": {
     "REVIEW_ENVIRONMENT": "true",
@@ -55,6 +55,9 @@
   "buildpacks": [
     {
       "url": "urn:buildpack:heroku/ruby"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-addon-wait.git"
     }
   ]
 }

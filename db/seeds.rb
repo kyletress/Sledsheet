@@ -1,7 +1,5 @@
 if User.count == 0 && ENV['REVIEW_ENVIRONMENT'] == "true"
-  user = User.create!(first_name: "Kyle", last_name: "Tress", email: "kyle@kyletress.com", password: "password", password_confirmation: "password", admin: true, activated: true)
-  user.toggle!(:admin)
-  user.toggle!(:activated)
+  user = User.create!(name: "Kyle Tress", email: "kyle@kyletress.com", password: "password", password_confirmation: "password", admin: true, activated: true)
 end
 
 if Track.count == 0
