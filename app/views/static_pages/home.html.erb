@@ -2,8 +2,9 @@
   <div class="container">
     <div class="intro">
       <h1>It's about time.</h1>
-      <p class="lead">Sledsheet is a community for skeleton athletes and their fans, featuring <strong><%= @runs %></strong> runs by <strong>
+      <p class="lead">Sledsheet is a community for skeleton athletes and their fans, featuring <strong><%= number_with_delimiter(@runs, :delimiter => ',') %></strong> runs by <strong>
         <%= @athletes %></strong> athletes.</p>
+        <%= link_to 'Learn more', about_path, class: 'btn btn-outline' %>
     </div>
     <div class="signup">
       <section class="join">
@@ -31,40 +32,58 @@
             <%= f.submit 'Create your free account', class: 'btn btn-large btn-success' %>
           <% end %>
         </div>
-        <!-- <div class="athlete-images">
-          <img src="https://secure.gravatar.com/avatar/5eba14816d314532e45d34ce2a138543?s=100" alt="" height="100" width="100" />
-          <img src="/matt.jpg" alt="" height="100" width="100" />
-          <img src="/katie.jpg" alt="" height="100" width="100" />
-          <img src="/martins.jpg" alt="" height="100" width="100" />
-          <img src="/lizzy.jpg" alt="" height="100" width="100" />
-          <img src="/alex.jpg" alt="" height="100" width="100" />
-        </div> -->
       </section>
     </div>
   </div>
 </div><!--end jumbo-->
 
 <div class="container">
-  <section class="row features">
-    <div class="col-sm-6">
-      <h3>For Athletes</h3>
-      <p>Sledsheet has powerful tools for athletes. From timesheet analysis to rich data visualization, it's never been easier to see where you are gaining or losing time on the track. But that's not all. Sledsheet helps you connect with fans like never before.</p>
-      <ul>
-        <li>Timesheet splits, intermediates, and differences</li>
-        <li>Rich data visualization</li>
-        <li>Full IBSF Race database</li>
-        <li>Custom Press Releases*</li>
-        <li>Custom Profile and social media integration</li>
-        <li>Export timesheets as PDF</li>
-      </ul>
-      <%= link_to 'All athlete features', '#', class: 'btn btn-default'%>
-    </div>
-    <div class="col-sm-6">
+  <section class="row stats">
+    <div class="flex">
+      <figure>
+        <%= fa_icon "list-alt" %>
+        <h3>Timesheets</h3>
+        <p>Create private timesheets, or add to our public database of <%= @timesheets %> timesheets and <%= number_with_delimiter(@runs, :delimiter => ',') %> runs.</p>
+        <%= link_to 'See Timesheets', timesheets_path, class: 'btn btn-default' %>
+      </figure>
+
+      <figure>
+        <%= fa_icon "line-chart" %>
+        <h3>Graphs</h3>
+        <p>Graph splits, intermediates, and differences instantly. Say goodbye to excel spreadsheets.</p>
+        <%= link_to 'See an example', timesheets_path, class: 'btn btn-default' %>
+      </figure>
+
+      <figure>
+        <%= fa_icon "cloud" %>
+        <h3>Storage</h3>
+        <p>Store your timesheets, notes, and analysis safely, privately, and securely forever.</p>
+        <%= link_to 'Sign up now', signup_path, class: 'btn btn-default' %>
+      </figure>
     </div>
   </section>
+</div>
 
-  <section class="row features">
-    <div class="col-sm-6">
+  <div class="for-athletes">
+    <section class="container flex">
+      <div>
+        <h3>Sledsheet for athletes</h3>
+        <p>Sledsheet has powerful tools for athletes. From analysis to rich data visualization, it's never been easier to see where you are gaining or losing time on the track. But that's not all. Sledsheet helps you connect with fans like never before.</p>
+        <ul>
+          <li>Timesheet splits, intermediates, and differences</li>
+          <li>Rich data visualization</li>
+          <li>Full IBSF Race database</li>
+          <li>Custom Press Releases*</li>
+          <li>Custom Profile and social media integration</li>
+          <li>Export timesheets as PDF</li>
+        </ul>
+        <%= link_to 'All athlete features', '#', class: 'btn btn-default'%>
+      </div>
+    </section>
+  </div>
+
+  <section class="row for-fans">
+    <div class="container">
       <h3>For Fans</h3>
       <p>There has never been a better way to connect with the skeleton community. Receive email notifications when your favorite athletes race. You can also subscribe to tracks, circuits, or entire teams.</p>
       <ul>
@@ -77,8 +96,8 @@
     </div>
   </section>
 
-  <section class="row features">
-    <div class="col-sm-6">
+  <section class="row for-organzations">
+    <div class="container">
       <h3>For Organizations</h3>
       <p>Sledsheet is built with teams in mind. Group message your team, send out timesheets, and store them for future reference. Use our point calculators, send out press releases to your mailing list, and much more.</p>
       <ul>

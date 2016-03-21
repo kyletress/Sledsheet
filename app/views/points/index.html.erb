@@ -1,26 +1,34 @@
-<h1>Points for <%= @timesheet.name %></h1>
+<div class="container">
+  <h2>Award Points</h2>
+  <p><%= @timesheet.name %></p>
 
-<% if @points.blank? %>
-<p>
-  No points have been awarded yet. <%= link_to 'Award points', timesheet_points_path(@timesheet), method: :post %>
-</p>
-<% else %>
-<table class="table table-bordered">
-  <tr>
-    <th>Name</th>
-    <th>Points</th>
-  </tr>
-  <% @points.each do |point| %>
-  <tr>
-    <td><%= link_to point.athlete.name, point.athlete %></td>
-    <td>
-      <%= point.value %>
-      <% if current_user.admin? %>
-        <%= link_to 'edit', edit_admin_point_path(point) %> 
-        <%= link_to 'delete', admin_point_path(point), method: :delete, data: { confirm: "You sure?" }, class: 'text-danger' %>
-      <% end %>
-    </td>
-  </tr>
+  <% if @timesheet.open? %>
+    <p>You must mark this timesheet as complete before awarding points. <%= link_to 'Go to settings', edit_timesheet_path(@timesheet) %>.</p>
+  <% else %>
+    <% if @points.blank? %>
+      <p>
+        <%= link_to 'Award points', timesheet_points_path(@timesheet), method: :post, class: 'btn btn-success' %>
+      </p>
+    <% else %>
+      <table class="table table-bordered">
+        <tr>
+          <th>Name</th>
+          <th>Points</th>
+        </tr>
+        <% @points.each do |point| %>
+        <tr>
+          <td><%= link_to point.athlete.name, point.athlete %></td>
+          <td>
+            <%= point.value %>
+            <% if current_user.admin? %>
+              <%= link_to 'edit', edit_admin_point_path(point) %>
+              <%= link_to 'delete', admin_point_path(point), method: :delete, data: { confirm: "You sure?" }, class: 'text-danger' %>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </table>
+    <% end %>
   <% end %>
-</table>
-<% end %>
+
+</div>

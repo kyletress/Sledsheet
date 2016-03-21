@@ -16,6 +16,23 @@
   }
 }
 
+.timesheet {
+  font-size: 1.4rem;
+  border: 1px solid #ddd;
+  tbody {
+    th {
+      font-size:1.6rem;
+      font-weight: normal;
+    }
+    &:nth-child(even) {
+      td {
+        background: #efefef;
+      }
+    }
+  }
+}
+
+
 .timesheet-table-header td{
   background: #f8f8f8;
 }

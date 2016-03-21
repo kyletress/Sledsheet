@@ -1,12 +1,14 @@
-<h1>Startlist</h1>
+<div class="container">
+  <h1>Startlist</h1>
 
-<%= render 'form' %>
+  <%= render 'form' %>
 
-<p><%= @timesheet.name %> on <%= @timesheet.nice_date %></p>
+  <p><%= @timesheet.name %> on <%= @timesheet.nice_date %></p>
 
-<ol id="entries" data-update-url="<%= sort_timesheet_entries_url %>">
-  <%= render @entries %>
-</ol>
+  <ol id="entries" data-update-url="<%= sort_timesheet_entries_url %>">
+    <%= render @entries %>
+  </ol>
 
-<%= link_to 'Add an entry', new_timesheet_entry_path(@timesheet) %>
-<%= link_to 'Back to timesheet', @timesheet %>
+  <%= link_to 'Add an entry', new_timesheet_entry_path(@timesheet) %>
+  <%= link_to 'Back to timesheet', @timesheet %>
+</div>

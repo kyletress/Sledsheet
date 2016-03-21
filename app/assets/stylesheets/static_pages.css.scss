@@ -94,25 +94,6 @@
 
 .join {
   text-align:center;
-  .athlete-images {
-    display: -webkit-flex;
-    display:flex;
-    -webkit-justify-content: space-between;
-    justify-content: space-between;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-    list-style:none;
-    padding-left: 0;
-    width:100%;
-    max-width:750px;
-    margin: 0 auto;
-  }
-  img {
-    border-radius: 50%;
-    background:rgba(255,255,255,.15);
-    padding:6px;
-    margin-bottom: 1rem;
-  }
   h3 {
     margin-bottom: .75em;
   }
@@ -142,6 +123,30 @@
   }
 }
 
+.for-athletes {
+  background: white;
+  padding: 6rem 0;
+  h3 {
+    font-weight: 700;
+    text-align: left;
+  }
+  > section > div {
+    flex: 1;
+  }
+}
+
+.athlete-images {
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.athlete-images > img {
+  border-radius: 50%;
+  background:#ececec;
+  padding:3px;
+  flex: 1;
+}
+
 .features {
   padding:2em 0;
   border-bottom: 1px solid $iron;
@@ -152,5 +157,24 @@
   ul {
     color: lighten(#000, 65%);
     margin-bottom:1em;
+  }
+}
+
+.stats {
+  padding: 6rem 0;
+  text-align: center;
+  h2 {
+    font-weight: 700;
+  }
+  figure {
+    padding: 2rem;
+    flex: 1;
+    i.fa {
+      font-size: 9.6rem;
+      color: #d6d7d9;
+      &:hover {
+        color: darken(#d6d7d9, 5%);
+      }
+    }
   }
 }
