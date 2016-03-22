@@ -1,14 +1,18 @@
 class TimesheetsController < ApplicationController
   before_action :logged_in_user, except: [:index, :show]
-  before_action :admin_user, only: [:new, :edit, :create, :destroy]
+  before_action :correct_user, if: :personal_timesheet?, only: [:update, :edit, :destroy, :show]
+  before_action :admin_user, if: :general_timesheet?, only: [:update, :edit, :destroy]
+
+  #before_action :correct_or_admin_user, only: [:edit, :update, :destroy]
 
   def index
-    @timesheets = Timesheet.includes(:season).filter(filtering_params).page params[:page]
+    @timesheets = Timesheet.general.includes(:season).filter(filtering_params).page params[:page]
   end
 
   def new
-    @timesheet = Timesheet.new
+    @timesheet = current_user.timesheets.build
     @genders = Timesheet.genders
+    @visibilities = Timesheet.visibilities
   end
 
   def show
@@ -34,6 +38,7 @@ class TimesheetsController < ApplicationController
   def edit
     @timesheet = Timesheet.find(params[:id])
     @genders = Timesheet.genders
+    @visibilities = Timesheet.visibilities
   end
 
   def update
@@ -51,7 +56,7 @@ class TimesheetsController < ApplicationController
   end
 
   def create
-    @timesheet = Timesheet.new(timesheet_params)
+    @timesheet = current_user.timesheets.build(timesheet_params)
     if @timesheet.save
       if params[:tweet].present?
         tweet_timesheet
@@ -147,7 +152,27 @@ class TimesheetsController < ApplicationController
 
   private
     def timesheet_params
-      params.require(:timesheet).permit(:name, :nickname, :track_id, :circuit_id, :date, :race, :season_id, :pdf, :gender, :remote_pdf_url, :remove_pdf, :tweet, :status)
+      params.require(:timesheet).permit(:name, :nickname, :track_id, :circuit_id, :date, :race, :season_id, :pdf, :gender, :remote_pdf_url, :remove_pdf, :tweet, :status, :visibility, :user_id)
+    end
+
+    def correct_user
+      if current_user
+        unless @timesheet.user == current_user || current_user.admin?
+          redirect_to timesheets_path, notice: "Sorry, that timesheet doesn't exist"
+        end
+      else
+        redirect_to timesheets_path, notice: "That timesheet doesn't exist"
+      end
+    end
+
+    def personal_timesheet?
+      @timesheet = Timesheet.find(params[:id])
+      @timesheet.personal?
+    end
+
+    def general_timesheet?
+      @timesheet = Timesheet.find(params[:id])
+      @timesheet.general?
     end
 
     def award_points

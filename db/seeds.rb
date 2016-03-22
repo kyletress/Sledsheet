@@ -1,5 +1,22 @@
 if User.count == 0 && ENV['REVIEW_ENVIRONMENT'] == "true"
-  user = User.create!(name: "Kyle Tress", email: "kyle@kyletress.com", password: "password", password_confirmation: "password", admin: true, activated: true)
+  User.create([
+    {
+      name: "Kyle Tress",
+      email: "kyle@kyletress.com",
+      password: "password",
+      password_confirmation: "password",
+      admin: true,
+      activated: true
+    },
+    {
+      name: "Morgan Tracey",
+      email: "morgangtracey5@gmail.com",
+      password: "password",
+      password_confirmation: "password",
+      admin: false,
+      activated: true
+    }
+  ])
 end
 
 if Track.count == 0
@@ -59,5 +76,46 @@ end
 if Timesheet.count == 0
   track = Track.find_by(name: 'Lake Placid')
   circuit = Circuit.find_by(name: 'World Cup')
-  timesheet = Timesheet.create(track: track, circuit: circuit, date: DateTime.now, gender: 0, race: true, complete: true, status: 1)
+  timesheet = Timesheet.create(track: track, circuit: circuit, date: DateTime.now, gender: 0, race: true, complete: true, status: 1, visibility: 1, user: User.first)
 end
+
+kyle = Athlete.find_by(last_name: "Tress")
+matt = Athlete.find_by(last_name: "Antoine")
+john = Athlete.find_by(last_name: "Daly")
+
+timesheet = Timesheet.first
+
+Entry.create([
+  {
+    athlete: kyle,
+    timesheet: timesheet,
+    bib: 1,
+    status: 0
+  },
+  {
+    athlete: matt,
+    timesheet: timesheet,
+    bib: 2,
+    status: 0
+  },
+  {
+    athlete: john,
+    timesheet: timesheet,
+    bib: 3,
+    status: 0
+  }
+])
+
+entry = Entry.find_by(athlete_id: kyle.id)
+
+Run.create(
+    entry: entry,
+    start: 500,
+    split2: 2193,
+    split3: 3619,
+    split4: 4156,
+    split5: 4456,
+    finish: 5411,
+    position: 1,
+    status: 0
+)

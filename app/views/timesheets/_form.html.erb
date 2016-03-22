@@ -8,6 +8,13 @@
         <span id="helpBlock" class="help-block">Example: European Championships or Randy Price Memorial Race</span>
     	</div>
 
+      <% if current_user.admin? %>
+      <p>Is this timesheet a personal (private) timesheet, or a general (public) one?</p>
+        <div class="form-group">
+          <%= f.select :visibility, options_for_select(@visibilities.collect { |g| [g[0].humanize, g[0]] }, selected: @timesheet.visibility), {} , class: "form-control" %>
+        </div>
+      <% end %>
+
     	<div class="form-group">
     		<%= f.label :date, 'Date' %>
     		<%= f.date_select :date, {:order => [:day, :month, :year], :start_year => 1999}, {class: 'form-control'} %>

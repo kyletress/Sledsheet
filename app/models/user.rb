@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
   validates :password, length: { minimum: 6 }
 
+  has_many :timesheets
   has_one :athlete
 
   def self.digest(string)

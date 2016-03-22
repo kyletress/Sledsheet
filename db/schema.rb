@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151201004835) do
+ActiveRecord::Schema.define(version: 20160321201453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,11 +151,14 @@ ActiveRecord::Schema.define(version: 20151201004835) do
     t.integer  "gender",                 default: 0
     t.boolean  "complete",               default: false
     t.integer  "status",                 default: 0
+    t.integer  "visibility",             default: 0
+    t.integer  "user_id"
   end
 
   add_index "timesheets", ["circuit_id"], name: "index_timesheets_on_circuit_id", using: :btree
   add_index "timesheets", ["season_id"], name: "index_timesheets_on_season_id", using: :btree
   add_index "timesheets", ["track_id"], name: "index_timesheets_on_track_id", using: :btree
+  add_index "timesheets", ["user_id"], name: "index_timesheets_on_user_id", using: :btree
 
   create_table "tracks", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -182,4 +185,5 @@ ActiveRecord::Schema.define(version: 20151201004835) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["remember_digest"], name: "index_users_on_remember_digest", using: :btree
 
+  add_foreign_key "timesheets", "users"
 end

@@ -7,6 +7,7 @@ class Timesheet < ActiveRecord::Base
   before_validation :name_timesheet
   before_save :assign_season
 
+  belongs_to :user
   belongs_to :track
   belongs_to :circuit
   belongs_to :season
@@ -21,9 +22,10 @@ class Timesheet < ActiveRecord::Base
   validates :circuit_id, presence: true
   validates :gender, presence: true
 
-  #enum gender: [:mixed, :men, :women] # 0 1 2
   enum gender: {men: 0, women: 1, mixed: 2}
-  enum status: {open: 0, complete: 1} # hidden, live, draft?
+  enum status: {open: 0, complete: 1} # live
+  # only admins can add public timesheets
+  enum visibility: {personal: 0, general: 1} # draft, hidden?
 
   mount_uploader :pdf, PdfUploader
 
