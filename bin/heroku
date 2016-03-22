@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+bin/addon-wait
+rake db:setup
