@@ -40,7 +40,7 @@
 
 <h3>Recent Events</h3>
 <ul>
-  <% @circuit.timesheets.each do |timesheet| %>
+  <% @circuit.timesheets.general.each do |timesheet| %>
     <li><%= link_to timesheet.name, timesheet %></li>
   <% end %>
 </ul>
