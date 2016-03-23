@@ -35,7 +35,8 @@ table.timesheets {
   //border-top: none;
 }
 
-.timesheet-table-header td{
+.timesheet-table-header td,
+.timesheet-table-header th {
   background: #f8f8f8;
 }
 
