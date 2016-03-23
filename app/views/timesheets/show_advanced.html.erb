@@ -1,83 +1,66 @@
 <% provide(:title, @timesheet.name) %>
-<div class="page-header">
-  <h2><%= @timesheet.name %> <span><time><%= @timesheet.nice_date %></time></span></h2>
-  <% if @timesheet.personal? %>
-    <span class="badge badge-danger">private</span>
-  <% end %>
-</div>
-<% if @timesheet.nickname.present? %>
-  <p><%= @timesheet.nickname %></p>
-<% end %>
+
+<div class="timesheet-header">
+  <div class="timesheet-title">
+    <h2><%= @timesheet.name %></h2>
+    <time><%= @timesheet.nice_date %></time>
+    <% if @timesheet.personal? %>
+      <span class="badge badge-danger">private</span>
+    <% end %>
+    <% if @timesheet.nickname.present? %>
+      <p><%= @timesheet.nickname %></p>
+    <% end %>
+    <% if @timesheet.pdf.present? %>
+      <%= link_to @timesheet.pdf_url, class: "btn btn-default btn-sm" do %>
+        <i class="glyphicon glyphicon-file"></i> Download the PDF
+      <% end %>
+    <% end %>
+  </div>
 
   <div class="dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+    <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
       Settings
       <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
       <li role="presentation"><%= link_to 'Startlist', timesheet_entries_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
       <li role="presentation"><%= link_to "Generate PDF", timesheet_path(@timesheet, format: "pdf", role: "menuitem", tabindex: -1) %>
       <li role="presentation"><%= link_to "Points", timesheet_points_path(@timesheet), role: "menuitem", tabindex: -1 %></li>
 
-    <% if current_user.admin? %>
-    <li role="presentation" class="divider"></li>
-    <li role="presentation" class="dropdown-header">ADMIN</li>
-    <li role="presentation"><%= link_to 'Edit Timesheet', edit_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
-    <li role="presentation"><%= link_to 'Copy Timesheet', copy_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
-    <li role="presentation"><%= link_to "Delete timesheet", @timesheet, method: :delete, data: { confirm: "You sure?" }, role: 'menuitem', tabindex: -1 %></li>
-    <% end %>
+      <% if current_user.admin? %>
+        <li role="presentation" class="divider"></li>
+        <li role="presentation" class="dropdown-header">ADMIN</li>
+        <li role="presentation"><%= link_to 'Edit Timesheet', edit_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
+        <li role="presentation"><%= link_to 'Copy Timesheet', copy_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
+        <li role="presentation"><%= link_to "Delete timesheet", @timesheet, method: :delete, data: { confirm: "You sure?" }, role: 'menuitem', tabindex: -1 %></li>
+      <% end %>
     </ul>
   </div>
-
-<% if @timesheet.pdf.present? %>
-  <%= link_to @timesheet.pdf_url, class: "btn btn-default btn-sm" do %>
-    <i class="glyphicon glyphicon-file"></i> Download the PDF
-  <% end %>
-<% end %>
+</div>
 
 <% if @timesheet.entries.blank? %>
+
   <p><%= link_to 'Add', timesheet_entries_path(@timesheet) %> or <%= link_to 'import', timesheet_entries_path(@timesheet) %> entries.</p>
-  <h4>Import from FIBT.com</h4>
+  <h4>Import from IBSF.org</h4>
   <%= form_tag import_timesheet_path do %>
     <%= text_field_tag :url %>
     <%= submit_tag "Import" %>
   <% end %>
-<% else %>
-<table class="table">
-  <% @ranked.each do |entry| %>
-    <tbody>
-       <tr class="timesheet-table-header">
-         <td colspan="5"><strong><%= entry.rank %>.</strong> <%= entry.bib %> <%= entry.athlete.timesheet_country %> <%= link_to entry.athlete.name, entry.athlete %> <%= link_to 'New Run', new_entry_run_path(entry) %> </td>
-         <td class="total_time">
-           <% if entry.status == "ok" %>
-           <strong><%= display_total entry.total_time %> (+<%= display_total entry.time_behind %>)</strong>
-           <% else %>
-            <strong><%= entry.status.upcase %></strong>
-           <% end %>
-           (<%= link_to 'edit', edit_entry_path(entry) %>)
-         </td>
-      </tr>
-      <% entry.runs.each do |run| %>
-      <tr>
-        <% if run.status == "ok" %>
-        <td class="total_time"><%= display_time run.start %></td>
-        <td class="total_time"><%= display_time run.split2 %></td>
-        <td class="total_time"><%= display_time run.split3 %></td>
-        <td class="total_time"><%= display_time run.split4 %></td>
-        <td class="total_time"><%= display_time run.split5 %></td>
-        <td class="total_time"><%= display_time run.finish %>
-          <%= link_to "edit", edit_run_path(run) %> <% if current_user.admin? %> <%= link_to "delete", run_path(run), method: :delete, class: "text-danger", data: {confirm: "You sure?"} %>
-  <% end %></td>
-      <% else %>
-        <td colspan="6"></td>
-        <% end %>
-      </tr>
 
-      <% end %>
-    </tbody>
-  <% end %>
-  <% end %>
-   <tr>
-     <td colspan="6"><%= link_to "Add Entry", timesheet_entries_path(@timesheet) %></td>
-   </tr>
-</table>
+<% else %>
+
+  <ul class="nav nav-tabs timesheet-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#splits" aria-controls="splits" role="tab" data-toggle="tab">Splits</a></li>
+    <li role="presentation"><a href="#intermediates" aria-controls="intermediates" role="tab" data-toggle="tab">Intermediates</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="splits">
+      <%= render 'splits' %>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="intermediates">
+      <%= render 'intermediates' %>
+    </div>
+  </div>
+
+<% end %>
