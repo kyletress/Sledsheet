@@ -1,24 +1,24 @@
-<table class="table table-bordered">
-  <tr class="timesheet-table-header">
-    <th>Athlete</th>
-    <th>Start</th>
-    <th>Int</th>
-    <th>Int</th>
-    <th>Int</th>
-    <th>Int</th>
-    <th>Int</th>
-    <th>Finish</th>
-  </tr>
-  <% @intermediates.each do |int| %>
-    <tr>
-      <td><%= link_to int.entry.athlete.name, int.entry.athlete %></td>
-      <td><%= display_time int.start %></td>
-      <td><%= display_time int.int1 %></td>
-      <td><%= display_time int.int2 %></td>
-      <td><%= display_time int.int3 %></td>
-      <td><%= display_time int.int4 %></td>
-      <td><%= display_time int.int5 %></td>
-      <td><%= display_time int.finish %></td>
-    </tr>
+<table class="table timesheets">
+  <% @ranked.each do |entry| %>
+    <tbody>
+       <tr class="timesheet-table-header">
+         <td colspan="7"><strong><%= entry.rank %>. <%= link_to entry.athlete.name, entry.athlete %></td>
+      </tr>
+      <% entry.runs.each do |run| %>
+        <tr>
+          <% if run.status == "ok" %>
+            <td class="total_time"><%= display_time run.start %></td>
+            <td class="total_time"><%= display_time run.int1 %></td>
+            <td class="total_time"><%= display_time run.int2 %></td>
+            <td class="total_time"><%= display_time run.int3 %></td>
+            <td class="total_time"><%= display_time run.int4 %></td>
+            <td class="total_time"><%= display_time run.int5 %></td>
+            <td class="total_time"><%= display_time run.finish %></td>
+          <% else %>
+            <td colspan="6"></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
   <% end %>
 </table>

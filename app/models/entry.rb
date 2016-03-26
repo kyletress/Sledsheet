@@ -26,6 +26,10 @@ class Entry < ActiveRecord::Base
     self.athlete = Athlete.find_by(name: name)
   end
 
+  # def run_intermediates
+  #   Run.unscoped.select("id, entry_id, start, finish, position, (split2 - start) as int1, (split3 - split2) as int2, (split4 - split3) as int3, (split5 - split4) as int4, (finish - split5) as int5").where(entry: self).order(:entry_id, position: :asc)
+  # end
+
   # what was this for? Don't use it anywhere.
   def self.top_ten
     select('athlete_id, count(athlete_id)').

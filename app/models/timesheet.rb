@@ -48,6 +48,7 @@ class Timesheet < ActiveRecord::Base
     # add WHERE Entries.status = '0' before the group by to limit to OK entries. Needs work.
   end
 
+  # no longer used, but useful. 
   def ranked_intermediates
     Run.unscoped.select("id, entry_id, position, start, (split2 - start) as int1, (split3 - split2) as int2, (split4 - split3) as int3, (split5 - split4) as int4, (finish - split5) as int5, finish").where(entry: entries.ids).order(:entry_id, position: :asc).includes(entry: :athlete)
   end

@@ -18,7 +18,7 @@ class TimesheetsController < ApplicationController
   def show
     @timesheet = Timesheet.find(params[:id])
     @ranked = @timesheet.ranked_entries
-    @intermediates = @timesheet.ranked_intermediates
+    #@intermediates = @timesheet.ranked_intermediates
     @best = @timesheet.best_run(1)
     respond_to do |format|
       format.html do
