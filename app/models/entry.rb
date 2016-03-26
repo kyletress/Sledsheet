@@ -1,7 +1,7 @@
 class Entry < ActiveRecord::Base
   belongs_to :timesheet
   belongs_to :athlete
-  has_many :runs, dependent: :destroy
+  has_many :runs, -> { order(position: :asc) }, dependent: :destroy
 
   validates :athlete_id, :timesheet_id, presence: true
   validates :athlete_id, numericality: true
@@ -25,7 +25,7 @@ class Entry < ActiveRecord::Base
     self.athlete = Athlete.find_by(name: name)
   end
 
-  # what was this for? Don't use it anywhere. 
+  # what was this for? Don't use it anywhere.
   def self.top_ten
     select('athlete_id, count(athlete_id)').
     where('bib <= 3'). # obviously needs to be rewritten
