@@ -23,6 +23,11 @@
 
 .timesheet-tabs {
   border-bottom: none;
+  > li > a {
+    color: #999;
+    text-transform: uppercase;
+    font-size: 1.3rem;
+  }
   > li.active > a,
   > li.active > a:hover,
   > li.active > a:focus {
