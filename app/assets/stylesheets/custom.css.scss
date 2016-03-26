@@ -20,7 +20,7 @@ a {
 a.navbar-brand{
   text-transform: lowercase;
   letter-spacing:-1px;
-  color: $blue !important;//#fff !important;
+  color: #fff !important;
   font-weight:700;
   font-size:2.4rem;
   &:hover {
@@ -62,8 +62,8 @@ a.navbar-brand{
 }
 
 .navbar-custom {
-  background-color: rgba(255,255,255,.97);
-  color:$blue;//#ffffff;
+  background-color: $blue;
+  color:#ffffff;
   border-radius:0;
   border: none;
 }
@@ -105,7 +105,11 @@ a.navbar-brand{
 }
 
 .navbar-custom .navbar-brand {
-    color:$blue;//#fff;
+    color:#fff;
+}
+
+.alert {
+  margin-top: 2rem;
 }
 
 .site-footer{
