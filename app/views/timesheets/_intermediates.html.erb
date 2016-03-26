@@ -2,7 +2,7 @@
   <% @ranked.each do |entry| %>
     <tbody>
        <tr class="timesheet-table-header">
-         <td colspan="7"><strong><%= entry.rank %>. <%= link_to entry.athlete.name, entry.athlete %></td>
+         <td colspan="7"><strong><%= entry.rank %>. <%= link_to entry.athlete.name, entry.athlete %></strong></td>
       </tr>
       <% entry.runs.each do |run| %>
         <tr>

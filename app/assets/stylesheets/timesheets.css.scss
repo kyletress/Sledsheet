@@ -56,3 +56,11 @@ table.timesheets {
 .badge-danger {
   background-color: #cd2026;
 }
+
+.new-run-link {
+  color: #bbb;
+  font-size: 1.3rem;
+  &:hover {
+    color: darken(#bbb, 15%);
+  }
+}
