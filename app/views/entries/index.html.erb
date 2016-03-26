@@ -1,8 +1,13 @@
-<h1>Startlist</h1>
-
-<%= render 'form' %>
-
+<h2>Startlist</h2>
 <p><%= @timesheet.name %> on <%= @timesheet.nice_date %></p>
+
+<div>
+<%= render 'form' %>
+</div>
+
+<p><%= link_to timesheet_entries_path(@timesheet, format: "pdf") do %>
+  <%= fa_icon 'file-pdf-o', text: 'Printable Startlist (PDF)' %>
+<% end %></p>
 
 <ol id="entries" data-update-url="<%= sort_timesheet_entries_url %>">
   <%= render @entries %>

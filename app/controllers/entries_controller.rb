@@ -4,6 +4,13 @@ class EntriesController < ApplicationController
   def index
     @entry = Entry.new
     @entries = @timesheet.entries.includes(:athlete).order("bib")
+    respond_to do |format|
+      format.html 
+      format.pdf do
+        pdf = StartlistPdf.new(@timesheet, @entries, view_context)
+        send_data pdf.render, filename: "#{@timesheet.pdf_name}.pdf", type: "application/pdf", disposition: "inline"
+      end
+    end
   end
 
   def new
