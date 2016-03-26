@@ -110,6 +110,14 @@ class TimesheetsControllerTest < ActionController::TestCase
     assert_redirected_to timesheets_path
   end
 
+  test "correct user should be able to copy a timesheet" do
+    log_in_as @user
+    get :copy, id: @personal 
+    assert_response :success
+    assert_template :new
+    assert_not_nil assigns(:timesheet)
+  end
+
   # # Incorrect user
 
   test "incorrect user should not see another user's personal timesheet" do

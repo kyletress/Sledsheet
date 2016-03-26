@@ -77,6 +77,7 @@ class TimesheetsController < ApplicationController
   def copy
     @timesheet = Timesheet.find(params[:id])
     @genders = Timesheet.genders
+    @visibilities = Timesheet.visibilities
     @timesheet = Timesheet.new(@timesheet.attributes)
     render :new
   end
