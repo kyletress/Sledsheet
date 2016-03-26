@@ -49,9 +49,7 @@ class Timesheet < ActiveRecord::Base
   end
 
   def ranked_intermediates
-    runs = Run.find_by_sql(["SELECT entry_id, start, (split2 - start) as int1, (split3 - split2) as int2, (split4 - split3) as int3, (split5 - split4) as int4, (finish - split5) as int5, finish FROM runs WHERE entry_id IN (SELECT id FROM entries WHERE timesheet_id = ? ORDER BY position asc)", self.id])
-    ActiveRecord::Associations::Preloader.new.preload(runs, [entry: [:athlete]])
-    runs
+    Run.unscoped.select("id, entry_id, position, start, (split2 - start) as int1, (split3 - split2) as int2, (split4 - split3) as int3, (split5 - split4) as int4, (finish - split5) as int5, finish").where(entry: entries.ids).order(:entry_id, position: :asc).includes(entry: :athlete)
   end
 
   def nice_date

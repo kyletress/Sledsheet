@@ -1,7 +1,8 @@
 class Entry < ActiveRecord::Base
   belongs_to :timesheet
   belongs_to :athlete
-  has_many :runs, -> { order(position: :asc) }, dependent: :destroy
+  #has_many :runs, -> { order(position: :asc) }, dependent: :destroy
+  has_many :runs, dependent: :destroy
 
   validates :athlete_id, :timesheet_id, presence: true
   validates :athlete_id, numericality: true
@@ -32,7 +33,6 @@ class Entry < ActiveRecord::Base
     group('athlete_id').
     order('count DESC').
     limit(10)
-    # BOOM. returns array of relations. first.athlete.name, first.count.
   end
 
 # necessary at the moment for PDF generation
