@@ -49,6 +49,14 @@ table.timesheets {
   color:#999;
 }
 
+.athlete-name {
+  margin-right: 1rem;
+}
+
+.admin-links {
+  margin-left: 1rem;
+}
+
 .plus { color:#C1392B; }
 .minus { color: #27ae60; }
 .position{font-size:11px;color:#777;}
@@ -60,6 +68,7 @@ table.timesheets {
 .new-run-link {
   color: #bbb;
   font-size: 1.3rem;
+  margin-right: .7rem;
   &:hover {
     color: darken(#bbb, 15%);
   }
