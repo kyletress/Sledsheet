@@ -41,7 +41,8 @@ table.timesheets {
 }
 
 .timesheet-table-header td,
-.timesheet-table-header th {
+.timesheet-table-header th,
+caption {
   background: #f8f8f8;
 }
 
@@ -64,6 +65,8 @@ table.timesheets {
 
 .plus { color:#C1392B; }
 .minus { color: #27ae60; }
+.best { color: $gold; background-color: $gold-lightest;}
+
 .position{font-size:11px;color:#777;}
 
 .badge-danger {

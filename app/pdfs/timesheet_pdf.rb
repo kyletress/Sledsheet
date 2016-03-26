@@ -86,7 +86,7 @@ class TimesheetPdf < Prawn::Document
       if entry.runs.present?
         entry.runs.each do |run|
           if run.position == 1
-            rows << [entry.bib, entry.athlete.timesheet_country, entry.athlete.timesheet_name, split(run.start), split(run.split2), split(run.split3),split(run.split4),split(run.split5),split(run.finish), total(entry.total_time)]
+            rows << [entry.bib, entry.athlete.timesheet_country, entry.athlete.timesheet_name, split(run.start), split(run.split2), split(run.split3),split(run.split4),split(run.split5),split(run.finish), total(entry.pdf_total_time)]
           else
             rows << ["", "", "", split(run.start), split(run.split2), split(run.split3),split(run.split4),split(run.split5),split(run.finish), ""]
           end
@@ -104,7 +104,7 @@ class TimesheetPdf < Prawn::Document
       if entry.runs.present?
         entry.runs.each do |run|
           if run.position == 1
-            rows << [entry.bib, entry.athlete.timesheet_country, entry.athlete.timesheet_name, split(run.start), split(run.int1), split(run.int2),split(run.int3),split(run.int4),split(run.int5),split(run.finish), total(entry.total_time)]
+            rows << [entry.bib, entry.athlete.timesheet_country, entry.athlete.timesheet_name, split(run.start), split(run.int1), split(run.int2),split(run.int3),split(run.int4),split(run.int5),split(run.finish), total(entry.pdf_total_time)]
           else
             rows << ["", "", "", split(run.start), split(run.int1), split(run.int2),split(run.int3),split(run.int4),split(run.int5),split(run.finish), ""]
           end

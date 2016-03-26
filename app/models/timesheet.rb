@@ -11,9 +11,11 @@ class Timesheet < ActiveRecord::Base
   belongs_to :track
   belongs_to :circuit
   belongs_to :season
+  has_many :heats, dependent: :destroy
   has_many :entries, dependent: :destroy
   has_many :athletes, through: :entries
-  has_many :runs, through: :entries
+  has_many :runs, through: :heats
+  has_many :runs, through: :entries # :heats, eventually? maybe doesn't matter
   has_many :points, dependent: :destroy
 
   validates :name, presence: true
@@ -48,11 +50,6 @@ class Timesheet < ActiveRecord::Base
     # add WHERE Entries.status = '0' before the group by to limit to OK entries. Needs work.
   end
 
-  # no longer used, but useful. 
-  def ranked_intermediates
-    Run.unscoped.select("id, entry_id, position, start, (split2 - start) as int1, (split3 - split2) as int2, (split4 - split3) as int3, (split5 - split4) as int4, (finish - split5) as int5, finish").where(entry: entries.ids).order(:entry_id, position: :asc).includes(entry: :athlete)
-  end
-
   def nice_date
     date.strftime("%B %d, %Y")
   end
@@ -78,8 +75,12 @@ class Timesheet < ActiveRecord::Base
     "#{name} #{gender.capitalize} #{season.short_name}"
   end
 
-  def best_run(heat)
-    self.runs.where(position: heat).order("finish ASC").first
+  def best_run(position)
+    runs.where(position: position).order(finish: :asc).first
+  end
+
+  def best_runs
+    Run.select("distinct on (position) id, entry_id, position, start, split2, split3, split4, split5, finish").where(entry: entries.ids).order(position: :asc, finish: :asc)
   end
 
   def position_for(athlete)

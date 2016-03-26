@@ -52,6 +52,7 @@
   <ul class="nav nav-tabs timesheet-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#splits" aria-controls="splits" role="tab" data-toggle="tab">Splits</a></li>
     <li role="presentation"><a href="#intermediates" aria-controls="intermediates" role="tab" data-toggle="tab">Intermediates</a></li>
+    <li role="presentation"><a href="#differences" aria-controls="differences" role="tab" data-toggle="tab">Differences</a></li>
   </ul>
 
   <div class="tab-content">
@@ -60,6 +61,9 @@
     </div>
     <div role="tabpanel" class="tab-pane" id="intermediates">
       <%= render 'intermediates' %>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="differences">
+      <%= render 'differences' %>
     </div>
   </div>
 
