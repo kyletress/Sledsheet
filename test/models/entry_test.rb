@@ -25,7 +25,7 @@ class EntryTest < ActiveSupport::TestCase
   test "total time should be the sum of run finish times" do
     @run1 = runs(:kyle1)
     @run2 = runs(:kyle2)
-    assert @entry.total_time == 11113, "Total time wasn't properly calculated"
+    assert @entry.pdf_total_time == 11113, "Total time wasn't properly calculated"
   end
 
   test "should return its athlete's name" do

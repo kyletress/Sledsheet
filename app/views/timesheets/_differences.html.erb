@@ -1,0 +1,24 @@
+<table class="table timesheets">
+  <% @ranked.each do |entry| %>
+    <tbody>
+       <tr class="timesheet-table-header">
+         <td colspan="7"><strong><%= entry.rank %>. <%= link_to entry.athlete.name, entry.athlete %></strong></td>
+      </tr>
+      <% entry.runs.each do |run| %>
+        <tr>
+          <% if run.status == "ok" %>
+            <% differences = run.difference_from(@best[run.position - 1]) %>
+            <td class="<%= difference_class(differences[0]) %>"><%= display_time differences[0] %></td>
+            <td class="<%= difference_class(differences[1]) %>"><%= display_time differences[1] %></td>
+            <td class="<%= difference_class(differences[2]) %>"><%= display_time differences[2] %></td>
+            <td class="<%= difference_class(differences[3]) %>"><%= display_time differences[3] %></td>
+            <td class="<%= difference_class(differences[4]) %>"><%= display_time differences[4] %></td>
+            <td class="<%= difference_class(differences[5]) %>"><%= display_time differences[5] %></td>
+          <% else %>
+            <td colspan="6"></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+</table>

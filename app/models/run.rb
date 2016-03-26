@@ -1,6 +1,8 @@
 class Run < ActiveRecord::Base
   before_save :assign_entry_status
+  before_save :assign_heat
   belongs_to :entry, counter_cache: true
+  belongs_to :heat
 
   validates :entry_id, presence: true
   validates :status, presence: true
@@ -11,11 +13,6 @@ class Run < ActiveRecord::Base
   default_scope -> { order('position ASC')}
 
   scope :unprocessed, -> { where.not(status: 0) }
-
-  # a test for calculating intermediates at the db level
-  def self.first_int
-    select("runs.*, (split2 - start) as int")
-  end
 
   def difference_from(run)
     values = []
@@ -67,6 +64,10 @@ class Run < ActiveRecord::Base
         entry.status = "ok"
       end
       entry.save
+    end
+
+    def assign_heat
+      self.heat = Heat.find_or_create_by(timesheet: self.entry.timesheet, position: self.position)
     end
 
 end

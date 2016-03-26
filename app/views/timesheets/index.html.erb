@@ -11,7 +11,7 @@
         </tr>
         <% timesheets.each do |timesheet| %>
           <tr>
-            <td class="timesheet-name"><%= link_to timesheet.name, timesheet %>
+            <td class="timesheet-name"><%= fa_icon 'file-text-o' %> <%= link_to timesheet.name, timesheet %>
               <% if timesheet.pdf.present? %>
                 <%= link_to timesheet.pdf_url, class: "btn btn-default btn-xs" do %>
                   <i class="glyphicon glyphicon-file"></i> PDF

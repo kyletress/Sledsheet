@@ -48,7 +48,7 @@ class RunsController < ApplicationController
       params.require(:run).permit(:entry_id, :start, :split2, :split3, :split4, :split5, :finish, :status)
     end
 
-  def load_entry_and_timesheet
+    def load_entry_and_timesheet
       @entry = Entry.find(params[:entry_id])
       @timesheet = @entry.timesheet
     end
