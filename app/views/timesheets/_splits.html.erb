@@ -2,7 +2,7 @@
   <% @ranked.each do |entry| %>
     <tbody>
        <tr class="timesheet-table-header">
-         <td colspan="5"><strong><%= entry.rank %>.</strong> <%= entry.athlete.timesheet_country %> <strong class="athlete-name"><%= link_to entry.athlete.name, entry.athlete %></strong>
+         <td colspan="5"><strong><%= entry.rank %>.</strong> <%= flag_for(entry.athlete) %> <%= entry.athlete.timesheet_country %> <strong class="athlete-name"><%= link_to entry.athlete.name, entry.athlete %></strong>
           <%= link_to new_entry_run_path(entry), class: 'new-run-link' do %>
            <%= fa_icon 'plus', text: 'Add run' %>
           <% end %>

@@ -26,23 +26,23 @@ class Run < ActiveRecord::Base
   end
 
   def int1
-    split2 - start
+    split2 - start if split2 && start
   end
 
   def int2
-    split3 - split2
+    split3 - split2 if split3 && split2
   end
 
   def int3
-    split4 - split3
+    split4 - split3 if split4 && split3
   end
 
   def int4
-    split5 - split4
+    split5 - split4 if split5 && split4
   end
 
   def int5
-    finish - split5
+    finish - split5 if finish && split5
   end
 
   # male entries.

@@ -38,6 +38,9 @@
 table.timesheets {
   border: 1px solid #ddd;
   //border-top: none;
+  .flag-icon {
+    font-size:1.3rem;
+  }
 }
 
 .timesheet-table-header td,

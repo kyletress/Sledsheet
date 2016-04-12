@@ -1,7 +1,9 @@
 <%= content_tag_for(:li, entry) do %>
-  <span class="flag flag-<%= entry.athlete.country_code %>"></span>
+  <%= flag_for entry.athlete %>
   <%= link_to entry.athlete.name, entry.athlete %>
   <% if current_user.admin? %>
-    <small><%= link_to "delete", entry_path(entry), method: :delete, class: "text-danger", data: {confirm: "You sure?"} %></small>
+    <%= link_to entry_path(entry), method: :delete, class: 'new-run-link', data: {confirm: "You sure?"} do %>
+      <%= fa_icon 'trash' %>
+    <% end %>
   <% end %>
 <% end %>
