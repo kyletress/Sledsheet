@@ -12,7 +12,7 @@
   <% end %>
   <figcaption>
     <h4><%= link_to athlete.name, athlete %></h4>
-    <p><span class="flag flag-<%= athlete.country_code %>"></span> <%= athlete.country_name %></p>
+    <p><%= flag_for athlete %> <%= athlete.country_name %></p>
   </figcaption>
 </figure>
 <% end %>
