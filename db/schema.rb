@@ -50,15 +50,6 @@ ActiveRecord::Schema.define(version: 20160325203416) do
   add_index "entries", ["athlete_id"], name: "index_entries_on_athlete_id", using: :btree
   add_index "entries", ["timesheet_id"], name: "index_entries_on_timesheet_id", using: :btree
 
-  create_table "heats", force: :cascade do |t|
-    t.integer  "timesheet_id"
-    t.integer  "position"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "heats", ["timesheet_id"], name: "index_heats_on_timesheet_id", using: :btree
-
   create_table "invitations", force: :cascade do |t|
     t.integer  "sender_id"
     t.string   "recipient_email"
@@ -134,7 +125,6 @@ ActiveRecord::Schema.define(version: 20160325203416) do
     t.integer  "int4"
     t.integer  "int5"
     t.integer  "status",     default: 0
-    t.integer  "heat_id"
   end
 
   add_index "runs", ["entry_id"], name: "index_runs_on_entry_id", using: :btree
@@ -195,6 +185,5 @@ ActiveRecord::Schema.define(version: 20160325203416) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["remember_digest"], name: "index_users_on_remember_digest", using: :btree
 
-  add_foreign_key "heats", "timesheets"
   add_foreign_key "timesheets", "users"
 end

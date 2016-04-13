@@ -2,7 +2,6 @@ class Run < ActiveRecord::Base
   before_save :assign_entry_status
   before_save :assign_heat
   belongs_to :entry, counter_cache: true
-  belongs_to :heat
 
   validates :entry_id, presence: true
   validates :status, presence: true
