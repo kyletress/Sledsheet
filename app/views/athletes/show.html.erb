@@ -2,30 +2,18 @@
 
 <%= render 'profile' %>
 
-<h3>Last Ten Results</h3>
-<table class="table table-condensed">
-  <tr>
-    <th>Date</th>
-    <th>Race</th>
-  </tr>
-  <% @entries.each do |entry| %>
-  <tr>
-    <td><%= entry.timesheet.nice_date %></td>
-    <td><%= link_to entry.timesheet.name, entry.timesheet %></td>
-  </tr>
-  <% end %>
-</table>
-
 <h3>Current Season Points Breakdown</h3>
 <table class="table table-condensed">
   <tr>
     <th>Date</th>
     <th>Race</th>
+    <th>Place</th>
   </tr>
   <% @points.each do |point| %>
   <tr>
-    <td><%= link_to point.timesheet.name, point.timesheet %></td>
+    <td><%= link_to point.name, point.timesheet %></td>
     <td><%= point.value %></td>
+    <td><%= point.rank.ordinalize %></td>
   </tr>
   <% end %>
 </table>

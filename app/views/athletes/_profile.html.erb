@@ -9,34 +9,19 @@
       <% end %>
     </figcaption>
   </figure>
-  <% if @athlete.world_rank == 1 %>
-    <div class="leader">World Leader</div>
-  <% end %>
+
 </div>
 <div class="stat-nav">
   <ul>
     <li class="stat-item">
-      <h3><%= @athlete.medal_count %></h3>
-      <%=  "medal".pluralize(@athlete.medal_count) %>
-    </li>
-    <li class="stat-item">
-      <h3><%= @athlete.entries.count %></h3>
-      <%=  "race".pluralize(@athlete.entries.count) %>
-    </li>
-    <li class="stat-item">
-      <h3>1</h3>
-      fan
-    </li>
-    <li class="stat-item">
-      <h3><%= @athlete.season_point_total(Season.current_season) %></h3>
+      <h3><%= @total_points %></h3>
       season points
     </li>
     <li class="stat-item">
-      <h3><%= @athlete.world_rank.ordinalize %></h3>
+      <h3><%= @athlete.world_rank(@season) %></h3>
       world rank
     </li>
     <li class="stat-item">
-      <a href="#" class="btn btn-success btn-inverted">Become a fan</a>
       <% if current_user && current_user.admin? %>
         <%= link_to 'Edit', edit_athlete_path(@athlete) %>
       <% end %>

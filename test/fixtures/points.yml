@@ -3,28 +3,28 @@ wc_1_first:
   athlete: kyle
   timesheet: wc_1
   circuit: worldcup
-  season: 2015-2016
+  season: season1516
   value: 225
 
 wc_1_second:
   athlete: matt
   timesheet: wc_1
   circuit: worldcup
-  season: 2015-2016
+  season: season1516
   value: 210
 
 wc_2_first:
   athlete: kyle
   timesheet: wc_2
   circuit: worldcup
-  season: 2015-2016
+  season: season1516
   value: 225
 
 wc_2_second:
   athlete: matt
   timesheet: wc_2
   circuit: worldcup
-  season: 2015-2016
+  season: season1516
   value: 210
 
 # in the future, if this test fails, it's because these points are tied to a specific season, but the @circuit.current_rankings method uses Season.current_season. Maybe fix that method.
