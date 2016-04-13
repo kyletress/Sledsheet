@@ -11,7 +11,6 @@ class Timesheet < ActiveRecord::Base
   belongs_to :track
   belongs_to :circuit
   belongs_to :season
-  has_many :heats, dependent: :destroy
   has_many :entries, dependent: :destroy
   has_many :athletes, through: :entries
   has_many :runs, through: :heats
