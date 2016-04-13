@@ -17,9 +17,6 @@ class Athlete < ActiveRecord::Base
 
   enum gender: {male: 0, female: 1}
 
-  # for the import function
-  # scope :find_by_timesheet_name, ->(t_name) { where("lower(first_name) = ? AND lower(last_name) = ?", t_name.split(',').last.strip.downcase, t_name.split(',').first.downcase)}
-
   def self.find_by_timesheet_name(name)
     array = name.split(' ')
     if array.count > 2
@@ -114,16 +111,16 @@ class Athlete < ActiveRecord::Base
     self.user_id.blank?
   end
 
-  def world_rank
-    points = Season.current_season.ranking_table(self.male)
+  def world_rank(season)
+    points = season.ranking_table(self.male)
     rank = points.select {|a| a.athlete_id == self.id }.first.try(:rank).to_i
   end
 
   def season_positions(season)
     # provides a list of points and their associated position for an athlete and season
     points = Point.find_by_sql(["select name, rank, points.id, points.timesheet_id, points.value from (
-      select *, rank() over (partition by name order by runs_count desc, total_time asc) from (
-        select entries.id, entries.athlete_id, entries.timesheet_id, entries.runs_count, timesheets.name, sum(runs.finish) as total_time from entries inner join timesheets on entries.timesheet_id = timesheets.id left join runs on entries.id = runs.entry_id where timesheets.season_id = ? group by entries.id, timesheets.name order by timesheets.name
+      select *, rank() over (partition by date order by runs_count desc, total_time asc) from (
+        select entries.id, entries.athlete_id, entries.timesheet_id, entries.runs_count, timesheets.name, timesheets.date, sum(runs.finish) as total_time from entries inner join timesheets on entries.timesheet_id = timesheets.id left join runs on entries.id = runs.entry_id where timesheets.season_id = ? group by entries.id, timesheets.name, timesheets.date order by timesheets.name
       ) as initialranks
     ) as finalranks inner join points on finalranks.athlete_id = points.athlete_id and finalranks.timesheet_id = points.timesheet_id where finalranks.athlete_id = ? order by value desc;", season.id, self.id])
     ActiveRecord::Associations::Preloader.new.preload(points, :timesheet)

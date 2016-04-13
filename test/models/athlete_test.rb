@@ -85,7 +85,7 @@ class AthleteTest < ActiveSupport::TestCase
     assert_equal "Morgan Tracey Tress", athlete.name
   end
 
-  # eventually should have a test for current and past season points. 
+  # eventually should have a test for current and past season points.
 
   test "points_for method should calculate correct number of season points" do
     season = seasons(:season)
@@ -93,9 +93,10 @@ class AthleteTest < ActiveSupport::TestCase
   end
 
   test "should correctly calculate World Rank" do
+    season = seasons(:season1516)
     matt = athletes(:matt)
-    assert_equal 1, @athlete.world_rank
-    assert_equal 2, matt.world_rank
+    assert_equal 1, @athlete.world_rank(season)
+    assert_equal 2, matt.world_rank(season)
   end
 
   test "should correctly calcuate season positions and points" do

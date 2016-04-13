@@ -7,10 +7,10 @@ class AthletesController < ApplicationController
   end
 
   def show
+    @season = Season.current_season
     @athlete = Athlete.find(params[:id])
-    @entries = @athlete.entries.includes(timesheet: :circuit).order('timesheets.date DESC').limit(10)
-    @total_points = @athlete.season_points(Season.current_season).includes(:timesheet)
-    @points = @athlete.season_points(Season.current_season).includes(:timesheet)
+    @points = @athlete.season_positions(@season)
+    @total_points = @points[0..7].map { |h| h[:value] }.sum
   end
 
   def new
