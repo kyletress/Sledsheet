@@ -32,6 +32,11 @@ class UsersController < ApplicationController
   end
 
   def update
+    # only update the password if it's present.
+    if params[:password].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation)
+    end
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated."
       redirect_to @user
@@ -49,7 +54,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :phone)
     end
 
     def correct_user
