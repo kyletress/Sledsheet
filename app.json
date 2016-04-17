@@ -44,6 +44,12 @@
     "MAILING_LIST_ENABLED": {
       "required": true
     },
+    "TWILIO_AUTH_TOKEN": {
+      "required": true
+    },
+    "TWILIO_ACCOUNT_SID" {
+      "required": true
+    },
     "SKYLIGHT_AUTHENTICATION": {
       "required": true
     }

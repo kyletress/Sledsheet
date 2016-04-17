@@ -25,6 +25,7 @@ gem 'pg_search'
 gem 'puma'
 gem 'simple_form'
 gem 'skylight'
+gem 'twilio-ruby'
 gem 'twitter'
 gem 'twitter-typeahead-rails'
 

@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  validates :password, length: { minimum: 6 }
+  validates :password, length: { minimum: 6 }, if: :password
+
 
   has_many :timesheets
   has_one :athlete
