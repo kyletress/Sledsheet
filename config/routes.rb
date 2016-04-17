@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   get '/rankings/', to: 'seasons#rankings', as: 'rankings'
 
   post 'twilio/voice', to: 'twilio#voice'
+  post 'notifications/notify', to: 'notifications#notify'
 
   namespace :admin do
     resources :tracks
