@@ -1,5 +1,5 @@
 body {
-  padding-top: 50px;
+  //padding-top: 50px;
   font-family:"Source Sans Pro", helvetica, sans-serif;
   background:$color-background;
   -webkit-font-smoothing: subpixel-antialiased;
@@ -43,6 +43,7 @@ a.navbar-brand{
   color:#ffffff;
   border-radius:0;
   border: none;
+  margin-bottom: 0;
 }
 
 .navbar-custom .navbar-nav > li > a {
@@ -159,149 +160,9 @@ a.navbar-brand{
   }
 }
 
-/* Flag Sprites */
-.flag {
-    background-image: asset-data-url("flags.png");
-    background-repeat: no-repeat;
-    display: inline-block;
-    width:24px;
-    height: 24px;
-}
-
-.flag-AU {
-    background-position: -1px -1px;
-}
-
-.flag-AT {
-    background-position: -27px -1px;
-}
-
-.flag-BE {
-    background-position: -53px -1px;
-}
-
-.flag-Bermuda {
-    background-position: -79px -1px;
-}
-
-.flag-BR {
-    background-position: -105px -1px;
-}
-
-.flag-CA {
-    background-position: -1px -27px;
-}
-
-.flag-CZ {
-    background-position: -27px -27px;
-}
-
-.flag-FR {
-    background-position: -53px -27px;
-}
-
-.flag-DE {
-    background-position: -79px -27px;
-}
-
-.flag-GR {
-    background-position: -105px -27px;
-}
-
-.flag-IE {
-    background-position: -1px -53px;
-}
-
-.flag-IT {
-    background-position: -27px -53px;
-}
-
-.flag-JM {
-    background-position: -53px -53px;
-}
-
-.flag-JP {
-    background-position: -79px -53px;
-}
-
-.flag-LV {
-    background-position: -105px -53px;
-}
-
-.flag-MX {
-    background-position: -1px -79px;
-}
-
-.flag-Monaco {
-    background-position: -27px -79px;
-}
-
-.flag-NL {
-    background-position: -53px -79px;
-}
-
-.flag-NZ {
-    background-position: -79px -79px;
-}
-
-.flag-Norway {
-    background-position: -105px -79px;
-}
-
-.flag-Olympics {
-    background-position: -1px -105px;
-}
-
-.flag-PL {
-    background-position: -27px -105px;
-}
-
-.flag-RO {
-    background-position: -53px -105px;
-}
-
-.flag-RU {
-    background-position: -79px -105px;
-}
-
-.flag-SK {
-    background-position: -105px -105px;
-}
-
-.flag-SI {
-    background-position: -131px -1px;
-}
-
-.flag-South-Africa {
-    background-position: -131px -27px;
-}
-
-.flag-KR {
-    background-position: -131px -53px;
-}
-
-.flag-ES {
-    background-position: -131px -79px;
-}
-
-.flag-SE {
-    background-position: -131px -105px;
-}
-
-.flag-CH {
-    background-position: -1px -131px;
-}
-
-.flag-GB {
-    background-position: -27px -131px;
-}
-
-.flag-US {
-    background-position: -53px -131px;
-}
-
-.flag-Unknown {
-    background-position: -79px -131px;
+.flex {
+  display: flex;
+  align-items: center;
 }
 
 .debug_dump {

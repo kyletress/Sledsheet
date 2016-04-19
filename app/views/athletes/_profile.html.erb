@@ -1,30 +1,41 @@
-<div class="profile-card <%= header_for @athlete %>">
-  <figure class="profile">
-    <%= image_tag @athlete.avatar_url(:thumb).to_s, size: '125x125', class: 'athlete-avatar' %>
-    <figcaption>
-      <h2><%= @athlete.name %></h2>
-      <p class="text-muted"><%= @athlete.country_name %></p>
-      <% if @athlete.profile.present? %>
-        <p class="lead"><%= @athlete.profile.about %></p>
+<div class="athlete-masthead">
+  <div class="container">
+    <div class="flex">
+      <% if @athlete.avatar.present? %>
+        <%= image_tag @athlete.avatar_url(:thumb).to_s, size: '125x125', class: 'athlete-avatar' %>
       <% end %>
-    </figcaption>
-  </figure>
-
+      <div>
+        <h2><%= @athlete.name %></h2>
+        <p><%= flag_for @athlete %> <%= @athlete.country_name %></p>
+      </div>
+    </div>
+  </div>
 </div>
+
 <div class="stat-nav">
-  <ul>
-    <li class="stat-item">
-      <h3><%= @total_points %></h3>
-      season points
-    </li>
-    <li class="stat-item">
-      <h3><%= @athlete.world_rank(@season) %></h3>
-      world rank
-    </li>
-    <li class="stat-item">
-      <% if current_user && current_user.admin? %>
-        <%= link_to 'Edit', edit_athlete_path(@athlete) %>
-      <% end %>
-    </li>
-  </ul>
+  <div class="container">
+    <ul>
+      <li class="stat-item">
+        <%= fa_icon 'check-circle-o' %>
+        <span><%= @total_points %></span> points
+      </li>
+      <li class="stat-item">
+        <%= fa_icon 'globe' %>
+        <% if @athlete.world_rank(@season) == 0 %>
+          no current world rank
+        <% else %>
+          <span><%= @athlete.world_rank(@season).ordinalize %></span> in the world
+        <% end %>
+      </li>
+      <li class="stat-item">
+        <%= fa_icon 'list-ul' %>
+        <span><%= @athlete.entries.count %></span> lifetime races
+      </li>
+      <li class="stat-item">
+        <% if current_user && current_user.admin? %>
+          <%= link_to 'Edit', edit_athlete_path(@athlete) %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
 </div>
