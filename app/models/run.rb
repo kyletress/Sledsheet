@@ -1,6 +1,5 @@
 class Run < ActiveRecord::Base
   before_save :assign_entry_status
-  before_save :assign_heat
   belongs_to :entry, counter_cache: true
 
   validates :entry_id, presence: true
@@ -63,10 +62,6 @@ class Run < ActiveRecord::Base
         entry.status = "ok"
       end
       entry.save
-    end
-
-    def assign_heat
-      self.heat = Heat.find_or_create_by(timesheet: self.entry.timesheet, position: self.position)
     end
 
 end
