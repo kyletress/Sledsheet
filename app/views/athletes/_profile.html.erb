@@ -29,7 +29,7 @@
       </li>
       <li class="stat-item">
         <%= fa_icon 'list-ul' %>
-        <span><%= @athlete.entries.count %></span> lifetime races
+        <span><%= @athlete.entries.count %></span> lifetime <%= pluralize(@athlete.entries.count, 'race') %>
       </li>
       <li class="stat-item">
         <% if current_user && current_user.admin? %>
