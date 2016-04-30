@@ -16,6 +16,7 @@
 //= require bootstrap
 //= require turbolinks
 //= require twitter/typeahead
+//= require Chart
 //= require_tree .
 
 var athletes = new Bloodhound({
