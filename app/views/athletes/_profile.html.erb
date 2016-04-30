@@ -29,8 +29,14 @@
       </li>
       <li class="stat-item">
         <%= fa_icon 'list-ul' %>
-        <span><%= @athlete.entries.count %></span> lifetime <%= pluralize(@athlete.entries.count, 'race') %>
+        <span><%= @athlete.entries.count %></span> <%=  "race".pluralize(@athlete.entries.count) %>
       </li>
+      <% if @athlete.is_olympian? %>
+      <li class="stat-item">
+        <img src="/rings.svg" class="rings" alt="" height="28">
+        Olympian
+      </li>
+      <% end %>
       <li class="stat-item">
         <% if current_user && current_user.admin? %>
           <%= link_to 'Edit', edit_athlete_path(@athlete) %>
