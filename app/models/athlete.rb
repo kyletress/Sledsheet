@@ -119,8 +119,8 @@ class Athlete < ActiveRecord::Base
   def season_positions(season)
     # provides a list of points and their associated position for an athlete and season
     points = Point.find_by_sql(["select name, rank, points.id, points.timesheet_id, points.value from (
-      select *, rank() over (partition by date order by runs_count desc, total_time asc) from (
-        select entries.id, entries.athlete_id, entries.timesheet_id, entries.runs_count, timesheets.name, timesheets.date, sum(runs.finish) as total_time from entries inner join timesheets on entries.timesheet_id = timesheets.id left join runs on entries.id = runs.entry_id where timesheets.season_id = ? group by entries.id, timesheets.name, timesheets.date order by timesheets.name
+      select *, rank() over (partition by timesheet_id order by runs_count desc, total_time asc) from (
+        select entries.id, entries.athlete_id, entries.timesheet_id, entries.runs_count, timesheets.name, timesheets.date, timesheets.id, sum(runs.finish) as total_time from entries inner join timesheets on entries.timesheet_id = timesheets.id left join runs on entries.id = runs.entry_id where timesheets.season_id = ? group by entries.id, timesheets.name, timesheets.id order by timesheets.name
       ) as initialranks
     ) as finalranks inner join points on finalranks.athlete_id = points.athlete_id and finalranks.timesheet_id = points.timesheet_id where finalranks.athlete_id = ? order by value desc;", season.id, self.id])
     ActiveRecord::Associations::Preloader.new.preload(points, :timesheet)
