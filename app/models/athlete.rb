@@ -127,4 +127,16 @@ class Athlete < ActiveRecord::Base
     points
   end
 
+  def medal_count_by_circuit
+  query =  "select circuit, count(circuit) from (
+      select finalranks.name, rank, circuits.nickname as circuit from (
+        select *, rank() over (partition by timesheet_id order by runs_count desc, total_time asc) from (
+          select entries.id, entries.athlete_id, entries.timesheet_id, entries.runs_count, timesheets.name, timesheets.id, timesheets.circuit_id, sum(runs.finish) as total_time from entries inner join timesheets on entries.timesheet_id = timesheets.id left join runs on entries.id = runs.entry_id where (timesheets.race = true and timesheets.visibility = 1) group by entries.id, timesheets.name, timesheets.id order by timesheets.name
+        ) as initialranks
+      ) as finalranks inner join circuits on finalranks.circuit_id = circuits.id where finalranks.athlete_id = #{self.id} and finalranks.rank <= 3
+    ) as medalcount group by circuit order by count desc;"
+    ActiveRecord::Base.connection.execute(query).to_json
+  end
+
+
 end
