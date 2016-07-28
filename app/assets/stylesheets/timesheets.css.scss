@@ -86,7 +86,10 @@ caption {
 .minus { color: #27ae60; }
 .best { color: $gold; background-color: $gold-lightest;}
 
-.position{font-size:11px;color:#777;}
+.position {
+  font-size:1.2rem;
+  color:#999;
+}
 
 .badge-danger {
   background-color: #cd2026;

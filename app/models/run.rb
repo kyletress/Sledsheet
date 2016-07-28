@@ -43,12 +43,6 @@ class Run < ActiveRecord::Base
     finish - split5 if finish && split5
   end
 
-  # male entries.
-  Entry.joins(:athlete).where(athletes: {gender: 0}).count
-
-  # Timesheet runs
-  Run.joins(entry: [:timesheet, :athlete]).where(timesheets: {id: 134}, athletes: {gender: "female"}).count
-
   private
 
     def assign_entry_status

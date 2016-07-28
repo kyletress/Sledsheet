@@ -43,10 +43,24 @@ class Timesheet < ActiveRecord::Base
 
 
   def ranked_entries
+
     entries = Entry.find_by_sql(["SELECT *, total_time - first_value(total_time) over (partition by runs_count order by total_time asc) as time_behind, rank() OVER (ORDER BY runs_count desc, total_time asc) FROM (SELECT Entries.id, Entries.timesheet_id, Entries.athlete_id, Entries.status, Entries.bib, Entries.runs_count, sum(Runs.finish) AS total_time FROM Entries LEFT JOIN Runs ON (Entries.id = Runs.entry_id) GROUP BY Entries.id) AS FinalRanks WHERE timesheet_id = ? ORDER BY rank, total_time asc, bib asc", self.id])
     ActiveRecord::Associations::Preloader.new.preload(entries, [:athlete, :runs])
     entries
     # add WHERE Entries.status = '0' before the group by to limit to OK entries. Needs work.
+  end
+
+  def ranked_runs
+    runs = Run.find_by_sql([
+      "SELECT *,
+      rank() OVER (PARTITION BY position ORDER BY start ASC)  AS start_rank,
+      rank() OVER (PARTITION BY position ORDER BY split2 ASC) AS split2_rank,
+      rank() OVER (PARTITION BY position ORDER BY split3 ASC) AS split3_rank,
+      rank() OVER (PARTITION BY position ORDER BY split4 ASC) AS split4_rank,
+      rank() OVER (PARTITION BY position ORDER BY split5 ASC) AS split5_rank,
+      rank() OVER (PARTITION BY position ORDER BY finish ASC) AS finish_rank
+      FROM runs
+      WHERE runs.entry_id IN(#{self.entries.ids.map{|x| x.inspect}.join(', ')})"])
   end
 
   def nice_date

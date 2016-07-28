@@ -21,13 +21,29 @@
       <% entry.runs.each do |run| %>
         <tr>
           <% if run.status == "ok" %>
-            <td><%= display_time run.start %></td>
-            <td><%= display_time run.split2 %></td>
-            <td><%= display_time run.split3 %></td>
-            <td><%= display_time run.split4 %></td>
-            <td><%= display_time run.split5 %></td>
+            <td>
+              <%= display_time run.start %>
+              <span class="position">(<%= @runs.find {|r| r.id == run.id}.start_rank %>)</span>
+            </td>
+            <td>
+              <%= display_time run.split2 %>
+              <span class="position">(<%= @runs.find {|r| r.id == run.id}.split2_rank %>)</span>
+            </td>
+            <td>
+              <%= display_time run.split3 %>
+              <span class="position">(<%= @runs.find {|r| r.id == run.id}.split3_rank %>)</span>
+            </td>
+            <td>
+              <%= display_time run.split4 %>
+              <span class="position">(<%= @runs.find {|r| r.id == run.id}.split4_rank %>)</span>
+            </td>
+            <td>
+              <%= display_time run.split5 %>
+              <span class="position">(<%= @runs.find {|r| r.id == run.id}.split5_rank %>)</span>
+            </td>
             <td>
               <%= display_time run.finish %>
+              <span class="position">(<%= @runs.find {|r| r.id == run.id}.finish_rank %>)</span>
               <span class="admin-links">
                 <%= link_to edit_run_path(run), class: 'new-run-link' do %>
                   <%= fa_icon 'pencil' %>
