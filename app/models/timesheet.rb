@@ -6,6 +6,7 @@ class Timesheet < ActiveRecord::Base
 
   before_validation :name_timesheet
   before_save :assign_season
+  after_create :get_timesheet_weather
 
   belongs_to :user
   belongs_to :track
@@ -143,6 +144,10 @@ class Timesheet < ActiveRecord::Base
       else
         "#{ (self.date - 1.year).strftime('%Y') }-#{self.date.strftime('%y')}"
       end
+    end
+
+    def get_timesheet_weather
+      GetTimesheetWeatherJob.perform_later(self)
     end
 
 end

@@ -112,6 +112,10 @@ GEM
       railties (>= 3.2, < 5.1)
     font-awesome-sass (4.3.2.1)
       sass (~> 3.2)
+    forecast_io (2.0.1)
+      faraday
+      hashie
+      multi_json
     formatador (0.2.5)
     gibbon (2.2.4)
       faraday (>= 0.9.1)
@@ -131,6 +135,7 @@ GEM
     guard-minitest (2.4.4)
       guard-compat (~> 1.2)
       minitest (>= 3.0)
+    hashie (3.4.6)
     http (1.0.4)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -342,6 +347,7 @@ DEPENDENCIES
   flag_icon_css_rails
   font-awesome-rails
   font-awesome-sass (~> 4.3.0)
+  forecast_io
   gibbon
   guard (= 2.13.0)
   guard-minitest (= 2.4.4)
