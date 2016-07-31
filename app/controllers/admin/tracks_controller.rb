@@ -31,10 +31,19 @@ class Admin::TracksController < AdminController
     end
   end
 
+  def update
+    @track = Track.find(params[:id])
+    if @track.update_attributes(track_params)
+      redirect_to admin_tracks_path, success: 'Track updated'
+    else
+      render 'edit'
+    end
+  end
+
   private
 
   def track_params
-    params.require(:track).permit(:name, :time_zone)
+    params.require(:track).permit(:name, :time_zone, :latitude, :longitude)
   end
 
 end

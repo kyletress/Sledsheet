@@ -21,24 +21,24 @@ end
 
 if Track.count == 0
   tracks = Track.create([
-    { name: 'Altenberg' },
-    { name: 'Calgary' },
-    { name: 'Cesana' },
-    { name: 'Cortina' },
-    { name: 'Igls' },
-    { name: 'Konigssee' },
-    { name: 'La Plagne' },
-    { name: 'Lake Placid' },
-    { name: 'Lillehammer' },
-    { name: 'Nagano' },
-    { name: 'Oberhof' },
-    { name: 'Paramanovo' },
-    { name: 'Park City' },
-    { name: 'Sigulda' },
-    { name: 'Sochi' },
-    { name: 'St. Moritz' },
-    { name: 'Whistler' },
-    { name: 'Winterberg' }
+    { name: 'Altenberg', latitude: 50.782300, longitude: 13.723007 },
+    { name: 'Calgary', latitude: 51.076713, longitude: -114.221485 },
+    { name: 'Cesana', latitude: 44.952524, longitude: 6.816209 },
+    { name: 'Cortina', latitude: 46.545701, longitude: 12.127775 },
+    { name: 'Igls', latitude: 47.221125, longitude: 11.435487 },
+    { name: 'Konigssee', latitude: 47.590213, longitude: 12.976009 },
+    { name: 'La Plagne', latitude: 45.519972, longitude: 6.680548 },
+    { name: 'Lake Placid', latitude: 44.213196, longitude: -73.924767},
+    { name: 'Lillehammer', latitude: 61.220615, longitude: 10.419124 },
+    { name: 'Nagano', latitude: 36.710858, longitude: 138.157331 },
+    { name: 'Oberhof', latitude: 50.708923, longitude: 10.707584 },
+    { name: 'Paramanovo', latitude: 56.244244, longitude: 37.446495},
+    { name: 'Park City', latitude: 40.705174, longitude: -111.563905 },
+    { name: 'Sigulda', latitude: 57.151264, longitude: 24.840675 },
+    { name: 'Sochi', latitude: 43.662831, longitude: 40.288486 },
+    { name: 'St. Moritz', latitude: 46.501569, longitude: 9.847278},
+    { name: 'Whistler', latitude: 50.106908, longitude: -122.944761 },
+    { name: 'Winterberg', latitude: 51.182209, longitude: 8.508864}
   ])
 end
 
