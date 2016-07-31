@@ -19,7 +19,7 @@ class TimesheetsController < ApplicationController
     @timesheet = Timesheet.find(params[:id])
     @ranked = @timesheet.ranked_entries
     @best = @timesheet.best_runs
-    @runs = @timesheet.ranked_runs
+    @runs = @timesheet.ranked_runs if @ranked.present?
     respond_to do |format|
       format.html do
         if current_user
