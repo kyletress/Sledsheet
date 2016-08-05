@@ -64,7 +64,8 @@ class Timesheet < ActiveRecord::Base
   end
 
   def nice_date
-    date.strftime("%B %d, %Y")
+    # date.strftime("%B %d, %Y")
+    date.in_time_zone(track.time_zone).strftime("%B #{date.day.ordinalize}, %Y %-l:%M%P")
   end
 
   def machine_date
