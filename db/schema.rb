@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160325203416) do
+ActiveRecord::Schema.define(version: 20160812044459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20160325203416) do
   end
 
   add_index "entries", ["athlete_id"], name: "index_entries_on_athlete_id", using: :btree
+  add_index "entries", ["timesheet_id", "athlete_id"], name: "index_entries_on_timesheet_id_and_athlete_id", unique: true, using: :btree
   add_index "entries", ["timesheet_id"], name: "index_entries_on_timesheet_id", using: :btree
 
   create_table "invitations", force: :cascade do |t|
@@ -153,6 +154,7 @@ ActiveRecord::Schema.define(version: 20160325203416) do
     t.integer  "status",                 default: 0
     t.integer  "visibility",             default: 0
     t.integer  "user_id"
+    t.jsonb    "weather"
   end
 
   add_index "timesheets", ["circuit_id"], name: "index_timesheets_on_circuit_id", using: :btree
@@ -164,6 +166,9 @@ ActiveRecord::Schema.define(version: 20160325203416) do
     t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "latitude",               precision: 10, scale: 6
+    t.decimal  "longitude",              precision: 10, scale: 6
+    t.string   "time_zone"
   end
 
   create_table "users", force: :cascade do |t|
@@ -180,6 +185,8 @@ ActiveRecord::Schema.define(version: 20160325203416) do
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
+    t.string   "phone"
+    t.string   "time_zone"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
