@@ -4,6 +4,7 @@ class TimesheetsController < ApplicationController
   before_action :admin_user, if: :general_timesheet?, only: [:update, :edit, :destroy]
 
   before_action :set_track_time_zone, only: [:create, :update]
+  before_action :set_track_time_zone_edit, only: [:edit]
 
   def index
     @timesheets = Timesheet.general.includes(:season, :track).filter(filtering_params).page params[:page]
@@ -57,7 +58,6 @@ class TimesheetsController < ApplicationController
 
   def create
     @timesheet = current_user.timesheets.build(timesheet_params)
-    @timesheet.date = @timesheet.date.in_time_zone(@timesheet.track.time_zone)
 
     if @timesheet.save
       if params[:tweet].present?
@@ -172,6 +172,10 @@ class TimesheetsController < ApplicationController
         track = Track.find(params[:timesheet][:track_id])
         Time.zone = track.time_zone
       end
+    end
+
+    def set_track_time_zone_edit
+      Time.zone = @timesheet.track.time_zone
     end
 
     def personal_timesheet?
