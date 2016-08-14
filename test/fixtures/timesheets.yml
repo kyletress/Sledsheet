@@ -2,7 +2,7 @@ training:
   nickname: Training Nickname
   track: igls
   circuit: worldcup
-  date: <%= Date.new(2014, 10, 30) %>
+  date: <%= Time.new(2014, 10, 30, 9, 00, 00, +0000) %> # save in UTC
   race: false
   name: Igls World Cup Training
   season: season

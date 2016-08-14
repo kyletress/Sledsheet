@@ -5,8 +5,8 @@
     <header>
       <div class="timesheet-title">
         <h2><%= @timesheet.name %></h2>
-        <time><%= @timesheet.track.name %> Time: <%= nice_date @timesheet.date.in_time_zone(@timesheet.track.time_zone) %></time><br>
-        <time><%= current_user.time_zone %> Time: <%= nice_date  @timesheet.date.in_time_zone(current_user.time_zone) %></time>
+        <time><%= @timesheet.track.name %> Time: <%= track_time @timesheet %></time><br>
+        <time><%= local_time @timesheet %></time>
         <% if @timesheet.personal? %>
           <span class="badge badge-danger">private</span>
         <% end %>
