@@ -11,9 +11,10 @@ module ApplicationHelper
   end
 
   def nice_date(date)
-    date.strftime("%B %d, %Y")
+    #date.strftime("%B %d, %Y")
+    date.strftime("%B #{date.day.ordinalize}, %Y %-l:%M%P")
   end
-  
+
   def display_time(i)
     unless i.nil?
       sprintf("%.2f", i / 100.00)

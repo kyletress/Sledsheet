@@ -65,8 +65,8 @@ class TimesheetTest < ActiveSupport::TestCase
     assert_equal timesheets(:latest), Timesheet.first
   end
 
-  test "it gives nice date formatting" do
-    assert @timesheet.nice_date == "October 30, 2014"
+  test "it gives nice date formatting in correct time zone" do
+    assert @timesheet.nice_date == "October 30th, 2014 10:00am", "it actually gave #{@timesheet.nice_date}"
   end
 
   test "it gives machine date formatting" do

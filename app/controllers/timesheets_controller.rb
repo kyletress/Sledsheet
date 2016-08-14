@@ -3,10 +3,11 @@ class TimesheetsController < ApplicationController
   before_action :correct_user, if: :personal_timesheet?, only: [:update, :edit, :destroy, :show]
   before_action :admin_user, if: :general_timesheet?, only: [:update, :edit, :destroy]
 
-  #before_action :correct_or_admin_user, only: [:edit, :update, :destroy]
+  before_action :set_track_time_zone, only: [:create, :update]
+  before_action :set_track_time_zone_edit, only: [:edit]
 
   def index
-    @timesheets = Timesheet.general.includes(:season).filter(filtering_params).page params[:page]
+    @timesheets = Timesheet.general.includes(:season, :track).filter(filtering_params).page params[:page]
   end
 
   def new
@@ -57,6 +58,7 @@ class TimesheetsController < ApplicationController
 
   def create
     @timesheet = current_user.timesheets.build(timesheet_params)
+
     if @timesheet.save
       if params[:tweet].present?
         tweet_timesheet
@@ -122,7 +124,6 @@ class TimesheetsController < ApplicationController
     entries.each do |entry|
 
       @entry = @timesheet.entries.build(
-        #:athlete_id => Athlete.find_by_timesheet_name(entry[:name]).first.id
         athlete: Athlete.find_or_create_by_timesheet_name(entry[:name], entry[:country], Timesheet.genders[@timesheet.gender])
       )
       @entry.save
@@ -164,6 +165,17 @@ class TimesheetsController < ApplicationController
       else
         redirect_to timesheets_path, notice: "That timesheet doesn't exist"
       end
+    end
+
+    def set_track_time_zone
+      if params[:timesheet][:track_id]
+        track = Track.find(params[:timesheet][:track_id])
+        Time.zone = track.time_zone
+      end
+    end
+
+    def set_track_time_zone_edit
+      Time.zone = @timesheet.track.time_zone
     end
 
     def personal_timesheet?

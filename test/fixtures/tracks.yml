@@ -2,12 +2,16 @@
 
 placid:
   name: Lake Placid
+  time_zone: "Eastern Time (US & Canada)"
 
 park_city:
   name: Park City
+  time_zone: "Mountain Time (US & Canada)"
 
 igls:
   name: Igls
+  time_zone: "Berlin"
 
 sochi:
   name: Sochi
+  time_zone: "Moscow"

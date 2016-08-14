@@ -5,7 +5,8 @@
     <header>
       <div class="timesheet-title">
         <h2><%= @timesheet.name %></h2>
-        <time><%= @timesheet.nice_date %></time>
+        <time><%= @timesheet.track.name %> Time: <%= track_time @timesheet %></time><br>
+        <time><%= local_time @timesheet %></time>
         <% if @timesheet.personal? %>
           <span class="badge badge-danger">private</span>
         <% end %>
@@ -17,6 +18,10 @@
             <i class="glyphicon glyphicon-file"></i> Download the PDF
           <% end %>
         <% end %>
+      </div>
+
+      <div class="weather">
+        This is weather data.
       </div>
 
       <div class="dropdown">
