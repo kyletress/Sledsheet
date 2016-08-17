@@ -35,4 +35,10 @@ class Track < ActiveRecord::Base
     runs.average(:finish).to_i
   end
 
+  def weather_forecast
+    Rails.cache.fetch("#{cache_key}/five_day_forecast", expires_in: 24.hours) do
+      forecast = ForecastIO.forecast(latitude, longitude)
+    end
+  end
+
 end

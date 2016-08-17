@@ -1,40 +1,58 @@
 <% provide(:title, @track.name) %>
-<h1><%= @track.name %></h1>
+<section class="timesheet-header">
+  <div class="container">
+    <header>
+      <div class="timesheet-title">
+        <h2><%= @track.name %></h2>
+      </div>
+    </header>
+</section>
 
-<table class="table table-bordered">
-  <tr>
-    <th>Start Record</th>
-    <th>Track Record</th>
-    <th>Average Finish Time</th>
-  </tr>
- <tr>
-   <td><% unless @track.start_record.nil? %>
-     <%= link_to @track.start_record.entry.athlete.name, @track.start_record.entry.athlete %> 
-     <%= display_time @track.start_record.start %>
-     <% end %></td>
-   <td><% unless @track_record.nil? %>
-     <%= link_to @track_record.entry.athlete.name, @track_record.entry.athlete %> 
-     <%= display_time @track_record.finish %>
-     <% end %></td>
-   <td><%= display_time @track.average_finish %></td>
-  </tr>
-</table>
+<div class="container">
+  <div class="weather">
+    <% @five_day_forecast.each do |day| %>
+      <div class="day">
+        <h3><%= Time.at(day.time).strftime('%A') %></h3>
+        <%= image_tag "#{day.icon}.svg", width: '50'%>
+        <p>High: <%= day.apparentTemperatureMax.to_i %> | Low: <%= day.apparentTemperatureMin.to_i %></p>
+        <p><%= day.summary %></p>
+      </div>
+    <% end %>
+  </div>
+  <table class="table table-bordered">
+    <tr>
+      <th>Start Record</th>
+      <th>Track Record</th>
+      <th>Average Finish Time</th>
+    </tr>
+   <tr>
+     <td><% unless @track.start_record.nil? %>
+       <%= link_to @track.start_record.entry.athlete.name, @track.start_record.entry.athlete %>
+       <%= display_time @track.start_record.start %>
+       <% end %></td>
+     <td><% unless @track_record.nil? %>
+       <%= link_to @track_record.entry.athlete.name, @track_record.entry.athlete %>
+       <%= display_time @track_record.finish %>
+       <% end %></td>
+     <td><%= display_time @track.average_finish %></td>
+    </tr>
+  </table>
 
 
-<table class="table">
-  <tr>
-    <th>Date</th>
-    <th>Timesheet</th>
-    <th>Entries</th>
-    <th>Best Finish</th>
-  </tr>
-  <% @track.timesheets.each do |timesheet| %>
-  <tr>
-    <td><%= timesheet.nice_date %></td>
-    <td><%= link_to timesheet.name, timesheet %></td>
-    <td><%= timesheet.entries.count %></td>
-    <td><%= display_time timesheet.runs.minimum(:finish) %></td>
-  </tr>
-  <% end %>
-</table>
-
+  <table class="table">
+    <tr>
+      <th>Date</th>
+      <th>Timesheet</th>
+      <th>Entries</th>
+      <th>Best Finish</th>
+    </tr>
+    <% @track.timesheets.each do |timesheet| %>
+    <tr>
+      <td><%= timesheet.nice_date %></td>
+      <td><%= link_to timesheet.name, timesheet %></td>
+      <td><%= timesheet.entries.count %></td>
+      <td><%= display_time timesheet.runs.minimum(:finish) %></td>
+    </tr>
+    <% end %>
+  </table>
+</div>
