@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.6'
+gem 'rails', '5.0.0.1'
 
 gem 'acts_as_list'
 gem 'autoprefixer-rails'
@@ -23,44 +23,51 @@ gem 'prawn'
 gem 'prawn-table'
 gem 'pg', '0.18.1'
 gem 'pg_search'
-gem 'puma'
+gem 'puma', '~> 3.0'
 gem 'simple_form'
 gem 'skylight'
 gem 'twitter'
 gem 'twitter-typeahead-rails'
 
+group :development, :test do
+  gem 'byebug',  '9.0.0', platform: :mri
+end
+
 group :development do
   gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'bullet'
-  gem 'quiet_assets'
-  gem 'web-console', '~> 2.0'
+  gem 'web-console'
+  gem 'listen', '~> 3.0.5'
   #gem 'rack-mini-profiler'
 end
 
 group :test do
-  gem 'minitest-reporters'
-  gem 'mini_backtrace'
-  gem 'guard'
-  gem 'guard-minitest'
+  gem 'rails-controller-testing', '0.1.1'
+  gem 'minitest-reporters',       '1.1.9'
+  gem 'guard',                    '2.13.0'
+  gem 'guard-minitest',           '2.4.4'
 end
 
 group :production do
   gem 'rails_12factor'
 end
 
-gem 'sass-rails', '~> 4.0.2'
+gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.2'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
-gem 'turbolinks'
+gem 'turbolinks', '~> 5'
 
-gem 'jbuilder', '~> 2.2'
+gem 'jbuilder', '~> 2.5'
+# Use Redis adapter to run Action Cable in production
+# gem 'redis', '~> 3.0'
 
 group :doc do
   gem 'sdoc', require: false
 end
 
-ruby '2.2.2'
+ruby '2.3.1'

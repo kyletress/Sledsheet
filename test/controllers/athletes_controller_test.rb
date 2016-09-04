@@ -11,14 +11,12 @@ class AthletesControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
-    assert_template 'athletes/index'
     assert_select "title", "Sledsheet | Athletes"
   end
 
   test "should show athlete" do
-    get :show, id: @athlete
+    get :show, params: { id: @athlete }
     assert_response :success
-    assert_template :show
     assert_select "title", "Sledsheet | #{@athlete.first_name} #{@athlete.last_name}"
   end
 
@@ -37,28 +35,28 @@ class AthletesControllerTest < ActionController::TestCase
 
   test "admin should get edit" do
     log_in_as @admin
-    get :edit, id: @athlete
+    get :edit, params: { id: @athlete }
     assert_response :success
     assert_select "title", "Sledsheet | Edit #{@athlete.name}"
   end
 
   test "user should not get edit" do
     log_in_as @user
-    get :edit, id: @athlete
+    get :edit, params: { id: @athlete }
     assert_redirected_to root_url
   end
 
   test "should create athlete" do
     log_in_as @admin
     assert_difference('Athlete.count') do
-      post :create, athlete: { first_name: 'Morgan', last_name: 'Tracey', country_code: 'US' }
+      post :create, params: { athlete: { first_name: 'Morgan', last_name: 'Tracey', country_code: 'US' } }
     end
     assert_redirected_to athlete_path(assigns(:athlete))
   end
 
   test "should update athlete" do
     log_in_as @admin
-    patch :update, id: @athlete, athlete: { first_name: 'John', last_name: 'Tress', country_code: 'US' }
+    patch :update, params: { id: @athlete, athlete: { first_name: 'John', last_name: 'Tress', country_code: 'US' } }
     assert_redirected_to athlete_path(assigns(:athlete))
   end
 

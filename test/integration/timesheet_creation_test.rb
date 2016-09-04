@@ -13,7 +13,7 @@ class TimesheetCreationTest < ActionDispatch::IntegrationTest
     get new_timesheet_path
     assert_template 'timesheets/new'
     assert_difference 'Timesheet.count', 1 do
-      post timesheets_path, timesheet: { nickname:  "Example Timesheet", track_id: tracks(:placid).id, circuit_id: circuits(:worldcup).id, date: Date.new(2016, 10, 30), race: false, season_id: seasons(:season1516).id, gender: "men", visibility: "general", user_id: @user.id }
+      post timesheets_path, params: { timesheet: { nickname:  "Example Timesheet", track_id: tracks(:placid).id, circuit_id: circuits(:worldcup).id, date: Date.new(2016, 10, 30), race: false, season_id: seasons(:season1516).id, gender: "men", visibility: "general", user_id: @user.id } }
     end
     timesheet = assigns(:timesheet)
     assert timesheet.general?
@@ -35,7 +35,7 @@ class TimesheetCreationTest < ActionDispatch::IntegrationTest
     get new_timesheet_path
     assert_template 'timesheets/new'
     assert_difference '@matt.timesheets.count', 1 do
-      post timesheets_path, timesheet: { nickname:  "Example Timesheet", track_id: tracks(:placid).id, circuit_id: circuits(:worldcup).id, date: Date.new(2016, 10, 30), race: false, season_id: seasons(:season1516).id, gender: "men", user_id: @matt.id }
+      post timesheets_path, params: { timesheet: { nickname:  "Example Timesheet", track_id: tracks(:placid).id, circuit_id: circuits(:worldcup).id, date: Date.new(2016, 10, 30), race: false, season_id: seasons(:season1516).id, gender: "men", user_id: @matt.id } }
     end
     timesheet = assigns(:timesheet)
     assert timesheet.personal?

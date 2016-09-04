@@ -1,5 +1,4 @@
 class StaticPagesController < ApplicationController
-  layout "home"
 
   def home
     @runs = Run.count
@@ -21,5 +20,5 @@ class StaticPagesController < ApplicationController
 
   def help
   end
-  
+
 end
