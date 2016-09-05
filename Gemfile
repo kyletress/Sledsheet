@@ -28,7 +28,7 @@ gem 'simple_form'
 gem 'skylight'
 gem 'twitter'
 gem 'twitter-typeahead-rails'
-'record_tag_helper', '~> 1.0'
+gem 'record_tag_helper', '~> 1.0'
 
 group :development, :test do
   gem 'byebug',  '9.0.0', platform: :mri
