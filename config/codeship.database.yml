@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: sledsheet_development
+  pool: 5
+  username:
+  password:
+  port: 5434
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: sledsheet_test
+  pool: 5
+  username:
+  password:
+  port: 5434
