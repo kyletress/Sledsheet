@@ -11,7 +11,7 @@ module TimesheetsHelper
   end
 
   def track_time(timesheet)
-    timesheet.date.in_time_zone(@timesheet.track.time_zone).to_s(:starts_at)
+    timesheet.date.in_time_zone(timesheet.track.time_zone).to_s(:starts_at)
   end
 
   def local_time(timesheet)

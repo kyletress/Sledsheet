@@ -14,7 +14,7 @@
     <% @timesheets.each do |timesheet| %>
     <tr>
       <td><%= link_to timesheet.name, timesheet_url(timesheet) %></td>
-      <td><%= timesheet.nice_date %></td>
+      <td><%= track_time timesheet %></td>
     </tr>
     <% end %>
   </table>
