@@ -1,0 +1,2 @@
+$('#athletes').append('<%= escape_javascript render(@athletes) %>');
+$('.pagination').replaceWith('<%= escape_javascript paginate(@athletes) %>');

@@ -1,5 +1,8 @@
-<tr>
-  <td><%= image_tag athlete.avatar_url(:mini).to_s, class: 'athlete-avatar-mini' %></td>
-  <td><%= link_to athlete.name, athlete %></td>
-  <td><%= athlete.country_name %></td>
-</tr>
+<figure class="athlete-card small" data-id="<%= athlete.id %>">
+  <%= link_to athlete_path(athlete) do %>
+  <% end %>
+  <figcaption>
+    <h4><%= link_to athlete.name, athlete %></h4>
+    <p><%= flag_for athlete %> <%= athlete.country_name %></p>
+  </figcaption>
+</figure>

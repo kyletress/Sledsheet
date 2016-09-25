@@ -41,3 +41,16 @@ $(document).on('page:change', function() {
     $('#entry_athlete_id').val(suggestion.id);
   });
 });
+
+$(document).ready(function() {
+  if ($('.pagination').length) {
+    $(window).scroll(function() {
+      var url = $('.pagination a[rel="next"]').attr('href');
+      if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 50) {
+        $('.pagination').text("Please Wait...");
+        return $.getScript(url);
+      }
+    });
+    return $(window).scroll();
+  }
+});
