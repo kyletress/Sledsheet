@@ -6,17 +6,8 @@
   <% end %>
 
   <h2>All Athletes</h2>
-  <section class="athlete-index">
-  <% @athletes.each do |athlete| %>
-  <figure class="athlete-card small">
-    <%= link_to athlete_path(athlete) do %>
-      <%= image_tag athlete.avatar_url(:thumb).to_s %>
-    <% end %>
-    <figcaption>
-      <h4><%= link_to athlete.name, athlete %></h4>
-      <p><%= flag_for athlete %> <%= athlete.country_name %></p>
-    </figcaption>
-  </figure>
-  <% end %>
+  <section id="athletes" class="athlete-index">
+    <%= render @athletes %>
   </section>
+  <%= paginate @athletes %>
 </div>

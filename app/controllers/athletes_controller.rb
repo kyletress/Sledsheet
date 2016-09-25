@@ -3,7 +3,7 @@ class AthletesController < ApplicationController
   before_action :admin_user, only: [:new, :edit, :update]
 
   def index
-    @athletes = Athlete.all
+    @athletes = Athlete.page params[:page]
   end
 
   def show
