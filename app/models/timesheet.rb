@@ -147,7 +147,11 @@ class Timesheet < ActiveRecord::Base
     end
 
     def get_timesheet_weather
-      GetTimesheetWeatherJob.perform_later(self)
+      if self.date < Date.today
+        GetTimesheetWeatherJob.perform_later(self)
+      else
+        GetTimesheetWeatherJob.set(wait_until: self.date).perform_later(self)
+      end
     end
 
 end
