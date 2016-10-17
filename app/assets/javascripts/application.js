@@ -29,7 +29,7 @@ var athletes = new Bloodhound({
 
 athletes.initialize();
 
-$(document).on('page:change', function() {
+$(document).on('turbolinks:load', function() {
   $('#typeahead').typeahead(null, {
     name: 'athletes',
     display: 'name',
