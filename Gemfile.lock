@@ -60,6 +60,8 @@ GEM
     aws-sdk-resources (2.5.8)
       aws-sdk-core (= 2.5.8)
     bcrypt (3.1.7)
+    bootstrap-multiselect-rails (0.9.9)
+      rails (>= 4.0.0)
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
     buftok (0.2.0)
@@ -79,6 +81,7 @@ GEM
       carrierwave (~> 0.7)
     chart-js-rails (0.1.0)
       railties (> 3.1)
+    chartkick (2.1.1)
     coderay (1.1.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -343,12 +346,14 @@ DEPENDENCIES
   acts_as_list
   autoprefixer-rails
   bcrypt (= 3.1.7)
+  bootstrap-multiselect-rails
   bootstrap-sass (~> 3.2.0)
   bullet
   byebug (= 9.0.0)
   carrierwave
   carrierwave-aws
   chart-js-rails
+  chartkick
   coffee-rails (~> 4.2)
   country_select!
   date_validator

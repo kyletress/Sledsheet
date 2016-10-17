@@ -152,6 +152,10 @@ class TimesheetsController < ApplicationController
     redirect_to @timesheet
   end
 
+  def chart
+    render json: Timesheet.count
+  end
+
   private
     def timesheet_params
       params.require(:timesheet).permit(:name, :nickname, :track_id, :circuit_id, :date, :race, :season_id, :pdf, :gender, :remote_pdf_url, :remove_pdf, :tweet, :status, :visibility, :user_id)

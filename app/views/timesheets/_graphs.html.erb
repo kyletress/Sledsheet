@@ -1,0 +1,20 @@
+<section id="graphs">
+  <%= form_tag api_v1_timesheet_graph_path(@timesheet), remote: true do %>
+    <%= select_tag "constant", options_for_select(@timesheet.runs.includes(:entry).collect{ |r| [r.entry.athlete.name, r.id] }) %>
+
+    <% @graph_runs = @timesheet.runs
+       @grouped_options = @graph_runs.inject({}) do |position, run|
+    (position[run.position] ||= []) << [run.entry.athlete.name, run.id]
+    position
+  end
+  %>
+
+  <%= select_tag "series", grouped_options_for_select(@grouped_options), multiple: true %>
+
+  <%= submit_tag 'Graph', class: 'btn' %>
+
+  <% end %>
+
+  <%= render 'graph' %>
+
+</section>
