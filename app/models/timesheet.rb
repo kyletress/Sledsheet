@@ -8,6 +8,8 @@ class Timesheet < ActiveRecord::Base
   before_save :assign_season
   after_create :get_timesheet_weather
 
+  # after delete should remove GetWeatherJob from Redis if it exists
+
   belongs_to :user
   belongs_to :track
   belongs_to :circuit
