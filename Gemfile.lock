@@ -88,6 +88,7 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.2)
+    connection_pool (2.2.0)
     countries (1.2.5)
       currencies (~> 0.4.2)
       i18n_data (~> 0.7.0)
@@ -112,6 +113,10 @@ GEM
       railties (>= 3.2, < 5.1)
     font-awesome-sass (4.3.2.1)
       sass (~> 3.2)
+    forecast_io (2.0.1)
+      faraday
+      hashie
+      multi_json
     formatador (0.2.5)
     gibbon (2.2.4)
       faraday (>= 0.9.1)
@@ -131,6 +136,7 @@ GEM
     guard-minitest (2.4.4)
       guard-compat (~> 1.2)
       minitest (>= 3.0)
+    hashie (3.4.6)
     http (1.0.4)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -208,6 +214,8 @@ GEM
       slop (~> 3.4)
     puma (3.6.0)
     rack (2.0.1)
+    rack-protection (1.5.3)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.0.1)
@@ -250,6 +258,7 @@ GEM
       json (~> 1.4)
     record_tag_helper (1.0.0)
       actionview (~> 5.x)
+    redis (3.3.1)
     ruby-progressbar (1.8.1)
     sass (3.4.22)
     sass-rails (5.0.6)
@@ -262,6 +271,11 @@ GEM
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     shellany (0.0.1)
+    sidekiq (4.2.2)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      rack-protection (~> 1.5)
+      redis (~> 3.2, >= 3.2.1)
     simple_form (3.3.1)
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
@@ -342,6 +356,7 @@ DEPENDENCIES
   flag_icon_css_rails
   font-awesome-rails
   font-awesome-sass (~> 4.3.0)
+  forecast_io
   gibbon
   guard (= 2.13.0)
   guard-minitest (= 2.4.4)
@@ -364,6 +379,7 @@ DEPENDENCIES
   record_tag_helper (~> 1.0)
   sass-rails (~> 5.0)
   sdoc
+  sidekiq
   simple_form
   skylight
   spring

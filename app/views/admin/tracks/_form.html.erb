@@ -1,5 +1,7 @@
 <%= simple_form_for [:admin, @track] do |f| %>
   <%= f.input :name %>
   <%= f.input :time_zone %>
+  <%= f.input :latitude %>
+  <%= f.input :longitude %>
   <%= f.button :submit %>
 <% end %>

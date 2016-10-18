@@ -1,3 +1,3 @@
 <h1>Track</h1>
-Current time in <%= @track.name %>: <%= DateTime.now.in_time_zone(@track.time_zone).strftime("%B #{DateTime.now.day.ordinalize}, %Y %-l:%M%P") %>
+Current time in <%= @track.name %>: <%= Time.now.in_time_zone(@track.time_zone).to_s(:starts_at) %>
 <%= render 'form' %>

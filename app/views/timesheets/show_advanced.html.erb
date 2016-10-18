@@ -19,10 +19,16 @@
           <% end %>
         <% end %>
       </div>
-
-      <div class="weather">
-        This is weather data.
-      </div>
+      <% if @timesheet.weather.present? %>
+        <div class="weather">
+            <div>
+              <%= image_tag "#{@timesheet.weather['icon']}.svg", width: '50'%>
+              <p>Temp: <%= @timesheet.weather['temperature'].to_i %> (feels like: <%= @timesheet.weather['apparentTemperature'].to_i %> ) | Humidity: <%= @timesheet.weather['humidity'] * 100 %>%</p>
+              <p><%= @timesheet.weather['summary'] %></p>
+              <p>Wind: <%= @timesheet.weather['windSpeed'].to_i %> mph</p>
+            </div>
+        </div>
+      <% end %>
 
       <div class="dropdown">
         <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">

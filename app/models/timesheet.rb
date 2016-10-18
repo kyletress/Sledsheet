@@ -6,6 +6,9 @@ class Timesheet < ActiveRecord::Base
 
   before_validation :name_timesheet
   before_save :assign_season
+  after_create :get_timesheet_weather
+
+  # after delete should remove GetWeatherJob from Redis if it exists
 
   belongs_to :user
   belongs_to :track
@@ -142,6 +145,14 @@ class Timesheet < ActiveRecord::Base
         "#{self.date.strftime('%Y')}-#{(self.date + 1.year).strftime('%y')}"
       else
         "#{ (self.date - 1.year).strftime('%Y') }-#{self.date.strftime('%y')}"
+      end
+    end
+
+    def get_timesheet_weather
+      if self.date < Date.today
+        GetTimesheetWeatherJob.perform_later(self)
+      else
+        GetTimesheetWeatherJob.set(wait_until: self.date).perform_later(self)
       end
     end
 
