@@ -6,7 +6,7 @@ class Timesheet < ActiveRecord::Base
 
   before_validation :name_timesheet
   before_save :assign_season
-  after_create :get_timesheet_weather
+  after_save :get_timesheet_weather, if: :timesheet_date_changed?
 
   # after delete should remove GetWeatherJob from Redis if it exists
 
@@ -154,6 +154,10 @@ class Timesheet < ActiveRecord::Base
       else
         GetTimesheetWeatherJob.set(wait_until: self.date).perform_later(self)
       end
+    end
+
+    def timesheet_date_changed?
+      self.date_changed?
     end
 
 end
