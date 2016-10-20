@@ -16,7 +16,9 @@
 //= require bootstrap
 //= require turbolinks
 //= require twitter/typeahead
-//= require Chart
+//= require bootstrap-multiselect
+//= require Chart.bundle
+//= require chartkick
 //= require_tree .
 
 var athletes = new Bloodhound({

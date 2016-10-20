@@ -44,12 +44,18 @@ Rails.application.routes.draw do
     resources :invitations
   end
 
-  namespace :api, defaults: { format: :json } do
+  namespace :api do # , defaults: { format: :json }
     namespace :v1 do
       resources :athletes, only: [:index, :show]
       resources :tracks, only: [:index, :show]
       resources :circuits, only: [:index, :show]
-      resources :timesheets, only: [:index, :show]
+      resources :timesheets, only: [:index, :show] do
+        resource :graph, only: [:create] do
+          member do
+            get 'by_run'
+          end
+        end
+      end
       resources :entries
       # resources :users
       resources :seasons do
