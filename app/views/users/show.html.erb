@@ -5,7 +5,15 @@
     <%= @user.name %>
   </h2>
 
-  <h3>Private Timesheets</h3>
+  <div class="row">
+    <div class="col-md-9">
+      <h3>Private Timesheets</h3>
+    </div>
+    <div class="col-md-3">
+      <%= link_to 'New timesheet', new_timesheet_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+
   <table class="table">
     <tr>
       <th>Name</th>
