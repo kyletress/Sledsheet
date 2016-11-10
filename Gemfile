@@ -56,6 +56,7 @@ end
 
 group :production do
   gem 'rails_12factor'
+  gem 'rollbar'
 end
 
 gem 'sass-rails', '~> 5.0'
