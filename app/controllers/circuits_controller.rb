@@ -5,7 +5,7 @@ class CircuitsController < ApplicationController
 
   def show
     @circuit = Circuit.includes(:timesheets).find(params[:id])
-    @mens = Point.circuit_points(Season.current_season, @circuit, true)
-    @womens = Point.circuit_points(Season.current_season, @circuit, false)
+    @mens = Point.circuit_points(Season.current_season, @circuit, 0)
+    @womens = Point.circuit_points(Season.current_season, @circuit, 1)
   end
 end

@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -26,9 +25,8 @@ ActiveRecord::Schema.define(version: 20160812044459) do
     t.string   "avatar",       limit: 255
     t.string   "user_id"
     t.integer  "gender",                   default: 0
+    t.index ["user_id"], name: "index_athletes_on_user_id", using: :btree
   end
-
-  add_index "athletes", ["user_id"], name: "index_athletes_on_user_id", using: :btree
 
   create_table "circuits", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -45,11 +43,10 @@ ActiveRecord::Schema.define(version: 20160812044459) do
     t.datetime "updated_at"
     t.integer  "status",       default: 0
     t.integer  "runs_count",   default: 0, null: false
+    t.index ["athlete_id"], name: "index_entries_on_athlete_id", using: :btree
+    t.index ["timesheet_id", "athlete_id"], name: "index_entries_on_timesheet_id_and_athlete_id", unique: true, using: :btree
+    t.index ["timesheet_id"], name: "index_entries_on_timesheet_id", using: :btree
   end
-
-  add_index "entries", ["athlete_id"], name: "index_entries_on_athlete_id", using: :btree
-  add_index "entries", ["timesheet_id", "athlete_id"], name: "index_entries_on_timesheet_id_and_athlete_id", unique: true, using: :btree
-  add_index "entries", ["timesheet_id"], name: "index_entries_on_timesheet_id", using: :btree
 
   create_table "invitations", force: :cascade do |t|
     t.integer  "sender_id"
@@ -59,6 +56,13 @@ ActiveRecord::Schema.define(version: 20160812044459) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.integer  "status",          default: 0
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -73,9 +77,8 @@ ActiveRecord::Schema.define(version: 20160812044459) do
     t.string   "searchable_type"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
   end
-
-  add_index "pg_search_documents", ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
 
   create_table "points", force: :cascade do |t|
     t.integer  "athlete_id"
@@ -85,12 +88,11 @@ ActiveRecord::Schema.define(version: 20160812044459) do
     t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["athlete_id"], name: "index_points_on_athlete_id", using: :btree
+    t.index ["circuit_id"], name: "index_points_on_circuit_id", using: :btree
+    t.index ["season_id"], name: "index_points_on_season_id", using: :btree
+    t.index ["timesheet_id"], name: "index_points_on_timesheet_id", using: :btree
   end
-
-  add_index "points", ["athlete_id"], name: "index_points_on_athlete_id", using: :btree
-  add_index "points", ["circuit_id"], name: "index_points_on_circuit_id", using: :btree
-  add_index "points", ["season_id"], name: "index_points_on_season_id", using: :btree
-  add_index "points", ["timesheet_id"], name: "index_points_on_timesheet_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.integer  "athlete_id"
@@ -126,9 +128,8 @@ ActiveRecord::Schema.define(version: 20160812044459) do
     t.integer  "int4"
     t.integer  "int5"
     t.integer  "status",     default: 0
+    t.index ["entry_id"], name: "index_runs_on_entry_id", using: :btree
   end
-
-  add_index "runs", ["entry_id"], name: "index_runs_on_entry_id", using: :btree
 
   create_table "seasons", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -136,6 +137,12 @@ ActiveRecord::Schema.define(version: 20160812044459) do
     t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "timesheets", force: :cascade do |t|
@@ -155,12 +162,11 @@ ActiveRecord::Schema.define(version: 20160812044459) do
     t.integer  "visibility",             default: 0
     t.integer  "user_id"
     t.jsonb    "weather"
+    t.index ["circuit_id"], name: "index_timesheets_on_circuit_id", using: :btree
+    t.index ["season_id"], name: "index_timesheets_on_season_id", using: :btree
+    t.index ["track_id"], name: "index_timesheets_on_track_id", using: :btree
+    t.index ["user_id"], name: "index_timesheets_on_user_id", using: :btree
   end
-
-  add_index "timesheets", ["circuit_id"], name: "index_timesheets_on_circuit_id", using: :btree
-  add_index "timesheets", ["season_id"], name: "index_timesheets_on_season_id", using: :btree
-  add_index "timesheets", ["track_id"], name: "index_timesheets_on_track_id", using: :btree
-  add_index "timesheets", ["user_id"], name: "index_timesheets_on_user_id", using: :btree
 
   create_table "tracks", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -185,12 +191,10 @@ ActiveRecord::Schema.define(version: 20160812044459) do
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
-    t.string   "phone"
     t.string   "time_zone"
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["remember_digest"], name: "index_users_on_remember_digest", using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["remember_digest"], name: "index_users_on_remember_digest", using: :btree
 
   add_foreign_key "timesheets", "users"
 end
