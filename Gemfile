@@ -27,6 +27,7 @@ gem 'prawn-table'
 gem 'pg', '0.18.1'
 gem 'pg_search'
 gem 'puma', '~> 3.0'
+gem 'rollbar'
 gem 'sidekiq'
 gem 'simple_form'
 gem 'skylight'
@@ -56,7 +57,6 @@ end
 
 group :production do
   gem 'rails_12factor'
-  gem 'rollbar'
 end
 
 gem 'sass-rails', '~> 5.0'
