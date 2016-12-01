@@ -1,3 +1,6 @@
-<h2>Import from IBSF.org</h2>
+  <h2>Import from IBSF.org</h2>
 
-This is a new timesheet import.
+  <%= form_tag timesheet_import_path do %>
+    <%= text_field_tag :url %>
+    <%= submit_tag 'Import' %>
+  <% end %>

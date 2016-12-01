@@ -20,10 +20,10 @@ Rails.application.routes.draw do
     resource :profile
   end
   resources :seasons, only: [:index, :show]
+
   resources :timesheets do
     post 'import', on: :member
     get 'copy', on: :member
-    get 'import', to: 'timesheet_imports#new', as: 'import'
 
     resources :entries, shallow: true do
       collection { post :sort }
@@ -31,8 +31,12 @@ Rails.application.routes.draw do
     end
     resources :points, only: [:index, :create]
   end
+
   resources :invitations, only: [:create]
   resources :points
+
+  get 'import', to: 'timesheet_imports#new', as: 'timesheet_import'
+  post 'import', to: 'timesheet_imports#create'
 
   get 'search', to: 'search#index'
   get '/rankings/', to: 'seasons#rankings', as: 'rankings'
