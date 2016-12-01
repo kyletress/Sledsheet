@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   resources :timesheets do
     post 'import', on: :member
     get 'copy', on: :member
+    get 'import', to: 'timesheet_imports#new', as: 'import'
+
     resources :entries, shallow: true do
       collection { post :sort }
       resources :runs, shallow: true, except: :index
