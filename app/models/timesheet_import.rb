@@ -72,14 +72,17 @@ class TimesheetImport
         name: entry.at(0).css("td.visible-xs div.fl.athletes a").text.strip,
         country: entry.at(0).css("div.fl.athletes img.country-flag").attr('alt').text,
         runs: entry.select{ |tr| tr.attr('class') == 'run' }.map do |run|
-          {
-            start: run.css('td')[1].text.strip,
-            split2: run.css('td')[2].text.strip,
-            split3: run.css('td')[3].text.strip,
-            split4: run.css('td')[4].text.strip,
-            split5: run.css('td')[5].text.strip,
-            finish: run.css('td')[6].text[/([0-1]:[0-5][0-9].[0-9][0-9])|[0-5][0-9].[0-9][0-9]/]
-          }
+          # here I need to ignore '-' runs.
+          unless run.css('td')[1].text.strip == '-' && run.css('td')[2].text.strip == '-'
+            {
+              start: run.css('td')[1].text.strip,
+              split2: run.css('td')[2].text.strip,
+              split3: run.css('td')[3].text.strip,
+              split4: run.css('td')[4].text.strip,
+              split5: run.css('td')[5].text.strip,
+              finish: run.css('td')[6].text[/([0-1]:[0-5][0-9].[0-9][0-9])|[0-5][0-9].[0-9][0-9]/]
+            }
+          end
         end
       }
     end
@@ -95,20 +98,22 @@ class TimesheetImport
         end
       end
       entry[:runs].each do |run|
-        @run = @entry.runs.build(
-          :start => time_to_integer(run[:start]),
-          :split2 => time_to_integer(run[:split2]),
-          :split3 => time_to_integer(run[:split3]),
-          :split4 => time_to_integer(run[:split4]),
-          :split5 => time_to_integer(run[:split5]),
-          :finish => time_to_integer(run[:finish])
-        )
-        @run.save
-        if @run.errors.any?
-        @run.errors.full_messages.each do |e|
-          puts e
+        unless run.nil?
+          @run = @entry.runs.build(
+            :start => time_to_integer(run[:start]),
+            :split2 => time_to_integer(run[:split2]),
+            :split3 => time_to_integer(run[:split3]),
+            :split4 => time_to_integer(run[:split4]),
+            :split5 => time_to_integer(run[:split5]),
+            :finish => time_to_integer(run[:finish])
+          )
+          @run.save
+          if @run.errors.any?
+            @run.errors.full_messages.each do |e|
+              puts e
+            end
+          end
         end
-      end
       end
     end
   end
