@@ -15,7 +15,7 @@ class Athlete < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
-  enum gender: {male: 0, female: 1}
+  enum gender: {male: 0, female: 1, unprocessed: 2}
 
   def self.find_by_timesheet_name(name)
     array = name.split(' ')
