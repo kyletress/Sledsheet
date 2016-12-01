@@ -36,6 +36,9 @@
             <span class="glyphicon glyphicon-plus"></span> New Timesheet
           <% end %>
       </p>
+      <p>
+        <%= link_to 'Import from IBSF', timesheet_import_path, class: 'btn btn-primary' %>
+      </p>
       <strong>Filter</strong>
       <%= render 'filter' %>
       </div>
