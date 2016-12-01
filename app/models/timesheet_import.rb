@@ -14,7 +14,7 @@ class TimesheetImport
   end
 
   def scrape_track
-    track = @page.css('.place').text.strip.parameterize(separator: ' ').capitalize
+    track = @page.css('.place').text.strip.parameterize(separator: ' ').titleize
     Track.find_by(name: track)
   end
 
@@ -57,7 +57,8 @@ class TimesheetImport
   end
 
   def scrape_kind
-    false
+    str = @page.css('#single_event header h1').text.strip
+    str.include?("Training") ? false : true
   end
 
   def build_timesheet
