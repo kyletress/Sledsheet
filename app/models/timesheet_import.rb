@@ -15,6 +15,12 @@ class TimesheetImport
 
   def scrape_track
     track = @page.css('.place').text.strip.parameterize(separator: ' ').titleize
+    case track
+    when "St Moritz"
+      track = "St. Moritz"
+    else
+      track = track
+    end
     Track.find_by(name: track)
   end
 
