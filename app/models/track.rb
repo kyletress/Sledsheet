@@ -8,7 +8,7 @@ class Track < ActiveRecord::Base
   default_scope -> { order('name ASC')}
 
   def track_record
-    runs.reorder("finish ASC").first
+    runs.reorder("finish ASC").where("finish > 0").first
   end
 
   def track_record_women
@@ -28,7 +28,7 @@ class Track < ActiveRecord::Base
   end
 
   def start_record
-    runs.reorder("start ASC").first
+    runs.reorder("start ASC").where("start > 0").first
   end
 
   def average_finish
