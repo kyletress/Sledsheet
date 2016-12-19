@@ -46,7 +46,7 @@
       <th>Entries</th>
       <th>Best Finish</th>
     </tr>
-    <% @track.timesheets.each do |timesheet| %>
+    <% @track.timesheets.general.each do |timesheet| %>
     <tr>
       <td><%= timesheet.nice_date %></td>
       <td><%= link_to timesheet.name, timesheet %></td>
