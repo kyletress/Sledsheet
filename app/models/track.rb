@@ -12,19 +12,19 @@ class Track < ActiveRecord::Base
   end
 
   def track_record_women
-    runs.joins(entry: :athlete).where(athletes: {gender: 1}).reorder(finish: :asc).first#.try(:finish)
+    runs.joins(entry: :athlete).where(athletes: {gender: 1}).where("finish > 0").reorder(finish: :asc).first #.try(:finish)
   end
 
   def track_record_men
-    runs.joins(entry: :athlete).where(athletes: {gender: 0}).reorder(finish: :asc).first#.try(:finish)
+    runs.joins(entry: :athlete).where(athletes: {gender: 0}).where("finish > 0").reorder(finish: :asc).first #.try(:finish)
   end
 
   def start_record_men
-    runs.joins(entry: :athlete).where(athletes: {gender: 0}).reorder(start: :asc).first#.try(:start)
+    runs.joins(entry: :athlete).where(athletes: {gender: 0}).where("start > 0").reorder(start: :asc).first #.try(:start)
   end
 
   def start_record_women
-    runs.joins(entry: :athlete).where(athletes: {gender: 1}).reorder(start: :asc).first#.try(:start)
+    runs.joins(entry: :athlete).where(athletes: {gender: 1}).where("start > 0").reorder(start: :asc).first #.try(:start)
   end
 
   def start_record
