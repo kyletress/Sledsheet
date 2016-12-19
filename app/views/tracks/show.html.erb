@@ -19,23 +19,38 @@
       </div>
     <% end %>
   </div>
-  <table class="table table-bordered">
+
+  <table class="track-record-table table table-bordered">
     <tr>
+      <th></th>
       <th>Start Record</th>
       <th>Track Record</th>
-      <th>Average Finish Time</th>
+      <th>Average Finish</th>
     </tr>
    <tr>
-     <td><% unless @track.start_record.nil? %>
-       <%= link_to @track.start_record.entry.athlete.name, @track.start_record.entry.athlete %>
-       <%= display_time @track.start_record.start %>
+     <th>Men</th>
+     <td><% unless @sr_men.nil? %>
+       <%= link_to @sr_men.entry.athlete.name, @sr_men.entry.athlete %>
+       <%= display_time @sr_men.start %>
        <% end %></td>
-     <td><% unless @track_record.nil? %>
-       <%= link_to @track_record.entry.athlete.name, @track_record.entry.athlete %>
-       <%= display_time @track_record.finish %>
+     <td><% unless @tr_men.nil? %>
+       <%= link_to @tr_men.entry.athlete.name, @tr_men.entry.athlete %>
+       <%= display_time @tr_men.finish %>
        <% end %></td>
-     <td><%= display_time @track.average_finish %></td>
+     <td><%= display_time @track.average_finish_men %></td>
     </tr>
+    <tr>
+      <th>Women</th>
+      <td><% unless @sr_women.nil? %>
+        <%= link_to @sr_women.entry.athlete.name, @sr_women.entry.athlete %>
+        <%= display_time @sr_women.start %>
+        <% end %></td>
+      <td><% unless @tr_women.nil? %>
+        <%= link_to @tr_women.entry.athlete.name, @tr_women.entry.athlete %>
+        <%= display_time @tr_women.finish %>
+        <% end %></td>
+      <td><%= display_time @track.average_finish_women %></td>
+     </tr>
   </table>
 
 
