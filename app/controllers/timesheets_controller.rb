@@ -21,6 +21,15 @@ class TimesheetsController < ApplicationController
     @ranked = @timesheet.ranked_entries
     @best = @timesheet.best_runs
     @runs = @timesheet.ranked_runs if @ranked.present?
+    @is_this_timesheet_being_shared = false
+
+    if @timesheet.personal?
+
+      if current_user.has_share_access?(@timesheet)
+        @is_this_timesheet_being_shared = true unless @timesheet.user == current_user
+      end
+    end
+
     respond_to do |format|
       format.html do
         if current_user
@@ -84,74 +93,6 @@ class TimesheetsController < ApplicationController
     render :new
   end
 
-  def import
-    require 'nokogiri'
-    require 'open-uri'
-    def time_to_integer(time_str)
-      if /[:]/ =~ time_str
-        minutes, seconds, centiseconds = time_str.split(/[:.]/).map{|str| str.to_i}
-        (minutes * 60 + seconds) * 100 + centiseconds
-      else
-        time_str.delete('.').to_i
-      end
-    rescue
-      99999 # make it absurdly high to prevent ranking errors
-    end
-    @timesheet = Timesheet.find(params[:id])
-    url = params[:url]
-    page = Nokogiri::HTML(open(url))
-    page.css(".table")
-    trs = page.css('.crew, .run').to_a
-    entries = trs.slice_before{ |elm| elm.attr('class') =='crew' }.to_a
-
-    entries.map! do |entry|
-      {
-        name: entry.at(0).css("td.visible-xs div.fl.athletes a").text.strip,
-        country: entry.at(0).css("div.fl.athletes img.country-flag").attr('alt').text,
-        runs: entry.select{ |tr| tr.attr('class') == 'run' }.map do |run|
-          {
-            start: run.css('td')[1].text.strip,
-            split2: run.css('td')[2].text.strip,
-            split3: run.css('td')[3].text.strip,
-            split4: run.css('td')[4].text.strip,
-            split5: run.css('td')[5].text.strip,
-            finish: run.css('td')[6].text[/([0-1]:[0-5][0-9].[0-9][0-9])|[0-5][0-9].[0-9][0-9]/]
-          }
-        end
-      }
-    end
-
-    entries.each do |entry|
-
-      @entry = @timesheet.entries.build(
-        athlete: Athlete.find_or_create_by_timesheet_name(entry[:name], entry[:country], Timesheet.genders[@timesheet.gender])
-      )
-      @entry.save
-      if @entry.errors.any?
-        @entry.errors.full_messages.each do |e|
-          puts e
-        end
-      end
-      entry[:runs].each do |run|
-        @run = @entry.runs.build(
-          :start => time_to_integer(run[:start]),
-          :split2 => time_to_integer(run[:split2]),
-          :split3 => time_to_integer(run[:split3]),
-          :split4 => time_to_integer(run[:split4]),
-          :split5 => time_to_integer(run[:split5]),
-          :finish => time_to_integer(run[:finish])
-        )
-        @run.save
-        if @run.errors.any?
-        @run.errors.full_messages.each do |e|
-          puts e
-        end
-      end
-      end
-    end
-    redirect_to @timesheet
-  end
-
   def chart
     render json: Timesheet.count
   end
@@ -168,13 +109,15 @@ class TimesheetsController < ApplicationController
       @shared_timesheet.message = params[:message]
       @shared_timesheet.save
 
-      # send email
       UserMailer.invitation_to_share(@shared_timesheet).deliver # move to background
     end
-    # respond_to do |format|
-    #   format.js
-    #   format.html
-    # end
+  end
+
+  def leave_sharing
+    @timesheet = Timesheet.find(params[:id])
+    @shared = @timesheet.shared_timesheets.find_by(shared_user_id: current_user.id).destroy
+    flash[:success] = "You have left this timesheet."
+    redirect_to timesheets_url
   end
 
   private
