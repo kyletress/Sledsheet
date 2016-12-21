@@ -1,4 +1,5 @@
 $(document).on "turbolinks:load", ->
+  $('#datetimepicker1').datetimepicker()
   $('#filter-submit').hide()
   $('.clear-filters').click ->
     resetForm($('#filters'))

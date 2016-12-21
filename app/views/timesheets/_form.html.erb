@@ -11,13 +11,18 @@
       <% if current_user.admin? %>
       <p>Is this timesheet a personal (private) timesheet, or a general (public) one?</p>
         <div class="form-group">
-          <%= f.select :visibility, options_for_select(@visibilities.collect { |g| [g[0].humanize, g[0]] }, selected: @timesheet.visibility), {} , class: "form-control" %>
+          <%= f.select :visibility, options_for_select(Timesheet.visibilities.keys), {}, class: "form-control" %>
         </div>
       <% end %>
 
     	<div class="form-group">
-    		<%= f.label :date, 'Date' %>
-    		<%= f.datetime_select :date, {:order => [:day, :month, :year], :start_year => 1999}, {class: 'form-control'} %>
+        <%= f.label :date, 'Date' %>
+        <div class="input-group date" id="datetimepicker1">
+          <%= f.text_field :date, class: 'form-control', data: { date_format: 'YYYY/MM/DD hh:mm'} %>
+          <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
     	</div>
 
     	<div class="form-group">
@@ -30,15 +35,8 @@
     		<%= f.collection_select :circuit_id, Circuit.all, :id, :name, {:prompt => "Circuit"}, {class: 'form-control'} %>
     	</div>
 
-    	<!-- <div class="form-group">
-    		<%= f.label 'Type', class: 'control-label' %>
-    		<div class="controls">
-    			<label class="radio"><%= f.radio_button :race, false %> Training</label>
-    			<label class="radio"><%= f.radio_button :race, true %> Race</label>
-    		</div>
-    	</div> -->
       <div class="form-group">
-        <%= f.select :gender, options_for_select(@genders.collect { |g| [g[0].humanize, g[0]] }, selected: @timesheet.gender), {} , class: "form-control" %>
+        <%= f.select :gender, options_for_select(Timesheet.genders.keys, selected: @timesheet.gender), {} , class: "form-control" %>
       </div>
 
       <div class="form-group">

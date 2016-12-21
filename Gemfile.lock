@@ -64,6 +64,8 @@ GEM
       rails (>= 4.0.0)
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
+    bootstrap3-datetimepicker-rails (4.17.43)
+      momentjs-rails (>= 2.8.1)
     buftok (0.2.0)
     builder (3.2.2)
     bullet (5.3.0)
@@ -188,6 +190,8 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
+    momentjs-rails (2.15.1)
+      railties (>= 3.1)
     multi_json (1.12.1)
     multipart-post (2.0.0)
     naught (1.1.0)
@@ -350,6 +354,7 @@ DEPENDENCIES
   bcrypt (= 3.1.7)
   bootstrap-multiselect-rails
   bootstrap-sass (~> 3.2.0)
+  bootstrap3-datetimepicker-rails (~> 4.17.43)
   bullet
   byebug (= 9.0.0)
   carrierwave
@@ -374,6 +379,7 @@ DEPENDENCIES
   listen (~> 3.0.5)
   mini_magick
   minitest-reporters (= 1.1.9)
+  momentjs-rails (>= 2.9.0)
   nokogiri
   pg (= 0.18.1)
   pg_search
