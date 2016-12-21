@@ -12,8 +12,6 @@ class TimesheetsController < ApplicationController
 
   def new
     @timesheet = current_user.timesheets.build
-    @genders = Timesheet.genders
-    @visibilities = Timesheet.visibilities
   end
 
   def show
