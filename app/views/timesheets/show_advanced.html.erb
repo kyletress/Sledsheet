@@ -55,6 +55,11 @@
             <li role="presentation"><%= link_to 'Copy Timesheet', copy_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
             <li role="presentation"><%= link_to "Delete timesheet", @timesheet, method: :delete, data: { confirm: "You sure?" }, role: 'menuitem', tabindex: -1 %></li>
           <% end %>
+
+          <li role="presentation" class="divider"></li>
+          <li role="presentation" class="dropdown-header">SHARING</li>
+          <li role="presentation"><%= link_to "Share timesheet", "#",data: {toggle: "modal", target: ".share-timesheet-modal", timesheet_id: @timesheet.id}, role: 'menuitem', tabindex: -1 %></li>
+
         </ul>
       </div>
     </header>
@@ -96,5 +101,6 @@
   </div>
 </div>
 
+<%= render 'users/share_modal' %>
 
 <% end %>

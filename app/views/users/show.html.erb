@@ -24,7 +24,11 @@
     <tr>
       <td><%= link_to timesheet.name, timesheet_url(timesheet) %></td>
       <td><%= track_time timesheet %></td>
-      <td><%= link_to 'Share', '#', data: {toggle: "modal", target: ".share-timesheet-modal", timesheet_id: timesheet.id} %></td>
+      <td>
+        <%= link_to '#', data: {toggle: "modal", target: ".share-timesheet-modal", timesheet_id: timesheet.id} , class: 'text-muted' do %>
+          <%= fa_icon 'share-square-o', text: 'share' %>
+        <% end %>
+      </td>
     </tr>
     <% end %>
   </table>

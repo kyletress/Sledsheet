@@ -1,6 +1,12 @@
 class RunsController < ApplicationController
   before_action :load_entry_and_timesheet, except: [:edit, :update, :destroy]
-  before_action :admin_user, only: [:new, :edit, :create, :destroy]
+  # before_action :admin_user, only: [:new, :edit, :create, :destroy]
+  before_action :authorize_user
+
+  # if you are an admin, you can add a run
+  # if this is your timesheet, you can add a run
+  # if you have sharing permission (admin level) you can add a run.
+  # else redirect
 
   def new
     @run = @entry.runs.new
@@ -51,5 +57,15 @@ class RunsController < ApplicationController
     def load_entry_and_timesheet
       @entry = Entry.find(params[:entry_id])
       @timesheet = @entry.timesheet
+    end
+
+    def authorize_user
+      if current_user
+        unless @timesheet.user == current_user || current_user.admin?# || current_user.has_share_access?(@timesheet)
+          redirect_to timesheet_path(@timesheet), alert: "Sorry, you don't have permission to do that."
+        end
+      else
+        redirect_to timesheet_path(@timesheet), alert: "Sorry, you don't have permissino to do that."
+      end
     end
 end
