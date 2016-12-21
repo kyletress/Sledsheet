@@ -18,12 +18,31 @@
     <tr>
       <th>Name</th>
       <th>Date</th>
+      <th>Actions</th>
     </tr>
     <% @timesheets.each do |timesheet| %>
     <tr>
       <td><%= link_to timesheet.name, timesheet_url(timesheet) %></td>
       <td><%= track_time timesheet %></td>
+      <td><%= link_to 'Share', '#', data: {toggle: "modal", target: ".share-timesheet-modal", timesheet_id: timesheet.id} %></td>
+    </tr>
+    <% end %>
+  </table>
+  <h3>Shared</h3>
+  <table class="table">
+    <tr>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Shared By</th>
+    </tr>
+    <% @being_shared_timesheets.each do |timesheet| %>
+    <tr>
+      <td><%= link_to timesheet.name, timesheet_url(timesheet) %></td>
+      <td><%= track_time timesheet %></td>
+      <td>Not sure yet</td>
     </tr>
     <% end %>
   </table>
 </div>
+
+<%= render 'share_modal' %>

@@ -1,0 +1,24 @@
+<div class="modal fade share-timesheet-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Share this timesheet</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_tag share_timesheet_path do %>
+        <div class="form-group">
+          <%= label_tag :emails, "Enter recipient emails, seperated by commas" %>
+          <%= text_field_tag :emails, nil, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= label_tag :message, 'Message (optional)' %>
+          <%= text_area_tag :message, nil, class: 'form-control' %>
+        </div>
+          <%= hidden_field_tag :timesheet_id %>
+          <%= submit_tag 'Share', class: 'btn btn-primary' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -45,6 +45,7 @@ group :development do
   gem 'bullet'
   gem 'web-console'
   gem 'listen', '~> 3.0.5'
+  gem "letter_opener"
   #gem 'rack-mini-profiler'
 end
 

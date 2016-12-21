@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   before_create :create_activation_digest
   after_create :subscribe_user_to_mailing_list
 
+  # after_create :sync_shared_timesheets
+
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
@@ -15,6 +17,9 @@ class User < ActiveRecord::Base
 
   has_many :timesheets
   has_one :athlete
+  has_many :shared_timesheets, dependent: :destroy
+  has_many :being_shared_timesheets, class_name: "SharedTimesheet", foreign_key: "shared_user_id", dependent: :destroy
+  has_many :shared_timesheets_by_others, through: :being_shared_timesheets, source: :timesheet # returns actual timesheet records 
 
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
@@ -66,6 +71,14 @@ class User < ActiveRecord::Base
     digest = send("#{attribute}_digest")
     return false if digest.nil?
     BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  def has_share_access?(timesheet)
+    # user created this timesheet
+    return true if self.timesheets.include?(timesheet)
+    # shared by others
+    return true if self.shared_timesheets_by_others.include?(timesheet)
+    return false
   end
 
   private

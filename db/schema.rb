@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160812044459) do
+ActiveRecord::Schema.define(version: 20161220214427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,6 +137,19 @@ ActiveRecord::Schema.define(version: 20160812044459) do
     t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "shared_timesheets", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "shared_email"
+    t.integer  "shared_user_id"
+    t.integer  "timesheet_id"
+    t.string   "message"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["shared_user_id"], name: "index_shared_timesheets_on_shared_user_id", using: :btree
+    t.index ["timesheet_id"], name: "index_shared_timesheets_on_timesheet_id", using: :btree
+    t.index ["user_id"], name: "index_shared_timesheets_on_user_id", using: :btree
   end
 
   create_table "teams", force: :cascade do |t|

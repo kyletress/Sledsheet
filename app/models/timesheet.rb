@@ -19,6 +19,7 @@ class Timesheet < ActiveRecord::Base
   has_many :runs, through: :heats
   has_many :runs, through: :entries # :heats, eventually? maybe doesn't matter
   has_many :points, dependent: :destroy
+  has_many :shared_timesheets, dependent: :destroy
 
   validates :name, presence: true
   validates :date, presence: true
@@ -115,6 +116,10 @@ class Timesheet < ActiveRecord::Base
 
   def points_eligible
     race? && complete?
+  end
+
+  def shared?
+    !self.shared_timesheets.empty?
   end
 
   private

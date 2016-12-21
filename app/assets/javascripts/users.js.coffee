@@ -1,3 +1,4 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+$(document).on "turbolinks:load", ->
+  $('body').on 'shown.bs.modal', '.share-timesheet-modal', (e) ->
+    timesheet_id = $(e.relatedTarget).data('timesheet-id')
+    $('#timesheet_id').val timesheet_id

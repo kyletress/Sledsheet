@@ -12,8 +12,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find(params[:id]) # shouldn't this be current user?
     @timesheets = @user.timesheets.includes(:track).personal
+    # timesheets shared by others
+    @being_shared_timesheets = current_user.shared_timesheets_by_others 
   end
 
   def create

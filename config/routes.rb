@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   resources :timesheets do
     post 'import', on: :member
     get 'copy', on: :member
+    post 'share', on: :member 
 
     resources :entries, shallow: true do
       collection { post :sort }

@@ -156,14 +156,36 @@ class TimesheetsController < ApplicationController
     render json: Timesheet.count
   end
 
+  def share
+    email_addresses = params[:emails].split(",")
+    email_addresses.each do |email|
+      @shared_timesheet = current_user.shared_timesheets.new
+      @shared_timesheet.timesheet_id = params[:timesheet_id]
+      @shared_timesheet.shared_email = email
+
+      shared_user = User.find_by(email: email)
+      @shared_timesheet.shared_user_id = shared_user.id if shared_user
+      @shared_timesheet.message = params[:message]
+      @shared_timesheet.save
+
+      # send email
+      UserMailer.invitation_to_share(@shared_timesheet).deliver # move to background
+    end
+    # respond_to do |format|
+    #   format.js
+    #   format.html
+    # end
+  end
+
   private
     def timesheet_params
       params.require(:timesheet).permit(:name, :nickname, :track_id, :circuit_id, :date, :race, :season_id, :pdf, :gender, :remote_pdf_url, :remove_pdf, :tweet, :status, :visibility, :user_id)
     end
 
     def correct_user
+      # must also take into account shared users
       if current_user
-        unless @timesheet.user == current_user || current_user.admin?
+        unless @timesheet.user == current_user || current_user.admin? || current_user.has_share_access?(@timesheet)
           redirect_to timesheets_path, notice: "Sorry, that timesheet doesn't exist"
         end
       else
