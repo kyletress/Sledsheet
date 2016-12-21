@@ -39,7 +39,7 @@
     <tr>
       <td><%= link_to timesheet.name, timesheet_url(timesheet) %></td>
       <td><%= track_time timesheet %></td>
-      <td>Not sure yet</td>
+      <td><%= timesheet.user.name %></td>
     </tr>
     <% end %>
   </table>

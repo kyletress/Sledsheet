@@ -18,8 +18,10 @@ class User < ActiveRecord::Base
   has_many :timesheets
   has_one :athlete
   has_many :shared_timesheets, dependent: :destroy
-  has_many :being_shared_timesheets, class_name: "SharedTimesheet", foreign_key: "shared_user_id", dependent: :destroy
-  has_many :shared_timesheets_by_others, through: :being_shared_timesheets, source: :timesheet # returns actual timesheet records 
+
+  has_many :being_shared_timesheets, class_name: "SharedTimesheet", foreign_key: "shared_user_id", dependent: :destroy # returns SharedTimesheet records
+
+  has_many :shared_timesheets_by_others, through: :being_shared_timesheets, source: :timesheet # returns actual timesheet records. source of N+1?
 
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
