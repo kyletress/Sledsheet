@@ -6,7 +6,8 @@
         <h4 class="modal-title" id="myModalLabel">Share this timesheet</h4>
       </div>
       <div class="modal-body">
-        <%= form_tag share_timesheet_path do %>
+        <%= form_tag share_timesheet_path, remote: true, format: :js do %>
+        <% # errors %>
         <div class="form-group">
           <%= label_tag :emails, "Enter recipient emails, seperated by commas" %>
           <%= text_field_tag :emails, nil, class: 'form-control' %>

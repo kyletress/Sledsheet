@@ -1,7 +1,7 @@
 <% provide(:title, @timesheet.name) %>
 
 <section class="timesheet-header">
-  <div class="container">
+  <div class="container timesheet-container">
     <header>
       <div class="timesheet-title">
         <h2><%= @timesheet.name %></h2>
@@ -47,9 +47,9 @@
             <li role="presentation" class="divider"></li>
             <li role="presentation" class="dropdown-header">SHARING</li>
             <% if @timesheet.user == current_user %>
-              
 
-              <li role="presentation"><%= link_to "Share timesheet", "#",data: {toggle: "modal", target: ".share-timesheet-modal", timesheet_id: @timesheet.id}, role: 'menuitem', tabindex: -1 %></li>
+
+              <li role="presentation"><%= link_to "Share timesheet", "#", data: {toggle: "modal", target: ".share-timesheet-modal", timesheet_id: @timesheet.id}, role: 'menuitem', tabindex: -1 %></li>
 
             <% elsif @is_this_timesheet_being_shared %>
               <li role="presentation"><%= link_to "Leave timesheet", leave_sharing_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
@@ -111,6 +111,6 @@
   </div>
 </div>
 
-<%= render 'users/share_modal' %>
-
 <% end %>
+
+<%= render 'users/share_modal' %>

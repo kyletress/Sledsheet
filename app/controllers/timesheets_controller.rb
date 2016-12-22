@@ -98,6 +98,7 @@ class TimesheetsController < ApplicationController
   end
 
   def share
+    @timesheet = Timesheet.find(params[:id])
     email_addresses = params[:emails].split(",")
     email_addresses.each do |email|
       @shared_timesheet = current_user.shared_timesheets.new
@@ -107,9 +108,14 @@ class TimesheetsController < ApplicationController
       shared_user = User.find_by(email: email)
       @shared_timesheet.shared_user_id = shared_user.id if shared_user
       @shared_timesheet.message = params[:message]
-      @shared_timesheet.save
 
-      UserMailer.invitation_to_share(@shared_timesheet).deliver # move to background
+      respond_to do |format|
+        format.js {
+          if @shared_timesheet.save
+            UserMailer.invitation_to_share(@shared_timesheet).deliver
+          end
+        }
+      end
     end
   end
 
