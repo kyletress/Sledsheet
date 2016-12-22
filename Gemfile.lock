@@ -68,7 +68,7 @@ GEM
       momentjs-rails (>= 2.8.1)
     buftok (0.2.0)
     builder (3.2.2)
-    bullet (5.3.0)
+    bullet (5.4.3)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.10.0)
     byebug (9.0.0)
@@ -92,7 +92,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
-    concurrent-ruby (1.0.2)
+    concurrent-ruby (1.0.3)
     connection_pool (2.2.0)
     countries (1.2.5)
       currencies (~> 0.4.2)
@@ -167,6 +167,10 @@ GEM
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -184,7 +188,7 @@ GEM
     mimemagic (0.3.2)
     mini_magick (4.5.1)
     mini_portile2 (2.1.0)
-    minitest (5.9.0)
+    minitest (5.10.1)
     minitest-reporters (1.1.9)
       ansi
       builder
@@ -376,6 +380,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   kaminari
+  letter_opener
   listen (~> 3.0.5)
   mini_magick
   minitest-reporters (= 1.1.9)

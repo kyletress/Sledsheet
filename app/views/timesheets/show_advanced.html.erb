@@ -1,7 +1,7 @@
 <% provide(:title, @timesheet.name) %>
 
 <section class="timesheet-header">
-  <div class="container">
+  <div class="container timesheet-container">
     <header>
       <div class="timesheet-title">
         <h2><%= @timesheet.name %></h2>
@@ -38,8 +38,22 @@
         <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
 
           <% if @timesheet.personal? %>
-            <li role="presentation"><%= link_to 'Edit Timesheet', edit_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %>
             <li role="presentation"><%= link_to "Generate PDF", timesheet_path(@timesheet, format: "pdf", role: "menuitem", tabindex: -1) %>
+            <% if @timesheet.user == current_user %>
+              <li role="presentation"><%= link_to 'Edit Timesheet', edit_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %>
+              <li role="presentation"><%= link_to 'Copy Timesheet', copy_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
+              <li role="presentation"><%= link_to "Delete timesheet", @timesheet, method: :delete, data: { confirm: "You sure?" }, role: 'menuitem', tabindex: -1 %></li>
+            <% end %>
+            <li role="presentation" class="divider"></li>
+            <li role="presentation" class="dropdown-header">SHARING</li>
+            <% if @timesheet.user == current_user %>
+
+
+              <li role="presentation"><%= link_to "Share timesheet", "#", data: {toggle: "modal", target: ".share-timesheet-modal", timesheet_id: @timesheet.id}, role: 'menuitem', tabindex: -1 %></li>
+
+            <% elsif @is_this_timesheet_being_shared %>
+              <li role="presentation"><%= link_to "Leave timesheet", leave_sharing_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
+            <% end %>
           <% end %>
 
           <% if @timesheet.general? %>
@@ -55,6 +69,7 @@
             <li role="presentation"><%= link_to 'Copy Timesheet', copy_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
             <li role="presentation"><%= link_to "Delete timesheet", @timesheet, method: :delete, data: { confirm: "You sure?" }, role: 'menuitem', tabindex: -1 %></li>
           <% end %>
+
         </ul>
       </div>
     </header>
@@ -96,5 +111,6 @@
   </div>
 </div>
 
-
 <% end %>
+
+<%= render 'users/share_modal' %>
