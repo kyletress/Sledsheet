@@ -69,7 +69,7 @@ class TimesheetImport
   end
 
   def build_timesheet
-    timesheet = Timesheet.create(track: scrape_track, circuit: scrape_circuit, gender: scrape_gender, date: scrape_date, race: scrape_kind, complete: false, status: 0, visibility: 1)
+    timesheet = Timesheet.create(track: scrape_track, circuit: scrape_circuit, gender: scrape_gender, date: scrape_date, race: scrape_kind, complete: false, status: 1, visibility: 1)
     # entries and runs
     trs = @page.css('.crew, .run').to_a
     entries = trs.slice_before{ |elm| elm.attr('class') =='crew' }.to_a
