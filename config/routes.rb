@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :circuits, only: [:index, :show]
   resources :athletes do
     resource :profile
+    get 'career_medals', on: :collection
   end
   resources :seasons, only: [:index, :show]
 

@@ -59,6 +59,10 @@ class AthletesController < ApplicationController
     render json: Athlete.where('last_name ilike ?', "%#{params[:q]}%")
   end
 
+  def career_medals
+    @medalists = Athlete.career_medal_table
+  end
+
   private
 
     def athlete_params
