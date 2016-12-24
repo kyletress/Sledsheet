@@ -27,6 +27,19 @@
 </div><!--end jumbo-->
 
 <div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <h4>Latest News</h4>
+      <ul>
+        <% @articles.each do |article| %>
+          <li><%= link_to article.title, article.link %> <small class="muted"><%= article.source %></small></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container">
   <section class="row features">
     <div class="col-sm-6">
       <h3>For Athletes</h3>

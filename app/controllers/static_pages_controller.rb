@@ -4,6 +4,7 @@ class StaticPagesController < ApplicationController
     @runs = Run.count
     @timesheets = Timesheet.count
     @athletes = Athlete.count
+    @articles = Article.limit(5)
   end
 
   def about

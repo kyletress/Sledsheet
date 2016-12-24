@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  get 'articles/index'
+
+  get 'articles/show'
+
+  get 'articles/new'
+
+  get 'articles/edit'
+
   root 'static_pages#home'
   get 'about', to: 'static_pages#about'
   get 'terms', to: 'static_pages#terms'
