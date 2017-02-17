@@ -1,0 +1,41 @@
+.sessions {
+  background: rgb(249, 249, 249);
+  h3 {
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+}
+
+.session-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.session-items {
+  max-width: 50%;
+}
+
+.session-form {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 2rem;
+  border-radius: 5px;
+  font-size: 1.4rem;
+  input[type="submit"] {
+    width: 100%;
+  }
+  margin-bottom: 2rem;
+}
+
+.need-account {
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  color: #aaa;
+  border-radius: 5px;
+  p {
+    margin-bottom: 0;
+  }
+}
