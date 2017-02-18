@@ -1,37 +1,66 @@
 <% provide(:title, @timesheet.name) %>
-<div class="page-header">
-  <h2><%= @timesheet.name %> <span><time><%= @timesheet.nice_date %></time></span></h2>
-</div>
-<% if @timesheet.nickname.present? %>
-  <p><%= @timesheet.nickname %></p>
-<% end %>
 
-<% if @timesheet.pdf.present? %>
-  <%= link_to @timesheet.pdf_url, class: "btn btn-default btn-sm" do %>
-    <i class="glyphicon glyphicon-file"></i> Download the PDF
-  <% end %>
-<% end %>
+<section class="timesheet-header">
+  <div class="container">
 
-<%= link_to "Generate PDF", timesheet_path(@timesheet, format: "pdf") %>
+    <ul class="nav nav-tabs timesheet-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#splits" aria-controls="splits" role="tab" data-toggle="tab">Splits</a></li>
+      <li role="presentation"><a href="#intermediates" aria-controls="intermediates" role="tab" data-toggle="tab">Intermediates</a></li>
+      <li role="presentation"><a href="#differences" aria-controls="differences" role="tab" data-toggle="tab">Differences</a></li>
+      <li role="presentation"><a href="#graphs" aria-controls="graphs" role="tab" data-toggle="tab">Graphs</a></li>
+    </ul>
+  </div>
+</section>
+
 
 
 <% if @timesheet.entries.blank? %>
-  <p>There are no entries yet</p>
+
 <% else %>
-<table class="table">
-  <% @ranked.each do |entry| %>
-    <tbody>
-       <tr class="timesheet-table-header">
-         <td><strong><%= entry.rank %>.</strong> <%= entry.athlete.timesheet_country %> <%= link_to entry.athlete.name, entry.athlete %></td>
-         <td class="total_time"><strong><%= display_total entry.total_time %></strong> <span class="position">(<%= display_total entry.time_behind %>)</span></td>
-      </tr>
-      <% entry.runs.each do |run| %>
-      <tr>
-        <td class="total_time"><%= display_time run.start %></td>
-        <td class="total_time"><%= display_time run.finish %></td>
-      </tr>
+
+<div class="container">
+  <div class="timesheet-title">
+    <h2>
+      <%= @timesheet.name %>
+      <% if @timesheet.nickname.present? %>
+        <br/><small><%= @timesheet.nickname %></small>
       <% end %>
-    </tbody>
-  <% end %>
-  <% end %>
-</table>
+    </h2>
+    <time><%= track_time @timesheet %></time>
+    <% if @timesheet.weather.present? %>
+      <div><i class="wi wi-forecast-io-<%= @timesheet.weather['icon']%>"></i> <%= @timesheet.weather['temperature'].to_i %> (feels like: <%= @timesheet.weather['apparentTemperature'].to_i %> ) | Humidity: <%= @timesheet.weather['humidity'] * 100 %>%</div>
+    <% end %>
+    <div class="dropdown">
+      <button class="btn btn-sledsheet btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+        <%= fa_icon 'cog', text: 'edit' %>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation"><%= link_to 'Startlist', timesheet_entries_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
+        <% if @timesheet.pdf.present? %>
+            <li role="presentation">
+              <%= link_to @timesheet.pdf_url, role: "menuitem", tabindex: -1 do %>
+                <i class="glyphicon glyphicon-file"></i> Download official PDF
+              <% end %>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="splits">
+      <%= render 'splits' %>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="intermediates">
+      <%= render 'intermediates' %>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="differences">
+      <%= render 'differences' %>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="graphs">
+      <%= render 'graphs' %>
+    </div>
+  </div>
+</div>
+
+<% end %>

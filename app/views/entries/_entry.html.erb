@@ -1,7 +1,7 @@
 <%= content_tag_for(:li, entry) do %>
   <%= flag_for entry.athlete %>
   <%= link_to entry.athlete.name, entry.athlete %>
-  <% if current_user.admin? %>
+  <% if current_user && current_user.admin? %>
     <%= link_to entry_path(entry), method: :delete, class: 'new-run-link', data: {confirm: "You sure?"} do %>
       <%= fa_icon 'trash' %>
     <% end %>

@@ -3,11 +3,13 @@
     <tbody>
        <tr class="timesheet-table-header">
          <td colspan="5"><strong><%= entry.rank %>.</strong> <%= flag_for(entry.athlete) %> <%= entry.athlete.timesheet_country %> <%= link_to entry.athlete.name, entry.athlete, class: 'athlete-name' %>
-          <%= link_to new_entry_run_path(entry), class: 'new-run-link' do %>
-           <%= fa_icon 'plus', text: 'Add run' %>
-          <% end %>
-          <%= link_to edit_entry_path(entry), class: 'new-run-link' do %>
-            <%= fa_icon 'pencil', text: 'Edit entry' %>
+          <% if current_user && current_user.admin? %>
+            <%= link_to new_entry_run_path(entry), class: 'new-run-link' do %>
+             <%= fa_icon 'plus', text: 'Add run' %>
+            <% end %>
+            <%= link_to edit_entry_path(entry), class: 'new-run-link' do %>
+              <%= fa_icon 'pencil', text: 'Edit entry' %>
+            <% end %>
           <% end %>
         </td>
          <td class="total_time">
@@ -44,16 +46,18 @@
             <td class="finish-time">
               <%= display_time run.finish %>
               <span class="position">(<%= @runs.find {|r| r.id == run.id}.finish_rank %>)</span>
-              <span class="admin-links">
-                <%= link_to edit_run_path(run), class: 'new-run-link' do %>
-                  <%= fa_icon 'pencil' %>
-                <% end %>
-                <% if current_user.admin? %>
-                  <%= link_to run_path(run), method: :delete, class: "new-run-link", data: {confirm: "You sure?"} do %>
-                    <%= fa_icon 'trash' %>
+              <% if current_user && current_user.admin? %>
+                <span class="admin-links">
+                  <%= link_to edit_run_path(run), class: 'new-run-link' do %>
+                    <%= fa_icon 'pencil' %>
                   <% end %>
-                <% end %>
-              </span>
+                  <% if current_user && current_user.admin? %>
+                    <%= link_to run_path(run), method: :delete, class: "new-run-link", data: {confirm: "You sure?"} do %>
+                      <%= fa_icon 'trash' %>
+                    <% end %>
+                  <% end %>
+                </span>
+              <% end %>
             </td>
           <% else %>
             <td colspan="6"></td>
@@ -62,7 +66,9 @@
       <% end %>
     </tbody>
   <% end %>
-   <tr class="timesheet-table-header">
-     <td colspan="6"><%= link_to "Add Entry", timesheet_entries_path(@timesheet) %></td>
-   </tr>
+  <% if current_user && current_user.admin? %>
+     <tr class="timesheet-table-header">
+       <td colspan="6"><%= link_to "Add Entry", timesheet_entries_path(@timesheet) %></td>
+     </tr>
+  <% end %>
 </table>
