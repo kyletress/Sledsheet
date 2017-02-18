@@ -77,6 +77,10 @@ Rails.application.routes.draw do
 
   get '/become/:id', to: 'admin#become'
 
+  require 'sidekiq/web'
+  require 'admin_constraint'
+  mount Sidekiq::Web => '/sidekiq', :constraints => AdminConstraint.new
+
   # match '/about', to: 'static_pages#about', via: 'get'
   # match '/signup', to: 'users#new', via: 'get'
   # match '/signin', to: 'sessions#new', via: 'get'
