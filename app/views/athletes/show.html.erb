@@ -1,85 +1,37 @@
 <% provide(:title, @athlete.name) %>
 
-<%= render 'profile' %>
+<section class="timesheet-header">
+  <div class="container">
+    <div class="flex">
+      <% if @athlete.avatar.present? %>
+        <%= image_tag @athlete.avatar_url(:thumb).to_s, size: '125x125', class: 'athlete-avatar' %>
+      <% end %>
+      <div>
+        <h2><%= @athlete.name %></h2>
+        <p><%= flag_for @athlete %> <%= @athlete.country_name %></p>
+      </div>
+    </div>
 
-<div class="container">
-  <div class="flex">
-    <div class="chart"><canvas id="careerMedals"></canvas></div>
-    <div class="chart"><canvas id="seasonMedals"></canvas></div>
-    <div class="chart"><canvas id="rank"></canvas></div>
+    <ul class="nav nav-tabs timesheet-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><%= fa_icon 'user' %> Profile</a></li>
+      <li role="presentation"><a href="#recent" aria-controls="recent" role="tab" data-toggle="tab"><%= fa_icon 'list-ul' %> Recent Results</a></li>
+      <li role="presentation"><a href="#career" aria-controls="career" role="tab" data-toggle="tab"><%= fa_icon 'th-list' %> Career Results <span class="badge badge--entry-count"><%= @athlete.entries.count %></span></a></li>
+      <li role="presentation"><a href="#stats" aria-controls="stats" role="tab" data-toggle="tab"><%= fa_icon 'signal' %> Stats</a></li>
+    </ul>
   </div>
+</section>
 
-<script>
-var ctx = document.getElementById("careerMedals");
-var json = <%= @athlete.medal_count_by_circuit.html_safe %>;
-
-var labels = json.map(function(item) {
-  return item.circuit;
-});
-
-var data = json.map(function(item){
-  return item.count
-})
-
-var myPieChart = new Chart(ctx,{
-    type: 'bar',
-    data: {
-        labels: labels,
-        datasets: [{
-            backgroundColor: "rgba(255,99,132,0.2)",
-            borderColor: "rgba(255,99,132,1)",
-            borderWidth: 1,
-            label: 'Career Medals',
-            data: data
-        }]
-    }
-});
-var ctx = document.getElementById("seasonMedals");
-var myPieChart = new Chart(ctx,{
-    type: 'pie',
-    data: {
-        labels: ["WC", "IC", "EC", "AC", "Wch"],
-        datasets: [{
-            label: 'Races',
-            data: [12, 19, 3, 5, 2]
-        }]
-    }
-});
-var ctx = document.getElementById("rank");
-var myPieChart = new Chart(ctx,{
-    type: 'line',
-    data: {
-        labels: ["2010", "2011", "2012", "2013", "2014"],
-        datasets: [{
-            fill: false,
-            lineTension: 0,
-            borderColor: "#e1f3f8",
-            label: 'World Rank',
-            data: [12, 19, 3, 5, 2]
-        }]
-    }
-});
-</script>
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="profile">
+    <%= render 'profile' %>
+  </div>
+  <div role="tabpanel" class="tab-pane" id="recent">
+    <%= render 'recent' %>
+  </div>
+  <div role="tabpanel" class="tab-pane" id="career">
+    <%= render 'career' %>
+  </div>
+  <div role="tabpanel" class="tab-pane" id="stats">
+    <%= render 'stats' %>
+  </div>
 </div>
-
-<% unless @points.empty? %>
-
-<div class="container">
-  <h3>This season</h3>
-  <table class="table table-striped table-bordered">
-    <tr>
-      <th>Race</th>
-      <th>Points</th>
-      <th>Place</th>
-    </tr>
-    <% @points.each do |point| %>
-    <tr>
-      <td><%= link_to point.name, point.timesheet %></td>
-      <td><%= point.value %></td>
-      <td><%= point.rank.ordinalize %></td>
-    </tr>
-    <% end %>
-  </table>
-</div>
-
-<% end %>

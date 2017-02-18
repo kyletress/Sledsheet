@@ -1,0 +1,21 @@
+<% unless @points.empty? %>
+
+<div class="container">
+  <h3>This season</h3>
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th>Race</th>
+      <th>Points</th>
+      <th>Place</th>
+    </tr>
+    <% @points.each do |point| %>
+    <tr>
+      <td><%= link_to point.name, point.timesheet %></td>
+      <td><%= point.value %></td>
+      <td><%= point.rank.ordinalize %></td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+
+<% end %>

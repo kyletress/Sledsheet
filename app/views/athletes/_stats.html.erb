@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="flex">
+    <div class="chart"><canvas id="careerMedals"></canvas></div>
+    <div class="chart"><canvas id="seasonMedals"></canvas></div>
+    <div class="chart"><canvas id="rank"></canvas></div>
+  </div>
+
+<script>
+var ctx = document.getElementById("careerMedals");
+var json = <%= @athlete.medal_count_by_circuit.html_safe %>;
+
+var labels = json.map(function(item) {
+  return item.circuit;
+});
+
+var data = json.map(function(item){
+  return item.count
+})
+
+var myPieChart = new Chart(ctx,{
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            backgroundColor: "rgba(255,99,132,0.2)",
+            borderColor: "rgba(255,99,132,1)",
+            borderWidth: 1,
+            label: 'Career Medals',
+            data: data
+        }]
+    }
+});
+var ctx = document.getElementById("seasonMedals");
+var myPieChart = new Chart(ctx,{
+    type: 'pie',
+    data: {
+        labels: ["WC", "IC", "EC", "AC", "Wch"],
+        datasets: [{
+            label: 'Races',
+            data: [12, 19, 3, 5, 2]
+        }]
+    }
+});
+var ctx = document.getElementById("rank");
+var myPieChart = new Chart(ctx,{
+    type: 'line',
+    data: {
+        labels: ["2010", "2011", "2012", "2013", "2014"],
+        datasets: [{
+            fill: false,
+            lineTension: 0,
+            borderColor: "#e1f3f8",
+            label: 'World Rank',
+            data: [12, 19, 3, 5, 2]
+        }]
+    }
+});
+</script>
+</div>

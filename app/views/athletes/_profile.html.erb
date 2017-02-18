@@ -1,17 +1,3 @@
-<div class="athlete-masthead">
-  <div class="container">
-    <div class="flex">
-      <% if @athlete.avatar.present? %>
-        <%= image_tag @athlete.avatar_url(:thumb).to_s, size: '125x125', class: 'athlete-avatar' %>
-      <% end %>
-      <div>
-        <h2><%= @athlete.name %></h2>
-        <p><%= flag_for @athlete %> <%= @athlete.country_name %></p>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="stat-nav">
   <div class="container">
     <ul>
