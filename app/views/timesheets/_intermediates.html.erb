@@ -7,13 +7,13 @@
       <% entry.runs.each do |run| %>
         <tr>
           <% if run.status == "ok" %>
-            <td class="total_time"><%= display_time run.start %></td>
-            <td class="total_time"><%= display_time run.int1 %></td>
-            <td class="total_time"><%= display_time run.int2 %></td>
-            <td class="total_time"><%= display_time run.int3 %></td>
-            <td class="total_time"><%= display_time run.int4 %></td>
-            <td class="total_time"><%= display_time run.int5 %></td>
-            <td class="total_time"><%= display_time run.finish %></td>
+            <td><%= display_time run.start %></td>
+            <td><%= display_time run.int1 %></td>
+            <td><%= display_time run.int2 %></td>
+            <td><%= display_time run.int3 %></td>
+            <td><%= display_time run.int4 %></td>
+            <td><%= display_time run.int5 %></td>
+            <td><%= display_time run.finish %></td>
           <% else %>
             <td colspan="6"></td>
           <% end %>

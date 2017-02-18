@@ -1,34 +1,31 @@
-// Place all the styles related to the Timesheets controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 .timesheet-header {
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
   background-color: #f1f1f1;
-
-  header {
-    display: flex;
-    align-items: center;
-    padding: 2rem 0;
-  }
+  padding-top: 2rem;
 }
 
-.timesheet-header > div {
-  //display: flex;
-  //align-items: center;
-  //padding: 2rem 0;
-
-  .timesheet-title {
-    flex: 1;
+.timesheet-title {
+  padding: 1.6rem .8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: #999;
+  font-size: 1.3rem;
+  @media (min-width: 770px) {
+    flex-direction: row;
   }
-
-  .dropdown {
-  }
-
   h2 {
+    font-size: 1.4rem;
     font-weight:700;
-    font-size:22px;
-    letter-spacing:-1px;
+    margin: 0;
+    color: rgb(52,52,52);
+    small {
+      font-size: 1rem;
+    }
+  }
+  .btn {
+    color: rgb(52,52,52);
   }
 }
 
@@ -36,7 +33,6 @@
   border-bottom: none;
   > li > a {
     color: #999;
-    text-transform: uppercase;
     font-size: 1.3rem;
     border: none;
   }
@@ -46,12 +42,21 @@
     background: #fff;
     border: none;
     border-bottom: 1px solid white;
+    border-top: 2px solid #e31c3d;
   }
 }
 
 table.timesheets {
   border: 1px solid #ddd;
   //border-top: none;
+}
+
+.table.timesheets > tbody + tbody {
+  border-width: 1px;
+}
+
+td.total_time {
+  text-align: right;
 }
 
 .flag-icon {
@@ -66,7 +71,11 @@ caption {
 }
 
 .timesheet-name a {
-  font-weight:600;
+  font-weight:400;
+}
+
+.athlete-name {
+  font-weight: 500;
 }
 
 .timesheet-circuit {
@@ -102,4 +111,27 @@ caption {
   &:hover {
     color: darken(#bbb, 15%);
   }
+}
+
+.table > tbody > tr.run > td {
+  border-top: none;
+}
+
+.table.timesheets > tbody > tr > th {
+  background: white;
+  time, .weather-data {
+    color: #666;
+    font-weight: 400;
+    font-size: 1.2rem;
+  }
+}
+
+.table.timesheets > tbody > tr > th.weather-data {
+  color: #666;
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+
+.nav-tabs > li > a {
+  border-radius: 0;
 }
