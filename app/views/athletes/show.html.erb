@@ -15,7 +15,7 @@
     <ul class="nav nav-tabs timesheet-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><%= fa_icon 'user' %> Profile</a></li>
       <li role="presentation"><a href="#recent" aria-controls="recent" role="tab" data-toggle="tab"><%= fa_icon 'list-ul' %> Recent Results</a></li>
-      <li role="presentation"><a href="#career" aria-controls="career" role="tab" data-toggle="tab"><%= fa_icon 'th-list' %> Career Results <span class="badge badge--entry-count"><%= @athlete.entries.count %></span></a></li>
+      <li role="presentation"><a href="#career" aria-controls="career" role="tab" data-toggle="tab"><%= fa_icon 'th-list' %> Career Results <span class="badge badge--entry-count"><%= @races.count %></span></a></li>
       <li role="presentation"><a href="#stats" aria-controls="stats" role="tab" data-toggle="tab"><%= fa_icon 'signal' %> Stats</a></li>
     </ul>
   </div>

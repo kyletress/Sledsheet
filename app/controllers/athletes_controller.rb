@@ -11,6 +11,7 @@ class AthletesController < ApplicationController
     @athlete = Athlete.find(params[:id])
     @points = @athlete.season_positions(@season)
     @total_points = @points[0..7].map { |h| h[:value] }.sum
+    @races = @athlete.timesheets.includes(:track).general.where(race: true)
     render layout: "athlete"
   end
 
