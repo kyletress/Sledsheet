@@ -3,9 +3,12 @@ class Athlete < ActiveRecord::Base
   multisearchable :against => [:first_name, :last_name]
   pg_search_scope :search_by_full_name, :against => [:first_name, :last_name]
 
+  after_create :create_google_alert
+
   has_many :entries, dependent: :destroy
   has_many :timesheets, through: :entries
   has_many :points, dependent: :destroy
+  has_many :articles, dependent: :destroy
   has_one :profile, dependent: :destroy
   belongs_to :user
   validates :first_name, presence: true, length: { maximum: 20 }
@@ -178,6 +181,15 @@ class Athlete < ActiveRecord::Base
     ) as test group by athlete_id, first_name, last_name order by TOTAL_MEDALS desc;"])
     athletes
   end
+
+  private
+
+    def create_google_alert
+      return if ENV['REVIEW_ENVIRONMENT'] == 'true'
+      CreateGoogleAlertJob.perform_later(self)
+    end
+
+
 end
 
 __END__

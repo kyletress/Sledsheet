@@ -10,21 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160812044459) do
+ActiveRecord::Schema.define(version: 20170218040343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "articles", force: :cascade do |t|
+    t.string   "title"
+    t.string   "description"
+    t.string   "link"
+    t.integer  "athlete_id"
+    t.datetime "published_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "athletes", force: :cascade do |t|
-    t.string   "first_name",   limit: 255
-    t.string   "last_name",    limit: 255
-    t.string   "country_code", limit: 255
+    t.string   "first_name",    limit: 255
+    t.string   "last_name",     limit: 255
+    t.string   "country_code",  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "male",                     default: true
-    t.string   "avatar",       limit: 255
+    t.boolean  "male",                      default: true
+    t.string   "avatar",        limit: 255
     t.string   "user_id"
-    t.integer  "gender",                   default: 0
+    t.integer  "gender",                    default: 0
+    t.string   "rss_alert_url"
     t.index ["user_id"], name: "index_athletes_on_user_id", using: :btree
   end
 
@@ -139,6 +150,20 @@ ActiveRecord::Schema.define(version: 20160812044459) do
     t.datetime "updated_at"
   end
 
+  create_table "shared_timesheets", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "shared_email"
+    t.integer  "shared_user_id"
+    t.integer  "timesheet_id"
+    t.string   "message"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["shared_user_id"], name: "index_shared_timesheets_on_shared_user_id", using: :btree
+    t.index ["timesheet_id", "shared_user_id"], name: "index_shared_timesheets_on_timesheet_id_and_shared_user_id", unique: true, using: :btree
+    t.index ["timesheet_id"], name: "index_shared_timesheets_on_timesheet_id", using: :btree
+    t.index ["user_id"], name: "index_shared_timesheets_on_user_id", using: :btree
+  end
+
   create_table "teams", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -172,9 +197,9 @@ ActiveRecord::Schema.define(version: 20160812044459) do
     t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "time_zone"
     t.decimal  "latitude",               precision: 10, scale: 6
     t.decimal  "longitude",              precision: 10, scale: 6
-    t.string   "time_zone"
   end
 
   create_table "users", force: :cascade do |t|
