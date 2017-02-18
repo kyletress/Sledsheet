@@ -149,6 +149,7 @@ class Athlete < ActiveRecord::Base
     "SELECT athlete_id as id,
     first_name,
     last_name,
+    slug,
       sum(count) as TOTAL_MEDALS,
       sum(case when circuit = 'OWG' then count else 0 end) OWG_TOTAL,
       sum(case when circuit = 'OWG' AND rank = 1 then count else 0 end) OWG_GOLD,
@@ -176,12 +177,12 @@ class Athlete < ActiveRecord::Base
       sum(case when circuit = 'NAC' AND rank = 3 then count else 0 end) NAC_BRONZE
 
     from (
-    select athlete_id, athletes.first_name, athletes.last_name, rank, count(*), circuits.nickname as circuit from (
+    select athlete_id, athletes.first_name, athletes.last_name, athletes.slug, rank, count(*), circuits.nickname as circuit from (
       select *, rank() over (partition by timesheet_id order by runs_count desc, total_time asc) from (
         select entries.id, entries.athlete_id, entries.timesheet_id, entries.runs_count, timesheets.name, timesheets.id, timesheets.circuit_id, sum(runs.finish) as total_time from entries inner join timesheets on entries.timesheet_id = timesheets.id left join runs on entries.id = runs.entry_id where (timesheets.race = true and timesheets.visibility = 1) group by entries.id, timesheets.name, timesheets.id order by timesheets.name
       ) as initialranks
-    ) as finalranks inner join athletes on finalranks.athlete_id = athletes.id inner join circuits on finalranks.circuit_id = circuits.id where finalranks.rank <= 3  group by athlete_id, athletes.first_name, athletes.last_name, rank, circuits.nickname order by athlete_id, circuit, rank asc
-    ) as test group by athlete_id, first_name, last_name order by TOTAL_MEDALS desc;"])
+    ) as finalranks inner join athletes on finalranks.athlete_id = athletes.id inner join circuits on finalranks.circuit_id = circuits.id where finalranks.rank <= 3  group by athlete_id, athletes.first_name, athletes.last_name, athletes.slug, rank, circuits.nickname order by athlete_id, circuit, rank asc
+    ) as test group by athlete_id, first_name, last_name, slug order by TOTAL_MEDALS desc;"])
     athletes
   end
 
