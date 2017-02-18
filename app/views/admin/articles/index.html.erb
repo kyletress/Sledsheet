@@ -11,7 +11,7 @@
       <tr>
         <% title = strip_tags article.title %>
         <td><%= link_to title, article.link %></td>
-        <td><%= article.athlete.name %></td>
+        <td><%= link_to article.athlete.name, article.athlete %></td>
         <td><%= link_to "delete", admin_article_path(article), method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-xs' %></td>
       </tr>
       <% end %>
