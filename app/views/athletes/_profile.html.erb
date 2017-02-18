@@ -33,11 +33,13 @@
 </div>
 
 <section class="articles">
-  <h3>Recent News</h3>
-  <ul>
-    <% @athlete.articles.each do |article| %>
-      <% title = strip_tags article.title %>
-      <li><%= link_to title, article.link %></li>
-    <% end %>
-  </ul>
+  <div class="container">
+    <h3>Recent News</h3>
+    <ul>
+      <% @athlete.articles.each do |article| %>
+        <% title = strip_tags article.title %>
+        <li><%= link_to title, article.link %></li>
+      <% end %>
+    </ul>
+  </div>
 </section>

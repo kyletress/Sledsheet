@@ -1,0 +1,20 @@
+<% provide(:title, "Admin Articles") %>
+<div class="container">
+  <div class="row">
+    <table class="table table-striped">
+      <tr>
+        <th>Title</th>
+        <th>Athlete</th>
+        <th>Admin</th>
+      </tr>
+      <% @articles.each do |article| %>
+      <tr>
+        <% title = strip_tags article.title %>
+        <td><%= link_to title, article.link %></td>
+        <td><%= article.athlete.name %></td>
+        <td><%= link_to "delete", admin_article_path(article), method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-xs' %></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
