@@ -5,7 +5,7 @@ class EntriesController < ApplicationController
     @entry = Entry.new
     @entries = @timesheet.entries.includes(:athlete).order("bib")
     respond_to do |format|
-      format.html 
+      format.html
       format.pdf do
         pdf = StartlistPdf.new(@timesheet, @entries, view_context)
         send_data pdf.render, filename: "#{@timesheet.pdf_name}.pdf", type: "application/pdf", disposition: "inline"
@@ -71,7 +71,7 @@ class EntriesController < ApplicationController
     end
 
     def find_timesheet
-      @timesheet = Timesheet.find(params[:timesheet_id])
+      @timesheet = Timesheet.friendly.find(params[:timesheet_id])
     end
 
 end

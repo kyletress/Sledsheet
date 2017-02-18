@@ -3,6 +3,9 @@ class Athlete < ActiveRecord::Base
   multisearchable :against => [:first_name, :last_name]
   pg_search_scope :search_by_full_name, :against => [:first_name, :last_name]
 
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   after_create :create_google_alert
 
   has_many :entries, dependent: :destroy

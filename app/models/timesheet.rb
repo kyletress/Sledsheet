@@ -4,6 +4,9 @@ class Timesheet < ActiveRecord::Base
 
   include Filterable
 
+  extend FriendlyId
+  friendly_id :pdf_name, use: :slugged
+
   before_validation :name_timesheet
   before_save :assign_season
   after_save :get_timesheet_weather, if: :timesheet_date_changed?
@@ -84,7 +87,7 @@ class Timesheet < ActiveRecord::Base
   end
 
   def pdf_name
-    "#{machine_date}-#{track.name.parameterize}-#{circuit.name.parameterize}-#{if race then 'race' else 'training' end}"
+    "#{machine_date}-#{track.name.parameterize}-#{circuit.name.parameterize}-#{if race then 'race' else 'training' end}-#{gender}"
   end
 
   def page_title

@@ -1,11 +1,12 @@
 class Admin::CircuitsController < AdminController
 
+  before_action :load_circuit, only: [:update, :show, :edit, :destroy]
+
   def index
     @circuits = Circuit.all
   end
 
   def show
-    @circuits = Circuit.find(params[:id])
   end
 
   def new
@@ -13,11 +14,9 @@ class Admin::CircuitsController < AdminController
   end
 
   def edit
-    @circuit = Circuit.find(params[:id])
   end
 
   def update
-    @circuit = Circuit.find(params[:id])
     if @circuit.update_attributes(circuit_params)
       flash[:success] = "Circuit updated"
       redirect_to admin_circuits_path
@@ -37,7 +36,7 @@ class Admin::CircuitsController < AdminController
   end
 
   def destroy
-    Circuit.find(params[:id]).destroy
+    @circuit.destroy
     flash[:success] = "Circuit has been deleted."
     redirect_to admin_circuits_url
   end
@@ -45,7 +44,11 @@ class Admin::CircuitsController < AdminController
   private
 
     def circuit_params
-      params.require(:circuit).permit(:name, :nickname)
+      params.require(:circuit).permit(:name, :nickname, :slug)
+    end
+
+    def load_circuit
+      @circuit = Circuit.friendly.find(params[:id])
     end
 
 end

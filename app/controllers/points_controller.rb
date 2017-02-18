@@ -13,7 +13,7 @@ class PointsController < ApplicationController
   private
 
   def find_timesheet
-    @timesheet = Timesheet.find(params[:timesheet_id])
+    @timesheet = Timesheet.friendly.find(params[:timesheet_id])
   end
 
 end

@@ -4,7 +4,7 @@ class TracksController < ApplicationController
   end
 
   def show
-    @track = Track.find(params[:id])
+    @track = Track.friendly.find(params[:id])
     @track_record = @track.track_record
     @sr_men = @track.start_record_men
     @sr_women = @track.start_record_women

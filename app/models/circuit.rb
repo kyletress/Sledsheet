@@ -1,6 +1,8 @@
 class Circuit < ActiveRecord::Base
   include PgSearch
   multisearchable :against => [:name]
+  extend FriendlyId
+  friendly_id :name, use: :slugged
 
   has_many :timesheets
   has_many :points

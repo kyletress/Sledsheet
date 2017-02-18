@@ -1,7 +1,7 @@
 class Api::V1::GraphsController < ApplicationController
 
   def create
-    @timesheet = Timesheet.find(params[:timesheet_id])
+    @timesheet = Timesheet.friendly.find(params[:timesheet_id])
     respond_to do |format|
       format.js
     end

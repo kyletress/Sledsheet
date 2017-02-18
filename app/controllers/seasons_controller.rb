@@ -4,7 +4,7 @@ class SeasonsController < ApplicationController
   end
 
   def show
-    @season = Season.find(params[:id])
+    @season = Season.friendly.find(params[:id])
     @mens = Point.season_points(@season, 0)
     @womens = Point.season_points(@season, 1)
   end

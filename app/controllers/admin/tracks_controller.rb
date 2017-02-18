@@ -1,5 +1,7 @@
 class Admin::TracksController < AdminController
 
+  before_action :load_track, only: [:edit, :update]
+
   def index
     @tracks = Track.all
   end
@@ -9,11 +11,9 @@ class Admin::TracksController < AdminController
   end
 
   def edit
-    @track = Track.find(params[:id])
   end
 
   def update
-    @track = Track.find(params[:id])
     if @track.update_attributes(track_params)
       redirect_to admin_tracks_path, success: 'Track updated.'
     else
@@ -31,19 +31,14 @@ class Admin::TracksController < AdminController
     end
   end
 
-  def update
-    @track = Track.find(params[:id])
-    if @track.update_attributes(track_params)
-      redirect_to admin_tracks_path, success: 'Track updated'
-    else
-      render 'edit'
-    end
-  end
-
   private
 
   def track_params
     params.require(:track).permit(:name, :time_zone, :latitude, :longitude)
+  end
+
+  def load_track
+    @track = Track.friendly.find(params[:id])
   end
 
 end

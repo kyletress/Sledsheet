@@ -1,4 +1,7 @@
 class Season < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :short_name, use: :slugged
+
   has_many :timesheets
   has_many :points
   validates :start_date, presence: true

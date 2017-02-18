@@ -1,5 +1,7 @@
 class Track < ActiveRecord::Base
   include PgSearch
+  extend FriendlyId
+  friendly_id :name, use: :slugged
   multisearchable :against => [:name]
 
   has_many :timesheets

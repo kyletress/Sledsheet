@@ -1,6 +1,7 @@
 class AthletesController < ApplicationController
 
   before_action :admin_user, only: [:new, :edit, :update]
+  before_action :load_athlete, only: [:update, :show, :edit, :destroy]
 
   def index
     @athletes = Athlete.page params[:page]
@@ -8,7 +9,6 @@ class AthletesController < ApplicationController
 
   def show
     @season = Season.current_season
-    @athlete = Athlete.find(params[:id])
     @points = @athlete.season_positions(@season)
     @total_points = @points[0..7].map { |h| h[:value] }.sum
     @races = @athlete.timesheets.includes(:track).general.where(race: true)
@@ -31,12 +31,10 @@ class AthletesController < ApplicationController
   end
 
   def edit
-    @athlete = Athlete.find(params[:id])
     @genders = Athlete.genders
   end
 
   def update
-    @athlete = Athlete.find(params[:id])
     if @athlete.update_attributes(athlete_params)
       flash[:success] = "Athlete updated."
       redirect_to @athlete
@@ -46,7 +44,7 @@ class AthletesController < ApplicationController
   end
 
   def destroy
-    Athlete.find(params[:id]).destroy
+    @athlete.destroy
     flash[:success] = "Athlete deleted."
     redirect_to athletes_url
   end
@@ -68,6 +66,10 @@ class AthletesController < ApplicationController
 
     def athlete_params
       params.require(:athlete).permit(:first_name, :last_name, :country_code, :male, :gender, :avatar, :remote_avatar_url)
+    end
+
+    def load_athlete
+      @athlete = Athlete.friendly.find(params[:id])
     end
 
 end

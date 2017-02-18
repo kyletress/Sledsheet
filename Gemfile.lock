@@ -123,6 +123,8 @@ GEM
       hashie
       multi_json
     formatador (0.2.5)
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
     galerts (1.1.3)
       mechanize (~> 2.7)
     gibbon (2.2.4)
@@ -383,6 +385,7 @@ DEPENDENCIES
   font-awesome-rails
   font-awesome-sass (~> 4.3.0)
   forecast_io
+  friendly_id (~> 5.1.0)
   galerts
   gibbon
   guard (= 2.13.0)

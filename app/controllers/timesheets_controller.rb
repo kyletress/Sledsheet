@@ -5,6 +5,7 @@ class TimesheetsController < ApplicationController
 
   before_action :set_track_time_zone, only: [:create, :update]
   before_action :set_track_time_zone_edit, only: [:edit]
+  before_action :load_timesheet, only: [:copy,:show,:edit,:update,:destroy]
 
   def index
     @timesheets = Timesheet.general.includes(:season, :track).filter(filtering_params).page params[:page]
@@ -15,7 +16,6 @@ class TimesheetsController < ApplicationController
   end
 
   def show
-    @timesheet = Timesheet.find(params[:id])
     @ranked = @timesheet.ranked_entries
     @best = @timesheet.best_runs
     @runs = @timesheet.ranked_runs if @ranked.present?
@@ -35,13 +35,11 @@ class TimesheetsController < ApplicationController
   end
 
   def edit
-    @timesheet = Timesheet.find(params[:id])
     @genders = Timesheet.genders
     @visibilities = Timesheet.visibilities
   end
 
   def update
-    @timesheet = Timesheet.find(params[:id])
     if @timesheet.update_attributes(timesheet_params)
       if params[:tweet].present?
         tweet_timesheet
@@ -69,13 +67,12 @@ class TimesheetsController < ApplicationController
   end
 
   def destroy
-    Timesheet.find(params[:id]).destroy
+    @timesheet.destroy
     flash[:success] = "Timesheet deleted."
     redirect_to timesheets_url
   end
 
   def copy
-    @timesheet = Timesheet.find(params[:id])
     @genders = Timesheet.genders
     @visibilities = Timesheet.visibilities
     @timesheet = Timesheet.new(@timesheet.attributes)
@@ -95,7 +92,7 @@ class TimesheetsController < ApplicationController
     rescue
       99999 # make it absurdly high to prevent ranking errors
     end
-    @timesheet = Timesheet.find(params[:id])
+    @timesheet = Timesheet.friendly.find(params[:id])
     url = params[:url]
     page = Nokogiri::HTML(open(url))
     page.css(".table")
@@ -159,6 +156,10 @@ class TimesheetsController < ApplicationController
       params.require(:timesheet).permit(:name, :nickname, :track_id, :circuit_id, :date, :race, :season_id, :pdf, :gender, :remote_pdf_url, :remove_pdf, :tweet, :status, :visibility, :user_id)
     end
 
+    def load_timesheet
+      @timesheet = Timesheet.friendly.find(params[:id])
+    end
+
     def correct_user
       if current_user
         unless @timesheet.user == current_user || current_user.admin?
@@ -181,17 +182,17 @@ class TimesheetsController < ApplicationController
     end
 
     def personal_timesheet?
-      @timesheet = Timesheet.find(params[:id])
+      @timesheet = Timesheet.friendly.find(params[:id])
       @timesheet.personal?
     end
 
     def general_timesheet?
-      @timesheet = Timesheet.find(params[:id])
+      @timesheet = Timesheet.friendly.find(params[:id])
       @timesheet.general?
     end
 
     def award_points
-      @timesheet = Timesheet.find(params[:id])
+      @timesheet = Timesheet.friendly.find(params[:id])
       if @timesheet.race && @timesheet.complete
         @timesheet.award_points
       end

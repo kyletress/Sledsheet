@@ -5,7 +5,7 @@ class Api::V1::TimesheetsController < ApplicationController
   end
 
   def show
-    @timesheet = Timesheet.find(params[:id])
+    @timesheet = Timesheet.friendly.find(params[:id])
     @entries = @timesheet.ranked_entries
     @runs = @timesheet.ranked_runs
   end

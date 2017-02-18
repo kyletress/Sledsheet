@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170218040343) do
+ActiveRecord::Schema.define(version: 20170218184813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20170218040343) do
     t.string   "user_id"
     t.integer  "gender",                    default: 0
     t.string   "rss_alert_url"
+    t.string   "slug"
+    t.index ["slug"], name: "index_athletes_on_slug", unique: true, using: :btree
     t.index ["user_id"], name: "index_athletes_on_user_id", using: :btree
   end
 
@@ -44,6 +46,8 @@ ActiveRecord::Schema.define(version: 20170218040343) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "nickname"
+    t.string   "slug"
+    t.index ["slug"], name: "index_circuits_on_slug", unique: true, using: :btree
   end
 
   create_table "entries", force: :cascade do |t|
@@ -148,6 +152,8 @@ ActiveRecord::Schema.define(version: 20170218040343) do
     t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
+    t.index ["slug"], name: "index_seasons_on_slug", unique: true, using: :btree
   end
 
   create_table "shared_timesheets", force: :cascade do |t|
@@ -187,8 +193,10 @@ ActiveRecord::Schema.define(version: 20170218040343) do
     t.integer  "visibility",             default: 0
     t.integer  "user_id"
     t.jsonb    "weather"
+    t.string   "slug"
     t.index ["circuit_id"], name: "index_timesheets_on_circuit_id", using: :btree
     t.index ["season_id"], name: "index_timesheets_on_season_id", using: :btree
+    t.index ["slug"], name: "index_timesheets_on_slug", unique: true, using: :btree
     t.index ["track_id"], name: "index_timesheets_on_track_id", using: :btree
     t.index ["user_id"], name: "index_timesheets_on_user_id", using: :btree
   end
@@ -200,6 +208,8 @@ ActiveRecord::Schema.define(version: 20170218040343) do
     t.string   "time_zone"
     t.decimal  "latitude",               precision: 10, scale: 6
     t.decimal  "longitude",              precision: 10, scale: 6
+    t.string   "slug"
+    t.index ["slug"], name: "index_tracks_on_slug", unique: true, using: :btree
   end
 
   create_table "users", force: :cascade do |t|
