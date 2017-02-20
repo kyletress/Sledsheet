@@ -67,6 +67,8 @@ class Timesheet < ActiveRecord::Base
       rank() OVER (PARTITION BY position ORDER BY finish ASC) AS finish_rank
       FROM runs
       WHERE runs.entry_id IN(#{self.entries.ids.map{|x| x.inspect}.join(', ')})"])
+      ActiveRecord::Associations::Preloader.new.preload(runs, { entry: :athlete })
+      runs
   end
 
   def nice_date

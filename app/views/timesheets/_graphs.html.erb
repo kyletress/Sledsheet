@@ -1,8 +1,8 @@
 <section id="graphs">
   <%= form_tag api_v1_timesheet_graph_path(@timesheet), remote: true do %>
-    <%= select_tag "constant", options_for_select(@timesheet.runs.includes(:entry).sort_by{ |r| [r.position, r.finish] }.collect{ |r| ["#{r.entry.athlete.name} - #{display_time r.finish}", r.id] } ) %>
+    <%= select_tag "constant", options_for_select(@runs.sort_by{ |r| [r.position, r.finish] }.collect{ |r| ["#{r.entry.athlete.name} - #{display_time r.finish}", r.id] } ) %>
 
-    <% @graph_runs = @timesheet.runs.sort_by{ |r| [r.position, r.finish] }
+    <% @graph_runs = @runs.sort_by{ |r| [r.position, r.finish] }
        @grouped_options = @graph_runs.inject({}) do |position, run|
     (position[run.position] ||= []) << ["#{run.entry.athlete.name} - #{display_time run.finish}", run.id]
     position
