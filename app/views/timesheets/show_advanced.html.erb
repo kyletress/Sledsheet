@@ -2,7 +2,54 @@
 
 <section class="timesheet-header">
   <div class="container">
+    <div class="timesheet-title">
+      <h2>
+        <% if @timesheet.personal? %>
+          <%= fa_icon 'lock', class: 'text-danger' %>
+        <% end %> <%= @timesheet.name %><br/>
+        <% if @timesheet.nickname.present? %>
+          <small><%= @timesheet.nickname %></small>
+        <% end %>
+      </h2>
+      <time><%= track_time @timesheet %></time>
+      <% if @timesheet.weather.present? %>
+        <div><i class="wi wi-forecast-io-<%= @timesheet.weather['icon']%>"></i> <%= @timesheet.weather['temperature'].to_i %> (feels like: <%= @timesheet.weather['apparentTemperature'].to_i %> ) | Humidity: <%= @timesheet.weather['humidity'] * 100 %>%</div>
+      <% end %>
+      <div class="dropdown">
+        <button class="btn btn-sledsheet btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+          <%= fa_icon 'cog', text: 'edit' %>
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
 
+          <% if @timesheet.personal? %>
+            <li role="presentation"><%= link_to 'Edit Timesheet', edit_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %>
+            <li role="presentation"><%= link_to "Generate PDF", timesheet_path(@timesheet, format: "pdf", role: "menuitem", tabindex: -1) %>
+          <% end %>
+
+          <% if @timesheet.general? %>
+            <li role="presentation"><%= link_to 'Startlist', timesheet_entries_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
+            <% if @timesheet.pdf.present? %>
+              <li role="presentation">
+                <%= link_to @timesheet.pdf_url, class: "btn btn-default btn-sm", role: "menuitem", tabindex: -1 do %>
+                  <i class="glyphicon glyphicon-file"></i> Download the PDF
+                <% end %>
+              </li>
+            <% end %>
+            <li role="presentation"><%= link_to "Generate PDF", timesheet_path(@timesheet, format: "pdf", role: "menuitem", tabindex: -1) %>
+            <li role="presentation"><%= link_to "Points", timesheet_points_path(@timesheet), role: "menuitem", tabindex: -1 %></li>
+          <% end %>
+
+          <% if current_user.admin? %>
+            <li role="presentation" class="divider"></li>
+            <li role="presentation" class="dropdown-header">ADMIN</li>
+            <li role="presentation"><%= link_to 'Edit Timesheet', edit_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
+            <li role="presentation"><%= link_to 'Copy Timesheet', copy_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
+            <li role="presentation"><%= link_to "Delete timesheet", @timesheet, method: :delete, data: { confirm: "You sure?" }, role: 'menuitem', tabindex: -1 %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
     <ul class="nav nav-tabs timesheet-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#splits" aria-controls="splits" role="tab" data-toggle="tab">Splits</a></li>
       <li role="presentation"><a href="#intermediates" aria-controls="intermediates" role="tab" data-toggle="tab">Intermediates</a></li>
@@ -26,54 +73,7 @@
 <% else %>
 
 <div class="container">
-  <div class="timesheet-title">
-    <h2>
-      <% if @timesheet.personal? %>
-        <%= fa_icon 'lock', class: 'text-danger' %>
-      <% end %> <%= @timesheet.name %><br/>
-      <% if @timesheet.nickname.present? %>
-        <small><%= @timesheet.nickname %></small>
-      <% end %>
-    </h2>
-    <time><%= track_time @timesheet %></time>
-    <% if @timesheet.weather.present? %>
-      <div><i class="wi wi-forecast-io-<%= @timesheet.weather['icon']%>"></i> <%= @timesheet.weather['temperature'].to_i %> (feels like: <%= @timesheet.weather['apparentTemperature'].to_i %> ) | Humidity: <%= @timesheet.weather['humidity'] * 100 %>%</div>
-    <% end %>
-    <div class="dropdown">
-      <button class="btn btn-sledsheet btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-        <%= fa_icon 'cog', text: 'edit' %>
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
 
-        <% if @timesheet.personal? %>
-          <li role="presentation"><%= link_to 'Edit Timesheet', edit_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %>
-          <li role="presentation"><%= link_to "Generate PDF", timesheet_path(@timesheet, format: "pdf", role: "menuitem", tabindex: -1) %>
-        <% end %>
-
-        <% if @timesheet.general? %>
-          <li role="presentation"><%= link_to 'Startlist', timesheet_entries_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
-          <% if @timesheet.pdf.present? %>
-            <li role="presentation">
-              <%= link_to @timesheet.pdf_url, class: "btn btn-default btn-sm", role: "menuitem", tabindex: -1 do %>
-                <i class="glyphicon glyphicon-file"></i> Download the PDF
-              <% end %>
-            </li>
-          <% end %>
-          <li role="presentation"><%= link_to "Generate PDF", timesheet_path(@timesheet, format: "pdf", role: "menuitem", tabindex: -1) %>
-          <li role="presentation"><%= link_to "Points", timesheet_points_path(@timesheet), role: "menuitem", tabindex: -1 %></li>
-        <% end %>
-
-        <% if current_user.admin? %>
-          <li role="presentation" class="divider"></li>
-          <li role="presentation" class="dropdown-header">ADMIN</li>
-          <li role="presentation"><%= link_to 'Edit Timesheet', edit_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
-          <li role="presentation"><%= link_to 'Copy Timesheet', copy_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
-          <li role="presentation"><%= link_to "Delete timesheet", @timesheet, method: :delete, data: { confirm: "You sure?" }, role: 'menuitem', tabindex: -1 %></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="splits">
       <%= render 'splits' %>
