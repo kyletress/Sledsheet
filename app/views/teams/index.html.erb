@@ -1,0 +1,22 @@
+<div class="container">
+  <h2>Your teams</h2>
+  <p>These need to be scoped to the current_user</p>
+  <p>Join a team: enter the unique code to join</p>
+
+  <%= form_tag join_teams_path, method: :get do %>
+    <%= text_field_tag :team_code %>
+    <%= submit_tag 'Join' %>
+  <% end %>
+
+  <%= link_to 'Create a new team', new_team_path %>
+
+  <p>This is essentially going to be an activity feed. Comments, new timesheets, notes, etc. Share documents. More.</p>
+
+  <table class="table table-bordered">
+    <% @teams.each do |team| %>
+      <tr>
+        <td><%= link_to team.name, team %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

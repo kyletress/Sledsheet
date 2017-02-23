@@ -41,6 +41,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :teams do
+    get 'join', on: :collection
+    resources :memberships
+  end
+
   get 'search', to: 'search#index'
   get '/rankings/', to: 'seasons#rankings', as: 'rankings'
 

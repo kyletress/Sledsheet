@@ -1,0 +1,13 @@
+<div class="container">
+  <h2><%= @team.name %></h2>
+  <strong>Team Activity</strong>
+  <p>Team Activity will go here</p>
+
+  <strong>Members</strong>
+  <ul>
+    <% @team.memberships.each do |member| %>
+      <li><%= member.user.name %></li>
+    <% end %>
+  </ul>
+
+</div>

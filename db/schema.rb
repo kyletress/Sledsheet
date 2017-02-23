@@ -231,39 +231,3 @@ ActiveRecord::Schema.define(version: 20170304224257) do
     t.string   "country_code"
     t.index ["slug"], name: "index_tracks_on_slug", unique: true, using: :btree
   end
-
-  create_table "users", force: :cascade do |t|
-    t.string   "name",              limit: 255
-    t.string   "email",             limit: 255, default: "",    null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "password_digest",   limit: 255
-    t.string   "remember_digest",   limit: 255
-    t.boolean  "admin",                         default: false
-    t.integer  "invitation_id"
-    t.string   "activation_digest"
-    t.boolean  "activated",                     default: false
-    t.datetime "activated_at"
-    t.string   "reset_digest"
-    t.datetime "reset_sent_at"
-    t.string   "time_zone"
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
-    t.index ["remember_digest"], name: "index_users_on_remember_digest", using: :btree
-  end
-
-  create_table "videos", force: :cascade do |t|
-    t.string   "link"
-    t.string   "uid"
-    t.string   "title"
-    t.datetime "published_at"
-    t.integer  "likes"
-    t.integer  "dislikes"
-    t.string   "description"
-    t.string   "thumbnail_url"
-    t.integer  "event_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  add_foreign_key "timesheets", "users"
-end
