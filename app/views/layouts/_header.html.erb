@@ -23,7 +23,7 @@
           <% if logged_in? %>
             <li class="dropdown" data-behavior="notifications">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-behavior="notifications-link">
-                <%= fa_icon "bell" %> <span data-behavior="unread-count" class="badge badge-danger badge-small"></span>
+                <%= fa_icon "bell" %> <span data-behavior="unread-count"></span>
               </a>
               <%= render 'layouts/notifications' %>
             </li>
