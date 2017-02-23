@@ -15,11 +15,7 @@ class TeamsController < ApplicationController
   end
 
   def edit
-    if @team.update_attributes(team_params)
-      redirect_to @team, success: "Team updated"
-    else
-      render 'edit', notice: "Team couldn't be updated"
-    end
+
   end
 
   def create
@@ -33,7 +29,11 @@ class TeamsController < ApplicationController
   end
 
   def update
-
+    if @team.update_attributes(team_params)
+      redirect_to @team, success: "Team updated"
+    else
+      render 'edit', notice: "Team couldn't be updated"
+    end
   end
 
   def destroy

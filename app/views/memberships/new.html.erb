@@ -1,0 +1,7 @@
+<div class="container">
+  <h2>Invite teammates</h2>
+  <%= form_tag batch_invite_team_memberships_path do |f| %>
+    <%= text_area_tag :invited_participants, nil, class: 'form-control' %>
+    <%= submit_tag 'Invite', class: 'btn btn-primary' %>
+  <% end %>
+</div>

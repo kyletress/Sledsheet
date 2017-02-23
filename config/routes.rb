@@ -43,7 +43,11 @@ Rails.application.routes.draw do
 
   resources :teams do
     get 'join', on: :collection
-    resources :memberships
+    resources :memberships do
+      collection do
+        post 'batch_invite'
+      end
+    end
   end
 
   get 'search', to: 'search#index'
