@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170218184813) do
+ActiveRecord::Schema.define(version: 20170223021050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,15 @@ ActiveRecord::Schema.define(version: 20170218184813) do
     t.index ["timesheet_id"], name: "index_entries_on_timesheet_id", using: :btree
   end
 
+  create_table "events", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer  "track_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "invitations", force: :cascade do |t|
     t.integer  "sender_id"
     t.string   "recipient_email"
@@ -81,9 +90,14 @@ ActiveRecord::Schema.define(version: 20170218184813) do
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "notifiable_id"
-    t.string  "notifiable_type"
+    t.integer  "recipient_id"
+    t.integer  "actor_id"
+    t.datetime "read_at"
+    t.string   "action"
+    t.integer  "notifiable_id"
+    t.string   "notifiable_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "pg_search_documents", force: :cascade do |t|
@@ -194,7 +208,9 @@ ActiveRecord::Schema.define(version: 20170218184813) do
     t.integer  "user_id"
     t.jsonb    "weather"
     t.string   "slug"
+    t.integer  "event_id"
     t.index ["circuit_id"], name: "index_timesheets_on_circuit_id", using: :btree
+    t.index ["event_id"], name: "index_timesheets_on_event_id", using: :btree
     t.index ["season_id"], name: "index_timesheets_on_season_id", using: :btree
     t.index ["slug"], name: "index_timesheets_on_slug", unique: true, using: :btree
     t.index ["track_id"], name: "index_timesheets_on_track_id", using: :btree
@@ -202,13 +218,14 @@ ActiveRecord::Schema.define(version: 20170218184813) do
   end
 
   create_table "tracks", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name",         limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "time_zone"
-    t.decimal  "latitude",               precision: 10, scale: 6
-    t.decimal  "longitude",              precision: 10, scale: 6
+    t.decimal  "latitude",                 precision: 10, scale: 6
+    t.decimal  "longitude",                precision: 10, scale: 6
     t.string   "slug"
+    t.string   "country_code"
     t.index ["slug"], name: "index_tracks_on_slug", unique: true, using: :btree
   end
 
@@ -229,6 +246,20 @@ ActiveRecord::Schema.define(version: 20170218184813) do
     t.string   "time_zone"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["remember_digest"], name: "index_users_on_remember_digest", using: :btree
+  end
+
+  create_table "videos", force: :cascade do |t|
+    t.string   "link"
+    t.string   "uid"
+    t.string   "title"
+    t.datetime "published_at"
+    t.integer  "likes"
+    t.integer  "dislikes"
+    t.string   "description"
+    t.string   "thumbnail_url"
+    t.integer  "event_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_foreign_key "timesheets", "users"
