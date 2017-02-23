@@ -2,7 +2,7 @@ class NotificationsController < ApplicationController
   before_action :logged_in_user
 
   def index
-    @notifications = Notification.where(recipient: current_user).unread
+    @notifications = Notification.where(recipient: current_user).recent
   end
 
   def mark_as_read
