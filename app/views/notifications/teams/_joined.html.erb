@@ -1,0 +1,7 @@
+<%= content_tag :li, class: "#{"unread" if !notification.read_at?}" do %>
+  <%= link_to team_path(notification.notifiable) do %>
+    <%= notification.actor.name %>
+    <%= notification.action %>
+    <%= notification.notifiable.name %>
+  <% end %>
+<% end %>

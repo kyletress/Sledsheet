@@ -46,6 +46,7 @@ class TeamsController < ApplicationController
     if @team
       membership = @team.memberships.build(user: current_user)
       membership.save
+      Notification.create(recipient: @team.owner, actor: current_user, action: "joined", notifiable: @team)
       redirect_to team_path(@team), success: "You joined the team bruh"
     else
       flash[:notice] = "Sorry, that team doesn't exist"
