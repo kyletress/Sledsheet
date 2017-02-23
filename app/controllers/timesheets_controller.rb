@@ -56,6 +56,7 @@ class TimesheetsController < ApplicationController
     @timesheet = current_user.timesheets.build(timesheet_params)
 
     if @timesheet.save
+      Notification.create(recipient: current_user, actor: current_user, action: "posted", notifiable: @timesheet)
       if params[:tweet].present?
         tweet_timesheet
       end

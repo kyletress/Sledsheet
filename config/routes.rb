@@ -36,6 +36,12 @@ Rails.application.routes.draw do
   resources :invitations, only: [:create]
   resources :points
 
+  resources :notifications, only: [:index] do
+    collection do
+      post :mark_as_read
+    end
+  end
+
   get 'import', to: 'timesheet_imports#new', as: 'timesheet_import'
   post 'import', to: 'timesheet_imports#create'
 
