@@ -46,7 +46,7 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :debug
+  config.log_level = :info
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
@@ -63,7 +63,7 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  # TODO Need to review these settings 
+  # TODO Need to review these settings
   config.action_mailer.smtp_settings = {
     address: ENV['SPARKPOST_SMTP_HOST'],
     port: ENV['SPARKPOST_SMTP_PORT'],
