@@ -1,9 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  team_id: 1
-  user_id: 1
+kyle_team_one:
+  team: one
+  user: kyle
 
-two:
-  team_id: 1
-  user_id: 1
+morgan_team_one:
+  team: one
+  user: morgan
+
+kyle_team_two:
+  team: two
+  user: kyle
+
+matt_team_two:
+  team: two
+  user: matt

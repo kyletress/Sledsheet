@@ -1,33 +1,17 @@
 <div class="container">
   <h2><%= @team.name %></h2>
-  <%= link_to 'Team Settings', edit_team_path(@team) %>
-  <strong>Team Activity</strong>
-  <p>Team Activity will go here</p>
-
-  <ol>
-    <li>Team activity won't be limited to user generated stuff. For instance, it will notify team members of their rank and points after races</li>
-  </ol>
-
-<div>
-  <%= link_to 'Kyle Tress', user_path(User.first) %> earned 65 points for 21st. His rank improved to 16th in the world.
-</div>
-
-<%= link_to 'Invite members by email', new_team_membership_path(@team), class: 'btn btn-secondary' %>
-
-<p>Kyle shared a timesheet: timesheet name</p>
-<p>Kyle commented on a run: Morgan Tracey run 1</p>
-<p>Kyle commented on a run: Morgan Tracey run 2</p>
-<p>
-  Kyle Tress on February 24th, 2017
-  We are all too high on kriesel. Have to be more firm on the second pressure. 
-</p>
-
-
-  <p><strong>Members</strong></p>
-  <ul>
-    <% @team.memberships.each do |member| %>
-      <li><%= member.user.name %></li>
+  <% if @team.owner == current_user %>
+    <%= link_to edit_team_path(@team), class: 'btn btn-default btn-xs' do %>
+      <%= fa_icon 'cog', text: 'Team Settings' %>
     <% end %>
-  </ul>
+    <%= link_to new_team_membership_path(@team), class: 'btn btn-success btn-xs' do %>
+      <%= fa_icon 'envelope', text: 'Invite members by email' %>
+    <% end %>
+  <% else %>
+    <%= link_to 'Leave this team', '#' %>
+    <%= link_to "Leave this team", team_membership_path(@team, current_user.memberships.where(team: @team).first), method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-xs' %>
+  <% end %>
+
+  <strong>Team owner: <%= @team.owner.name %></strong>
 
 </div>

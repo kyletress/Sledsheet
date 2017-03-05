@@ -1,4 +1,14 @@
 <div class="container">
   <h2>Team Settings</h2>
   <%= link_to 'Return to team', team_path(@team) %>
+  <p><strong>Team Code:</strong> <%= @team.team_code %> <small><%= link_to 'generate new code', '#' %></small></p>
+  <p><strong>Members</strong></p>
+  <table class="table table-bordered">
+    <% @team.memberships.each do |member| %>
+    <tr>
+      <td><%= member.user.name %></td>
+      <td><%= link_to 'revoke', team_membership_path(@team, member), method: :delete, data: {confirm: "are you sure?"}, class: 'btn btn-xs btn-danger' %></td>
+    </tr>
+    <% end %>
+  </table>
 </div>

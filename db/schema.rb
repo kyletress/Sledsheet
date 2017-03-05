@@ -26,15 +26,15 @@ ActiveRecord::Schema.define(version: 20170304224257) do
   end
 
   create_table "athletes", force: :cascade do |t|
-    t.string   "first_name",    limit: 255
-    t.string   "last_name",     limit: 255
-    t.string   "country_code",  limit: 255
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "country_code"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "male",                      default: true
-    t.string   "avatar",        limit: 255
+    t.boolean  "male",          default: true
+    t.string   "avatar"
     t.string   "user_id"
-    t.integer  "gender",                    default: 0
+    t.integer  "gender",        default: 0
     t.string   "rss_alert_url"
     t.string   "slug"
     t.index ["slug"], name: "index_athletes_on_slug", unique: true, using: :btree
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20170304224257) do
   end
 
   create_table "circuits", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "nickname"
@@ -61,15 +61,6 @@ ActiveRecord::Schema.define(version: 20170304224257) do
     t.index ["athlete_id"], name: "index_entries_on_athlete_id", using: :btree
     t.index ["timesheet_id", "athlete_id"], name: "index_entries_on_timesheet_id_and_athlete_id", unique: true, using: :btree
     t.index ["timesheet_id"], name: "index_entries_on_timesheet_id", using: :btree
-  end
-
-  create_table "events", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.integer  "track_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "invitations", force: :cascade do |t|
@@ -102,8 +93,8 @@ ActiveRecord::Schema.define(version: 20170304224257) do
 
   create_table "pg_search_documents", force: :cascade do |t|
     t.text     "content"
-    t.integer  "searchable_id"
     t.string   "searchable_type"
+    t.integer  "searchable_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
@@ -161,27 +152,13 @@ ActiveRecord::Schema.define(version: 20170304224257) do
   end
 
   create_table "seasons", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name"
     t.date     "start_date"
     t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug"
     t.index ["slug"], name: "index_seasons_on_slug", unique: true, using: :btree
-  end
-
-  create_table "shared_timesheets", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "shared_email"
-    t.integer  "shared_user_id"
-    t.integer  "timesheet_id"
-    t.string   "message"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["shared_user_id"], name: "index_shared_timesheets_on_shared_user_id", using: :btree
-    t.index ["timesheet_id", "shared_user_id"], name: "index_shared_timesheets_on_timesheet_id_and_shared_user_id", unique: true, using: :btree
-    t.index ["timesheet_id"], name: "index_shared_timesheets_on_timesheet_id", using: :btree
-    t.index ["user_id"], name: "index_shared_timesheets_on_user_id", using: :btree
   end
 
   create_table "teams", force: :cascade do |t|
@@ -193,27 +170,25 @@ ActiveRecord::Schema.define(version: 20170304224257) do
   end
 
   create_table "timesheets", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "nickname",   limit: 255
+    t.string   "name"
+    t.string   "nickname"
     t.integer  "track_id"
     t.integer  "circuit_id"
     t.datetime "date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "race",                   default: false
+    t.boolean  "race",       default: false
     t.integer  "season_id"
-    t.string   "pdf",        limit: 255
-    t.integer  "gender",                 default: 0
-    t.boolean  "complete",               default: false
-    t.integer  "status",                 default: 0
+    t.string   "pdf"
+    t.integer  "gender",     default: 0
+    t.boolean  "complete",   default: false
+    t.integer  "status",     default: 0
+    t.integer  "visibility", default: 0
     t.integer  "user_id"
     t.jsonb    "weather"
     t.string   "slug"
-    t.integer  "event_id"
     t.string   "type"
-    t.integer  "visibility"
     t.index ["circuit_id"], name: "index_timesheets_on_circuit_id", using: :btree
-    t.index ["event_id"], name: "index_timesheets_on_event_id", using: :btree
     t.index ["season_id"], name: "index_timesheets_on_season_id", using: :btree
     t.index ["slug"], name: "index_timesheets_on_slug", unique: true, using: :btree
     t.index ["track_id"], name: "index_timesheets_on_track_id", using: :btree
@@ -221,13 +196,34 @@ ActiveRecord::Schema.define(version: 20170304224257) do
   end
 
   create_table "tracks", force: :cascade do |t|
-    t.string   "name",         limit: 255
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "latitude",   precision: 10, scale: 6
+    t.decimal  "longitude",  precision: 10, scale: 6
     t.string   "time_zone"
-    t.decimal  "latitude",                 precision: 10, scale: 6
-    t.decimal  "longitude",                precision: 10, scale: 6
     t.string   "slug"
-    t.string   "country_code"
     t.index ["slug"], name: "index_tracks_on_slug", unique: true, using: :btree
   end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email",             default: "",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "password_digest"
+    t.string   "remember_digest"
+    t.boolean  "admin",             default: false
+    t.integer  "invitation_id"
+    t.string   "activation_digest"
+    t.boolean  "activated",         default: false
+    t.datetime "activated_at"
+    t.string   "reset_digest"
+    t.datetime "reset_sent_at"
+    t.string   "time_zone"
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["remember_digest"], name: "index_users_on_remember_digest", using: :btree
+  end
+
+  add_foreign_key "timesheets", "users"
+end

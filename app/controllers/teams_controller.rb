@@ -1,13 +1,18 @@
 class TeamsController < ApplicationController
   before_action :logged_in_user
-  before_action :load_team, except: [:index, :new, :create, :join, :show]
+  before_action :load_team, except: [:index, :new, :create, :join, :show, :edit]
+  before_action :admin_or_owner, only: [:edit, :update, :destroy]
+  before_action :team_member, only: [:show]
+
+  # team members can view the team page.
+  # only admins and owners can edit, update, and destroy teams
 
   def index
-    @teams = Team.all
+    @memberships = current_user.memberships.includes(team: [:owner])
   end
 
   def show
-    @team = Team.includes(:memberships).find(params[:id])
+    @team = Team.includes(:owner).find(params[:id])
   end
 
   def new
@@ -15,14 +20,16 @@ class TeamsController < ApplicationController
   end
 
   def edit
-
+    @team = Team.includes(memberships: [:user]).find(params[:id])
   end
 
   def create
     @team = current_user.managed_teams.build(team_params)
-    @team.team_code = generate_team_code
+    @team.generate_team_code
     if @team.save
-      redirect_to @team, success: "Team has been created"
+      @team.memberships.create(user: current_user)
+      flash['success'] = "Success! Invite teammates by email or give this code: #{@team.team_code}"
+      redirect_to @team
     else
       render 'new', notice: "Team could not be created"
     end
@@ -64,7 +71,16 @@ class TeamsController < ApplicationController
       @team = Team.find(params[:id])
     end
 
-    def generate_team_code
-      SecureRandom.hex(4)
+    def team_member
+      @team = Team.includes(:owner).find(params[:id])
+      @user = current_user
+      redirect_to teams_url unless @user == @team.owner || @team.users.include?(@user)
     end
+
+    def admin_or_owner
+      @team = Team.includes(:owner).find(params[:id])
+      @user = current_user
+      redirect_to @team unless @user == @team.owner || @user.admin?
+    end
+
 end

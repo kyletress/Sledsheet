@@ -15,10 +15,24 @@ class MembershipsController < ApplicationController
         membership = @team.memberships.build(user: user)
         membership.save
       else
-        # email
+        # send an email invitation. 
       end
     end
     redirect_to @team
+  end
+
+  def destroy
+    @team = Team.find(params[:team_id])
+    @membership = Membership.find(params[:id])
+    unless @membership.user == @team.owner
+      @membership.destroy
+      # Notifiy the team owner
+      redirect_to teams_path, notice: "you are no longer a member of #{@team.name}"
+    end
+  end
+
+  def leave
+    # want to differentiate between administrative revoking of membership and willingly leaving.
   end
 
   private

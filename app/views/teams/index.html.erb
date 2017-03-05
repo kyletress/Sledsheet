@@ -1,6 +1,5 @@
 <div class="container">
   <h2>Your teams</h2>
-  <p>These need to be scoped to the current_user</p>
   <p>Join a team: enter the unique code to join</p>
 
   <%= form_tag join_teams_path, method: :get do %>
@@ -13,10 +12,17 @@
   <p>This is essentially going to be an activity feed. Comments, new timesheets, notes, etc. Share documents. More.</p>
 
   <table class="table table-bordered">
-    <% @teams.each do |team| %>
+    <% @memberships.each do |membership| %>
       <tr>
-        <td><%= link_to team.name, team %></td>
+        <td><%= link_to membership.team.name, membership.team %></td>
+        <td>
+          <% unless current_user == membership.team.owner %>
+            <%= link_to 'leave this team', team_membership_path(membership.team, membership), method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-xs' %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </table>
 </div>
+
+<%= console %>
