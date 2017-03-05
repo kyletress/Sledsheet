@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170305002729) do
+ActiveRecord::Schema.define(version: 20170304224257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -211,6 +211,7 @@ ActiveRecord::Schema.define(version: 20170305002729) do
     t.string   "slug"
     t.integer  "event_id"
     t.string   "type"
+    t.integer  "visibility"
     t.index ["circuit_id"], name: "index_timesheets_on_circuit_id", using: :btree
     t.index ["event_id"], name: "index_timesheets_on_event_id", using: :btree
     t.index ["season_id"], name: "index_timesheets_on_season_id", using: :btree
