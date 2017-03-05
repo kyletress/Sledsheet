@@ -19,7 +19,7 @@ class TimesheetsControllerTest < ActionController::TestCase
     assert_response :success
     assert_select "title", "Sledsheet | Timesheets"
     assert_not_nil assigns(:timesheets)
-    Timesheet.general.each do |timesheet|
+    PublicTimesheet.each do |timesheet|
       assert_select 'a[href=?]', timesheet_path(timesheet), text: timesheet.name
     end
   end

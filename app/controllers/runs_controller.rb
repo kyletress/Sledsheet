@@ -1,6 +1,6 @@
 class RunsController < ApplicationController
   before_action :load_entry_and_timesheet, except: [:edit, :update, :destroy]
-  before_action :admin_user, only: [:new, :edit, :create, :destroy]
+  before_action :correct_user, only: [:new, :edit, :create, :destroy]
 
   def new
     @run = @entry.runs.new
@@ -51,5 +51,10 @@ class RunsController < ApplicationController
     def load_entry_and_timesheet
       @entry = Entry.find(params[:entry_id])
       @timesheet = @entry.timesheet
+    end
+
+    def correct_user
+      @user = @timesheet.user
+      redirect_to(root_url) unless current_user?(@user)
     end
 end

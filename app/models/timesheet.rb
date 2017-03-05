@@ -47,6 +47,19 @@ class Timesheet < ActiveRecord::Base
   scope :gender, -> (gender) { where gender: gender }
   scope :season, -> (season_id) { where season_id: season_id }
 
+  # for STI to work with link_to and form_for
+  # def self.inherited(child)
+  #   child.instance_eval do
+  #     def model_name
+  #       Timesheet.model_name
+  #     end
+  #   end
+  #   super
+  # end
+
+  def editable?(user)
+    false unless user.admin?
+  end
 
   def ranked_entries
 

@@ -56,6 +56,7 @@ Rails.application.routes.draw do
     resources :runs, only: :index
     resources :invitations
     resources :articles, only: [:index, :destroy]
+    resources :timesheets
   end
 
   namespace :api do # , defaults: { format: :json }

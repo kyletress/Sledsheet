@@ -13,9 +13,10 @@ class User < ActiveRecord::Base
 
   validates :password, length: { minimum: 6 }
 
-  has_many :timesheets
+  has_many :timesheets # is this still necessary?
+  has_many :private_timesheets
   has_one :athlete
-  has_many :notifications, foreign_key: :recipient_id 
+  has_many :notifications, foreign_key: :recipient_id
 
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost

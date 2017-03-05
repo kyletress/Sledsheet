@@ -2,11 +2,8 @@
   <h2>Startlist</h2>
   <p><%= @timesheet.name %> on <%= @timesheet.nice_date %></p>
 
-  <% if current_user && current_user.admin? %>
-    <div>
-      <%= render 'form' %>
-    </div>
-  <% end %>
+  <%= render 'form' %>
+
 
   <p><%= link_to timesheet_entries_path(@timesheet, format: "pdf") do %>
     <%= fa_icon 'file-pdf-o', text: 'Printable Startlist (PDF)' %>
@@ -16,5 +13,5 @@
     <%= render @entries %>
   </ol>
 
-  <%= link_to 'Back to timesheet', @timesheet %>
+  <%= link_to 'Back to timesheet', timesheet_path(@timesheet) %>
 </div>
