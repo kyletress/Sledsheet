@@ -31,6 +31,8 @@ class Timesheet < ActiveRecord::Base
 
   enum gender: {men: 0, women: 1, mixed: 2}
   enum status: {open: 0, complete: 1} # live
+  # only admins can add public timesheets
+  enum visibility: {personal: 0, general: 1} # draft, hidden?
 
   mount_uploader :pdf, PdfUploader
 
