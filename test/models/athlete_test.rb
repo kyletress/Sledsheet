@@ -106,4 +106,11 @@ class AthleteTest < ActiveSupport::TestCase
     assert_equal 225, positions.first.value
   end
 
+  test "parse name should return a correctly formatted name" do
+    name = "TRESS John Kyle"
+    full_name = Athlete.parse_name(name)
+    assert_equal "John Kyle", full_name.first
+    assert_equal "Tress", full_name.second
+  end
+
 end

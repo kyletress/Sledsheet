@@ -1,30 +1,12 @@
 <% provide(:title, "Timesheets") %>
 
 <div class="container">
-  <h2 class="page-header">Admin Timesheets (for public viewing)</h2>
-
-  <div class="row">
-    <div class="col-sm-8">
-      <table class="table table-bordered">
-        <% @timesheets.group_by(&:season).each do |season, timesheets| %>
-          <tr>
-            <th colspan="3"><%= link_to season.name, season_path(season) %></th>
-          </tr>
-          <% timesheets.each do |timesheet| %>
-            <tr>
-              <td class="timesheet-name"><%= fa_icon 'file-text-o' %> <%= link_to timesheet.name, timesheet_path(timesheet) %>
-                <% if timesheet.pdf.present? %>
-                  <%= link_to timesheet.pdf_url, class: "btn btn-default btn-xs" do %>
-                    <i class="glyphicon glyphicon-file"></i> PDF
-                  <% end %>
-                <% end %>
-              </td>
-              <td><%= timesheet.gender.humanize %></td>
-              <td><%= timesheet.nice_date %></td>
-            </tr>
-          <% end %>
+  <h2 class="page-header">Admin Timesheets</h2>
+  <p>Eventually this will show recently imported timesheets, races without points, etc.</p>
+    <div class="col-sm-4">
+        <%= link_to new_admin_timesheet_path, class: 'btn btn-success' do %>
+          <span class="glyphicon glyphicon-plus"></span> New Timesheet
         <% end %>
-        <% # render @timesheets %>
-      </table>
-    </div>
+        <%= link_to 'Import from IBSF', admin_timesheet_import_path, class: 'btn btn-primary' %>
+  </div>
 </div>

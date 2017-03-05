@@ -24,20 +24,8 @@ class Athlete < ActiveRecord::Base
   enum gender: {male: 0, female: 1, unprocessed: 2}
 
   def self.find_by_timesheet_name(name)
-    array = name.split(' ')
-    if array.count > 2
-      if array[1] === array[1].upcase
-        last_name = "#{array[0]} #{array[1]}"
-        first_name = "#{array[2]}"
-      else
-        last_name = "#{array[0]}"
-        first_name = "#{array[1]} #{array[2]}"
-      end
-    else
-      last_name = "#{array[0]}"
-      first_name = "#{array[1]}"
-    end
-    Athlete.where("lower(first_name) = ? AND lower(last_name) = ?", first_name.downcase, last_name.downcase)
+    full_name = Athlete.parse_name(name)
+    Athlete.where("lower(first_name) = ? AND lower(last_name) = ?", full_name.first.downcase, full_name.second.downcase)
   end
 
   def self.find_or_create_by_timesheet_name(name, country, gender)
@@ -46,22 +34,27 @@ class Athlete < ActiveRecord::Base
       a.first
     else
       # no results, create athlete.
-      array = name.split(' ')
-      if array.count > 2
-        if array[1] === array[1].upcase
-          last_name = "#{array[0]} #{array[1]}"
-          first_name = "#{array[2]}"
-        else
-          last_name = "#{array[0]}"
-          first_name = "#{array[1]} #{array[2]}"
-        end
-      else
-        last_name = "#{array[0]}"
-        first_name = "#{array[1]}"
-      end
+      full_name = Athlete.parse_name(name)
       country_code = ISO3166::Country.find_country_by_ioc(country.to_s).alpha2
-      Athlete.create(first_name: first_name, last_name: last_name.titleize, country_code: country_code, gender: gender)
+      Athlete.create(first_name: full_name.first, last_name: full_name.second, country_code: country_code, gender: gender)
     end
+  end
+
+  def self.parse_name(name)
+    array = name.split(' ')
+    if array.count > 2
+      if array[1] === array[1].upcase
+        last_name = "#{array[0]} #{array[1]}".titleize
+        first_name = "#{array[2]}".titleize
+      else
+        last_name = "#{array[0]}".titleize
+        first_name = "#{array[1]} #{array[2]}".titleize
+      end
+    else
+      last_name = "#{array[0]}".titleize
+      first_name = "#{array[1]}".titleize
+    end
+    return first_name, last_name
   end
 
   def name

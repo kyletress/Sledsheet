@@ -50,7 +50,7 @@ class RunsController < ApplicationController
     end
 
     def load_entry_and_timesheet
-      @entry = Entry.find(params[:entry_id])
+      @entry = Entry.includes(:timesheet).find(params[:entry_id])
       @timesheet = @entry.timesheet
     end
 
@@ -59,7 +59,7 @@ class RunsController < ApplicationController
     end
 
     def correct_user
-      @user = @run.entry.timesheet.user
+      @user = @timesheet.user
       redirect_to(root_url) unless current_user?(@user)
     end
 end
