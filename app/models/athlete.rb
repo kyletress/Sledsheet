@@ -137,7 +137,7 @@ class Athlete < ActiveRecord::Base
   query =  "select circuit, count(circuit) from (
       select finalranks.name, rank, circuits.nickname as circuit from (
         select *, rank() over (partition by timesheet_id order by runs_count desc, total_time asc) from (
-          select entries.id, entries.athlete_id, entries.timesheet_id, entries.runs_count, timesheets.name, timesheets.id, timesheets.circuit_id, sum(runs.finish) as total_time from entries inner join timesheets on entries.timesheet_id = timesheets.id left join runs on entries.id = runs.entry_id where (timesheets.race = true and timesheets.visibility = 1) group by entries.id, timesheets.name, timesheets.id order by timesheets.name
+          select entries.id, entries.athlete_id, entries.timesheet_id, entries.runs_count, timesheets.name, timesheets.id, timesheets.circuit_id, sum(runs.finish) as total_time from entries inner join timesheets on entries.timesheet_id = timesheets.id left join runs on entries.id = runs.entry_id where (timesheets.race = true and timesheets.type = 'PublicTimesheet') group by entries.id, timesheets.name, timesheets.id order by timesheets.name
         ) as initialranks
       ) as finalranks inner join circuits on finalranks.circuit_id = circuits.id where finalranks.athlete_id = 5 and finalranks.rank <= 3
     ) as medalcount group by circuit order by count desc;"
@@ -179,7 +179,7 @@ class Athlete < ActiveRecord::Base
     from (
     select athlete_id, athletes.first_name, athletes.last_name, athletes.slug, rank, count(*), circuits.nickname as circuit from (
       select *, rank() over (partition by timesheet_id order by runs_count desc, total_time asc) from (
-        select entries.id, entries.athlete_id, entries.timesheet_id, entries.runs_count, timesheets.name, timesheets.id, timesheets.circuit_id, sum(runs.finish) as total_time from entries inner join timesheets on entries.timesheet_id = timesheets.id left join runs on entries.id = runs.entry_id where (timesheets.race = true and timesheets.visibility = 1) group by entries.id, timesheets.name, timesheets.id order by timesheets.name
+        select entries.id, entries.athlete_id, entries.timesheet_id, entries.runs_count, timesheets.name, timesheets.id, timesheets.circuit_id, sum(runs.finish) as total_time from entries inner join timesheets on entries.timesheet_id = timesheets.id left join runs on entries.id = runs.entry_id where (timesheets.race = true and timesheets.type = 'PublicTimesheet') group by entries.id, timesheets.name, timesheets.id order by timesheets.name
       ) as initialranks
     ) as finalranks inner join athletes on finalranks.athlete_id = athletes.id inner join circuits on finalranks.circuit_id = circuits.id where finalranks.rank <= 3  group by athlete_id, athletes.first_name, athletes.last_name, athletes.slug, rank, circuits.nickname order by athlete_id, circuit, rank asc
     ) as test group by athlete_id, first_name, last_name, slug order by TOTAL_MEDALS desc;"])

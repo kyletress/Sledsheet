@@ -1,11 +1,10 @@
 class TimesheetsController < ApplicationController
   before_action :logged_in_user, except: [:index, :show]
-  before_action :correct_user, if: :personal_timesheet?, only: [:update, :edit, :destroy, :show]
-
-
+  before_action :load_timesheet, only: [:copy,:show,:edit,:update,:destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :allowed_user, only: [:show]
   before_action :set_track_time_zone, only: [:create, :update]
   before_action :set_track_time_zone_edit, only: [:edit]
-  before_action :load_timesheet, only: [:copy,:show,:edit,:update,:destroy]
 
   def index
     @timesheets = PublicTimesheet.all.includes(:season, :track).filter(filtering_params).page params[:page]
@@ -36,7 +35,6 @@ class TimesheetsController < ApplicationController
 
   def edit
     @genders = Timesheet.genders
-    @visibilities = Timesheet.visibilities
   end
 
   def update
@@ -54,7 +52,6 @@ class TimesheetsController < ApplicationController
 
   def create
     @timesheet = current_user.private_timesheets.build(timesheet_params)
-
     if @timesheet.save
       # Notification.create(recipient: current_user, actor: current_user, action: "posted", notifiable: @timesheet)
       if params[:tweet].present?
@@ -75,7 +72,6 @@ class TimesheetsController < ApplicationController
 
   def copy
     @genders = Timesheet.genders
-    @visibilities = Timesheet.visibilities
     @timesheet = Timesheet.new(@timesheet.attributes)
     render :new
   end
@@ -94,12 +90,12 @@ class TimesheetsController < ApplicationController
     end
 
     def correct_user
-      if current_user
-        unless @timesheet.user == current_user || current_user.admin?
-          redirect_to timesheets_path, notice: "Sorry, that timesheet doesn't exist"
-        end
-      else
-        redirect_to timesheets_path, notice: "That timesheet doesn't exist"
+      redirect_to timesheets_url unless @timesheet.editable?(current_user)
+    end
+
+    def allowed_user
+      if @timesheet.personal?
+        redirect_to timesheets_url unless current_user && @timesheet.visible?(current_user)        
       end
     end
 
@@ -112,16 +108,6 @@ class TimesheetsController < ApplicationController
 
     def set_track_time_zone_edit
       Time.zone = @timesheet.track.time_zone
-    end
-
-    def personal_timesheet?
-      @timesheet = Timesheet.friendly.find(params[:id])
-      @timesheet.personal?
-    end
-
-    def general_timesheet?
-      @timesheet = Timesheet.friendly.find(params[:id])
-      @timesheet.general?
     end
 
     def award_points

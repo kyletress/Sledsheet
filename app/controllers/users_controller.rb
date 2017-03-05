@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @timesheets = @user.private_timesheets.includes(:track).personal
+    @timesheets = @user.private_timesheets.includes(:track)
   end
 
   def create

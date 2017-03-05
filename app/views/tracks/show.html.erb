@@ -8,17 +8,19 @@
     </header>
 </section>
 
-<div class="container">
-  <div class="weather">
-    <% @five_day_forecast.each do |day| %>
-      <div class="day">
-        <h3><%= Time.at(day.time).strftime('%A') %></h3>
-        <%= image_tag "#{day.icon}.svg", width: '50'%>
-        <p>High: <%= day.apparentTemperatureMax.to_i %> | Low: <%= day.apparentTemperatureMin.to_i %></p>
-        <p><%= day.summary %></p>
-      </div>
-    <% end %>
-  </div>
+<% if @five_day_forecast %>
+  <div class="container">
+    <div class="weather">
+      <% @five_day_forecast.each do |day| %>
+        <div class="day">
+          <h3><%= Time.at(day.time).strftime('%A') %></h3>
+          <%= image_tag "#{day.icon}.svg", width: '50'%>
+          <p>High: <%= day.apparentTemperatureMax.to_i %> | Low: <%= day.apparentTemperatureMin.to_i %></p>
+          <p><%= day.summary %></p>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 
   <table class="track-record-table table table-bordered">
     <tr>
@@ -61,7 +63,7 @@
       <th>Entries</th>
       <th>Best Finish</th>
     </tr>
-    <% @track.timesheets.general.each do |timesheet| %>
+    <% @track.public_timesheets.each do |timesheet| %>
     <tr>
       <td><%= timesheet.nice_date %></td>
       <td><%= link_to timesheet.name, timesheet %></td>

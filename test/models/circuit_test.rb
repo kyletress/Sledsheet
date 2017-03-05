@@ -4,6 +4,7 @@ class CircuitTest < ActiveSupport::TestCase
 
   def setup
     @circuit = circuits(:worldcup)
+    @season = seasons(:season1516)
   end
 
   test "should be valid" do
@@ -16,7 +17,8 @@ class CircuitTest < ActiveSupport::TestCase
   end
 
   test "current rankings method should return correct ranks" do
-    points = @circuit.current_rankings(0) # men's rankings
+    points = Point.circuit_points(@season, @circuit, 0)
+    # points = @circuit.current_rankings(0) # men's rankings
     assert_equal 1, points.first.rank
     assert_equal 2, points.second.rank
     assert_equal athletes(:kyle), points.first.athlete
@@ -24,12 +26,13 @@ class CircuitTest < ActiveSupport::TestCase
   end
 
   test "current rankings method should return correct point totals" do
-    points = @circuit.current_rankings(0) # men's rankings
+    # points = @circuit.current_rankings(0) # men's rankings
+    points = Point.circuit_points(@season, @circuit, 0)
     assert_equal 450, points.first.total_points
     assert_equal 420, points.second.total_points
   end
 
   test "ties should be correctly reflected in circuit rankings" do
-    # todo 
+    # todo
   end
 end

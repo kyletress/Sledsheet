@@ -19,7 +19,7 @@ class TimesheetsControllerTest < ActionController::TestCase
     assert_response :success
     assert_select "title", "Sledsheet | Timesheets"
     assert_not_nil assigns(:timesheets)
-    PublicTimesheet.each do |timesheet|
+    PublicTimesheet.all.each do |timesheet|
       assert_select 'a[href=?]', timesheet_path(timesheet), text: timesheet.name
     end
   end
@@ -71,7 +71,6 @@ class TimesheetsControllerTest < ActionController::TestCase
       post :create, params: { timesheet: {track_id: @track.id, circuit_id: @circuit.id, race: false, date: Date.today} }
     end
     assert assigns(:timesheet).user == @user
-    assert assigns(:timesheet).visibility == "personal"
     assert_redirected_to timesheet_path(assigns(:timesheet))
   end
 
@@ -112,7 +111,7 @@ class TimesheetsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:timesheet)
   end
 
-  # # Incorrect user
+  # Incorrect user
 
   test "incorrect user should not see another user's personal timesheet" do
     log_in_as @user2
@@ -175,13 +174,13 @@ class TimesheetsControllerTest < ActionController::TestCase
   test "regular user should not edit general timesheet" do
     log_in_as @user
     get :edit, params: { id: @timesheet }
-    assert_redirected_to root_path
+    assert_redirected_to timesheets_path
   end
 
   test "regular user should not update general timesheet" do
     log_in_as @user
     patch :update, params: { id: @timesheet, timesheet: {race: true} }
-    assert_redirected_to root_path
+    assert_redirected_to timesheets_path
   end
 
   test "regular user should not destroy general timesheet" do
@@ -189,7 +188,7 @@ class TimesheetsControllerTest < ActionController::TestCase
     assert_no_difference('Timesheet.count') do
       delete :destroy, params: { id: @timesheet }
     end
-    assert_redirected_to root_path
+    assert_redirected_to timesheets_path
   end
 
 end

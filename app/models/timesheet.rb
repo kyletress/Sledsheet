@@ -31,8 +31,6 @@ class Timesheet < ActiveRecord::Base
 
   enum gender: {men: 0, women: 1, mixed: 2}
   enum status: {open: 0, complete: 1} # live
-  # only admins can add public timesheets
-  enum visibility: {personal: 0, general: 1} # draft, hidden?
 
   mount_uploader :pdf, PdfUploader
 
@@ -47,18 +45,25 @@ class Timesheet < ActiveRecord::Base
   scope :gender, -> (gender) { where gender: gender }
   scope :season, -> (season_id) { where season_id: season_id }
 
-  # for STI to work with link_to and form_for
-  # def self.inherited(child)
-  #   child.instance_eval do
-  #     def model_name
-  #       Timesheet.model_name
-  #     end
-  #   end
-  #   super
-  # end
+  def self.inherited(child)
+    child.instance_eval do
+      def model_name
+        Timesheet.model_name
+      end
+    end
+    super
+  end
 
   def editable?(user)
     false unless user.admin?
+  end
+
+  def personal?
+    self.type == "PrivateTimesheet"
+  end
+
+  def general?
+    !personal?
   end
 
   def ranked_entries
@@ -139,8 +144,6 @@ class Timesheet < ActiveRecord::Base
 
     def name_timesheet
       self.name = "#{track.name} #{circuit.name} #{if race then 'Race' else 'Training' end} #{season_name} #{gender.capitalize}" if track && circuit
-      # add an attribute below for this
-      # self.nickname = "#{track.name} #{circuit.nickname} #{if race then 'Race' end} #{season.short_name}" if track && circuit
     end
 
     def assign_season

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170304224257) do
+ActiveRecord::Schema.define(version: 20170305002729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -206,7 +206,6 @@ ActiveRecord::Schema.define(version: 20170304224257) do
     t.integer  "gender",                 default: 0
     t.boolean  "complete",               default: false
     t.integer  "status",                 default: 0
-    t.integer  "visibility",             default: 0
     t.integer  "user_id"
     t.jsonb    "weather"
     t.string   "slug"
