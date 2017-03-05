@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170223021050) do
+ActiveRecord::Schema.define(version: 20170304224257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,8 +83,8 @@ ActiveRecord::Schema.define(version: 20170223021050) do
   end
 
   create_table "memberships", force: :cascade do |t|
-    t.integer  "user_id"
     t.integer  "team_id"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -186,8 +186,10 @@ ActiveRecord::Schema.define(version: 20170223021050) do
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
+    t.integer  "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "team_code"
   end
 
   create_table "timesheets", force: :cascade do |t|
@@ -204,11 +206,12 @@ ActiveRecord::Schema.define(version: 20170223021050) do
     t.integer  "gender",                 default: 0
     t.boolean  "complete",               default: false
     t.integer  "status",                 default: 0
-    t.integer  "visibility",             default: 0
     t.integer  "user_id"
     t.jsonb    "weather"
     t.string   "slug"
     t.integer  "event_id"
+    t.string   "type"
+    t.integer  "visibility"
     t.index ["circuit_id"], name: "index_timesheets_on_circuit_id", using: :btree
     t.index ["event_id"], name: "index_timesheets_on_event_id", using: :btree
     t.index ["season_id"], name: "index_timesheets_on_season_id", using: :btree

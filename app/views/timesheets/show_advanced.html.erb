@@ -46,6 +46,8 @@
             <li role="presentation"><%= link_to 'Edit Timesheet', edit_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
             <li role="presentation"><%= link_to 'Copy Timesheet', copy_timesheet_path(@timesheet), role: 'menuitem', tabindex: -1 %></li>
             <li role="presentation"><%= link_to "Delete timesheet", @timesheet, method: :delete, data: { confirm: "You sure?" }, role: 'menuitem', tabindex: -1 %></li>
+
+
           <% end %>
         </ul>
       </div>
@@ -59,36 +61,23 @@
   </div>
 </section>
 
-
-
-<% if @timesheet.entries.blank? %>
-
-  <p><%= link_to 'Add', timesheet_entries_path(@timesheet) %> or <%= link_to 'import', timesheet_import_path(@timesheet) %> entries.</p>
-  <h4>Import from IBSF.org</h4>
-  <%= form_tag import_timesheet_path do %>
-    <%= text_field_tag :url %>
-    <%= submit_tag "Import" %>
-  <% end %>
-
-<% else %>
-
 <div class="container">
-
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="splits">
-      <%= render 'splits' %>
-    </div>
-    <div role="tabpanel" class="tab-pane" id="intermediates">
-      <%= render 'intermediates' %>
-    </div>
-    <div role="tabpanel" class="tab-pane" id="differences">
-      <%= render 'differences' %>
-    </div>
-    <div role="tabpanel" class="tab-pane" id="graphs">
-      <%= render 'graphs' %>
+  <% if @timesheet.entries.blank? %>
+    <p><%= link_to 'Add athletes to the start list', timesheet_entries_path(@timesheet) %></p>
+  <% else %>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="splits">
+        <%= render 'splits' %>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="intermediates">
+        <%= render 'intermediates' %>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="differences">
+        <%= render 'differences' %>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="graphs">
+        <%= render 'graphs' %>
+      </div>
     </div>
   </div>
-</div>
-
-
 <% end %>

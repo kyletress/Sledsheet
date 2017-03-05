@@ -12,7 +12,7 @@
           </tr>
           <% timesheets.each do |timesheet| %>
             <tr>
-              <td class="timesheet-name"><%= fa_icon 'file-text-o' %> <%= link_to timesheet.name, timesheet %>
+              <td class="timesheet-name"><%= fa_icon 'file-text-o' %> <%= link_to timesheet.name, timesheet_path(timesheet) %>
                 <% if timesheet.pdf.present? %>
                   <%= link_to timesheet.pdf_url, class: "btn btn-default btn-xs" do %>
                     <i class="glyphicon glyphicon-file"></i> PDF
@@ -35,9 +35,6 @@
           <%= link_to new_timesheet_path, class: 'btn btn-success' do %>
             <span class="glyphicon glyphicon-plus"></span> New Timesheet
           <% end %>
-      </p>
-      <p>
-        <%= link_to 'Import from IBSF', timesheet_import_path, class: 'btn btn-primary' %>
       </p>
       <strong>Filter</strong>
       <%= render 'filter' %>

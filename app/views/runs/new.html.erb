@@ -1,2 +1,7 @@
 <% provide(:title, "New Run") %>
-<%= render 'form' %>
+<div class="container">
+  <h2>New Run</h2>
+  <p>for <%= @entry.athlete.name %></p>
+  <%= render 'form' %>
+  <%= link_to 'Back to timesheet', @timesheet %>
+</div>

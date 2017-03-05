@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   resources :seasons, only: [:index, :show]
 
   resources :timesheets do
-    post 'import', on: :member
     get 'copy', on: :member
 
     resources :entries, shallow: true do
@@ -42,9 +41,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'import', to: 'timesheet_imports#new', as: 'timesheet_import'
-  post 'import', to: 'timesheet_imports#create'
-
   get 'search', to: 'search#index'
   get '/rankings/', to: 'seasons#rankings', as: 'rankings'
 
@@ -56,6 +52,9 @@ Rails.application.routes.draw do
     resources :runs, only: :index
     resources :invitations
     resources :articles, only: [:index, :destroy]
+    resources :timesheets
+    get 'import', to: 'timesheet_imports#new', as: 'timesheet_import'
+    post 'import', to: 'timesheet_imports#create'
   end
 
   namespace :api do # , defaults: { format: :json }

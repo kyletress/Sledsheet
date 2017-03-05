@@ -1,0 +1,12 @@
+<% provide(:title, "Timesheets") %>
+
+<div class="container">
+  <h2 class="page-header">Admin Timesheets</h2>
+  <p>Eventually this will show recently imported timesheets, races without points, etc.</p>
+    <div class="col-sm-4">
+        <%= link_to new_admin_timesheet_path, class: 'btn btn-success' do %>
+          <span class="glyphicon glyphicon-plus"></span> New Timesheet
+        <% end %>
+        <%= link_to 'Import from IBSF', admin_timesheet_import_path, class: 'btn btn-primary' %>
+  </div>
+</div>

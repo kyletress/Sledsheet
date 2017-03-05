@@ -76,7 +76,7 @@ end
 if Timesheet.count == 0
   track = Track.find_by(name: 'Lake Placid')
   circuit = Circuit.find_by(name: 'World Cup')
-  timesheet = Timesheet.create(track: track, circuit: circuit, date: DateTime.now, gender: 0, race: true, complete: true, status: 1, visibility: 1, user: User.first)
+  timesheet = Timesheet.create(track: track, circuit: circuit, date: DateTime.now, gender: 0, race: true, complete: true, status: 1, user: User.first, type: 'PublicTimesheet')
 end
 
 kyle = Athlete.find_by(last_name: "Tress")

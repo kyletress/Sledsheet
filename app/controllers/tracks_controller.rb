@@ -10,6 +10,6 @@ class TracksController < ApplicationController
     @sr_women = @track.start_record_women
     @tr_men = @track.track_record_men
     @tr_women = @track.track_record_women
-    @five_day_forecast = @track.weather_forecast.daily.data.first(5)
+    @five_day_forecast = @track.try(:weather_forecast).try(:daily).try(:data).try(:first, 5)
   end
 end

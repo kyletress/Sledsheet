@@ -27,16 +27,19 @@ class TimesheetTest < ActiveSupport::TestCase
 
   test "track id should be present" do
     @timesheet.track_id = nil
+    @timesheet.slug = "test-without-track" # necessary for passing validation
     assert_not @timesheet.valid?
   end
 
   test "circuit id should be present" do
     @timesheet.circuit_id = nil
+    @timesheet.slug = "test-without-circuit"
     assert_not @timesheet.valid?
   end
 
   test "date should be present" do
     @timesheet.date = nil
+    @timesheet.slug = "test-without-date"
     assert_not @timesheet.valid?
   end
 
@@ -74,7 +77,7 @@ class TimesheetTest < ActiveSupport::TestCase
   end
 
   test "it gives the correct formatting for pdf titles" do
-    assert @timesheet.pdf_name == "2014-10-30-igls-world-cup-training"
+    assert @timesheet.pdf_name == "2014-10-30-igls-world-cup-training-men"
   end
 
   test "it should return the correct best run" do

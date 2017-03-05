@@ -47,6 +47,26 @@ class Timesheet < ActiveRecord::Base
   scope :gender, -> (gender) { where gender: gender }
   scope :season, -> (season_id) { where season_id: season_id }
 
+  def self.inherited(child)
+    child.instance_eval do
+      def model_name
+        Timesheet.model_name
+      end
+    end
+    super
+  end
+
+  def editable?(user)
+    false unless user.admin?
+  end
+
+  def personal?
+    self.type == "PrivateTimesheet"
+  end
+
+  def general?
+    !personal?
+  end
 
   def ranked_entries
 
@@ -126,8 +146,6 @@ class Timesheet < ActiveRecord::Base
 
     def name_timesheet
       self.name = "#{track.name} #{circuit.name} #{if race then 'Race' else 'Training' end} #{season_name} #{gender.capitalize}" if track && circuit
-      # add an attribute below for this
-      # self.nickname = "#{track.name} #{circuit.nickname} #{if race then 'Race' end} #{season.short_name}" if track && circuit
     end
 
     def assign_season

@@ -1,14 +1,13 @@
 class TimesheetsController < ApplicationController
   before_action :logged_in_user, except: [:index, :show]
-  before_action :correct_user, if: :personal_timesheet?, only: [:update, :edit, :destroy, :show]
-  before_action :admin_user, if: :general_timesheet?, only: [:update, :edit, :destroy]
-
+  before_action :load_timesheet, only: [:copy,:show,:edit,:update,:destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :allowed_user, only: [:show]
   before_action :set_track_time_zone, only: [:create, :update]
   before_action :set_track_time_zone_edit, only: [:edit]
-  before_action :load_timesheet, only: [:copy,:show,:edit,:update,:destroy]
 
   def index
-    @timesheets = Timesheet.general.includes(:season, :track).filter(filtering_params).page params[:page]
+    @timesheets = PublicTimesheet.all.includes(:season, :track).filter(filtering_params).page params[:page]
   end
 
   def new
@@ -36,7 +35,6 @@ class TimesheetsController < ApplicationController
 
   def edit
     @genders = Timesheet.genders
-    @visibilities = Timesheet.visibilities
   end
 
   def update
@@ -46,15 +44,14 @@ class TimesheetsController < ApplicationController
       end
       award_points
       flash[:success] = "Timesheet updated."
-      redirect_to @timesheet
+      redirect_to timesheet_path(@timesheet) # error here.
     else
       render 'edit'
     end
   end
 
   def create
-    @timesheet = current_user.timesheets.build(timesheet_params)
-
+    @timesheet = current_user.private_timesheets.build(timesheet_params)
     if @timesheet.save
       # Notification.create(recipient: current_user, actor: current_user, action: "posted", notifiable: @timesheet)
       if params[:tweet].present?
@@ -75,77 +72,8 @@ class TimesheetsController < ApplicationController
 
   def copy
     @genders = Timesheet.genders
-    @visibilities = Timesheet.visibilities
     @timesheet = Timesheet.new(@timesheet.attributes)
     render :new
-  end
-
-  def import
-    require 'nokogiri'
-    require 'open-uri'
-    def time_to_integer(time_str)
-      if /[:]/ =~ time_str
-        minutes, seconds, centiseconds = time_str.split(/[:.]/).map{|str| str.to_i}
-        (minutes * 60 + seconds) * 100 + centiseconds
-      else
-        time_str.delete('.').to_i
-      end
-    rescue
-      99999 # make it absurdly high to prevent ranking errors
-    end
-    @timesheet = Timesheet.friendly.find(params[:id])
-    url = params[:url]
-    page = Nokogiri::HTML(open(url))
-    page.css(".table")
-    trs = page.css('.crew, .run').to_a
-    entries = trs.slice_before{ |elm| elm.attr('class') =='crew' }.to_a
-
-    entries.map! do |entry|
-      {
-        name: entry.at(0).css("td.visible-xs div.fl.athletes a").text.strip,
-        country: entry.at(0).css("div.fl.athletes img.country-flag").attr('alt').text,
-        runs: entry.select{ |tr| tr.attr('class') == 'run' }.map do |run|
-          {
-            start: run.css('td')[1].text.strip,
-            split2: run.css('td')[2].text.strip,
-            split3: run.css('td')[3].text.strip,
-            split4: run.css('td')[4].text.strip,
-            split5: run.css('td')[5].text.strip,
-            finish: run.css('td')[6].text[/([0-1]:[0-5][0-9].[0-9][0-9])|[0-5][0-9].[0-9][0-9]/]
-          }
-        end
-      }
-    end
-
-    entries.each do |entry|
-
-      @entry = @timesheet.entries.build(
-        athlete: Athlete.find_or_create_by_timesheet_name(entry[:name], entry[:country], Timesheet.genders[@timesheet.gender])
-      )
-      @entry.save
-      if @entry.errors.any?
-        @entry.errors.full_messages.each do |e|
-          puts e
-        end
-      end
-      entry[:runs].each do |run|
-        @run = @entry.runs.build(
-          :start => time_to_integer(run[:start]),
-          :split2 => time_to_integer(run[:split2]),
-          :split3 => time_to_integer(run[:split3]),
-          :split4 => time_to_integer(run[:split4]),
-          :split5 => time_to_integer(run[:split5]),
-          :finish => time_to_integer(run[:finish])
-        )
-        @run.save
-        if @run.errors.any?
-        @run.errors.full_messages.each do |e|
-          puts e
-        end
-      end
-      end
-    end
-    redirect_to @timesheet
   end
 
   def chart
@@ -162,12 +90,12 @@ class TimesheetsController < ApplicationController
     end
 
     def correct_user
-      if current_user
-        unless @timesheet.user == current_user || current_user.admin?
-          redirect_to timesheets_path, notice: "Sorry, that timesheet doesn't exist"
-        end
-      else
-        redirect_to timesheets_path, notice: "That timesheet doesn't exist"
+      redirect_to timesheets_url unless @timesheet.editable?(current_user)
+    end
+
+    def allowed_user
+      if @timesheet.personal?
+        redirect_to timesheets_url unless current_user && @timesheet.visible?(current_user)        
       end
     end
 
@@ -180,16 +108,6 @@ class TimesheetsController < ApplicationController
 
     def set_track_time_zone_edit
       Time.zone = @timesheet.track.time_zone
-    end
-
-    def personal_timesheet?
-      @timesheet = Timesheet.friendly.find(params[:id])
-      @timesheet.personal?
-    end
-
-    def general_timesheet?
-      @timesheet = Timesheet.friendly.find(params[:id])
-      @timesheet.general?
     end
 
     def award_points

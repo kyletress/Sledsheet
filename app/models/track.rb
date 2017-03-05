@@ -6,6 +6,7 @@ class Track < ActiveRecord::Base
 
   has_many :timesheets
   has_many :runs, through: :timesheets
+  has_many :public_timesheets
   validates :name, presence: true
   default_scope -> { order('name ASC')}
 

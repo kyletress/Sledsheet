@@ -100,10 +100,17 @@ class AthleteTest < ActiveSupport::TestCase
   end
 
   test "should correctly calcuate season positions and points" do
-    positions = @athlete.season_positions(seasons(:season))
+    positions = @athlete.season_positions(seasons(:season1516))
     assert_equal 2, positions.count
     assert_equal 1, positions.first.rank
     assert_equal 225, positions.first.value
+  end
+
+  test "parse name should return a correctly formatted name" do
+    name = "TRESS John Kyle"
+    full_name = Athlete.parse_name(name)
+    assert_equal "John Kyle", full_name.first
+    assert_equal "Tress", full_name.second
   end
 
 end

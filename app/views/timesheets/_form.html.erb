@@ -1,16 +1,10 @@
-    <%= form_for @timesheet do |f| %>
+    <%= form_for @timesheet.becomes(Timesheet) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
     	<div class="control-group">
     		<%= f.label :nickname, 'Nickname (optional)' %>
     		<%= f.text_field :nickname, class: 'form-control' %>
         <span id="helpBlock" class="help-block">Example: European Championships or Randy Price Memorial Race</span>
     	</div>
-
-      <% if current_user.admin? %>
-        <div class="form-group">
-          <%= f.select :visibility, options_for_select(Timesheet.visibilities.keys), {}, class: "form-control" %>
-        </div>
-      <% end %>
 
       <div class="row">
         <div class="col-xs-4">
@@ -73,22 +67,6 @@
       </div>
 
       <% end %>
-
-      <div class="form-group">
-        <div class="controls">
-          <label>
-            <%= check_box_tag :tweet %>
-            tweet this timesheet
-          </label>
-        </div>
-      </div>
-
-
-      <div class="form-group">
-        <%= f.label :status %><br>
-        <%= f.select :status, Timesheet.statuses.keys %>
-      </div>
-
 
       <%= f.submit ( f.object.new_record? ? "Create" : "Update"), class: "btn btn-lg btn-primary" %>
 
