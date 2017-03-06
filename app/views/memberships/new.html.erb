@@ -2,6 +2,9 @@
   <h2>Invite teammates</h2>
   <%= form_tag batch_invite_team_memberships_path do |f| %>
     <%= text_area_tag :invited_participants, nil, class: 'form-control' %>
+    <p class="form-text text-muted">
+      Enter email addresses, seperated by commas, to invite new members to your team. If they are already registered, they will be added automatically. Otherwise they will recieve an email to join. You can also share the following team code to allow people to join: <strong><%= @team.team_code %></strong>
+    </p>
     <%= submit_tag 'Invite', class: 'btn btn-primary' %>
   <% end %>
 </div>

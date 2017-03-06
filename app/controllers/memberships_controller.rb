@@ -1,6 +1,20 @@
 class MembershipsController < ApplicationController
+  before_action :logged_in_user
+  before_action :team_member, only: [:index, :new]
+  before_action :team_owner, only: [:new, :batch_invite]
+
+  def index
+    @team = Team.includes(memberships:[:user]).find(params[:team_id])
+    @memberships = @team.memberships
+  end
+
   def new
     @team = Team.find(params[:team_id])
+  end
+
+  def edit
+    @team = Team.find(params[:team_id])
+    @membership = Membership.find(params[:id])
   end
 
   def create
@@ -15,7 +29,7 @@ class MembershipsController < ApplicationController
         membership = @team.memberships.build(user: user)
         membership.save
       else
-        # send an email invitation. 
+        # send an email invitation.
       end
     end
     redirect_to @team
@@ -39,5 +53,15 @@ class MembershipsController < ApplicationController
 
     def check_user_existance(user_email)
       user = User.find_by(email: user_email)
+    end
+
+    def team_owner
+      @team = Team.find(params[:team_id])
+      redirect_to team_path(@team) unless current_user == @team.owner
+    end
+
+    def team_member
+      @team = Team.find(params[:team_id])
+      redirect_to teams_path unless @team.users.include?(current_user)
     end
 end

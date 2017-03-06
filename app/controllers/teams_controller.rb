@@ -20,7 +20,7 @@ class TeamsController < ApplicationController
   end
 
   def edit
-    @team = Team.includes(memberships: [:user]).find(params[:id])
+    @team = Team.find(params[:id])
   end
 
   def create
@@ -54,7 +54,7 @@ class TeamsController < ApplicationController
       membership = @team.memberships.build(user: current_user)
       membership.save
       Notification.create(recipient: @team.owner, actor: current_user, action: "joined", notifiable: @team)
-      redirect_to team_path(@team), success: "You joined the team bruh"
+      redirect_to team_path(@team), success: "You joined the team"
     else
       flash[:notice] = "Sorry, that team doesn't exist"
       redirect_to teams_path

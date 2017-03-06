@@ -1,0 +1,12 @@
+<div class="container">
+  <h2>Team Members</h2>
+  <%= link_to 'Back to team', team_path(@team) %>
+  <table class="table table-bordered">
+    <% @memberships.each do |membership| %>
+      <tr>
+        <td><%= membership.user.name %></td>
+        <td><%= link_to 'edit', edit_team_membership_path(@team, membership) %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

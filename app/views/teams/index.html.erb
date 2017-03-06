@@ -1,28 +1,40 @@
+<% provide(:title, "Teams") %>
+
 <div class="container">
-  <h2>Your teams</h2>
-  <p>Join a team: enter the unique code to join</p>
+  <div class="row">
+    <div class="col-sm-9">
+      <h2>Recent Activity</h2>
 
-  <%= form_tag join_teams_path, method: :get do %>
-    <%= text_field_tag :team_code %>
-    <%= submit_tag 'Join' %>
-  <% end %>
+      <% # render 'activity' %>
 
-  <%= link_to 'Create a new team', new_team_path %>
+    </div>
+    <div class="col-sm-3">
+      <h4>Your teams</h4>
+      <div class="well">
+        <p>Join a team: enter the unique code to join</p>
 
-  <p>This is essentially going to be an activity feed. Comments, new timesheets, notes, etc. Share documents. More.</p>
+        <%= form_tag join_teams_path, method: :get do %>
+        <div class="form-group team_code_form">
+          <%= text_field_tag :team_code, nil, class: 'form-control' %>
+          <%= submit_tag 'Join' %>
+        </div>
+        <% end %>
+        <p>or <%= link_to 'Create a new team', new_team_path %></p>
 
-  <table class="table table-bordered">
-    <% @memberships.each do |membership| %>
-      <tr>
-        <td><%= link_to membership.team.name, membership.team %></td>
-        <td>
-          <% unless current_user == membership.team.owner %>
-            <%= link_to 'leave this team', team_membership_path(membership.team, membership), method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-xs' %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+      </div>
+
+      <table class="table">
+        <% @memberships.each do |membership| %>
+          <tr>
+            <td><%= link_to membership.team.name, membership.team %></td>
+            <td>
+              <% unless current_user == membership.team.owner %>
+                <%= link_to 'leave this team', team_membership_path(membership.team, membership), method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-xs' %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
 </div>
-
-<%= console %>
