@@ -23,13 +23,14 @@ class MembershipsController < ApplicationController
   def batch_invite
     @team = Team.find(params[:team_id])
     users = params[:invited_participants].split(/,\s*/)
+    # do validation
     users.each do |user_email|
       user = check_user_existance(user_email)
       if user
         membership = @team.memberships.build(user: user)
         membership.save
       else
-        # send an email invitation.
+        invite_user_to_team(user_email)
       end
     end
     redirect_to @team
@@ -63,5 +64,14 @@ class MembershipsController < ApplicationController
     def team_member
       @team = Team.find(params[:team_id])
       redirect_to teams_path unless @team.users.include?(current_user)
+    end
+
+    def invite_user_to_team(user_email)
+      @invitation = Invitation.new(recipient_email: user_email, sender: current_user, status: "pending")
+      if @invitation.save
+        InvitationMailer.invitation(@invitation).deliver_later
+      else
+        # let current user know. Should this be wrapped in a transaction?
+      end
     end
 end
