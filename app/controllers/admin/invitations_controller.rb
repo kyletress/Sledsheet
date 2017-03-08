@@ -13,7 +13,7 @@ class Admin::InvitationsController < AdminController
     @invitation.sender = current_user
     @invitation.status = "pending"
     if @invitation.save
-      UserMailer.invitation(@invitation).deliver_later
+      InvitationMailer.invitation(@invitation).deliver_later
       flash[:success] = "Invitation sent."
       redirect_to admin_invitations_path
     else
@@ -28,7 +28,7 @@ class Admin::InvitationsController < AdminController
     @invitation.sender = current_user
     @invitation.status = "pending"
     if @invitation.save
-      UserMailer.invitation(@invitation).deliver_later
+      InvitationMailer.invitation(@invitation).deliver_later
       flash[:success] = "Invitation sent."
       redirect_to admin_invitations_path
     else

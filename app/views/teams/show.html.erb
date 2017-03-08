@@ -1,0 +1,21 @@
+<% provide(:title, @team.name) %>
+<div class="container">
+  <h2><%= @team.name %></h2>
+  <p><strong>Team owner:</strong> <%= @team.owner.name %></p>
+
+  <% if @team.owner == current_user %>
+    <%= link_to edit_team_path(@team), class: 'btn btn-default btn-xs' do %>
+      <%= fa_icon 'cog', text: 'Settings' %>
+    <% end %>
+    <%= link_to new_team_membership_path(@team), class: 'btn btn-default btn-xs' do %>
+      <%= fa_icon 'envelope', text: 'Invite members' %>
+    <% end %>
+  <% end %>
+  <%= link_to team_memberships_path(@team), class: 'btn btn-default btn-xs' do %>
+    <%= fa_icon 'group', text: 'Team Directory' %>
+  <% end %>
+  <% unless @team.owner == current_user %>
+    <%= link_to "Edit my membership", edit_team_membership_path(@team, current_user.memberships.where(team: @team).first), class: 'btn btn-default btn-xs' %>
+  <% end %>
+
+</div>

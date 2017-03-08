@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+kyle_team_one:
+  team: one
+  user: kyle
+
+morgan_team_one:
+  team: one
+  user: morgan
+
+gail_team_one:
+  team: one
+  user: gail 
+
+kyle_team_two:
+  team: two
+  user: kyle
+
+matt_team_two:
+  team: two
+  user: matt

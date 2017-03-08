@@ -17,6 +17,9 @@ class User < ActiveRecord::Base
   has_many :private_timesheets
   has_one :athlete
   has_many :notifications, foreign_key: :recipient_id
+  has_many :memberships, dependent: :destroy 
+  has_many :teams, through: :memberships
+  has_many :managed_teams, foreign_key: 'owner_id', class_name: 'Team'
 
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost

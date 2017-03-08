@@ -182,7 +182,7 @@ class Athlete < ActiveRecord::Base
   private
 
     def create_google_alert
-      return if ENV['REVIEW_ENVIRONMENT'] == 'true'
+      return if ENV['REVIEW_ENVIRONMENT'] == 'true' || Rails.env.test? || Rails.env.development? 
       CreateGoogleAlertJob.perform_later(self)
     end
 

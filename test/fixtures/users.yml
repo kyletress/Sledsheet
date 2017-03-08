@@ -22,3 +22,19 @@ morgan:
   admin: false
   activated: true
   activated_at: <%= Time.zone.now %>
+
+gail:
+  name: Gail Tress
+  email: gailtress@gmail.com
+  password_digest: <%= User.digest('password') %>
+  admin: false
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
+bob:
+  name: Bob Nardoni
+  email: bobnardoni@gmail.com
+  password_digest: <%= User.digest('password') %>
+  admin: false
+  activated: true
+  activated_at: <%= Time.zone.now %>
