@@ -46,16 +46,14 @@
             <td class="finish-time">
               <%= display_time run.finish %>
               <span class="position">(<%= @runs.find {|r| r.id == run.id}.finish_rank %>)</span>
-              <% if current_user && current_user.admin? %>
+              <% if current_user && (current_user.admin? || @timesheet.user == current_user) %>
                 <span class="admin-links">
                   <%= link_to edit_run_path(run), class: 'new-run-link' do %>
                     <%= fa_icon 'pencil' %>
                   <% end %>
-                  <% if current_user && current_user.admin? %>
                     <%= link_to run_path(run), method: :delete, class: "new-run-link", data: {confirm: "You sure?"} do %>
                       <%= fa_icon 'trash' %>
                     <% end %>
-                  <% end %>
                 </span>
               <% end %>
             </td>
