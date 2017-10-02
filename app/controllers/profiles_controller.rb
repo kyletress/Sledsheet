@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
 
-  before_filter :load_athlete
-  before_filter :correct_athlete, except: [:show]
+  before_action :load_athlete
+  before_action :correct_athlete, except: [:show]
 
   def new
     @profile = @athlete.build_profile
