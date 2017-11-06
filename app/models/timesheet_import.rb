@@ -28,7 +28,8 @@ class TimesheetImport
   end
 
   def scrape_date
-    date = @page.css('.date').text.strip
+    #date = @page.css('.date').text.strip
+    date = @page.css('.date').attr('data-datetime').value
     DateTime.parse date # needs to respect timezone of track.
   end
 
