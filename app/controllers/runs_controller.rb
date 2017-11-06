@@ -61,13 +61,13 @@ class RunsController < ApplicationController
 
     def correct_user
       @user = @timesheet.user
-      redirect_to(root_url) unless current_user?(@user)
+      redirect_to(root_url) unless current_user?(@user) || current_user.admin?
     end
 
     def allow_edit_or_destroy
       @run = Run.find(params[:id])
       @timesheet = @run.entry.timesheet
       @user = @timesheet.user
-      redirect_to(root_url) unless current_user?(@user)
+      redirect_to(root_url) unless current_user?(@user) || current_user.admin?
     end
 end
