@@ -2,7 +2,13 @@
   <% @ranked.each do |entry| %>
     <tbody>
        <tr class="timesheet-table-header">
-         <td colspan="5"><strong><%= entry.rank %>.</strong> <%= flag_for(entry.athlete) %> <%= entry.athlete.timesheet_country %> <%= link_to entry.athlete.name, entry.athlete, class: 'athlete-name' %>
+         <td colspan="5">
+           <% if entry.ok? %>
+             <strong><%= entry.rank %>.</strong>
+            <% else %>
+              <strong><%= entry.status.upcase %></strong>
+            <% end %>
+           <%= flag_for(entry.athlete) %> <%= entry.athlete.timesheet_country %> <%= link_to entry.athlete.name, entry.athlete, class: 'athlete-name' %>
           <% if current_user && @timesheet.editable?(current_user) %>
             <%= link_to new_entry_run_path(entry), class: 'new-run-link' do %>
              <%= fa_icon 'plus', text: 'Add run' %>
