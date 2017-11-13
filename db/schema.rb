@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170304224257) do
+ActiveRecord::Schema.define(version: 20171113163101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -173,6 +173,7 @@ ActiveRecord::Schema.define(version: 20170304224257) do
     t.jsonb "weather"
     t.string "slug"
     t.string "type"
+    t.string "ibsf_url"
     t.index ["circuit_id"], name: "index_timesheets_on_circuit_id"
     t.index ["season_id"], name: "index_timesheets_on_season_id"
     t.index ["slug"], name: "index_timesheets_on_slug", unique: true

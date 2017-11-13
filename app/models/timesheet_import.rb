@@ -3,11 +3,12 @@ require 'open-uri'
 
 class TimesheetImport
 
-  attr_reader :page
+  attr_reader :page, :ibsf_url
 
   def initialize(url, finish_td)
     @page = open_page(url)
     @finish_td = finish_td
+    @ibsf_url = url
   end
 
   def open_page(url)
@@ -80,7 +81,7 @@ class TimesheetImport
   end
 
   def build_timesheet
-    timesheet = Timesheet.create(track: scrape_track, circuit: scrape_circuit, gender: scrape_gender, date: scrape_date, race: scrape_kind, complete: false, status: 1, type: 'PublicTimesheet') do |t|
+    timesheet = Timesheet.create(track: scrape_track, circuit: scrape_circuit, gender: scrape_gender, date: scrape_date, race: scrape_kind, complete: false, status: 1, type: 'PublicTimesheet', ibsf_url: @ibsf_url) do |t|
       if pdf_link_present?
         t.remote_pdf_url = scrape_pdf_link
       end

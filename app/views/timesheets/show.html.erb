@@ -24,6 +24,9 @@
       <% if @timesheet.nickname.present? %>
         <br/><small><%= @timesheet.nickname %></small>
       <% end %>
+      <% if @timesheet.ibsf_url.present? %>
+        <br/><small><%= link_to 'View on IBSF.com', @timesheet.ibsf_url %></small>
+      <% end %>
     </h2>
     <time><%= track_time @timesheet %></time>
     <% if @timesheet.weather.present? %>

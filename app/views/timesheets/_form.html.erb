@@ -1,74 +1,82 @@
-    <%= form_for @timesheet.becomes(Timesheet) do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
-    	<div class="control-group">
-    		<%= f.label :nickname, 'Nickname (optional)' %>
-    		<%= f.text_field :nickname, class: 'form-control' %>
-        <span id="helpBlock" class="help-block">Example: European Championships or Randy Price Memorial Race</span>
-    	</div>
+<%= form_for @timesheet.becomes(Timesheet) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="control-group">
+    <%= f.label :nickname, 'Nickname (optional)' %>
+    <%= f.text_field :nickname, class: 'form-control' %>
+    <span id="helpBlock" class="help-block">Example: European Championships or Randy Price Memorial Race</span>
+  </div>
 
-      <div class="row">
-        <div class="col-xs-4">
-          <div class="form-group">
-        		<%= f.collection_select :track_id, Track.all, :id, :name, {:prompt => "Track"}, {class: 'form-control'} %>
-        	</div>
-        </div>
-        <div class="col-xs-4">
-          <div class="form-group">
-        		<%= f.collection_select :circuit_id, Circuit.all, :id, :name, {:prompt => "Circuit"}, {class: 'form-control'} %>
-        	</div>
-        </div>
-        <div class="col-xs-4">
-          <div class="form-group">
-            <%= f.select :gender, options_for_select(Timesheet.genders.keys, selected: @timesheet.gender), {} , class: "form-control" %>
-          </div>
-        </div>
-      </div>
-
+  <div class="row">
+    <div class="col-xs-4">
       <div class="form-group">
-        <div class="input-group date" id="datetimepicker1">
-          <%= f.text_field :date, placeholder: 'Date', class: 'form-control', data: { date_format: 'YYYY/MM/DD hh:mm'} %>
-          <span class="input-group-addon">
-              <span class="glyphicon glyphicon-calendar"></span>
-          </span>
-        </div>
-    	</div>
-
+        <%= f.collection_select :track_id, Track.all, :id, :name, {:prompt => "Track"}, {class: 'form-control'} %>
+      </div>
+    </div>
+    <div class="col-xs-4">
       <div class="form-group">
-        <%= f.label 'type', class: 'checkbox-inline' do %>
-          <%= f.radio_button :race, false %> Training
-        <% end %>
-
-        <%= f.label 'type', class: 'checkbox-inline' do %>
-          <%= f.radio_button :race, true %> Race
-        <% end %>
+        <%= f.collection_select :circuit_id, Circuit.all, :id, :name, {:prompt => "Circuit"}, {class: 'form-control'} %>
       </div>
-
-      <% if @timesheet.pdf.present? %>
-        <div class="form-group">
-          <div class="controls">
-            <label>
-              <%= f.check_box :remove_pdf %>
-              Remove PDF: <%= @timesheet.pdf_url.to_s %>
-            </label>
-          </div>
-        </div>
-      <% else %>
-      <div class="row">
-        <div class="col-xs-6">
-          <div class="form-group">
-            <%= f.label :pdf, "Upload a PDF" %>
-          	<%= f.file_field :pdf %>
-          </div>
-        </div>
-        <div class="col-xs-6">
-          <%= f.label :remote_pdf_url, "Or add a PDF from the web" %>
-          <%= f.text_field :remote_pdf_url, class: 'form-control' %>
-        </div>
+    </div>
+    <div class="col-xs-4">
+      <div class="form-group">
+        <%= f.select :gender, options_for_select(Timesheet.genders.keys, selected: @timesheet.gender), {} , class: "form-control" %>
       </div>
+    </div>
+  </div>
 
-      <% end %>
+  <div class="form-group">
+    <div class="input-group date" id="datetimepicker1">
+      <%= f.text_field :date, placeholder: 'Date', class: 'form-control', data: { date_format: 'YYYY/MM/DD hh:mm'} %>
+      <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+  </div>
 
-      <%= f.submit ( f.object.new_record? ? "Create" : "Update"), class: "btn btn-lg btn-primary" %>
-
-
+  <div class="form-group">
+    <%= f.label 'type', class: 'checkbox-inline' do %>
+      <%= f.radio_button :race, false %> Training
     <% end %>
+
+    <%= f.label 'type', class: 'checkbox-inline' do %>
+      <%= f.radio_button :race, true %> Race
+    <% end %>
+  </div>
+
+  <% if @timesheet.pdf.present? %>
+    <div class="form-group">
+      <div class="controls">
+        <label>
+          <%= f.check_box :remove_pdf %>
+          Remove PDF: <%= @timesheet.pdf_url.to_s %>
+        </label>
+      </div>
+    </div>
+  <% else %>
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="form-group">
+        <%= f.label :pdf, "Upload a PDF" %>
+        <%= f.file_field :pdf %>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <%= f.label :remote_pdf_url, "Or add a PDF from the web" %>
+      <%= f.text_field :remote_pdf_url, class: 'form-control' %>
+    </div>
+  </div>
+
+  <% end %>
+  <div class="form-group">
+    <div class="controls">
+      <label>
+        <%= f.label :ibsf_url, 'IBSF Link' %>
+        <%= f.text_field :ibsf_url, class: 'form-control' %>
+      </label>
+    </div>
+  </div>
+
+  <%= f.submit ( f.object.new_record? ? "Create" : "Update"), class: "btn btn-lg btn-primary" %>
+
+
+<% end %>
