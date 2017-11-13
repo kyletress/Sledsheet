@@ -94,12 +94,11 @@ class Athlete < ActiveRecord::Base
   end
 
   def season_points(season)
-    # don't hard code the count. Should be based off WC races
-    points.where('season_id = ?', season.id).order('value DESC').limit(season.world_cup_race_count(self.gender))
+    points.where('season_id = ?', season.id).order('value DESC').limit(season.world_cup_race_count(self.read_attribute_before_type_cast(:gender)))
   end
 
   def current_season_points
-    season_points(Season.current_season)
+    season_points(Season.current_season).collect(&:value).sum
   end
 
   def season_point_total(season)
@@ -113,6 +112,14 @@ class Athlete < ActiveRecord::Base
   def world_rank(season)
     points = season.ranking_table(self.male)
     rank = points.select {|a| a.athlete_id == self.id }.first.try(:rank).to_i
+  end
+
+  def current_world_rank
+    Point.season_points(Season.current_season, self.gender_integer).where(athlete_id: self)
+  end
+
+  def gender_integer
+    self.read_attribute_before_type_cast(:gender)
   end
 
   def season_positions(season)

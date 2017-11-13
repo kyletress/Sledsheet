@@ -10,7 +10,7 @@
         <% if @athlete.world_rank(@season) == 0 %>
           no current world rank
         <% else %>
-          <span><%= @athlete.world_rank(@season).ordinalize %></span> in the world
+          <span><%= Ranking.world_rank_for(@athlete)['world_rank'].ordinalize %></span> in the world
         <% end %>
       </li>
       <li class="stat-item">
