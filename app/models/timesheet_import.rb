@@ -71,8 +71,20 @@ class TimesheetImport
     str.include?("Training") ? false : true
   end
 
+  def pdf_link_present?
+    @page.css('.pdf_link').present?
+  end
+
+  def scrape_pdf_link
+     @page.css('.pdf_link')[0]['href']
+  end
+
   def build_timesheet
-    timesheet = Timesheet.create(track: scrape_track, circuit: scrape_circuit, gender: scrape_gender, date: scrape_date, race: scrape_kind, complete: false, status: 1, type: 'PublicTimesheet')
+    timesheet = Timesheet.create(track: scrape_track, circuit: scrape_circuit, gender: scrape_gender, date: scrape_date, race: scrape_kind, complete: false, status: 1, type: 'PublicTimesheet') do |t|
+      if pdf_link_present?
+        t.remote_pdf_url = scrape_pdf_link
+      end
+    end
     # entries and runs
     trs = @page.css('.crew, .run').to_a
     entries = trs.slice_before{ |elm| elm.attr('class') =='crew' }.to_a
