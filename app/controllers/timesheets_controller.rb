@@ -20,11 +20,11 @@ class TimesheetsController < ApplicationController
     @runs = @timesheet.ranked_runs if @ranked.present?
     respond_to do |format|
       format.html do
-        if current_user
+        # if current_user
           render 'show_advanced'
-        else
-          render 'show'
-        end
+        # else
+        #   render 'show'
+        # end
       end
       format.pdf do
         pdf = TimesheetPdf.new(@timesheet, view_context)
@@ -95,7 +95,7 @@ class TimesheetsController < ApplicationController
 
     def allowed_user
       if @timesheet.personal?
-        redirect_to timesheets_url unless current_user && @timesheet.visible?(current_user)        
+        redirect_to timesheets_url unless current_user && @timesheet.visible?(current_user)
       end
     end
 
