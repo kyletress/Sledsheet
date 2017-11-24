@@ -20,7 +20,7 @@
 //= require Chart.bundle
 //= require chartkick
 //= require moment
-//= require bootstrap-datetimepicker
+//= require flatpickr
 //= require_tree .
 
 var athletes = new Bloodhound({

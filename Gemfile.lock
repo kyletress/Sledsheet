@@ -68,8 +68,6 @@ GEM
       rails (>= 4.0.0)
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
-    bootstrap3-datetimepicker-rails (4.17.47)
-      momentjs-rails (>= 2.8.1)
     buftok (0.2.0)
     builder (3.2.3)
     bullet (5.6.1)
@@ -116,6 +114,8 @@ GEM
       thor (~> 0.14)
     flag_icon_css_rails (0.1.3)
       railties (>= 3.1.0)
+    flatpickr_rails (1.1.0)
+      railties (>= 3.0)
     font-awesome-rails (4.7.0.2)
       railties (>= 3.2, < 5.2)
     font-awesome-sass (4.3.2.1)
@@ -385,7 +385,6 @@ DEPENDENCIES
   bcrypt (= 3.1.7)
   bootstrap-multiselect-rails
   bootstrap-sass (~> 3.2.0)
-  bootstrap3-datetimepicker-rails (~> 4.17.43)
   bullet
   byebug (= 9.0.0)
   carrierwave
@@ -397,6 +396,7 @@ DEPENDENCIES
   date_validator
   figaro
   flag_icon_css_rails
+  flatpickr_rails
   font-awesome-rails
   font-awesome-sass (~> 4.3.0)
   forecast_io

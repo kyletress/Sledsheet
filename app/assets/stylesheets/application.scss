@@ -10,12 +10,12 @@
  *= require_self
  *= require flag_icon_css
  *= require bootstrap-multiselect
+ *= require flatpickr
  */
 @import "config";
 @import "mixins";
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import 'bootstrap-datetimepicker';
 @import "custom";
 @import "static_pages";
 @import "font-awesome-sprockets";

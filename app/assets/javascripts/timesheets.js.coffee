@@ -1,5 +1,7 @@
 $(document).on "turbolinks:load", ->
-  $('#datetimepicker1').datetimepicker()
+  $('#flatpickr-input').flatpickr({
+      enableTime: true
+  })
   $('#filter-submit').hide()
   $('.clear-filters').click ->
     resetForm($('#filters'))
