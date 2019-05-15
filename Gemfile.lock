@@ -259,6 +259,7 @@ GEM
     net-http-digest_auth (1.4.1)
     net-http-persistent (3.0.1)
       connection_pool (~> 2.2)
+    netrc (0.11.0)
     nio4r (2.3.1)
     nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
@@ -267,6 +268,8 @@ GEM
       shellany (~> 0.0)
     ntlm-http (0.1.1)
     pdf-core (0.7.0)
+    pdftable-api (0.1.0)
+      rest-client (~> 2.0)
     pg (0.18.1)
     pg_search (2.1.7)
       activerecord (>= 4.2)
@@ -328,6 +331,10 @@ GEM
       actionview (~> 5.x)
     redis (4.1.1)
     regexp_parser (1.5.0)
+    rest-client (2.0.2)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rollbar (2.19.4)
       multi_json
     ruby-progressbar (1.10.0)
@@ -462,6 +469,7 @@ DEPENDENCIES
   minitest-reporters (= 1.1.9)
   momentjs-rails (>= 2.9.0)
   nokogiri
+  pdftable-api
   pg (= 0.18.1)
   pg_search
   prawn
