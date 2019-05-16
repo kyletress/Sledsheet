@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery-ui/widgets/sortable
 //= require bootstrap
+//= require activestorage
 //= require turbolinks
 //= require twitter/typeahead
 //= require bootstrap-multiselect

@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'rails', '5.1.4'
+ruby '2.5.0'
+
+gem 'rails', '5.2.3'
 
 gem 'acts_as_list'
 gem 'autoprefixer-rails'
@@ -24,14 +27,14 @@ gem 'font-awesome-sass', '~> 4.3.0'
 gem 'friendly_id', '~> 5.1.0'
 gem 'forecast_io'
 gem 'kaminari'
+gem 'mini_magick', '~> 4.8'
 gem 'momentjs-rails', '>= 2.9.0'
-gem 'mini_magick'
 gem 'nokogiri'
 gem 'prawn'
 gem 'prawn-table'
 gem 'pg', '0.18.1'
 gem 'pg_search'
-gem 'puma', '~> 3.0'
+gem 'puma', '~> 3.11'
 gem 'rollbar'
 gem 'sidekiq'
 gem 'simple_form'
@@ -58,6 +61,11 @@ group :test do
   gem 'minitest-reporters',       '1.1.9'
   gem 'guard',                    '2.13.0'
   gem 'guard-minitest',           '2.4.4'
+  # Adds support for Capybara system testing and selenium driver
+  gem 'capybara', '>= 2.15'
+  gem 'selenium-webdriver'
+  # Easy installation and use of chromedriver to run system tests with Chrome
+  gem 'chromedriver-helper'
 end
 
 group :production do
@@ -75,10 +83,11 @@ gem 'turbolinks', '~> 5'
 
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
+gem 'redis', '~> 4.0'
+
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
 
 group :doc do
   gem 'sdoc', require: false
 end
-
-ruby '2.4.1'
