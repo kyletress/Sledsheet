@@ -1,0 +1,14 @@
+<div class="container">
+  <h2>Convert a timesheet</h2>
+  <%= form_for [:admin, @temp] do |f| %>
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="form-group">
+          <%= f.label :pdf, "Upload a PDF to convert" %>
+          <%= f.file_field :pdf %>
+        </div>
+      </div>
+    </div>
+    <%= submit_tag 'Convert' %>
+  <% end %>
+</div>

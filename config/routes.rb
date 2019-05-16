@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     resources :invitations
     resources :articles, only: [:index, :destroy]
     resources :timesheets
+    resources :temporary_timesheets
     get 'import', to: 'timesheet_imports#new', as: 'timesheet_import'
     post 'import', to: 'timesheet_imports#create'
   end

@@ -1,0 +1,13 @@
+<% content_for(:head) do %>
+  <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/handsontable@7.0.3/dist/handsontable.full.min.js" %>
+  <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/handsontable@7.0.3/dist/handsontable.full.min.css" %>
+<% end %>
+
+<div class="container" data-raw-csv="<%= CSV.parse(@temp.raw_data).to_json %>">
+
+  <h2>Show Temp</h2>
+
+  <section id="spreadsheet">
+
+  </section>
+</div>

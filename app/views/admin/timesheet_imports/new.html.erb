@@ -3,12 +3,8 @@
 
   <%= form_tag admin_timesheet_import_path do %>
     <div>
-      <%= label_tag :finish_td, "Row that has finish time" %>
-      <%= select_tag :finish_td, options_for_select([5, 6, 7, 8, 9], 6) %>
-    </div>
-    <div>
       <%= text_field_tag :url %>
     </div>
-    <%= submit_tag 'Import' %>
+    <%= submit_tag 'Convert' %>
   <% end %>
 </div>
