@@ -14,24 +14,24 @@
 #   }
 # end
 
-CarrierWave.configure do |config|
-  config.aws_credentials = {
-    access_key_id:     ENV.fetch('AWS_ACCESS_KEY_ID'),
-    secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
-    region:            ENV.fetch('AWS_REGION')
-  }
+# CarrierWave.configure do |config|
+#   config.aws_credentials = {
+#     access_key_id:     ENV.fetch('AWS_ACCESS_KEY_ID'),
+#     secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
+#     region:            ENV.fetch('AWS_REGION')
+#   }
 
-  if Rails.env.test? || Rails.env.development?
-    config.storage = :file
-    #config.enable_processing = false
-    #config.root = "#{Rails.root}/tmp"
-    config.ignore_integrity_errors = false
-    config.ignore_processing_errors = false
-    config.ignore_download_errors = false
-  else
-    config.storage = :aws
-  end
+#   if Rails.env.test? || Rails.env.development?
+#     config.storage = :file
+#     #config.enable_processing = false
+#     #config.root = "#{Rails.root}/tmp"
+#     config.ignore_integrity_errors = false
+#     config.ignore_processing_errors = false
+#     config.ignore_download_errors = false
+#   else
+#     config.storage = :aws
+#   end
 
-  config.cache_dir = "#{Rails.root}/tmp/uploads"
-  config.aws_bucket = ENV.fetch('S3_BUCKET_NAME')
-end
+#   config.cache_dir = "#{Rails.root}/tmp/uploads"
+#   config.aws_bucket = ENV.fetch('S3_BUCKET_NAME')
+# end
